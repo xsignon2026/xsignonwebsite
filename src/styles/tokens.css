@@ -1,43 +1,205 @@
 /*
  * S-08 Design tokens.
- * TODO: replace every placeholder value below with the :root values from the design file.
+ * Source of truth: xsignon-home-beams.html (the final site). Values are the live CSS
+ * variables the page applies at load: theme engine palette 3 Violet, light mode
+ * (decides Q-06), with home background version 5 "descent" (decides Q-07).
+ * Variable names match the prototype so the two stay comparable.
  */
-@theme {
-  /* Colours (placeholders) */
-  --color-ink: #0b0b1a;
-  --color-paper: #ffffff;
-  --color-muted: #5b5b72;
-  --color-violet-500: #6d4aff;
-  --color-violet-600: #5a37f0;
-  --color-band-light: #f6f5ff;
-  --color-band-dark: #0f0c29;
+:root {
+  /* 2.1 Dark set: hero, header over dark, Solutions band, CTA panel, footer */
+  --d1: #060129; /* base. Also --footer, --d-brand */
+  --d2: #0f0a3a; /* surface */
+  --d3: #0f0a3a; /* surface */
+  --footer: #060129;
+  --d-line: #25205c; /* hairlines on dark */
+  --acc-ink-d: #ff6a82; /* accent text and strokes on dark */
+  --g1: rgba(212, 0, 31, 0.55); /* glow red, top right of dark bands */
+  --g1s: rgba(212, 0, 31, 0.34);
+  --g2: rgba(108, 92, 231, 0.55); /* glow violet, bottom left */
+  --g2s: rgba(108, 92, 231, 0.34);
 
-  /* Type scale (placeholders) */
-  --text-display: 4rem;
-  --text-h1: 3rem;
-  --text-h2: 2.25rem;
-  --text-h3: 1.5rem;
-  --text-body: 1rem;
-  --text-small: 0.875rem;
+  /* 2.2 Light set: page body */
+  --paper: #f6f4fb; /* also --l2, --l3 */
+  --card: #ffffff; /* also --l4 */
+  --line: #e0dcee; /* also --soft, --panel-gray */
+  --txt: #1a1240; /* also --ink, --brand */
+  --gray: #54507a; /* also --gray-2, --mut, --sub */
+  --acc: #c6001d; /* primary accent. Also --navy */
+  --acc-hov: #9e0017; /* accent hover. Also --navy-hi */
+  --acc-ink: #a60019; /* accent text on light */
+  --acc-tint: rgba(198, 0, 29, 0.1);
+  --acc-tint-d: rgba(212, 0, 31, 0.22); /* accent tint on dark */
+  --ctl: #75819a; /* control borders on light */
 
-  /* Radii, spacing, shadows (placeholders) */
-  --radius-button: 0.5rem;
-  --radius-card: 1rem;
-  --spacing-section: 6rem;
-  --shadow-card: 0 8px 24px rgb(0 0 0 / 0.08);
+  /* Status */
+  --ok-l: #00695c;
+  --ok-tint-l: #e3f4f0;
+  --ok-d: #00c4a7;
+  --warn-d: #f6d258;
 
-  /* Breakpoints: 640, 760, 900, 1080, 1200 px (replaces Tailwind defaults) */
-  --breakpoint-*: initial;
-  --breakpoint-sm: 40rem;
-  --breakpoint-md: 47.5rem;
-  --breakpoint-lg: 56.25rem;
-  --breakpoint-xl: 67.5rem;
-  --breakpoint-2xl: 75rem;
+  /* 2.3 Hard-coded colours, promoted to tokens */
+  --on-dark: #ffffff;
+  --on-dark-soft: #f6f4fb;
+  --on-dark-mut: #b4bfd3; /* --d-mut. Cool grey, open item in handoff section 14 */
+  --on-dark-sub: #98a4bb; /* --d-sub */
+  --on-dark-ctl: #6f7c97; /* --d-ctl */
+  --art-stroke: #b3aed0;
+  --art-node: #160e48;
+  --art-bg: #0a0630;
+  --dot-off-d: #3d4c6e;
+
+  /* Focus (5.5). Blue kept for accessibility, confirm with design */
+  --focus: #0b57d0;
+  --focus-d: #a9e1ff;
+
+  /* Gradient ramp shared by the home backgrounds */
+  --ramp-white: #ffffff;
+  --ramp-paper: #f6f4fb;
+  --ramp-lilac: #d9d4eb;
+  --ramp-mid: #8f89b8;
+  --ramp-deep: #3b3668;
+  --ramp-night: #060129;
+  --d-deep: #120b3a; /* between --d1 and --d2, used by version 5 */
+
+  /* Home background version 5, "descent": light at the top, the page sinks into dark
+     through Partner ecosystem and stays dark to the footer. Exact stops from the prototype. */
+  --bg-products: linear-gradient(180deg, #ffffff 0, #f6f4fb 100%);
+  --bg-partners: linear-gradient(
+    180deg,
+    #f6f4fb 0,
+    #f6f4fb calc(100% - 520px),
+    #d9d4eb calc(100% - 400px),
+    #8f89b8 calc(100% - 260px),
+    #3b3668 calc(100% - 120px),
+    #060129 100%
+  );
+  --partners-pad-bottom: 300px;
+  --bg-thinking: linear-gradient(180deg, #060129 0, #120b3a 100%);
+  --bg-cta: linear-gradient(180deg, #120b3a 0, var(--footer) 100%);
+  --cta-panel-border: rgba(255, 255, 255, 0.18);
+  --think-divider: rgba(255, 255, 255, 0.16);
+  /* Header theme per section in version 5: products and partners light; thinking and CTA dark */
+
+  /* 2.5 Photo tone */
+  --img-tone: grayscale(1) sepia(1) hue-rotate(228deg) saturate(1.9) contrast(1.08) brightness(0.9);
+
+  /* 2.6 Radii and shadows */
+  --r: 16px;
+  --shadow-hero-card: 0 34px 70px rgba(0, 0, 0, 0.38);
+  --shadow-carousel: 0 24px 48px rgba(0, 0, 0, 0.34);
+  --shadow-hub: 0 24px 48px -20px rgba(26, 18, 64, 0.22);
+  --shadow-cta-tile: 0 30px 60px rgba(0, 0, 0, 0.4);
+  --shadow-dropdown: 0 18px 44px rgba(0, 0, 0, 0.22);
+
+  /* 6.1 Easing */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-spring: cubic-bezier(0.3, 1.32, 0.42, 1);
+
+  /* 4.1 Layout */
+  --wrap: 1180px;
+  --wrap-pad: 32px;
+  --section-pad: 128px;
 }
 
-/* S-09: Inter from next/font, with a fallback stack */
+@media (max-width: 760px) {
+  :root {
+    --wrap-pad: 20px;
+    --section-pad: 76px;
+  }
+}
+
+/* Tailwind utilities that point at the tokens above (bg-d1, text-txt, border-line ...) */
 @theme inline {
-  --font-sans:
-    var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
-    sans-serif;
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-d1: var(--d1);
+  --color-d2: var(--d2);
+  --color-d3: var(--d3);
+  --color-footer: var(--footer);
+  --color-d-line: var(--d-line);
+  --color-acc-ink-d: var(--acc-ink-d);
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-line: var(--line);
+  --color-txt: var(--txt);
+  --color-gray: var(--gray);
+  --color-acc: var(--acc);
+  --color-acc-hov: var(--acc-hov);
+  --color-acc-ink: var(--acc-ink);
+  --color-acc-tint: var(--acc-tint);
+  --color-on-dark: var(--on-dark);
+  --color-on-dark-soft: var(--on-dark-soft);
+  --color-on-dark-mut: var(--on-dark-mut);
+  --color-on-dark-sub: var(--on-dark-sub);
+  --color-on-dark-ctl: var(--on-dark-ctl);
+  --color-ctl: var(--ctl);
+  --color-acc-tint-d: var(--acc-tint-d);
+  --color-d-deep: var(--d-deep);
+  --color-ok-l: var(--ok-l);
+  --color-ok-tint-l: var(--ok-tint-l);
+  --color-ok-d: var(--ok-d);
+  --color-warn-d: var(--warn-d);
+  --color-focus: var(--focus);
+  --color-focus-d: var(--focus-d);
+
+  --radius-card: var(--r);
+  --radius-hub: 20px;
+
+  --shadow-hero-card: var(--shadow-hero-card);
+  --shadow-carousel: var(--shadow-carousel);
+  --shadow-hub: var(--shadow-hub);
+  --shadow-dropdown: var(--shadow-dropdown);
+
+  --ease-brand: var(--ease);
+  --ease-soft: var(--ease-soft);
+
+  /* S-09 Inter via next/font, with the handoff's fallback stack */
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+}
+
+/* 3.1 Type scale */
+@theme {
+  --text-display: clamp(38px, 4.2vw, 56px);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.03em;
+  --text-h2: clamp(30px, 3.8vw, 40px);
+  --text-h2--line-height: 1.12;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h3: clamp(24px, 2.8vw, 28px);
+  --text-h3--line-height: 1.18;
+  --text-h3--letter-spacing: -0.02em;
+  --text-h4: 22px;
+  --text-h4--line-height: 1.27;
+  --text-h4--letter-spacing: -0.02em;
+  --text-card-title: 24px;
+  --text-card-title--line-height: 1.2;
+  --text-body: 17px;
+  --text-body--line-height: 1.55;
+  --text-hero-sub: 18px;
+  --text-hero-sub--line-height: 1.7;
+  --text-sec-sub: clamp(17px, 1.5vw, 20px);
+  --text-sec-sub--line-height: 1.4;
+  --text-card-desc: 16px;
+  --text-card-desc--line-height: 1.55;
+  --text-carousel-desc: 14.5px;
+  --text-carousel-desc--line-height: 1.55;
+  --text-button: 16px;
+  --text-button--line-height: 1.2;
+  --text-nav: 15px;
+  --text-eyebrow: 12px;
+  --text-eyebrow--letter-spacing: 0.2em;
+  --text-caption: 13px;
+
+  /* 4.2 Breakpoints (min-widths). The prototype's max-width rules map to these:
+     <=640 / >=641, <=760 / >=761, <=899 / >=900, <=1080 / >=1081, <=1200 / >=1201 */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 40.0625rem; /* 641px */
+  --breakpoint-md: 47.5625rem; /* 761px */
+  --breakpoint-lg: 56.25rem; /* 900px */
+  --breakpoint-xl: 67.5625rem; /* 1081px */
+  --breakpoint-2xl: 75.0625rem; /* 1201px */
 }

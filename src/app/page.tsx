@@ -8,12 +8,12 @@ export default function Home() {
       <Section band="dark">
         <Container>
           <h1>XSignOn</h1>
-          <p className="mt-4 max-w-xl">
+          <p className="mt-4 max-w-[520px] text-hero-sub">
             Site foundation is in place. Pages are built in the next phase.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <ButtonLink href="/styleguide">Style guide</ButtonLink>
-            <ButtonLink href="/tokens" variant="secondary">
+            <ButtonLink href="/tokens" variant="white">
               Tokens
             </ButtonLink>
           </div>
