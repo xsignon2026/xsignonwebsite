@@ -20,6 +20,10 @@
 # production
 /build
 
+# lockfiles from other package managers (this repo uses package-lock.json only)
+pnpm-lock.yaml
+yarn.lock
+
 # misc
 .DS_Store
 *.pem

@@ -24,6 +24,7 @@
 
 ## Workflow
 
+- Use npm for every install and script (`npm install <package>`, `npm run dev`). Commit `package-lock.json` whenever it changes.
 - Never push to main. Open a pull request for every change.
 - The other developer reviews and the PR checklist is filled in.
 - Update the task status in SharePoint before the daily sync.

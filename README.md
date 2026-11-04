@@ -6,26 +6,26 @@ The new XSignOn website: Next.js (App Router), TypeScript, Tailwind CSS v4 and S
 
 ## Versions
 
-| Tool        | Version                |
-| ----------- | ---------------------- |
-| Node        | 22.23.4 (minimum 20.9) |
-| pnpm        | 10.28.0                |
-| next        | 16.4.4                 |
-| react       | 19.3.0                 |
-| typescript  | 5.9.3                  |
-| tailwindcss | 4.3.4                  |
-| sanity      | 6.21.0                 |
-| next-sanity | 13.4.0                 |
+| Tool        | Version                   |
+| ----------- | ------------------------- |
+| Node        | 22.23.4 (minimum 20.9)    |
+| npm         | 10.9 (comes with Node 22) |
+| next        | 16.4.4                    |
+| react       | 19.3.0                    |
+| typescript  | 5.9.3                     |
+| tailwindcss | 4.3.4                     |
+| sanity      | 6.22.0                    |
+| next-sanity | 13.4.0                    |
 
 ## Run it locally
 
-1. Install Node LTS and pnpm (`npm install -g pnpm`).
+1. Install Node 22 (see `.nvmrc`). npm comes with it.
 2. Copy `.env.example` to `.env.local` and fill in the Sanity project ID.
 3. Install and start:
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 Open http://localhost:3000. Useful pages while building:
@@ -34,16 +34,18 @@ Open http://localhost:3000. Useful pages while building:
 - `/styleguide`: base styles and primitives on light and dark bands (S-10)
 - `/studio`: the embedded Sanity Studio (S-11)
 
+This project uses npm only. Commit `package-lock.json` and never add a `pnpm-lock.yaml` or `yarn.lock`. In CI, `npm ci` installs exactly what the lockfile says.
+
 ## Scripts
 
-| Command          | What it does         |
-| ---------------- | -------------------- |
-| `pnpm dev`       | Local dev server     |
-| `pnpm build`     | Production build     |
-| `pnpm lint`      | ESLint               |
-| `pnpm typecheck` | TypeScript check     |
-| `pnpm test`      | Unit tests (Vitest)  |
-| `pnpm format`    | Format with Prettier |
+| Command             | What it does         |
+| ------------------- | -------------------- |
+| `npm run dev`       | Local dev server     |
+| `npm run build`     | Production build     |
+| `npm run lint`      | ESLint               |
+| `npm run typecheck` | TypeScript check     |
+| `npm run test`      | Unit tests (Vitest)  |
+| `npm run format`    | Format with Prettier |
 
 ## Environments
 
