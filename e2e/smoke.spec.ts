@@ -14,6 +14,19 @@ test("home page loads with safe headers and noindex", async ({ page }) => {
   expect(robots).toContain("noindex");
 });
 
+// S-09: no third-party requests at all, in particular no Google Fonts.
+test("home page makes no third-party requests", async ({ page, baseURL }) => {
+  const external: string[] = [];
+  page.on("request", (request) => {
+    const url = request.url();
+    if (!url.startsWith(baseURL ?? "") && !url.startsWith("data:") && !url.startsWith("blob:")) {
+      external.push(url);
+    }
+  });
+  await page.goto("/", { waitUntil: "networkidle" });
+  expect(external).toEqual([]);
+});
+
 test("robots.txt disallows everything outside production", async ({ request }) => {
   const body = await (await request.get("/robots.txt")).text();
   expect(body).toContain("Disallow: /");
