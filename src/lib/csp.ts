@@ -3,6 +3,16 @@
 
 const isDev = process.env.NODE_ENV !== "production";
 
+// S-18: the Sentry host comes from the DSN, because it differs by region (ingest.sentry.io, ingest.us.sentry.io).
+function sentryHost(): string[] {
+  try {
+    const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
+    return dsn ? [`https://${new URL(dsn).hostname}`] : [];
+  } catch {
+    return [];
+  }
+}
+
 // Everything the public site may talk to. Add a source here only with a line in the decision log.
 export const SITE_SOURCES = {
   // Next.js writes small inline bootstrap scripts into every page; without a per-request nonce
@@ -11,7 +21,12 @@ export const SITE_SOURCES = {
   style: ["'self'", "'unsafe-inline'"],
   img: ["'self'", "data:", "blob:", "https://cdn.sanity.io"],
   font: ["'self'"],
-  connect: ["'self'", "https://*.sanity.io", ...(isDev ? ["ws:", "http://localhost:*"] : [])],
+  connect: [
+    "'self'",
+    "https://*.sanity.io",
+    ...sentryHost(),
+    ...(isDev ? ["ws:", "http://localhost:*"] : []),
+  ],
   frameAncestors: ["'self'"],
 } as const;
 

@@ -13,6 +13,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@sentry/nextjs": "^11.10.0",
     "next": "16.4.4",
     "next-sanity": "^13.4.0",
     "react": "19.3.0",
