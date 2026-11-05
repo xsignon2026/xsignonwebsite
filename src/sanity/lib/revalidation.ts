@@ -10,6 +10,8 @@ export type ChangedDocument = {
   _id?: string;
   _type?: string;
   slug?: string | null;
+  // The address before this change, so a renamed page's old address is refreshed too.
+  previousSlug?: string | null;
 };
 
 // When a document of this type changes, these other tags must refresh too.
@@ -19,7 +21,6 @@ const DEPENDENTS: Record<string, string[]> = {
   siteSettings: ["layout"],
   navigation: ["layout"],
   product: ["type:home", "type:productListing"],
-  testDoc: [],
 };
 
 export function tagsForDocument(doc: ChangedDocument): string[] {
@@ -27,12 +28,17 @@ export function tagsForDocument(doc: ChangedDocument): string[] {
   if (!type) return [];
   const tags = new Set<string>([`type:${type}`]);
   if (doc._id) tags.add(`doc:${doc._id.replace(/^drafts\./, "")}`);
-  if (doc.slug) tags.add(`slug:${type}:${doc.slug}`);
+  for (const slug of [doc.slug, doc.previousSlug]) {
+    if (slug) tags.add(`slug:${type}:${slug}`);
+  }
   for (const tag of DEPENDENTS[type] ?? []) tags.add(tag);
   return [...tags];
 }
 
-// Drafts are never public, so saving a draft must not refresh the live site.
-export function isDraftId(id: string | undefined): boolean {
-  return Boolean(id?.startsWith("drafts."));
+// Sanity's own advice: wait for the content lake to settle so the next read is not stale.
+export const SETTLE_MS = 3000;
+
+// Only published documents are public. Drafts and release versions must not refresh the live site.
+export function isUnpublishedId(id: string | undefined): boolean {
+  return Boolean(id?.startsWith("drafts.") || id?.startsWith("versions."));
 }

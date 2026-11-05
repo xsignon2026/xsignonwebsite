@@ -1,11 +1,18 @@
 import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
-import { isDraftId, tagsForDocument, type ChangedDocument } from "@/sanity/lib/revalidation";
+import { readCapped } from "@/lib/read-capped";
 import { isValidWebhookSignature, MAX_BODY_BYTES } from "@/lib/webhook-signature";
+import {
+  isUnpublishedId,
+  SETTLE_MS,
+  tagsForDocument,
+  type ChangedDocument,
+} from "@/sanity/lib/revalidation";
 
 // S-16: Sanity calls this when content is published, changed or deleted.
-// Order matters: size check, then signature on the raw text, and only then JSON parsing. An anonymous
+// Order matters: size limit, then signature on the raw text, and only then JSON parsing. An anonymous
 // caller can never reach the parser, so garbage input returns 401 instead of an error that spams Sentry.
+// The order is pinned by src/tests/revalidate-route.test.ts.
 export async function POST(request: NextRequest) {
   const secret = process.env.SANITY_REVALIDATE_SECRET;
   if (!secret) {
@@ -13,12 +20,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Webhook is not configured." }, { status: 500 });
   }
 
-  const declared = Number(request.headers.get("content-length") ?? 0);
-  if (declared > MAX_BODY_BYTES) {
-    return NextResponse.json({ message: "Too large." }, { status: 413 });
-  }
-  const raw = await request.text();
-  if (raw.length > MAX_BODY_BYTES) {
+  const raw = await readCapped(request, MAX_BODY_BYTES);
+  if (raw === null) {
     return NextResponse.json({ message: "Too large." }, { status: 413 });
   }
 
@@ -35,13 +38,13 @@ export async function POST(request: NextRequest) {
   if (!body?._type) {
     return NextResponse.json({ message: "Missing document type." }, { status: 400 });
   }
-  if (isDraftId(body._id)) {
-    return NextResponse.json({ message: "Draft ignored.", tags: [] });
+  if (isUnpublishedId(body._id)) {
+    return NextResponse.json({ message: "Not published, ignored.", tags: [] });
   }
 
-  // Sanity's own advice: wait for the content lake to settle so the next read is not stale.
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, SETTLE_MS));
   const tags = tagsForDocument(body);
-  for (const tag of tags) revalidateTag(tag, "max");
+  // expire: 0 means the next visitor gets fresh content, not the old page while it refreshes.
+  for (const tag of tags) revalidateTag(tag, { expire: 0 });
   return NextResponse.json({ message: "Revalidated.", tags });
 }

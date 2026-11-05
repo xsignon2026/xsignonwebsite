@@ -14,6 +14,7 @@ const budgets = {
   // Template name: [url path, max LCP ms, max CLS, max TBT ms, max JavaScript bytes]
   placeholder: ["/", 2500, 0.1, 200, 260 * KB],
   styleguide: ["/styleguide", 2500, 0.1, 200, 260 * KB],
+  tokens: ["/tokens", 2500, 0.1, 200, 260 * KB],
 };
 
 const port = 3101;

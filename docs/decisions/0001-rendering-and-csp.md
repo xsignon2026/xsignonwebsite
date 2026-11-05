@@ -34,14 +34,14 @@ None measured, because pages stay static. Option A would remove prerendered HTML
 
 Public site (`src/lib/csp.ts`, `SITE_SOURCES`):
 
-| Directive       | Allowed                                             | Why                                                                                                    |
-| --------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| script-src      | `'self'`, `'unsafe-inline'`                         | Our bundles, and Next.js inline bootstrap scripts. `'unsafe-eval'` in development only (React refresh) |
-| style-src       | `'self'`, `'unsafe-inline'`                         | Next.js and Tailwind output inline styles                                                              |
-| img-src         | `'self'`, `data:`, `blob:`, `https://cdn.sanity.io` | Own images, Sanity-hosted images                                                                       |
-| font-src        | `'self'`                                            | Inter is self-hosted by `next/font` (S-09)                                                             |
-| connect-src     | `'self'`, `https://*.sanity.io`                     | Sanity content API                                                                                     |
-| frame-ancestors | `'self'`                                            | The studio previews the site in a frame (S-15)                                                         |
+| Directive       | Allowed                                                                               | Why                                                                                                               |
+| --------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| script-src      | `'self'`, `'unsafe-inline'`                                                           | Our bundles, and Next.js inline bootstrap scripts. `'unsafe-eval'` in development only (React refresh)            |
+| style-src       | `'self'`, `'unsafe-inline'`                                                           | Next.js and Tailwind output inline styles                                                                         |
+| img-src         | `'self'`, `data:`, `blob:`, `https://cdn.sanity.io`                                   | Own images, Sanity-hosted images                                                                                  |
+| font-src        | `'self'`                                                                              | Inter is self-hosted by `next/font` (S-09)                                                                        |
+| connect-src     | `'self'`, `https://*.sanity.io`, the Sentry ingest host from `NEXT_PUBLIC_SENTRY_DSN` | Sanity content API; error reports (S-18). The Sentry host is added automatically when a DSN is set, and is tested |
+| frame-ancestors | `'self'`                                                                              | The studio previews the site in a frame (S-15)                                                                    |
 
 Embedded studio (`/studio`, `STUDIO_SOURCES`): adds `wss://*.sanity.io`, the script `https://core.sanity-cdn.com` (studio bridge), `https://*.sanity-cdn.com` assets and fonts from `https://*.sanity.io` (Inter from `design-system-static.sanity.io`). Found by loading `/studio` in a browser and reading the blocked-resource errors.
 
@@ -49,7 +49,6 @@ Embedded studio (`/studio`, `STUDIO_SOURCES`): adds `wss://*.sanity.io`, the scr
 
 These are planned but have no host in the policy yet. Each one must be added here when it is chosen:
 
-- Error monitoring (S-18): the Sentry ingest host in `connect-src`.
 - Analytics (T-135): loads only after consent; its script host and endpoint.
 - Spam protection on forms (T-055, if a hosted widget is used): script host and frame host.
 - Video or other embeds, if the client wants them.

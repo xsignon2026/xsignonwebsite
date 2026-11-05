@@ -2,7 +2,11 @@
 import { isNotBlank, type LinkValue } from "./validation";
 
 export const NAV_LABEL_MAX = 30;
+export const NAV_ITEMS_MAX = 8;
 export const NAV_CHILDREN_MAX = 8;
+export const FOOTER_GROUPS_MAX = 6;
+export const FOOTER_LINKS_MAX = 10;
+export const FOOTER_TITLE_MAX = 30;
 export const BANNER_MAX = 140;
 
 // A navigation entry must lead somewhere: its own link, or a dropdown of links.

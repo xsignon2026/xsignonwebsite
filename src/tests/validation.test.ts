@@ -43,8 +43,8 @@ describe("isNotBlank", () => {
 });
 
 describe("linkIsComplete", () => {
-  it("needs a link type", () => {
-    expect(linkIsComplete(undefined)).not.toBe(true);
+  it("lets a link be absent, but needs a type once it exists", () => {
+    expect(linkIsComplete(undefined)).toBe(true);
     expect(linkIsComplete({})).not.toBe(true);
   });
 

@@ -1,6 +1,13 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { isNotBlank } from "../../lib/validation";
-import { BANNER_MAX, bannerTextIsValid } from "../../lib/site-validation";
+import {
+  BANNER_MAX,
+  FOOTER_GROUPS_MAX,
+  FOOTER_LINKS_MAX,
+  FOOTER_TITLE_MAX,
+  bannerTextIsValid,
+} from "../../lib/site-validation";
+import { labelField } from "./label-field";
 
 type Parent = { enabled?: boolean } | undefined;
 
@@ -65,7 +72,7 @@ export const siteSettings = defineType({
       title: "Footer link groups",
       type: "array",
       group: "footer",
-      validation: (Rule) => Rule.max(6),
+      validation: (Rule) => Rule.max(FOOTER_GROUPS_MAX),
       of: [
         defineArrayMember({
           type: "object",
@@ -77,26 +84,22 @@ export const siteSettings = defineType({
               title: "Group title",
               type: "string",
               validation: (Rule) =>
-                Rule.custom((value) => isNotBlank(value, "A group title is required.")).max(30),
+                Rule.custom((value) => isNotBlank(value, "A group title is required.")).max(
+                  FOOTER_TITLE_MAX,
+                ),
             }),
             defineField({
               name: "links",
               title: "Links",
               type: "array",
-              validation: (Rule) => Rule.required().min(1).max(10),
+              validation: (Rule) => Rule.required().min(1).max(FOOTER_LINKS_MAX),
               of: [
                 defineArrayMember({
                   type: "object",
                   name: "footerLink",
                   title: "Link",
                   fields: [
-                    defineField({
-                      name: "label",
-                      title: "Label",
-                      type: "string",
-                      validation: (Rule) =>
-                        Rule.custom((value) => isNotBlank(value, "A label is required.")).max(30),
-                    }),
+                    labelField,
                     defineField({
                       name: "link",
                       title: "Link",

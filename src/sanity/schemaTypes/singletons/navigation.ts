@@ -1,14 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
-import { isNotBlank } from "../../lib/validation";
-import { NAV_CHILDREN_MAX, NAV_LABEL_MAX, navItemHasDestination } from "../../lib/site-validation";
-
-const labelField = defineField({
-  name: "label",
-  title: "Label",
-  type: "string",
-  validation: (Rule) =>
-    Rule.custom((value) => isNotBlank(value, "A label is required.")).max(NAV_LABEL_MAX),
-});
+import type { LinkValue } from "../../lib/validation";
+import { NAV_CHILDREN_MAX, NAV_ITEMS_MAX, navItemHasDestination } from "../../lib/site-validation";
+import { labelField } from "./label-field";
 
 const childItem = defineArrayMember({
   type: "object",
@@ -37,14 +30,12 @@ export const navigation = defineType({
       name: "items",
       title: "Main menu",
       type: "array",
-      validation: (Rule) => Rule.required().min(1).max(8),
+      validation: (Rule) => Rule.required().min(1).max(NAV_ITEMS_MAX),
       of: [
         defineArrayMember({
           type: "object",
           name: "navItem",
           title: "Menu item",
-          validation: (Rule) =>
-            Rule.custom((value) => (value ? navItemHasDestination(value) : true)),
           fields: [
             labelField,
             defineField({
@@ -58,7 +49,17 @@ export const navigation = defineType({
               title: "Dropdown items",
               type: "array",
               of: [childItem],
-              validation: (Rule) => Rule.max(NAV_CHILDREN_MAX),
+              // The "goes somewhere" rule sits on this field because rules on the menu item itself
+              // are not enforced as errors (see the note in link.ts).
+              validation: (Rule) => [
+                Rule.custom((children, context) =>
+                  navItemHasDestination({
+                    link: (context.parent as { link?: LinkValue } | undefined)?.link,
+                    children: children as unknown[] | undefined,
+                  }),
+                ),
+                Rule.max(NAV_CHILDREN_MAX),
+              ],
             }),
           ],
           preview: {

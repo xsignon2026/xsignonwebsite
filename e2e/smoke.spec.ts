@@ -14,6 +14,24 @@ test("home page loads with safe headers and noindex", async ({ page }) => {
   expect(robots).toContain("noindex");
 });
 
+// S-17 and the security audit: exactly one CSP per path, the studio policy only on /studio, the site
+// policy on look-alike paths such as /studio-stories, and the basic hardening headers everywhere.
+test("security headers are set correctly per path", async ({ request }) => {
+  const studio = await request.get("/studio");
+  expect(studio.headers()["content-security-policy"]).toContain("wss://*.sanity.io");
+
+  for (const path of ["/", "/studio-stories", "/studiox"]) {
+    const res = await request.get(path);
+    const headers = res.headers();
+    expect(headers["content-security-policy"], path).toContain("object-src 'none'");
+    expect(headers["content-security-policy"], path).not.toContain("wss://*.sanity.io");
+    expect(headers["x-content-type-options"], path).toBe("nosniff");
+    expect(headers["referrer-policy"], path).toBe("strict-origin-when-cross-origin");
+    expect(headers["permissions-policy"], path).toContain("camera=()");
+    expect(headers["x-powered-by"], path).toBeUndefined();
+  }
+});
+
 // S-09: no third-party requests at all, in particular no Google Fonts.
 test("home page makes no third-party requests", async ({ page, baseURL }) => {
   const external: string[] = [];

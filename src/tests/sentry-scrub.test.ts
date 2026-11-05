@@ -8,7 +8,7 @@ describe("scrubEvent", () => {
       type: undefined,
       user: { email: "a@b.com", ip_address: "1.2.3.4" },
       request: {
-        url: "https://xsignon.com/verify?token=secret",
+        url: "https://xsignon.com/verify?token=secret#also-secret",
         query_string: "token=secret",
         cookies: { session: "x" },
         data: { email: "a@b.com", message: "hello" },

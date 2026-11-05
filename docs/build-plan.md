@@ -55,11 +55,11 @@ After every 5 tasks (the rule you set): security audit, senior review and ponyta
 
 Proposal to keep the rule useful without turning copy edits into ceremony. Same rhythm, different weight:
 
-| Weight | When | What runs |
-| --- | --- | --- |
-| Light | Every 5 tasks, if the tasks were copy, content or styling only | Merge checks, plus a security scan of the changed files only |
-| Standard | Every 5 tasks that changed code | The three reviews as now, scoped to the changed code |
-| Deep | Whenever a batch adds public data collection (T-055, T-056), changes publish or navigation permissions, or prepares production cutover (T-170, T-173) | Full audit with reproduction against a local build, and a human reads the result before the next batch |
+| Weight   | When                                                                                                                                                  | What runs                                                                                              |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Light    | Every 5 tasks, if the tasks were copy, content or styling only                                                                                        | Merge checks, plus a security scan of the changed files only                                           |
+| Standard | Every 5 tasks that changed code                                                                                                                       | The three reviews as now, scoped to the changed code                                                   |
+| Deep     | Whenever a batch adds public data collection (T-055, T-056), changes publish or navigation permissions, or prepares production cutover (T-170, T-173) | Full audit with reproduction against a local build, and a human reads the result before the next batch |
 
 Say if you would rather keep every checkpoint at full weight.
 

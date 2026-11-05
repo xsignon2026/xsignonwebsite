@@ -41,9 +41,21 @@ export type LinkValue = {
   file?: { asset?: { _ref?: string } };
 };
 
-// A link must fill in the field that matches its chosen type.
+// The problem with one field of a link, or true. Only the field that matches the chosen type is checked,
+// so a stale value left over from another type is ignored. An absent link passes: whether a link is
+// required is decided by the field that holds it.
+export function linkFieldError(
+  field: "internal" | "external" | "file",
+  parent: LinkValue | undefined,
+): true | string {
+  if (!parent || parent.linkType !== field) return true;
+  return linkIsComplete(parent);
+}
+
+// A link must fill in the field that matches its chosen type. No link at all is fine.
 export function linkIsComplete(value: LinkValue | undefined): true | string {
-  if (!value || !value.linkType) return "Choose a link type.";
+  if (!value) return true;
+  if (!value.linkType) return "Choose a link type.";
   if (value.linkType === "internal") {
     return value.internal?._ref ? true : "Choose the page to link to.";
   }

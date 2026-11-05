@@ -11,7 +11,7 @@ export function scrubEvent<T extends ErrorEvent>(event: T): T {
       const { "user-agent": userAgent } = event.request.headers;
       event.request.headers = userAgent ? { "user-agent": userAgent } : {};
     }
-    if (event.request.url) event.request.url = event.request.url.split("?")[0];
+    if (event.request.url) event.request.url = event.request.url.split(/[?#]/)[0];
   }
   delete event.user;
   return event;
