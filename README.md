@@ -38,14 +38,43 @@ This project uses npm only. Commit `package-lock.json` and never add a `pnpm-loc
 
 ## Scripts
 
-| Command             | What it does         |
-| ------------------- | -------------------- |
-| `npm run dev`       | Local dev server     |
-| `npm run build`     | Production build     |
-| `npm run lint`      | ESLint               |
-| `npm run typecheck` | TypeScript check     |
-| `npm run test`      | Unit tests (Vitest)  |
-| `npm run format`    | Format with Prettier |
+| Command             | What it does                                                                                                                     |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`       | Local dev server                                                                                                                 |
+| `npm run build`     | Production build                                                                                                                 |
+| `npm run lint`      | ESLint                                                                                                                           |
+| `npm run typecheck` | TypeScript check                                                                                                                 |
+| `npm run test`      | Unit tests (Vitest)                                                                                                              |
+| `npm run e2e`       | Browser and accessibility tests (Playwright, axe). Run `npm run build` first; first time only: `npx playwright install chromium` |
+| `npm run lhci`      | Performance budgets (Lighthouse CI). Run `npm run build` first; needs Chrome                                                     |
+| `npm run format`    | Format with Prettier                                                                                                             |
+
+Before opening a pull request run `npm run lint`, `npm run typecheck` and `npm run test`. CI also runs the build, `e2e` and `lhci`.
+
+## Environment variables
+
+Copy `.env.example` to `.env.local`. Set the same names in Vercel for Preview and Production (Production gets production values).
+
+| Variable                        | Needed              | Where it comes from                                           |
+| ------------------------------- | ------------------- | ------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_ENV`          | yes                 | `development` locally, `production` only on Production        |
+| `NEXT_PUBLIC_SITE_URL`          | yes                 | The site's public address                                     |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | yes                 | sanity.io/manage, project overview                            |
+| `NEXT_PUBLIC_SANITY_DATASET`    | yes                 | `staging` or `production`                                     |
+| `SANITY_API_READ_TOKEN`         | for draft preview   | sanity.io/manage > API > Tokens, Viewer role. Server-only     |
+| `SANITY_REVALIDATE_SECRET`      | for publish-to-live | Random value, also entered in the Sanity webhook. Server-only |
+| `NEXT_PUBLIC_SENTRY_DSN`        | for error reports   | Sentry project settings. Empty means reporting is off         |
+| `MONITORING_TEST_SECRET`        | optional            | Random value for the forced-error test. Server-only           |
+
+If a variable is missing the site still builds; the feature that needs it stays off or returns an error.
+
+## Documentation
+
+- [Runbook](docs/runbook.md): deploy, roll back, restore content, who to contact
+- [Publish-to-live webhook](docs/cms-webhook.md)
+- [Monitoring](docs/monitoring.md)
+- [Performance budgets](docs/performance.md)
+- [Decision log](docs/decisions/0001-rendering-and-csp.md): rendering and CSP
 
 ## Environments
 
