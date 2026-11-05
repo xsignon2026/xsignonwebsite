@@ -3,11 +3,18 @@ import { expect, test } from "@playwright/test";
 
 // S-19 sample accessibility check: axe must find no WCAG 2.2 AA violations on these pages.
 // Add every new page template to this list as it is built.
-const pages = ["/", "/styleguide", "/tokens"];
+const pages = [
+  "/",
+  "/styleguide",
+  "/tokens",
+  "/products/postureone",
+  "/contact",
+  "/contact/thank-you",
+];
 
 for (const path of pages) {
   test(`no accessibility violations on ${path}`, async ({ page }) => {
-    await page.goto(path);
+    await page.goto(path, { waitUntil: "networkidle" });
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
       .analyze();

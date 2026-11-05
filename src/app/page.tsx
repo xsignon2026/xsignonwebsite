@@ -4,7 +4,7 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <Section band="dark">
         <Container>
           <h1>XSignOn</h1>
@@ -19,6 +19,6 @@ export default function Home() {
           </div>
         </Container>
       </Section>
-    </main>
+    </>
   );
 }

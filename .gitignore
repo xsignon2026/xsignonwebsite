@@ -51,3 +51,13 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 /.lighthouseci/
+
+# IDE and editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local design prototypes and handoff files
+xsignon-home-beams.html
+*.html
