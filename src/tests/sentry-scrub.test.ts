@@ -41,4 +41,12 @@ describe("scrubBreadcrumb", () => {
     const crumb = scrubBreadcrumb({ category: "fetch", data: { url: "/api/x?token=abc" } });
     expect(crumb?.data?.url).toBe("/api/x");
   });
+
+  it("strips query strings and fragments from navigation breadcrumbs", () => {
+    const crumb = scrubBreadcrumb({
+      category: "navigation",
+      data: { from: "/subscribe/verify?token=abc", to: "/done?x=1#frag" },
+    });
+    expect(crumb?.data).toEqual({ from: "/subscribe/verify", to: "/done" });
+  });
 });

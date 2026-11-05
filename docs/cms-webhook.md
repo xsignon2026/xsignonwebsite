@@ -16,15 +16,16 @@ When an editor publishes, changes or deletes content, Sanity calls `POST /api/re
 
 ## Behavior
 
-| Event                               | Result                                                                                                                        |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Valid signature, published document | Refreshes `type:<type>`, `doc:<id>`, `slug:<type>:<slug>` and dependents                                                      |
-| Draft saved                         | Ignored (200, no tags)                                                                                                        |
-| Missing or wrong signature          | 401, nothing refreshed                                                                                                        |
-| No `SANITY_REVALIDATE_SECRET` set   | 500, nothing refreshed                                                                                                        |
-| New page                            | Its type tag refreshes, so listings pick it up                                                                                |
-| Unpublished or deleted page         | Same tags refresh; the page then returns 404 and listings drop it                                                             |
-| Renamed page (slug change)          | The new address is fetched fresh; listings refresh through the type tag. Old address should get a redirect (T-xxx, redirects) |
+| Event                                                                              | Result                                                                                                                        |
+| ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Valid signature, published document                                                | Refreshes `type:<type>`, `doc:<id>`, `slug:<type>:<slug>` and dependents                                                      |
+| Draft saved                                                                        | Ignored (200, no tags)                                                                                                        |
+| Missing, wrong or malformed signature, or a delivery older than 5 minutes (replay) | 401, nothing refreshed. The signature is checked on the raw text before any JSON parsing                                      |
+| Body over 64 KB                                                                    | 413, nothing refreshed                                                                                                        |
+| No `SANITY_REVALIDATE_SECRET` set                                                  | 500, nothing refreshed                                                                                                        |
+| New page                                                                           | Its type tag refreshes, so listings pick it up                                                                                |
+| Unpublished or deleted page                                                        | Same tags refresh; the page then returns 404 and listings drop it                                                             |
+| Renamed page (slug change)                                                         | The new address is fetched fresh; listings refresh through the type tag. Old address should get a redirect (T-xxx, redirects) |
 
 ## Adding a new content type
 

@@ -20,8 +20,10 @@ export function scrubEvent<T extends ErrorEvent>(event: T): T {
 // Typing and form-field changes never become breadcrumbs.
 export function scrubBreadcrumb(breadcrumb: Breadcrumb): Breadcrumb | null {
   if (breadcrumb.category === "ui.input") return null;
-  if (breadcrumb.data && typeof breadcrumb.data.url === "string") {
-    breadcrumb.data.url = breadcrumb.data.url.split("?")[0];
+  // Request breadcrumbs use "url"; navigation breadcrumbs use "from" and "to". All can carry tokens.
+  for (const key of ["url", "from", "to"]) {
+    const value = breadcrumb.data?.[key];
+    if (breadcrumb.data && typeof value === "string") breadcrumb.data[key] = value.split(/[?#]/)[0];
   }
   return breadcrumb;
 }
