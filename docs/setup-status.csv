@@ -1,0 +1,23 @@
+Task,Proposed status,Evidence in the repository,Still needed from a person
+S-01,Not started,None in code,Access list; client-owned accounts; two-factor on every account
+S-02,Partly done,Repo exists; PR template; CODEOWNERS file with placeholders,Real CODEOWNERS usernames; confirm branch protection and required checks in GitHub
+S-03,Done in code,.nvmrc; strict TypeScript; Prettier; editorconfig; lockfile; README versions. Uses npm instead of pnpm (deviation),Record the npm decision; both developers confirm
+S-04,Done in code,CONTRIBUTING.md; src/components/ui and layout,Both developers approve
+S-05,Done in code,.github/workflows/ci.yml jobs lint typecheck test build e2e lighthouse,Make each job a required check; confirm a failing PR is blocked
+S-06,Not verified,Environment variable names documented,Confirm Vercel project; three environments; variables per environment
+S-07,Partly done,noindex and robots tested by e2e,Staging access control in Vercel; test services only
+S-08,Done in code,src/styles/tokens.css and /tokens page,Side-by-side check against the design file
+S-09,Done in code,next/font; e2e test fails on any third-party request,None
+S-10,Done in code,/styleguide; focus and reduced-motion styles; axe passes,None
+S-11,Partly done,Studio embedded at /studio; loads under the CSP,Confirm project and datasets; CORS origins; save a test document
+S-12,Done in code,Shared field types; schema tests,Confirm in the studio that Publish is blocked
+S-13,Done in code,Site settings and Navigation singletons,Publisher-only structure changes need S-14 (paid plan)
+S-14,Deferred,None,Paid plan decision; test roles with real accounts
+S-15,Done in code,Draft-mode routes; sanityFetch,Live test with read token and CORS; scheduled publishing marked out of scope on free plan (confirm)
+S-16,Done in code,Signed webhook route; tests,Create the Sanity webhook; prove publish-to-live within a minute
+S-17,Done,docs/decisions/0001-rendering-and-csp.md; CSP headers,None
+S-18,Done in code,Sentry setup with scrubbing; test route,Sentry project; alert owner; uptime monitors; forced error and outage test
+S-19,Done in code,Playwright and axe tests; CI job,Confirm the e2e job is green on GitHub
+S-20,Done in code,Lighthouse budgets; CI job,Confirm the job is green on GitHub; client agrees the device and network profile (Q-21)
+S-21,Done in code,README; docs/runbook.md,Fill contacts; backup plan; one restore test
+S-22,Checklist drafted,docs/gate-g1-foundation-review.md,Both developers sign
