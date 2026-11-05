@@ -71,6 +71,22 @@ Each has a default I will use if you say "go with your defaults". The decision o
 | D10 | SMS consent checkbox                                                    | **Build the form without it** until legal approves the wording (T-059, Q-13). Adding it later is a small change; shipping unapproved consent wording is not                                                                                    | The form fields must be frozen before the journey test, so this is decided first                                             | Client and legal    |
 | D11 | Who can read enquiries, how long they are kept, what the inbox receives | Two named people have database access. Rows kept 12 months, then deleted (confirm with Q-20). The inbox receives the full submission, from the authenticated sender, to a restricted shared mailbox. Bodies are never logged or sent to Sentry | A private database protects the original record only. The inbox and monitoring need their own rules                          | Lead, client, legal |
 
+### Which decisions block what
+
+Every decision below is **Proposed** until the project lead confirms it. Record "Approved, by whom, date" here when that happens. You can approve only the ones that block the next step; the rest can wait.
+
+| Decision                                                 | Status   | Blocks                                                                              | Needed by                 |
+| -------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------- | ------------------------- |
+| D9 Primary call to action                                | Proposed | T-046 (CTA panels point somewhere), the scope of G2                                 | **Batch 1**               |
+| D10 SMS checkbox                                         | Proposed | T-054 (form fields are frozen before the journey test)                              | **Batch 2**               |
+| D1 Private data store, D3 Rate limit store               | Proposed | T-055                                                                               | Batch 2                   |
+| D2 Spam protection, D7 Validation                        | Proposed | T-054, T-055                                                                        | Batch 2                   |
+| D11 Access, retention, inbox content                     | Proposed | T-055, T-056                                                                        | Batch 2                   |
+| D4 Email sending, D5 Enquiry destination, D6 Alert owner | Proposed | T-056, T-057, T-060                                                                 | Batch 3                   |
+| D8 Sanity plan                                           | Proposed | Any step needing private staging content or a publisher-only role; no later than G5 | Batch 0 test, G5 decision |
+
+**To start Batch 1 you need:** G0 and G1 signed, the ten prerequisites linked (T-028 and T-030 matter most, because Batch 1 builds on the shell and the content model), and D9 confirmed. Nothing else on the list blocks Batch 1.
+
 ## 5. Order of work for the first slice (T-041 to T-062)
 
 22 tasks in five batches after Batch 0. Each batch ends with a checkpoint. Workbook dependencies are respected.
@@ -180,20 +196,40 @@ The review could not see the repository, deployment settings or live integration
 
 ## 11. Gates
 
-| Gate                  | When               | Who signs               | What I will bring                                                     |
-| --------------------- | ------------------ | ----------------------- | --------------------------------------------------------------------- |
-| G0 Scope sign-off     | Before Batch 1     | Client approver (named) | T-020 status and evidence                                             |
-| G1 Foundation review  | Before Batch 1     | Both developers (named) | `docs/gate-g1-foundation-review.md`, checks done in the real accounts |
-| G2 First journey demo | After Batch 5      | Client approver         | Live staging run showing the three outcomes in section 6              |
-| G3 to G6              | As in the workbook | As in the workbook      | Evidence from each checkpoint                                         |
+| Gate                  | When               | Who signs               | What I will bring                                                                                                                                                                                     |
+| --------------------- | ------------------ | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| G0 Scope sign-off     | Before Batch 1     | Client approver (named) | T-020 status and evidence                                                                                                                                                                             |
+| G1 Foundation review  | Before Batch 1     | Both developers (named) | `docs/gate-g1-foundation-review.md`, checks done in the real accounts                                                                                                                                 |
+| G2 First journey demo | After Batch 5      | Client approver         | Live staging run showing the three outcomes in section 6. In outcome 2 the named owner of failed enquiries receives the alert, replays the saved enquiry, and confirms it arrives in the shared inbox |
+| G3 to G6              | As in the workbook | As in the workbook      | Evidence from each checkpoint                                                                                                                                                                         |
 
-## 12. What I need from you before Batch 1
+## 12. Batch 0 checklists
 
-1. Link the ten prerequisites to their SharePoint rows (`docs/first-slice-prerequisites.md`), or tell me which ones do not exist.
-2. Say "go with your defaults" for D1 to D11, or change any of them. D9 (primary call to action) and D10 (SMS checkbox) matter most.
+### Owner checklist (project lead)
+
+1. Link the ten prerequisites to their SharePoint rows (`docs/first-slice-prerequisites.md`), or say which do not exist.
+2. Confirm D9 (needed for Batch 1). Confirm D10 before the form is built. Approve the others when their batch is next.
 3. Both GitHub usernames, for CODEOWNERS.
-4. Confirm that I build both developer tracks and the humans review and merge, and name the merger for each PR.
+4. Confirm that I build both developer tracks, the humans review and merge, and name the merger for each pull request.
 5. Names for the G0 and G1 signers.
+6. Check in the real accounts: branch protection and required checks, Vercel environments and staging access, Sanity project, datasets, CORS and roles with real accounts, two-factor everywhere, Sentry project, alert owner and uptime monitors.
+
+### Engineering checklist (open findings from the checkpoint)
+
+| #   | Finding                                                                                                                                                                                  | Severity | Blocks G1?                               | Owner  | Evidence that closes it                                                                                      |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
+| E1  | Link and image completeness rules are attached to the type, so the studio does not enforce them (optional links also risk blocking publish)                                              | High     | **Yes** (S-12 done-when)                 | Claude | A test that runs Sanity's own validation on the real schema passes, plus one studio check by a person        |
+| E2  | Webhook uses stale-while-revalidate, so the first visitor after a publish or delete still sees the old page                                                                              | Medium   | **Yes** (S-16 done-when)                 | Claude | `revalidateTag(tag, { expire: 0 })` and a route test                                                         |
+| E3  | The webhook route has no test for the order of its checks, and the headers have no end-to-end test                                                                                       | Medium   | **Yes** (checkpoint rule)                | Claude | Route test (500, 413, 401, 400, draft, valid) and an e2e test of the studio and site CSP and the new headers |
+| E4  | Body size is checked after the body is read when there is no length header                                                                                                               | Low      | No                                       | Claude | Capped read, with a test                                                                                     |
+| E5  | Published Sanity reads are not cached under `cacheComponents`, so tags and the webhook have nothing to clear                                                                             | Medium   | No (no page reads yet), **blocks T-052** | Claude | The first CMS-backed page refreshes after a signed webhook                                                   |
+| E6  | A renamed page's old address is never refreshed                                                                                                                                          | Medium   | No, **blocks T-052**                     | Claude | `previousSlug` in the webhook projection and tags, with a test                                               |
+| E7  | Release version documents (`versions.`) are treated as published                                                                                                                         | Low      | No                                       | Claude | Ignored like drafts, with a test                                                                             |
+| E8  | Sentry event URL keeps the fragment; navigation breadcrumbs fixed already                                                                                                                | Low      | No                                       | Claude | One-line fix and test                                                                                        |
+| E9  | `/styleguide` blocking time reached 260 ms in one local review run against a 200 ms budget                                                                                               | Medium   | **Yes, if it repeats in CI**             | Claude | Green `lighthouse` job on GitHub, or a diagnosed cause and an agreed budget                                  |
+| E10 | Smaller cleanups: shared label field and limits, `singletonActions` test, Sentry host test and docs, prettier check in CI, `/tokens` budget, redirect task ID in the webhook doc (T-147) | Low      | No                                       | Claude | Merged with the fixes above                                                                                  |
+
+Items E1 to E3 and E9 close before G1 is signed. The rest close before the task they block.
 
 ## Sign-off
 
