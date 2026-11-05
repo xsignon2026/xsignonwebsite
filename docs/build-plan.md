@@ -51,7 +51,17 @@ The package manager is npm (the workbook's S-03 says pnpm). That deviation is re
 
 ### Checkpoint rule
 
-After every 5 tasks: security audit, senior review and ponytail review (`docs/checkpoints.md`). Blockers and high findings are fixed before the next batch.
+After every 5 tasks (the rule you set): security audit, senior review and ponytail review (`docs/checkpoints.md`). Blockers and high findings are fixed before the next batch.
+
+Proposal to keep the rule useful without turning copy edits into ceremony. Same rhythm, different weight:
+
+| Weight | When | What runs |
+| --- | --- | --- |
+| Light | Every 5 tasks, if the tasks were copy, content or styling only | Merge checks, plus a security scan of the changed files only |
+| Standard | Every 5 tasks that changed code | The three reviews as now, scoped to the changed code |
+| Deep | Whenever a batch adds public data collection (T-055, T-056), changes publish or navigation permissions, or prepares production cutover (T-170, T-173) | Full audit with reproduction against a local build, and a human reads the result before the next batch |
+
+Say if you would rather keep every checkpoint at full weight.
 
 ## 4. Decisions needed before the form is built
 
@@ -125,13 +135,26 @@ Version 1 said "save first, then retry from a queue". That leaves a gap: the dat
 - The thank-you page works only after a submission and is `noindex`.
 - Staging submits to a test inbox only, and production keys do not exist in staging.
 
-**G2 must show three observable outcomes** (replaces the "CRM down" scenario, because D5 is inbox first):
+**Two different retries, two different protections.** A visitor may retry after the server saved the message but the browser timed out; the submission key resolves that retry to the original enquiry. The worker may retry after the email provider accepted a send but the worker missed the response; the provider's idempotency key (sent with every delivery) prevents a second email where the provider supports it. Where it does not, delivery is "at least once": the email carries the enquiry ID, so the inbox owner can recognize a duplicate, and the runbook says so.
 
-1. **Duplicate or lost response:** a double submit, or a lost browser response followed by a retry, creates one enquiry and one delivery job.
-2. **Email provider down after the commit:** the visitor still sees confirmation. The team can see the delivery is pending, receives an alert past the threshold, and replays it successfully once the provider is back.
-3. **Database down before the commit:** the visitor sees an honest retry state. The site never shows success for an enquiry it did not save.
+**The alert must not depend on the worker.** If the worker itself stops, nothing inside it can raise the alarm. An independent check (a second scheduled function, or a Sentry cron monitor) looks at the oldest pending delivery and the worker's last run time, and alerts the named owner when either is past the threshold.
 
-If a CRM ships later, add "CRM down" as a fourth outcome at that time.
+**Recovery must not need a developer.** T-056's acceptance includes a way for the named owner (not a developer) to see pending and failed enquiries and replay them: a small protected page listing delivery state with a Replay button, plus a one-page runbook. This is a scope addition for the lead to confirm. Without it, recovery means a developer opening the database, which does not count as recoverable.
+
+**G2 must show these observable outcomes** (replaces the "CRM down" scenario, because D5 is inbox first):
+
+1. **Duplicate or lost response:** a double submit, or a browser timeout after the server saved the message followed by a retry, resolves to one enquiry and one delivery job.
+2. **Email provider down after the commit:** the visitor still sees confirmation. The delivery shows as pending, the named owner receives the alert, replays it, and confirms it arrives in the shared inbox exactly once.
+3. **Worker stopped:** stop the worker. The pending enquiry becomes visible and the independent check alerts the owner. Restart or replay, and the inbox receives one copy.
+4. **Provider accepted but the worker missed the response:** the retry does not produce a second email (or, if the provider cannot guarantee that, the duplicate carries the same enquiry ID and the runbook explains it).
+5. **Database down before the commit:** the visitor sees an honest retry state. The site never shows success for an enquiry it did not save.
+6. **From the homepage:** one run on staging starts on a representative mobile homepage (the hero and primary CTA from Batch 1), follows the primary CTA to the form, and ends in a delivered enquiry. The same path is run again at G5 with the real homepage.
+
+A person who is not the original developer runs outcomes 2 and 3 from the runbook alone.
+
+If a CRM ships later, add "CRM down" as another outcome at that time.
+
+**Editor-to-visitor check (T-061).** On staging, an editor publishes, edits, renames and unpublishes PostureOne. From a signed-out session, verify the product page and any listing or home card each time, and record how long each takes. Also stop the webhook and record what visitors see: published reads carry a time-based expiry (for example one hour) as a fallback, so a missed webhook heals itself.
 
 ## 7. Batch 0: make the foundation provable
 
@@ -230,6 +253,8 @@ The review could not see the repository, deployment settings or live integration
 | E10 | Smaller cleanups: shared label field and limits, `singletonActions` test, Sentry host test and docs, prettier check in CI, `/tokens` budget, redirect task ID in the webhook doc (T-147) | Low      | No                                       | Claude | Merged with the fixes above                                                                                  |
 
 Items E1 to E3 and E9 close before G1 is signed. The rest close before the task they block.
+
+**G1 is signed against one commit.** The G1 record names the exact commit (or the preview deployment built from it). The affected checks (lint, typecheck, tests, build, browser tests, performance budgets and the account checks) are run on that version. A later fix means a new commit, and the signers re-confirm the items that changed. The commit is written in `docs/gate-g1-foundation-review.md` at signing.
 
 ## Sign-off
 
