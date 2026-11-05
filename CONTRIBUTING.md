@@ -28,3 +28,7 @@
 - Never push to main. Open a pull request for every change.
 - The other developer reviews and the PR checklist is filled in.
 - Update the task status in SharePoint before the daily sync.
+
+## Checkpoints
+
+After every 5 completed tasks, run the security audit, senior review and ponytail review before the next task. See [docs/checkpoints.md](docs/checkpoints.md).
