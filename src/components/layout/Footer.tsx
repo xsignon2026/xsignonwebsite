@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { getSiteSettingsData } from "@/lib/site-settings";
+import { SubscribeBlock } from "@/components/forms/SubscribeBlock";
 
 // Handoff 5.6 / CSV T-043: Global Footer Server Component.
 export async function Footer() {
@@ -12,6 +13,11 @@ export async function Footer() {
       className="border-t border-d-line bg-footer pt-[60px] pb-[30px] text-on-dark-mut"
     >
       <div className="mx-auto max-w-[1180px] px-8 max-md:px-5">
+        {/* Newsletter Subscription Band (T-072) */}
+        <div className="mb-14">
+          <SubscribeBlock sourcePage="global-footer" />
+        </div>
+
         {/* Main Grid */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 xl:grid-cols-[1.5fr_repeat(4,1fr)]">
           {/* Brand Column */}

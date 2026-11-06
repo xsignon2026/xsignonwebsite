@@ -9,11 +9,21 @@ import { CtaSection } from "@/components/blocks/CtaSection";
 import { CapabilityGrid } from "@/components/products/CapabilityGrid";
 import { FrameworkSteps } from "@/components/products/FrameworkSteps";
 import { ProductDashboardPreview } from "@/components/products/ProductDashboardPreview";
+import { ProductChecklistPanel } from "@/components/products/ProductChecklistPanel";
+import { ProductSnapshotPanel } from "@/components/products/ProductSnapshotPanel";
+import { ProductCaseCards } from "@/components/products/ProductCaseCards";
+import { ProductKeyViz } from "@/components/products/ProductKeyViz";
+import { ProductDocTabs } from "@/components/products/ProductDocTabs";
+import { FrameworkTable } from "@/components/products/FrameworkTable";
+import { RelatedItems } from "@/components/products/RelatedItems";
 import { getAllProductSlugs, getProductBySlug } from "@/lib/product";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+// Strict slug regex whitelist for SSRF/injection protection
+const PRODUCT_SLUG_REGEX = /^[a-z0-9-]+$/;
 
 export async function generateStaticParams() {
   const slugs = await getAllProductSlugs();
@@ -24,6 +34,7 @@ export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
+  if (!PRODUCT_SLUG_REGEX.test(slug)) return {};
   const product = await getProductBySlug(slug);
   if (!product) return {};
 
@@ -41,6 +52,11 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
+
+  if (!PRODUCT_SLUG_REGEX.test(slug)) {
+    notFound();
+  }
+
   const product = await getProductBySlug(slug);
 
   if (!product) {
@@ -58,7 +74,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <Breadcrumb
             items={[
               { label: "Home", href: "/" },
-              { label: "Products", href: "/#products" },
+              { label: "Products", href: "/products" },
               { label: product.name },
             ]}
             onDark={true}
@@ -86,7 +102,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
       {/* 2. Light sections body */}
       <div data-nav="light" className="bg-paper text-txt">
-        {/* Narrative & Dashboard Preview */}
+        {/* Narrative & Metrics */}
         <section className="py-(--section-pad)">
           <Container>
             <div className="max-w-3xl">
@@ -94,14 +110,43 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 <b className="font-semibold text-txt">{product.name} </b>
                 {product.hero.subline}
               </p>
+
+              {product.extraNarrative?.map((paragraph, idx) => (
+                <p key={idx} className="mt-4 text-lg text-gray leading-relaxed font-normal">
+                  {paragraph}
+                </p>
+              ))}
             </div>
 
-            <ProductDashboardPreview dashboard={product.hero.dashboard} />
+            {/* PostureOne Dashboard Preview */}
+            {product.hero.dashboard && (
+              <ProductDashboardPreview dashboard={product.hero.dashboard} />
+            )}
+
+            {/* EvalOne Checklist Panel */}
+            {product.checklist && (
+              <ProductChecklistPanel checklist={product.checklist} />
+            )}
+
+            {/* AMS Lifecycle Snapshot Panel */}
+            {product.snapshot && (
+              <ProductSnapshotPanel snapshot={product.snapshot} />
+            )}
+
+            {/* XSense Visual Badge */}
+            {product.keyViz && (
+              <ProductKeyViz keyViz={product.keyViz} />
+            )}
+
+            {/* Passwordless Keys Case Cards */}
+            {product.caseCards && (
+              <ProductCaseCards cards={product.caseCards} />
+            )}
           </Container>
         </section>
 
         {/* Capability Cards (Bento) */}
-        {product.capabilityCards?.length > 0 && (
+        {product.capabilityCards && product.capabilityCards.length > 0 && (
           <section className="py-(--section-pad) border-t border-line/60">
             <Container>
               <div className="mb-10">
@@ -113,7 +158,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         )}
 
         {/* Framework Steps */}
-        {product.framework?.steps?.length > 0 && (
+        {product.framework?.steps && product.framework.steps.length > 0 && (
           <section className="py-(--section-pad) border-t border-line/60">
             <Container>
               <div className="mb-10">
@@ -124,8 +169,54 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </section>
         )}
 
-        {/* Mapped Frameworks */}
-        {product.mappedFrameworks?.chips?.length > 0 && (
+        {/* Specification & Evaluation Tables (EvalOne, Passwordless Keys) */}
+        {product.specTable && (
+          <FrameworkTable table={product.specTable} />
+        )}
+
+        {/* Documentation Tablist (XSense, AMS) */}
+        {product.docTabs && (
+          <ProductDocTabs
+            tabs={product.docTabs}
+            title="Documentation"
+            ariaLabel={`${product.name} documentation`}
+          />
+        )}
+
+        {/* Works with Section (Passwordless Keys) */}
+        {product.worksWith && (
+          <section className="py-(--section-pad) border-t border-line/60">
+            <Container>
+              <div className="mb-6">
+                <SectionHeading title={product.worksWith.title} />
+              </div>
+              <div className="max-w-3xl space-y-4 text-base md:text-lg text-gray leading-relaxed">
+                {product.worksWith.paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              {product.worksWith.linkHref && product.worksWith.linkText && (
+                <div className="mt-7">
+                  <Link
+                    href={product.worksWith.linkHref}
+                    className="group inline-flex items-center gap-2 text-base font-semibold text-acc-ink hover:underline underline-offset-4"
+                  >
+                    <span>{product.worksWith.linkText}</span>
+                    <span
+                      aria-hidden="true"
+                      className="transition-transform duration-200 group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </Link>
+                </div>
+              )}
+            </Container>
+          </section>
+        )}
+
+        {/* Mapped Regulatory Frameworks */}
+        {product.mappedFrameworks?.chips && product.mappedFrameworks.chips.length > 0 && (
           <section className="py-(--section-pad) border-t border-line/60">
             <Container>
               <div className="mb-8">
@@ -152,32 +243,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </section>
         )}
 
-        {/* Related Items */}
-        {product.relatedItems?.length > 0 && (
-          <section className="py-(--section-pad) border-t border-line/60">
-            <Container>
-              <div className="mb-8">
-                <SectionHeading title="Related" />
-              </div>
-
-              <div className="divide-y divide-line border-y border-line">
-                {product.relatedItems.map((item, i) => (
-                  <Link
-                    key={i}
-                    href={item.href}
-                    className="group flex flex-wrap items-baseline justify-between gap-6 py-5 px-1 transition-colors duration-150 hover:text-acc-ink"
-                  >
-                    <span className="text-lg font-medium text-txt group-hover:text-acc-ink transition-colors">
-                      {item.title}
-                    </span>
-                    <span className="font-mono text-xs text-gray uppercase tracking-wider shrink-0">
-                      {item.typeLabel}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </Container>
-          </section>
+        {/* Reusable Related Items */}
+        {product.relatedItems && (
+          <RelatedItems items={product.relatedItems} />
         )}
 
         {/* Bottom CTA Panel */}

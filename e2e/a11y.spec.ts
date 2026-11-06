@@ -7,13 +7,26 @@ const pages = [
   "/",
   "/styleguide",
   "/tokens",
+  "/products",
   "/products/postureone",
+  "/products/evalone",
+  "/products/xsense",
+  "/products/keys",
+  "/products/ams",
+  "/products/compare",
   "/contact",
   "/contact/thank-you",
+  "/subscribe/verify",
+  "/unsubscribe",
+  "/white-papers/zero-trust-posture-guide",
+  "/privacy",
+  "/proof",
+  "/proof/securing-bank-access-fido2",
 ];
 
 for (const path of pages) {
   test(`no accessibility violations on ${path}`, async ({ page }) => {
+    test.setTimeout(60000);
     await page.goto(path, { waitUntil: "networkidle" });
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])

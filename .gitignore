@@ -10,12 +10,13 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# testing & coverage
 /coverage
 
-# next.js
+# next.js & turbopack
 /.next/
 /out/
+/.turbo/
 
 # production
 /build
@@ -24,9 +25,24 @@
 pnpm-lock.yaml
 yarn.lock
 
-# misc
+# OS & system files
 .DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*~
+*.swp
+*.swo
+
+# certificates & keys
 *.pem
+*.key
+*.cert
+*.pfx
+*.p12
 
 # debug
 npm-debug.log*
@@ -47,16 +63,20 @@ next-env.d.ts
 # keep the example env file
 !.env.example
 
-# Playwright
+# Playwright & Lighthouse
 /test-results/
 /playwright-report/
+/blob-report/
+/playwright/.cache/
 /.lighthouseci/
 
 # IDE and editor settings
 .vscode/
 .idea/
-*.swp
-*.swo
+
+# Runtime data files & stores (enquiries, verifications, subscribers, suppression, grants)
+/data/*
+!/data/.gitkeep
 
 # Local design prototypes and handoff files
 xsignon-home-beams.html

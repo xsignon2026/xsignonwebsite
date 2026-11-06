@@ -47,11 +47,23 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
     checkTheme();
     window.addEventListener("scroll", checkTheme, { passive: true });
     window.addEventListener("resize", checkTheme, { passive: true });
+    window.addEventListener("popstate", checkTheme);
+
+    // Observe client-side route transitions when main content updates
+    const observer = new MutationObserver(() => {
+      checkTheme();
+    });
+    const mainEl = document.getElementById("main-content");
+    if (mainEl) {
+      observer.observe(mainEl, { childList: true, subtree: true });
+    }
 
     return () => {
       clearTimeout(mountTimer);
+      observer.disconnect();
       window.removeEventListener("scroll", checkTheme);
       window.removeEventListener("resize", checkTheme);
+      window.removeEventListener("popstate", checkTheme);
     };
   }, []);
 

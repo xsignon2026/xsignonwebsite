@@ -99,7 +99,27 @@ export const product = defineType({
           },
         }),
       ],
-      validation: (Rule) => Rule.min(1).error("Add at least one capability card."),
+    }),
+    defineField({
+      name: "docTabs",
+      title: "Documentation tabs",
+      type: "array",
+      group: "content",
+      description: "Tabbed documentation panels (used by XSense, AMS).",
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({ name: "label", title: "Tab label", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "content", title: "Panel content", type: "text", rows: 3, validation: (Rule) => Rule.required() }),
+            defineField({ name: "title", title: "Panel title (optional)", type: "string" }),
+            defineField({ name: "badge", title: "Status badge (optional)", type: "string" }),
+          ],
+          preview: {
+            select: { title: "label", subtitle: "content" },
+          },
+        }),
+      ],
     }),
     defineField({
       name: "framework",
@@ -159,13 +179,23 @@ export const product = defineType({
       title: "Related items",
       type: "array",
       group: "related",
+      description: "References to related products, articles, or white papers (broken references cannot be saved).",
       of: [
+        defineArrayMember({
+          type: "reference",
+          to: [
+            { type: "product" },
+            { type: "article" },
+            { type: "whitePaper" },
+          ],
+          validation: (Rule) => Rule.required().error("Referenced document must exist."),
+        }),
         defineArrayMember({
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Title", type: "string" }),
-            defineField({ name: "typeLabel", title: "Type label (e.g. Solution, Case study)", type: "string" }),
-            defineField({ name: "link", title: "Link", type: "link" }),
+            defineField({ name: "title", title: "Title", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "typeLabel", title: "Type label (e.g. Solution, Case study)", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "link", title: "Link", type: "link", validation: (Rule) => Rule.required() }),
           ],
           preview: {
             select: { title: "title", subtitle: "typeLabel" },
