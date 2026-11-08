@@ -58,7 +58,7 @@ export default async function WhitePaperPage({ params }: WhitePaperPageProps) {
             className="mb-6"
           />
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-mono font-semibold uppercase tracking-wider text-white mb-5">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-sans font-semibold uppercase tracking-[0.14em] text-white mb-5">
             <span>Technical White Paper</span>
             <span aria-hidden="true">&bull;</span>
             <span>Version {whitePaper.version}</span>

@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "Manage your marketing email preferences for XSignOn updates and announcements.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function UnsubscribePage() {
   return (
     <article className="min-h-screen">

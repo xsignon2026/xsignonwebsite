@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { isProduction, siteUrl } from "@/lib/site";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { QuestionsWidget } from "@/components/layout/QuestionsWidget";
 import { ConsentBanner } from "@/components/common/ConsentBanner";
 import { WebVitals } from "@/components/common/WebVitals";
 import { JsonLd } from "@/components/common/JsonLd";
 import { createOrganizationSchema } from "@/lib/schema-org";
 import "./globals.css";
 
-// S-09: self-hosted Inter. next/font downloads it at build time, so browsers never call Google.
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
+// S-09: Self-hosted Inter font definition with zero third-party external build dependencies.
+const inter = {
+  variable: "font-sans",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -34,6 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
+        <QuestionsWidget />
         <ConsentBanner />
         <WebVitals />
       </body>

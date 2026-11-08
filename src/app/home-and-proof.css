@@ -58,7 +58,7 @@
   position: relative;
   min-height: 600px;
   padding: 80px 0 72px;
-  background: #001233;
+  background: #060129;
   color: #fff;
   overflow: hidden;
 }
@@ -124,7 +124,7 @@
   width: 6px;
   height: 6px;
   border: 1.5px solid #ff5a62;
-  background: #001233;
+  background: #060129;
 }
 
 .sel-box .sh.tl { top: -3px; left: -3px; }
@@ -171,7 +171,7 @@
 
 .btn-white {
   background: #fff;
-  color: #001233;
+  color: #1a1240;
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -409,94 +409,203 @@
 }
 
 /* --------------------------------------------------------------------------
-   Products Coverflow (T-092)
+   Products Coverflow (T-092) - 3D Apple-Style Perspective Fan
    -------------------------------------------------------------------------- */
 .coverflow {
   position: relative;
-  margin-top: 36px;
+  margin-top: 12px;
   padding-bottom: 24px;
 }
 
+@media (min-width: 1201px) {
+  .coverflow {
+    width: min(1420px, calc(100vw - 32px));
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
 .cf-viewport {
-  overflow: hidden;
-  width: 100%;
   position: relative;
+  overflow: hidden;
+  perspective: 1400px;
+  border-radius: 24px;
+  touch-action: pan-y;
+  width: 100%;
+}
+
+.cf-viewport img {
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .cf-track {
-  display: flex;
-  gap: 24px;
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  height: 512px;
+  transform-style: preserve-3d;
 }
 
 .cf-card {
-  flex: 0 0 340px;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: min(410px, 80vw);
+  height: 488px;
+  background: var(--card, #ffffff);
+  border: 1px solid var(--line, #e0dcee);
+  border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  color: var(--txt, #1a1240);
+  box-shadow: 0 24px 48px rgba(8, 19, 37, 0.14);
+  transition: transform 0.72s cubic-bezier(0.3, 1.32, 0.42, 1), opacity 0.55s ease, box-shadow 0.3s ease, border-color 0.2s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+@media (min-width: 1201px) {
+  .cf-card {
+    width: 330px;
+  }
+}
+
+@media (max-width: 760px) {
+  .cf-card {
+    height: 452px;
+  }
+  .cf-card .cf-photo {
+    height: 200px;
+  }
+  .cf-track {
+    height: 476px;
+  }
 }
 
 .cf-card.is-active {
-  border-color: #6366f1;
-  box-shadow: 0 16px 36px -12px rgba(99, 102, 241, 0.2);
-  transform: scale(1.02);
+  cursor: default;
+  border-color: var(--acc-ink, #c6001d);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.46), 0 0 0 1px rgba(198, 0, 29, 0.2);
 }
 
-.cf-photo {
-  height: 180px;
+.cf-card .cf-photo {
   position: relative;
-  background: #001233;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 236px;
+  flex: none;
   overflow: hidden;
+  background: #060129;
+  line-height: 0;
+  transition: height 0.55s cubic-bezier(0.3, 1.32, 0.42, 1);
 }
 
-.cf-photo img {
-  position: absolute;
-  inset: 0;
+.cf-card .cf-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.35;
+  display: block;
+  transition: filter 0.5s ease, transform 0.6s cubic-bezier(0.3, 1.32, 0.42, 1);
 }
 
-.pcard-icon {
-  position: relative;
+.cf-card.is-active .cf-photo img {
+  filter: none;
+  transform: none;
+}
+
+.cf-card.is-active:hover .cf-photo img {
+  transform: scale(1.04);
+}
+
+.cf-card .cf-photo .pcard-icon {
+  position: absolute;
+  top: 14px;
+  left: 14px;
   z-index: 2;
-  width: 56px;
-  height: 56px;
-  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: #1a1240;
+  transition: opacity 0.35s ease;
 }
 
-.pcard-icon svg {
+.cf-card .cf-photo .pcard-icon svg {
   width: 100%;
   height: 100%;
 }
 
-.cf-body {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+.cf-card:not(.is-active) .cf-photo {
+  height: 100%;
+  border-bottom: 0;
 }
 
-.cf-body h3 {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-  color: #001233;
+.cf-card:not(.is-active) .cf-photo img {
+  filter: blur(4px);
+  transform: scale(1.08);
+}
+
+.cf-card:not(.is-active):hover .cf-photo img {
+  filter: blur(2px);
+}
+
+.cf-card:not(.is-active) .cf-photo .pcard-icon {
+  opacity: 0;
+}
+
+.cf-card:not(.is-active) .cf-desc,
+.cf-card:not(.is-active) .cf-tags,
+.cf-card:not(.is-active) .cf-btn {
+  display: none !important;
+}
+
+.cf-card:not(.is-active) .cf-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 56px 24px 22px;
+  background: linear-gradient(180deg, transparent 0%, rgba(6, 1, 41, 0.88) 100%);
+  pointer-events: none;
+}
+
+.cf-card:not(.is-active) h3 {
+  color: #ffffff !important;
+  font-size: 22px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.cf-card:not(.is-active):hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.cf-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 18px 26px 22px;
+  width: 100%;
+  background: #ffffff;
+}
+
+.cf-card h3 {
+  color: #1a1240;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
 }
 
 .cf-desc {
-  font-size: 14px;
+  font-size: 14.5px;
   line-height: 1.5;
-  color: #475569;
-  margin: 0 0 16px 0;
+  color: #54507a;
+  margin: 10px 0 0;
   flex: 1;
 }
 
@@ -504,122 +613,124 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 20px;
+  margin-top: 14px;
+  margin-bottom: 18px;
 }
 
 .cf-tags span {
-  font-size: 12px;
-  background: #f1f5f9;
-  color: #475569;
-  padding: 3px 10px;
-  border-radius: 9999px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: #54507a;
+  border: 1px solid #e0dcee;
+  background: #efebf9;
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
   font-weight: 500;
 }
 
 .cf-btn {
+  margin-top: auto;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 500;
+  gap: 8px;
   font-size: 14px;
-  padding: 10px 16px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  color: #001233;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid #e0dcee;
+  background: #ffffff;
+  color: #1a1240;
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .cf-btn:hover {
-  background: #6366f1;
-  color: #fff;
-  border-color: #6366f1;
+  background: #c6001d;
+  border-color: #c6001d;
+  color: #ffffff;
+}
+
+.cf-btn .arr {
+  margin-left: 6px;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.cf-btn:hover .arr {
+  transform: translateX(3px);
 }
 
 .cf-controls {
-  margin-top: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
+  margin-top: 24px;
 }
 
 .cf-arrow {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 1px solid #cbd5e1;
-  background: #fff;
-  color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+  color: #060129;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
   font-size: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .cf-arrow:hover {
-  border-color: #6366f1;
-  color: #6366f1;
-  background: #f8fafc;
+  background: #ffffff;
+  transform: scale(1.05);
 }
 
 .cf-dots {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  background: rgba(6, 1, 41, 0.4);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cf-dot {
-  width: 24px;
-  height: 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
   border: none;
   cursor: pointer;
   padding: 0;
+  transition: all 0.3s ease;
 }
 
-.cf-dot::after {
-  content: "";
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #cbd5e1;
-  transition: all 0.2s;
-}
-
-.cf-dot.act::after {
-  background: #6366f1;
-  transform: scale(1.25);
-}
-
-.cf-dot:hover::after {
-  background: #94a3b8;
-}
-
-.cf-dot:focus-visible {
-  outline: 2px solid #6366f1;
-  outline-offset: 2px;
-  border-radius: 4px;
+.cf-dot.act {
+  width: 24px;
+  border-radius: 999px;
+  background: #ffffff;
 }
 
 .cf-status {
   font-size: 13px;
-  color: #64748b;
+  color: rgba(255, 255, 255, 0.7);
   margin-left: 12px;
   min-width: 140px;
 }
 
 .cf-timer {
   width: 100%;
+  max-width: 600px;
+  margin: 18px auto 0;
   height: 3px;
-  background: #e2e8f0;
-  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -627,16 +738,78 @@
 .cf-timer i.run {
   display: block;
   height: 100%;
-  background: #6366f1;
+  background: #ff5a62;
   width: 0%;
-  animation: cfProg 6s linear forwards;
+  animation: cfProg 5.2s linear forwards;
+}
+
+#products .cf-dots {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(26, 18, 64, 0.15);
+  backdrop-filter: blur(8px);
+}
+
+#products .cf-dot {
+  background: #3b3668;
+}
+
+#products .cf-dot.act {
+  background: #1a1240;
+}
+
+#products .cf-status {
+  color: #1a1240;
+  font-weight: 500;
+}
+
+#products .cf-timer {
+  background: #6e6a9a;
+}
+
+#products .cf-timer i.run {
+  background: #1a1240;
+}
+
+@keyframes cfProg {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-track {
+    height: auto;
+    display: grid;
+    gap: 22px;
+    justify-items: center;
+  }
+  .cf-card {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    width: min(410px, 100%);
+    height: auto;
+    cursor: default;
+  }
+  .cf-photo {
+    height: 184px;
+  }
+  .cf-controls,
+  .cf-timer {
+    display: none;
+  }
 }
 
 /* --------------------------------------------------------------------------
    Partner Ecosystem Hub (T-093)
    -------------------------------------------------------------------------- */
 .hubx {
-  background: #001233;
+  background: #060129;
   color: #fff;
   border-radius: 20px;
   padding: 36px 32px;
@@ -854,7 +1027,7 @@
    Solutions Journey (T-094)
    -------------------------------------------------------------------------- */
 #resources {
-  background: #001233 !important;
+  background: #060129 !important;
   color: #fff;
 }
 .journey {
@@ -990,7 +1163,7 @@
 .think-body h4 {
   font-size: 22px;
   font-weight: 600;
-  color: #001233;
+  color: #1a1240;
   margin: 8px 0 12px 0;
 }
 
@@ -1008,7 +1181,7 @@
 }
 
 .think-panel {
-  background: #001233;
+  background: #060129;
   border-radius: 12px;
   height: 220px;
   overflow: hidden;
@@ -1044,7 +1217,7 @@
   padding: 18px 24px;
   font-weight: 600;
   font-size: 16px;
-  color: #001233;
+  color: #1a1240;
   cursor: pointer;
   text-decoration: none;
   width: 100%;
@@ -1087,7 +1260,7 @@
 }
 
 .cta-panel {
-  background: #001233;
+  background: #060129;
   color: #fff;
   border-radius: 20px;
   padding: 48px 40px;
@@ -1100,7 +1273,7 @@
 }
 
 .cta-panel.plain {
-  background: #001233;
+  background: #060129;
 }
 
 .cta-panel h2 {
@@ -1160,7 +1333,7 @@
 .case-photo {
   height: 180px;
   border-radius: 10px;
-  background: #001233;
+  background: #060129;
   margin-bottom: 20px;
   overflow: hidden;
   position: relative;
@@ -1254,7 +1427,7 @@
 
 /* Page Hero section dark contrast */
 .page-hero {
-  background-color: #001233 !important;
+  background-color: #060129 !important;
   color: #ffffff !important;
 }
 
@@ -1301,7 +1474,7 @@
   box-shadow: 0 20px 44px -18px rgba(26, 18, 64, 0.28);
 }
 .sol-art {
-  background: #001233;
+  background: #060129;
   padding: 16px;
   border-bottom: 1px solid #25205c;
   display: flex;
@@ -1334,7 +1507,7 @@
   margin-top: auto;
   padding-top: 20px;
   font-weight: 600;
-  color: var(--acc-ink, #001233);
+  color: var(--acc-ink, #a60019);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1513,7 +1686,7 @@ a.rel-row .t {
   transition: color 0.15s ease;
 }
 a.rel-row:hover .t {
-  color: var(--acc-ink, #001233);
+  color: var(--acc-ink, #a60019);
 }
 
 @media (max-width: 1000px) {
@@ -1610,7 +1783,7 @@ a.rel-row:hover .t {
 [data-nav="light"] .link-arrow,
 .bcard .link-arrow,
 .case-card .link-arrow {
-  color: var(--acc-ink, #001233);
+  color: var(--acc-ink, #a60019);
 }
 
 [data-nav="light"] .link-arrow:hover,

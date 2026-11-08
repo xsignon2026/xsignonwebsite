@@ -28,7 +28,7 @@ export function RelatedItems({ items, title = "Related" }: RelatedItemsProps) {
               <span className="text-lg font-medium text-txt group-hover:text-acc-ink transition-colors">
                 {item.title}
               </span>
-              <span className="font-mono text-xs text-gray-2 uppercase tracking-wider shrink-0">
+              <span className="font-sans text-xs font-medium text-gray-2 uppercase tracking-[0.14em] shrink-0">
                 {item.typeLabel}
               </span>
             </Link>

@@ -50,10 +50,17 @@ export function ThinkingBand({ thinking = defaultThinking }: ThinkingBandProps) 
   };
 
   return (
-    <section className="block think-band py-20 bg-slate-50" id="thinking" data-nav="light">
+    <section
+      className="block think-band py-20"
+      id="thinking"
+      data-nav="light"
+      style={{
+        background: "linear-gradient(180deg, #F6F4FB 0%, #FFFFFF 100%)",
+      }}
+    >
       <div className="wrap mx-auto max-w-[1280px] px-6">
         <div className="sec-row mb-8">
-          <h2 className="text-3xl font-semibold text-navy">Our thinking</h2>
+          <h2 className="text-3xl font-semibold text-[#1A1240]">Our thinking</h2>
         </div>
 
         <div className="think-stack">
@@ -67,14 +74,40 @@ export function ThinkingBand({ thinking = defaultThinking }: ThinkingBandProps) 
                 Read the article <span className="arr" aria-hidden="true">→</span>
               </Link>
             </div>
-            <div className="think-panel" aria-hidden="true">
-              <svg viewBox="0 0 200 120" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5">
-                <rect x="20" y="20" width="160" height="80" rx="10" stroke="#9db9f5" />
-                <circle cx="60" cy="60" r="16" stroke="#ff5a62" strokeWidth="2" />
-                <line x1="90" y1="45" x2="160" y2="45" stroke="#9db9f5" />
-                <line x1="90" y1="65" x2="140" y2="65" stroke="#9db9f5" />
-                <line x1="90" y1="85" x2="150" y2="85" stroke="#9db9f5" />
-              </svg>
+            <div
+              className="think-panel relative overflow-hidden min-h-[240px] rounded-r-2xl"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(6, 1, 41, 0.92) 0%, rgba(37, 32, 92, 0.85) 100%)",
+              }}
+              aria-hidden="true"
+            >
+              {/* 11.2 Diagonal 5px Crimson Accent Slash Bar */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: "64%",
+                  top: "-25%",
+                  bottom: "-25%",
+                  width: "5px",
+                  background: "var(--acc, #c6001d)",
+                  transform: "rotate(16deg)",
+                  boxShadow: "0 0 16px rgba(198, 0, 29, 0.6)",
+                }}
+              />
+              <div className="absolute inset-0 flex items-center justify-center p-6 text-white/70">
+                <svg
+                  viewBox="0 0 120 120"
+                  fill="none"
+                  stroke="#9db9f5"
+                  strokeWidth="2"
+                  className="w-20 h-20 opacity-40"
+                  aria-hidden="true"
+                >
+                  <rect x="20" y="20" width="80" height="80" rx="10" />
+                  <path d="M20 50h80M50 20v80" stroke="#ff6a82" />
+                </svg>
+              </div>
             </div>
           </article>
 

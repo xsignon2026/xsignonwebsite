@@ -22,7 +22,7 @@ export function WhitePaperCard({
       aria-label="Related White Paper"
       className={`rounded-2xl border border-line bg-card p-7 md:p-8 shadow-sm transition-[border-color,box-shadow] duration-200 hover:border-acc/40 hover:shadow-md ${className}`}
     >
-      <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-acc">
+      <div className="flex items-center gap-2 text-xs font-sans font-semibold uppercase tracking-[0.14em] text-acc">
         <span>White Paper</span>
         <span aria-hidden="true">&bull;</span>
         <span>v{whitePaper.version || "1.0"}</span>

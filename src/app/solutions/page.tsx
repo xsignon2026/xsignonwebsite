@@ -29,8 +29,8 @@ export default async function SolutionsPage() {
     <div id="view-solutions">
       {/* Hero section */}
       <section
-        className="page-hero has-beams bg-[#001233] text-white py-16 relative overflow-hidden"
-        style={{ backgroundColor: "#001233" }}
+        className="page-hero has-beams bg-[#060129] text-white py-16 relative overflow-hidden"
+        style={{ backgroundColor: "#060129" }}
         data-nav="dark"
       >
         <HeroBeams />
@@ -198,7 +198,7 @@ export default async function SolutionsPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <article className="border border-slate-200 rounded-2xl p-6 bg-white hover:border-slate-400 transition-colors">
-                <span className="text-xs font-mono uppercase text-slate-500">Identity & Risk</span>
+                <span className="text-xs font-sans font-medium uppercase tracking-[0.14em] text-slate-500">Identity & Risk</span>
                 <h4 className="text-xl font-semibold text-navy mt-2 mb-2">
                   Non-Human Identities, and the Future of Cyber Risk
                 </h4>
@@ -215,7 +215,7 @@ export default async function SolutionsPage() {
               </article>
 
               <article className="border border-slate-200 rounded-2xl p-6 bg-white hover:border-slate-400 transition-colors">
-                <span className="text-xs font-mono uppercase text-slate-500">Data & AI Governance</span>
+                <span className="text-xs font-sans font-medium uppercase tracking-[0.14em] text-slate-500">Data & AI Governance</span>
                 <h4 className="text-xl font-semibold text-navy mt-2 mb-2">
                   Data + AI Security Built for Visibility, Control, and Trust
                 </h4>

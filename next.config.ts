@@ -10,18 +10,11 @@ import {
 const nextConfig: NextConfig = {
   /* config options here */
   poweredByHeader: false,
-  cacheComponents: true,
-  partialPrefetching: true,
+  experimental: {
+    cpus: 1,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
-  },
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
   },
   async redirects() {
     return [...CANONICAL_REDIRECTS];

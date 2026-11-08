@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { HomeSolutionItem } from "@/types/home";
+import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 
 interface SolutionsJourneyProps {
   solutions?: HomeSolutionItem[];
@@ -102,9 +103,9 @@ function renderSolutionSvg(key: HomeSolutionItem["diagramKey"]) {
           <circle cx="200" cy="114" r="50" stroke="#6366f1" strokeWidth="2" fill="rgba(99,102,241,0.1)" />
           <circle cx="200" cy="114" r="8" fill="#ff5a62" />
           <path d="M120 114 H280 M200 34 V194" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
-          <rect x="70" y="90" width="80" height="48" rx="8" stroke="#9db9f5" strokeWidth="1.5" fill="rgba(0,18,51,0.8)" />
+          <rect x="70" y="90" width="80" height="48" rx="8" stroke="#9db9f5" strokeWidth="1.5" fill="rgba(6,1,41,0.8)" />
           <text x="110" y="120" textAnchor="middle" fill="#fff" fontSize="12">Zero Trust</text>
-          <rect x="250" y="90" width="80" height="48" rx="8" stroke="#9db9f5" strokeWidth="1.5" fill="rgba(0,18,51,0.8)" />
+          <rect x="250" y="90" width="80" height="48" rx="8" stroke="#9db9f5" strokeWidth="1.5" fill="rgba(6,1,41,0.8)" />
           <text x="290" y="120" textAnchor="middle" fill="#fff" fontSize="12">Governed</text>
         </svg>
       );
@@ -117,12 +118,13 @@ export function SolutionsJourney({ solutions = defaultSolutions }: SolutionsJour
 
   return (
     <section
-      className="block dark has-persp py-20 bg-[#001233] text-white"
+      className="block dark has-persp py-20 relative overflow-hidden"
       id="resources"
       data-nav="dark"
-      style={{ backgroundColor: "#001233" }}
+      style={{ backgroundColor: "#060129" }}
     >
-      <div className="wrap mx-auto max-w-[1280px] px-6">
+      <PerspectiveGrid horizon={0.38} alpha={1.7} />
+      <div className="wrap mx-auto max-w-[1280px] px-6 relative z-10">
         <div className="sec-row flex items-center justify-between mb-8">
           <h2 className="text-3xl font-semibold text-white">Solutions</h2>
           <Link

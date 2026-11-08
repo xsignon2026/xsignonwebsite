@@ -98,7 +98,7 @@ export default function ProductsPage() {
                   className="group flex flex-col justify-between rounded-2xl border border-line bg-card p-6 shadow-xs transition-colors hover:border-ctl"
                 >
                   <div>
-                    <span className="font-mono text-xs font-semibold uppercase tracking-wider text-acc-ink">
+                    <span className="font-sans text-xs font-semibold uppercase tracking-[0.14em] text-acc-ink">
                       {art.category}
                     </span>
                     <h3 className="mt-2 text-lg font-semibold text-txt group-hover:text-acc-ink transition-colors leading-snug">

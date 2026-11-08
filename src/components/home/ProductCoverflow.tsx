@@ -51,6 +51,29 @@ const defaultCards: HomeCoverflowCard[] = [
   },
 ];
 
+const productImages: Record<HomeCoverflowCard["iconKey"], { src: string; alt: string }> = {
+  postureone: {
+    src: "/images/products/postureone.jpg",
+    alt: "Server racks with network cabling in a data centre",
+  },
+  keys: {
+    src: "/images/products/keys.jpg",
+    alt: "Person holding a phone in one hand while signing in on a laptop",
+  },
+  evalone: {
+    src: "/images/products/evalone.jpg",
+    alt: "Team running an evaluation workshop with notes on a wall",
+  },
+  xsense: {
+    src: "/images/products/xsense.jpg",
+    alt: "Engineer reviewing analytics on a monitor",
+  },
+  ams: {
+    src: "/images/products/ams.jpg",
+    alt: "Warehouse shelves of tracked inventory and parts",
+  },
+};
+
 function renderCardIcon(key: HomeCoverflowCard["iconKey"]) {
   switch (key) {
     case "postureone":
@@ -109,12 +132,16 @@ function renderCardIcon(key: HomeCoverflowCard["iconKey"]) {
   }
 }
 
-// T-092: Accessible Coverflow of product cards
+// T-092: Accessible 3D Coverflow of product cards matching xsignon-home-beams.html (Version 2 Ombre)
 export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [clientWidth, setClientWidth] = useState(1200);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const dragXRef = useRef<number | null>(null);
+  const draggedRef = useRef(false);
 
   const total = cards.length;
 
@@ -123,29 +150,64 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
   };
 
   useEffect(() => {
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        setClientWidth(containerRef.current.clientWidth);
+      } else if (typeof window !== "undefined") {
+        setClientWidth(window.innerWidth);
+      }
+    };
 
+    if (typeof window !== "undefined") {
+      const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+      setPrefersReducedMotion(mq.matches);
+      const handleMq = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+      mq.addEventListener("change", handleMq);
+
+      updateDimensions();
+      window.addEventListener("resize", updateDimensions);
+
+      return () => {
+        window.removeEventListener("resize", updateDimensions);
+        mq.removeEventListener("change", handleMq);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
     if (prefersReducedMotion || isPaused) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % total);
-    }, 6000);
+    }, 5200);
 
     return () => clearInterval(interval);
-  }, [isPaused, total]);
+  }, [isPaused, prefersReducedMotion, total]);
 
   const activeCard = cards[currentIndex] ?? cards[0];
 
+  const fan = !prefersReducedMotion && clientWidth >= 1180;
+  const s = fan ? Math.max(300, (clientWidth / 2 - 100) / 2) : 0;
+
   return (
-    <section className="block py-20 bg-white" id="products" data-nav="light">
+    <section
+      className="block py-20"
+      id="products"
+      data-nav="dark"
+      style={{
+        background:
+          "linear-gradient(180deg, #060129 0%, #1A1240 12%, #3B3668 40%, #6E6A9A 72%, #B3AED0 100%)",
+      }}
+    >
       <div className="wrap mx-auto max-w-[1280px] px-6">
         <div className="sec-row flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-semibold text-navy">Our products</h2>
+          <h2 className="text-3xl font-semibold text-[#F6F4FB]" style={{ color: "#F6F4FB" }}>
+            Our products
+          </h2>
           <Link
-            className="products-all text-sm font-medium text-navy hover:text-coral inline-flex items-center gap-2"
+            className="products-all text-sm font-medium text-[#F6F4FB] hover:underline inline-flex items-center gap-2"
             href="/products"
+            style={{ color: "#F6F4FB" }}
           >
             View all products <span className="arr" aria-hidden="true">→</span>
           </Link>
@@ -160,8 +222,19 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
           aria-label="Our products"
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === "ArrowLeft") goTo(currentIndex - 1);
-            if (e.key === "ArrowRight") goTo(currentIndex + 1);
+            if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              goTo(currentIndex - 1);
+            } else if (e.key === "ArrowRight") {
+              e.preventDefault();
+              goTo(currentIndex + 1);
+            } else if (e.key === "Home") {
+              e.preventDefault();
+              goTo(0);
+            } else if (e.key === "End") {
+              e.preventDefault();
+              goTo(total - 1);
+            }
           }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
@@ -172,16 +245,62 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
             }
           }}
         >
-          <div className="cf-viewport">
-            <div
-              ref={trackRef}
-              className="cf-track"
-              style={{
-                transform: `translateX(calc(50% - 170px - ${currentIndex * (340 + 24)}px))`,
-              }}
-            >
+          <div
+            className="cf-viewport"
+            id="cfViewport"
+            onPointerDown={(e) => {
+              dragXRef.current = e.clientX;
+              draggedRef.current = false;
+            }}
+            onPointerMove={(e) => {
+              if (dragXRef.current !== null && Math.abs(e.clientX - dragXRef.current) > 8) {
+                draggedRef.current = true;
+              }
+            }}
+            onPointerUp={(e) => {
+              if (dragXRef.current === null) return;
+              const dx = e.clientX - dragXRef.current;
+              dragXRef.current = null;
+              if (Math.abs(dx) > 48) {
+                if (dx < 0) {
+                  goTo(currentIndex + 1);
+                } else {
+                  goTo(currentIndex - 1);
+                }
+              }
+              setTimeout(() => {
+                draggedRef.current = false;
+              }, 40);
+            }}
+            onPointerCancel={() => {
+              dragXRef.current = null;
+              draggedRef.current = false;
+            }}
+          >
+            <div className="cf-track" id="cfTrack">
               {cards.map((card, idx) => {
-                const isActive = idx === currentIndex;
+                let off = idx - currentIndex;
+                off = ((off % total) + total) % total;
+                if (off > total / 2) off -= total;
+                const a = Math.abs(off);
+                const isActive = off === 0;
+
+                let transform = "";
+                if (!prefersReducedMotion) {
+                  if (fan) {
+                    transform = `translateX(-50%) translateX(${off * s}px) translateZ(${-a * 110}px) rotateY(${off === 0 ? 0 : -off * 38}deg) scale(${1 - a * 0.05})`;
+                  } else {
+                    transform = `translateX(-50%) translateX(${off * 62}%) translateZ(${-a * 130}px) rotateY(${off === 0 ? 0 : -off * 36}deg) scale(${1 - a * 0.07})`;
+                  }
+                }
+                const opacity = prefersReducedMotion ? (isActive ? "1" : "0") : String(1 - a * 0.16);
+                const zIndex = 20 - a;
+
+                const imgData = productImages[card.iconKey] || {
+                  src: "/images/products/postureone.jpg",
+                  alt: card.name,
+                };
+
                 return (
                   <article
                     key={card.name}
@@ -190,11 +309,29 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
                     aria-roledescription="slide"
                     aria-label={`${idx + 1} of ${total}: ${card.name}`}
                     inert={!isActive ? true : undefined}
+                    style={{
+                      transform,
+                      opacity,
+                      zIndex,
+                    }}
+                    onClick={(e) => {
+                      if (draggedRef.current) return;
+                      if (!isActive) {
+                        e.preventDefault();
+                        goTo(idx);
+                      }
+                    }}
                   >
                     <div className="cf-photo">
                       <div className="pcard-icon">
                         {renderCardIcon(card.iconKey)}
                       </div>
+                      <img
+                        src={card.imageSrc || imgData.src}
+                        alt={card.imageAlt || imgData.alt}
+                        loading="lazy"
+                        draggable={false}
+                      />
                     </div>
                     <div className="cf-body">
                       <h3>{card.name}</h3>
@@ -257,13 +394,22 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
             >
               →
             </button>
+            <button
+              className="cf-arrow cf-play-pause text-xs font-semibold"
+              type="button"
+              aria-label={isPaused ? "Resume product rotation" : "Pause product rotation"}
+              aria-pressed={isPaused}
+              onClick={() => setIsPaused((prev) => !prev)}
+            >
+              {isPaused ? "▶" : "❚❚"}
+            </button>
             <p className="cf-status" id="cfStatus" aria-live="polite">
               {activeCard.name}, {currentIndex + 1} of {total}
             </p>
           </div>
 
           <div className="cf-timer" aria-hidden="true">
-            <i className={isPaused ? "" : "run"} />
+            <i key={currentIndex} className={isPaused || prefersReducedMotion ? "" : "run"} />
           </div>
         </div>
       </div>

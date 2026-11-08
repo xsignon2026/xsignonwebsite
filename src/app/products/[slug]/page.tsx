@@ -105,7 +105,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               {product.hero.tags.map((tag, i) => (
                 <span
                   key={i}
-                  className="rounded-full bg-white/10 px-3 py-1 font-mono text-xs tracking-wider uppercase text-on-dark-soft border border-white/10"
+                  className="rounded-full bg-white/10 px-3 py-1 font-sans text-xs tracking-[0.14em] uppercase font-medium text-on-dark-soft border border-white/10"
                 >
                   {tag}
                 </span>
@@ -242,7 +242,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {product.mappedFrameworks.chips.map((chip, i) => (
                   <span
                     key={i}
-                    className="rounded-full border border-line bg-card px-4 py-1.5 font-mono text-xs font-medium text-gray shadow-xs"
+                    className="rounded-full border border-line bg-card px-4 py-1.5 font-sans text-xs font-medium uppercase tracking-[0.14em] text-gray shadow-xs"
                   >
                     {chip}
                   </span>

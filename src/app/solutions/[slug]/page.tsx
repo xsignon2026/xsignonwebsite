@@ -71,8 +71,8 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
 
       {/* Hero section */}
       <section
-        className="page-hero has-beams bg-[#001233] text-white py-16"
-        style={{ backgroundColor: "#001233" }}
+        className="page-hero has-beams bg-[#060129] text-white py-16"
+        style={{ backgroundColor: "#060129" }}
         data-nav="dark"
       >
         <div className="wrap mx-auto max-w-[1280px] px-6">

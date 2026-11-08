@@ -84,18 +84,14 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
         {/* Logo */}
         <Link
           href="/"
-          className="group inline-flex items-center gap-2.5 text-[22px] font-extrabold tracking-tight transition-transform active:scale-[.98]"
+          className="group inline-flex items-center transition-transform active:scale-[.98]"
+          aria-label="XSignOn - Simplifying cybersecurity"
         >
-          <span
-            aria-hidden="true"
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-acc text-[15px] font-black text-white shadow-sm"
-          >
-            X
-          </span>
-          <span className="font-sans font-extrabold tracking-[-0.03em]">
-            XSignOn
-          </span>
-          <span className="sr-only"> - Simplifying cybersecurity</span>
+          <img
+            src={isDark ? "/images/logo-dark.png" : "/images/logo-light.png"}
+            alt="XSignOn - Simplifying cybersecurity"
+            className="h-9 md:h-11 w-auto object-contain"
+          />
         </Link>
 
         {/* Desktop Nav */}

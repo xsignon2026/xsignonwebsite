@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "build:css": "node scripts/build-css.js",
+    "dev": "node scripts/build-css.js && next dev",
+    "build": "node scripts/build-css.js && next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",

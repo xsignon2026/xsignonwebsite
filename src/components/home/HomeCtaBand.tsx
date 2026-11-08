@@ -22,11 +22,30 @@ export function HomeCtaBand({ cta }: HomeCtaBandProps) {
           <Link className="btn btn-white relative z-10" href={cta.buttonHref}>
             {cta.buttonText} <span className="chev" aria-hidden="true">›</span>
           </Link>
-          <div className="cta-card cta-logo" aria-hidden="true">
-            <span className="cl-ring r1" />
-            <span className="cl-ring r2" />
-            <div className="w-16 h-16 rounded-full bg-coral/20 border border-coral flex items-center justify-center font-bold text-coral text-lg shadow-lg">
-              XS
+          {/* 11.3 Authentic Logo Tile (hidden on narrow screens) */}
+          <div
+            className="cta-card cta-logo hidden lg:flex items-center justify-center absolute right-12 top-1/2 -translate-y-1/2 w-[340px] h-[240px] rounded-2xl border border-[#25205c] shadow-2xl overflow-hidden pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(260px 180px at 50% 50%, rgba(198, 0, 29, 0.18), transparent 70%), #0f0a3a",
+              boxShadow: "0 30px 60px rgba(0,0,0,0.45)",
+            }}
+            aria-hidden="true"
+          >
+            {/* Concentric rings */}
+            <span
+              className="absolute w-[210px] h-[210px] rounded-full border border-[#25205c]"
+              style={{ pointerEvents: "none" }}
+            />
+            <span
+              className="absolute w-[320px] h-[320px] rounded-full border border-[#25205c]"
+              style={{ pointerEvents: "none" }}
+            />
+            {/* White XSignOn wordmark */}
+            <div className="relative z-10 flex items-center gap-3">
+              <span className="text-2xl font-bold tracking-tight text-white">
+                XSign<span className="text-[#ff6a82]">On</span>
+              </span>
             </div>
           </div>
         </div>

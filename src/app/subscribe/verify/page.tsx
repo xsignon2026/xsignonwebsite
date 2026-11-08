@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "Confirm your email verification for XSignOn updates and technical white papers.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function VerifyPage() {
   return (
     <article className="min-h-screen">

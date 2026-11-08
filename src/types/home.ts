@@ -34,6 +34,7 @@ export type HomeCoverflowCard = {
   href: string;
   iconKey: "postureone" | "keys" | "evalone" | "xsense" | "ams";
   imageAlt: string;
+  imageSrc?: string;
 };
 
 export type HomePartnerCategory = {

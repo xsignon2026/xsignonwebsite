@@ -14,7 +14,7 @@ export function ProductSnapshotPanel({ snapshot }: ProductSnapshotPanelProps) {
       aria-label={snapshot.meta}
       className="mt-11 max-w-2xl rounded-2xl border border-line bg-card p-6 md:p-8 shadow-xs"
     >
-      <div className="mb-4 font-mono text-xs font-semibold uppercase tracking-wider text-acc-ink">
+      <div className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-acc-ink">
         {snapshot.meta}
       </div>
       <div className="divide-y divide-line">

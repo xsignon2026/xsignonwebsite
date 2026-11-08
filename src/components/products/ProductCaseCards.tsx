@@ -18,7 +18,7 @@ export function ProductCaseCards({ cards }: ProductCaseCardsProps) {
           className="flex flex-col items-start rounded-2xl border border-line bg-card p-8 shadow-xs transition-colors hover:border-ctl"
         >
           <div className="mb-3">
-            <span className="rounded-full bg-soft px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-acc-ink">
+            <span className="rounded-full bg-soft px-3 py-1 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-acc-ink">
               {card.tag}
             </span>
           </div>

@@ -172,7 +172,7 @@ export function ProductOverviewInteractive() {
               <p
                 id="ovCount"
                 aria-live="polite"
-                className="font-mono text-sm text-gray"
+                className="font-sans text-sm text-gray"
               >
                 {selectedKeys.length} of {ALL_KEYS.length} selected
               </p>
@@ -322,7 +322,7 @@ export function ProductOverviewInteractive() {
                             {prod.delivery.map((chip, cIdx) => (
                               <span
                                 key={cIdx}
-                                className="rounded-full bg-soft px-3 py-1 font-mono text-xs text-txt border border-line"
+                                className="rounded-full bg-soft px-3 py-1 font-sans text-xs text-txt border border-line"
                               >
                                 {chip}
                               </span>
@@ -355,7 +355,7 @@ export function ProductOverviewInteractive() {
                             {prod.worksWith.map((chip, cIdx) => (
                               <span
                                 key={cIdx}
-                                className="rounded-full bg-card px-3 py-1 font-mono text-xs text-gray border border-line shadow-xs"
+                                className="rounded-full bg-card px-3 py-1 font-sans text-xs text-gray border border-line shadow-xs"
                               >
                                 {chip}
                               </span>
@@ -461,7 +461,7 @@ export function ProductOverviewInteractive() {
                       {tab.tags.map((t, tIdx) => (
                         <span
                           key={tIdx}
-                          className="rounded-full bg-soft px-3 py-1 font-mono text-xs font-medium text-gray border border-line"
+                          className="rounded-full bg-soft px-3 py-1 font-sans text-xs font-medium text-gray border border-line"
                         >
                           {t}
                         </span>

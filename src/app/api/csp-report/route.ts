@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   try {
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      request.headers.get("x-real-ip") ||
+      request.headers.get("x-real-ipd") ||
       "127.0.0.1";
 
     if (isRateLimited(ip)) {

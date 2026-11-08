@@ -60,7 +60,7 @@ export default function ThankYouPage({ searchParams }: ThankYouPageProps) {
           </h1>
 
           <div className="mt-4 flex items-center gap-2">
-            <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 px-3.5 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-emerald-300">
+            <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 px-3.5 py-1 font-sans text-xs font-semibold uppercase tracking-[0.14em] text-emerald-300">
               Received
             </span>
           </div>

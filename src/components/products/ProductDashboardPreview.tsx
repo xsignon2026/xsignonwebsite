@@ -28,7 +28,7 @@ export function ProductDashboardPreview({
         <span className="h-2.5 w-2.5 rounded-full bg-slate-700" />
         <span className="h-2.5 w-2.5 rounded-full bg-slate-700" />
         <span className="h-2.5 w-2.5 rounded-full bg-slate-700" />
-        <span className="ml-3 rounded bg-white/5 px-3 py-1 font-mono text-xs text-on-dark-sub">
+        <span className="ml-3 rounded bg-white/5 px-3 py-1 font-sans text-xs text-on-dark-sub">
           {appName}
         </span>
       </div>
