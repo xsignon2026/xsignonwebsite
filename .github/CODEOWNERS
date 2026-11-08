@@ -1,0 +1,15 @@
+# Replace @dev-a and @dev-b with real GitHub usernames.
+*                       @dev-a @dev-b
+
+# Developer B: shell, tokens, styles
+/src/styles/            @dev-b
+/src/components/        @dev-b
+
+# Developer A: CI, config, API routes, CMS
+/.github/               @dev-a
+/next.config.*          @dev-a
+/src/app/api/           @dev-a
+/src/sanity/            @dev-a
+/src/app/studio/        @dev-a
+/sanity.config.ts       @dev-a
+/sanity.cli.ts          @dev-a

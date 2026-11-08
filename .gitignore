@@ -1,0 +1,99 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing & coverage
+/coverage
+
+# next.js & turbopack
+/.next/
+/out/
+/.turbo/
+
+# production
+/build
+
+# lockfiles from other package managers (this repo uses package-lock.json only)
+pnpm-lock.yaml
+yarn.lock
+
+# OS & system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*~
+*.swp
+*.swo
+
+# certificates & keys
+*.pem
+*.key
+*.cert
+*.pfx
+*.p12
+
+# debug & logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+logs/
+
+# backups and database dumps
+/backups/
+*.tar.gz
+*.ndjson
+*.dump
+
+# cache, linter & temporary files
+.eslintcache
+.cache/
+/tmp/
+/temp/
+.vitest/
+vitest.config.ts.timestamp-*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# keep the example env file
+!.env.example
+
+# Playwright & Lighthouse
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/.lighthouseci/
+
+# IDE and editor settings
+.vscode/
+.idea/
+
+# Runtime data files & stores (enquiries, verifications, subscribers, suppression, grants)
+/data/*
+!/data/.gitkeep
+
+# Local design prototypes and handoff files
+xsignon-home-beams.html
+*.html
