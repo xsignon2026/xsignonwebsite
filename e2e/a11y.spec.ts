@@ -31,8 +31,6 @@ const pages = [
   "/white-papers/zero-trust-posture-guide",
   "/privacy",
   "/terms",
-  "/login",
-  "/register",
   "/proof",
   "/proof/securing-bank-access-fido2",
   "/proof/passwordless-access-global-healthcare",

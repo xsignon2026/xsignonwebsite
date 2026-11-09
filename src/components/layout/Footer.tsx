@@ -69,9 +69,6 @@ export async function Footer() {
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-d-line pt-8 text-[13px] text-on-dark-sub">
           <p>{siteSettings.legalLine || "© 2026 XSignOn. All rights reserved."}</p>
           <div className="flex items-center gap-6">
-            <Link href="/login" className="hover:text-white transition-colors">
-              Log in
-            </Link>
             <span>McKinney, Texas.</span>
           </div>
         </div>

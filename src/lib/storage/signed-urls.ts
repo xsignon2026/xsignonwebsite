@@ -2,10 +2,7 @@
 // Issues HMAC SHA-256 signed URLs with short-lived expiration (e.g. 15 minutes).
 import crypto from "crypto";
 
-const SIGNED_URL_SECRET =
-  process.env.SIGNED_URL_SECRET ||
-  process.env.SESSION_SECRET ||
-  "xsignon-private-pdf-storage-secret-2026-v2";
+import { requireSecret } from "@/lib/require-secret";
 
 export const DEFAULT_LINK_TTL_MS = 15 * 60 * 1000; // 15 minutes
 
@@ -23,7 +20,7 @@ export function computeDownloadSignature(
   slug: string,
   email: string,
   expires: number,
-  secret: string = SIGNED_URL_SECRET,
+  secret: string = requireSecret("SIGNED_URL_SECRET"),
 ): string {
   const payload = `${slug.toLowerCase().trim()}:${email.toLowerCase().trim()}:${expires}`;
   return crypto.createHmac("sha256", secret).update(payload).digest("hex");
@@ -60,7 +57,7 @@ export function verifySignedDownloadParams(
   expiresStr: string,
   sig: string,
   now: number = Date.now(),
-  secret: string = SIGNED_URL_SECRET,
+  secret: string = requireSecret("SIGNED_URL_SECRET"),
 ): { valid: boolean; reason?: "expired" | "invalid_signature" | "malformed" } {
   if (!slug || !email || !expiresStr || !sig) {
     return { valid: false, reason: "malformed" };

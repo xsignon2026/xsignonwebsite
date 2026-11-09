@@ -1,5 +1,6 @@
 // T-078: Cron route for automated data cleanup (7-day unverified TTL & 90-day download log retention).
 import { NextRequest, NextResponse } from "next/server";
+import { safeEqual } from "@/lib/safe-equal";
 import { runDataCleanup } from "@/lib/verification/cleanup";
 
 export async function POST(request: NextRequest) {
@@ -7,7 +8,7 @@ export async function POST(request: NextRequest) {
   const token = authHeader.replace(/^Bearer\s+/i, "");
   const expectedSecret = process.env.CRON_SECRET;
 
-  if (expectedSecret && token !== expectedSecret) {
+  if (!expectedSecret || expectedSecret.length < 16 || !safeEqual(token, expectedSecret)) {
     return NextResponse.json({ error: "Unauthorized cron caller" }, { status: 401 });
   }
 

@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { markVerificationBounced } from "@/lib/verification/store";
 import { addSuppression } from "@/lib/newsletter/provider";
+import { safeEqual } from "@/lib/safe-equal";
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,8 +13,13 @@ export async function POST(request: NextRequest) {
 
     const expectedSecret = process.env.WEBHOOK_SIGNING_SECRET;
 
-    // Validate webhook secret if configured in environment
-    if (expectedSecret && authHeader !== expectedSecret) {
+    // Closed by default: with no secret configured, nobody can call this route.
+    if (
+      !expectedSecret ||
+      expectedSecret.length < 16 ||
+      !authHeader ||
+      !safeEqual(authHeader, expectedSecret)
+    ) {
       return NextResponse.json({ error: "Unauthorized webhook caller" }, { status: 401 });
     }
 

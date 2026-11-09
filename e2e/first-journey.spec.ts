@@ -7,6 +7,18 @@ test.describe("T-061: First Customer Journey (Product Discovery -> Inquiry -> Th
   test("visitor discovers PostureOne, navigates to inquiry, and submits successfully", async ({
     page,
   }) => {
+    // The server answer is faked so no database is needed; the real route is tested in src/tests.
+    await page.route("**/api/contact", (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        headers: {
+          "set-cookie": "contact_sent=1; Path=/contact; Max-Age=600; HttpOnly; SameSite=Lax",
+        },
+        body: JSON.stringify({ ok: true }),
+      }),
+    );
+
     // 1. Visit Product Page
     await page.goto("/products/postureone", { waitUntil: "networkidle" });
 
@@ -28,7 +40,7 @@ test.describe("T-061: First Customer Journey (Product Discovery -> Inquiry -> Th
     await page.waitForURL("**/contact**");
 
     // Select Reason
-    await page.selectOption("select#cfReason", "Book a strategy call");
+    await page.selectOption("select#cfReason", "strategy-call");
 
     // 3. Fill in Contact Form
     await page.fill("input#cfName", "Jordan Lee");
@@ -38,9 +50,8 @@ test.describe("T-061: First Customer Journey (Product Discovery -> Inquiry -> Th
       "textarea#cfMsg",
       "Requesting technical architecture review for zero-trust posture.",
     );
-    await page.check("input#cfSms");
 
-    // 4. Wait for minimum human interaction time (bot defense check requires >1500ms)
+    // 4. Wait for minimum human interaction time (the server drops forms sent faster than a person could)
     await page.waitForTimeout(1600);
 
     // 5. Submit Contact Form

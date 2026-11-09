@@ -3,7 +3,8 @@ import Link from "next/link";
 import React, { Suspense } from "react";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { Container } from "@/components/layout/Container";
-import { getEnquiryById } from "@/lib/enquiry/store";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Thank You | XSignOn",
@@ -14,34 +15,21 @@ export const metadata: Metadata = {
   },
 };
 
-type ThankYouPageProps = {
-  searchParams: Promise<{ session?: string }>;
-};
-
-async function ThankYouContent({ searchParams }: { searchParams: Promise<{ session?: string }> }) {
-  const { session } = await searchParams;
-  const enquiry = session ? await getEnquiryById(session) : null;
-
+// T-058: only reachable right after sending. The contact route sets a short-lived cookie; anyone
+// else who opens this address is sent back to the form.
+async function ThankYouContent() {
+  if (!(await cookies()).has("contact_sent")) redirect("/contact");
   return (
     <div className="mt-8 max-w-xl text-lg text-on-dark-mut leading-relaxed">
-      {enquiry ? (
-        <p>
-          We have received your inquiry for{" "}
-          <strong className="text-white">{enquiry.data.reason}</strong>. Our architecture team will
-          review your requirements and reach out to{" "}
-          <strong className="text-white">{enquiry.data.email}</strong> within one business day.
-        </p>
-      ) : (
-        <p>
-          Your inquiry has been accepted into our architecture review queue. We will review your
-          requirements and reach out within one business day.
-        </p>
-      )}
+      <p>
+        Your message has been received. Someone on our team will read it and reply by email within
+        one business day.
+      </p>
     </div>
   );
 }
 
-export default function ThankYouPage({ searchParams }: ThankYouPageProps) {
+export default function ThankYouPage() {
   return (
     <article className="min-h-screen">
       <section
@@ -75,7 +63,7 @@ export default function ThankYouPage({ searchParams }: ThankYouPageProps) {
               </div>
             }
           >
-            <ThankYouContent searchParams={searchParams} />
+            <ThankYouContent />
           </Suspense>
 
           <div className="mt-12 flex flex-wrap items-center gap-4">

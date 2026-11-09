@@ -103,48 +103,6 @@ test.describe("Tools & Utility Batch QA (T-136)", () => {
     });
   });
 
-  test.describe("Auth Pages (/login, /register)", () => {
-    test.beforeEach(async ({ page }) => {
-      await page.addInitScript(() => {
-        window.localStorage.setItem("xsignon_consent_status", "accepted");
-      });
-    });
-
-    test("renders Login page and handles simulated submission", async ({ page }) => {
-      await page.goto("/login");
-      await expect(page.locator("h1")).toContainText("Secure access starts with one sign-in");
-
-      const emailInput = page.locator("#liEmail");
-      const passInput = page.locator("#liPass");
-      const submitBtn = page.getByRole("button", { name: "Log in" });
-
-      await emailInput.fill("admin@regulatedcorp.com");
-      await passInput.fill("SecureSecret123!");
-      await submitBtn.click();
-
-      // Verify simulated post-submit state
-      const doneCard = page.locator("#loginDone");
-      await expect(doneCard).toBeVisible();
-      await expect(doneCard).toContainText("Welcome back.");
-      await expect(doneCard.getByRole("link", { name: "Back to home" })).toBeVisible();
-    });
-
-    test("renders Register page and handles simulated submission", async ({ page }) => {
-      await page.goto("/register");
-      await expect(page.locator("h1")).toContainText("Your identity, ready for what's next");
-
-      await page.locator("#rgName").fill("Elena Vance");
-      await page.locator("#rgEmail").fill("elena@defensecontractor.com");
-      await page.locator("#rgCompany").fill("Defense contractor");
-      await page.locator("#rgPass").fill("HardwareKeyBound2026!");
-      await page.getByRole("button", { name: "Create account" }).click();
-
-      const doneCard = page.locator("#registerDone");
-      await expect(doneCard).toBeVisible();
-      await expect(doneCard).toContainText("Registration initiated.");
-    });
-  });
-
   test.describe("404 and Error Recovery (/not-found)", () => {
     test("returns 404 HTTP status code and recovery navigation for unmatched paths", async ({
       page,
@@ -195,7 +153,7 @@ test.describe("Tools & Utility Batch QA (T-136)", () => {
     test("does not introduce horizontal overflow at 320px viewport", async ({ page }) => {
       await page.setViewportSize({ width: 320, height: 640 });
 
-      for (const route of ["/roi-calculator", "/privacy", "/terms", "/login", "/register"]) {
+      for (const route of ["/roi-calculator", "/privacy", "/terms"]) {
         await page.goto(route);
         const hasOverflow = await page.evaluate(() => {
           return document.documentElement.scrollWidth > document.documentElement.clientWidth;

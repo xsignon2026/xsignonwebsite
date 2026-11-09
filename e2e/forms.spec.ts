@@ -14,7 +14,7 @@ test.describe("E2E: Forms & Lead Capture", () => {
     await expect(form.locator('textarea[name="message"]')).toBeVisible();
 
     // Verify honeypot is hidden from sighted users
-    const honeypot = form.locator('input[name="website_url_hp"]');
+    const honeypot = form.locator('input[name="hp_check"]');
     await expect(honeypot).toBeAttached();
   });
 

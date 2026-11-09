@@ -1,9 +1,18 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
-import { CONTACT_REASONS, type ContactFormData } from "@/lib/contact/validation";
-import { TCPA_CONSENT_TEXT } from "@/app/api/contact/route";
+import React, { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { REASONS, validateContact } from "@/lib/contact/schema";
+
+type ContactFormData = {
+  name: string;
+  email: string;
+  company: string;
+  phone: string;
+  reason: string;
+  message: string;
+  hp_check: string;
+};
 
 export function ContactForm() {
   const router = useRouter();
@@ -14,12 +23,23 @@ export function ContactForm() {
     phone: "",
     reason: "",
     message: "",
-    sms: false,
-    website_url_hp: "",
+    hp_check: "",
   });
 
-  const mountTimeRef = useRef<number>(0);
-  const idempotencyKeyRef = useRef<string>("");
+  // A new key per page load: a retry of the same send is recognised and saved only once.
+  const keyRef = useRef<string>("");
+  const startedAt = useRef(0);
+  // false on the server and until the page is running in the browser: the button stays off until then,
+  // so a visitor without JavaScript cannot send the answers in the address bar.
+  const ready = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+  useEffect(() => {
+    keyRef.current = crypto.randomUUID();
+    startedAt.current = Date.now();
+  }, []);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [generalError, setGeneralError] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -31,11 +51,6 @@ export function ContactForm() {
   const phoneRef = useRef<HTMLInputElement>(null);
   const reasonRef = useRef<HTMLSelectElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    mountTimeRef.current = Date.now();
-    idempotencyKeyRef.current = `idem_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -71,13 +86,21 @@ export function ContactForm() {
     e.preventDefault();
     setGeneralError("");
     setErrors({});
+
+    // Check in the browser first, for a quick answer. The server checks again.
+    const check = validateContact(formData);
+    if (!check.ok) {
+      setErrors(check.errors as Record<string, string>);
+      focusFirstError(check.errors as Record<string, string>);
+      return;
+    }
     setIsSubmitting(true);
 
     try {
-      const payload: ContactFormData = {
+      const payload = {
         ...formData,
-        timestamp: mountTimeRef.current,
-        idempotencyKey: idempotencyKeyRef.current,
+        submissionKey: keyRef.current,
+        elapsedMs: Date.now() - startedAt.current,
       };
 
       const res = await fetch("/api/contact", {
@@ -86,20 +109,26 @@ export function ContactForm() {
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
 
-      if (!res.ok || !data.success) {
-        if (data.errors) {
+      if (!res.ok || !data.ok) {
+        if (data.errors && Object.keys(data.errors).length > 0) {
           setErrors(data.errors);
           focusFirstError(data.errors);
         }
-        setGeneralError(data.message || "Failed to submit. Please check your inputs.");
+        setGeneralError(
+          res.status === 429
+            ? "Too many messages from your network. Please try again in a few minutes."
+            : res.status === 503
+              ? "We could not send your message right now. Please try again shortly."
+              : "Please check the highlighted fields and try again.",
+        );
         setIsSubmitting(false);
         return;
       }
 
       // Success: redirect to thank you page
-      router.push(data.redirectUrl || "/contact/thank-you");
+      router.push("/contact/thank-you");
     } catch {
       setGeneralError("A network error occurred. Please check your connection and try again.");
       setIsSubmitting(false);
@@ -118,17 +147,17 @@ export function ContactForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} noValidate className="space-y-6">
+      <form method="post" onSubmit={handleSubmit} noValidate className="space-y-6">
         {/* Anti-bot honeypot */}
         <div aria-hidden="true" className="hidden">
-          <label htmlFor="website_url_hp">Website</label>
+          <label htmlFor="hp_check">Website</label>
           <input
-            id="website_url_hp"
-            name="website_url_hp"
+            id="hp_check"
+            name="hp_check"
             type="text"
             tabIndex={-1}
             autoComplete="off"
-            value={formData.website_url_hp || ""}
+            value={formData.hp_check || ""}
             onChange={handleChange}
           />
         </div>
@@ -279,9 +308,9 @@ export function ContactForm() {
             }`}
           >
             <option value="">Select a reason</option>
-            {CONTACT_REASONS.map((r, i) => (
-              <option key={i} value={r}>
-                {r}
+            {REASONS.map((r) => (
+              <option key={r.value} value={r.value}>
+                {r.label}
               </option>
             ))}
           </select>
@@ -322,26 +351,17 @@ export function ContactForm() {
           )}
         </div>
 
-        {/* T-059: TCPA-Compliant SMS Consent Checkbox */}
-        <div className="pt-1">
-          <label className="flex items-start gap-3 cursor-pointer select-none">
-            <input
-              id="cfSms"
-              name="sms"
-              type="checkbox"
-              checked={formData.sms || false}
-              onChange={handleChange}
-              className="mt-1 h-4 w-4 rounded border-line text-acc focus:ring-acc"
-            />
-            <span className="text-xs text-gray leading-relaxed">{TCPA_CONSENT_TEXT}</span>
-          </label>
-        </div>
+        <noscript>
+          <p className="rounded-lg border border-line bg-paper p-4 text-sm text-gray">
+            This form needs JavaScript. Please turn it on, or try another browser.
+          </p>
+        </noscript>
 
         {/* Submit button */}
         <div className="pt-2">
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !ready}
             aria-busy={isSubmitting}
             className="inline-flex min-h-12 w-full md:w-auto items-center justify-center gap-2 rounded-full bg-txt px-8 py-3 text-button font-semibold text-white shadow-md transition-[background-color,transform] duration-200 hover:bg-black active:scale-[.98] disabled:opacity-50 disabled:cursor-not-allowed"
           >

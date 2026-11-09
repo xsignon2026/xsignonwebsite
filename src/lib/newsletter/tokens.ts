@@ -1,17 +1,17 @@
 // T-076: Cryptographic token generator and validator for RFC 8058 one-click unsubscribe links.
 import crypto from "crypto";
 
-const SECRET =
-  process.env.UNSUBSCRIBE_SECRET ||
-  process.env.APP_SECRET ||
-  "xsignon-prod-unsub-secret-key-32b-secure";
+import { requireSecret } from "@/lib/require-secret";
 
 /**
  * Generates an HMAC SHA-256 token for an email address to allow safe one-click unsubscription.
  */
 export function generateUnsubscribeToken(email: string): string {
   const normalized = email.toLowerCase().trim();
-  return crypto.createHmac("sha256", SECRET).update(`${normalized}:unsubscribe`).digest("hex");
+  return crypto
+    .createHmac("sha256", requireSecret("UNSUBSCRIBE_SECRET"))
+    .update(`${normalized}:unsubscribe`)
+    .digest("hex");
 }
 
 /**

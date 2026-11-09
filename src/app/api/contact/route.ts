@@ -1,117 +1,118 @@
-import { NextRequest, NextResponse } from "next/server";
-import { validateContactForm, type ContactFormData } from "@/lib/contact/validation";
-import { checkRateLimit, checkIdempotency, saveIdempotency } from "@/lib/contact/rate-limit";
-import { saveEnquiry, updateEnquiryStatus, type EnquiryRecord } from "@/lib/enquiry/store";
-import { sendEnquiryEmails, getAppEnvironment } from "@/lib/mailer";
+import * as Sentry from "@sentry/nextjs";
+import { after, connection, type NextRequest, NextResponse } from "next/server";
+import { processDeliveries } from "@/lib/contact/deliver";
+import { handleContact } from "@/lib/contact/handler";
+import { getDb } from "@/lib/db";
+import { getMailConfig } from "@/lib/mail/config";
+import { readCapped } from "@/lib/read-capped";
 
-export const TCPA_CONSENT_TEXT =
-  "By checking this box, I agree to receive text messages from XSignOn about my inquiry at the phone number provided. Message and data rates may apply. Reply STOP to opt out.";
+// T-055: POST /api/contact. The steps and their order are in src/lib/contact/handler.ts.
+// This file only checks the request itself: where it came from, its type, its size, and that the
+// server is configured, then hands the body over.
+const MAX_BODY_BYTES = 16 * 1024;
+const NO_STORE = { "Cache-Control": "no-store" };
+
+function reply(status: number, body: object, headers: Record<string, string> = {}) {
+  return NextResponse.json(body, { status, headers: { ...NO_STORE, ...headers } });
+}
+
+// An Origin header that is missing is fine (not a browser cross-site request). One that is present
+// must name this site. Anything that is not a valid address ("null", "x") counts as another site.
+function isSameSite(origin: string | null, host: string | null): boolean {
+  if (!origin) return true;
+  try {
+    return new URL(origin).host === host;
+  } catch {
+    return false;
+  }
+}
 
 export async function POST(request: NextRequest) {
-  try {
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      request.headers.get("x-real-ip") ||
-      "127.0.0.1";
+  await connection(); // read the environment at request time, not at build time
 
-    // 1. Rate Limiting (5 requests per 10 mins)
-    const rateCheck = checkRateLimit(ip);
-    if (!rateCheck.allowed) {
-      return NextResponse.json(
-        {
-          success: false,
-          message:
-            "Too many inquiries sent from this address. Please wait a few minutes before trying again.",
-        },
-        { status: 429 },
-      );
-    }
-
-    const body = (await request.json()) as Partial<ContactFormData>;
-
-    // 2. Idempotency Check (Duplicate double-clicks)
-    const cachedResponse = checkIdempotency(body.idempotencyKey);
-    if (cachedResponse) {
-      return NextResponse.json(cachedResponse, { status: 200 });
-    }
-
-    // 3. Validation & Bot Defense
-    const validation = validateContactForm(body);
-    if (!validation.valid) {
-      return NextResponse.json(
-        {
-          success: false,
-          errors: validation.errors,
-          message: "Please correct the highlighted fields.",
-        },
-        { status: 400 },
-      );
-    }
-
-    // 4. Create Durable Enquiry Record
-    const enquiryId = `enq_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-    const userAgent = request.headers.get("user-agent") || undefined;
-    const environment = getAppEnvironment();
-
-    const record: EnquiryRecord = {
-      id: enquiryId,
-      createdAt: new Date().toISOString(),
-      data: {
-        name: body.name!.trim(),
-        email: body.email!.trim(),
-        company: body.company!.trim(),
-        phone: body.phone?.trim() || undefined,
-        reason: body.reason!.trim(),
-        message: body.message!.trim(),
-        smsConsent: Boolean(body.sms),
-        smsConsentText: TCPA_CONSENT_TEXT,
-        ipAddress: ip,
-        userAgent,
-      },
-      status: "pending",
-      retries: 0,
-      environment,
-    };
-
-    // Save locally first to guarantee durability
-    await saveEnquiry(record);
-
-    // 5. External Delivery (Email / CRM) with Failure Strategy
-    try {
-      const emailResult = await sendEnquiryEmails(record);
-      if (emailResult.notification.success) {
-        await updateEnquiryStatus(enquiryId, "delivered");
-      } else {
-        await updateEnquiryStatus(
-          enquiryId,
-          "failed_pending_retry",
-          emailResult.notification.error,
-        );
-      }
-    } catch (deliveryError) {
-      const err = deliveryError instanceof Error ? deliveryError.message : "Delivery failure";
-      await updateEnquiryStatus(enquiryId, "failed_pending_retry", err);
-      // Notice: Do NOT rethrow or fail the visitor request. The enquiry is durable.
-    }
-
-    const responsePayload = {
-      success: true,
-      enquiryId,
-      redirectUrl: `/contact/thank-you?session=${encodeURIComponent(enquiryId)}`,
-    };
-
-    if (body.idempotencyKey) {
-      saveIdempotency(body.idempotencyKey, responsePayload);
-    }
-
-    return NextResponse.json(responsePayload, { status: 200 });
-  } catch {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "An unexpected server error occurred while processing your inquiry.",
-      },
-      { status: 500 },
-    );
+  if (!isSameSite(request.headers.get("origin"), request.headers.get("host"))) {
+    return reply(403, { ok: false, error: "forbidden" });
   }
+  // A cross-site HTML form cannot send JSON, so requiring it closes simple form-post forgery.
+  if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) {
+    return reply(415, { ok: false, error: "unsupported" });
+  }
+
+  const raw = await readCapped(request, MAX_BODY_BYTES);
+  if (raw === null) return reply(413, { ok: false, error: "too_large" });
+
+  let body: unknown;
+  try {
+    body = JSON.parse(raw);
+  } catch {
+    return reply(400, { ok: false, errors: {} });
+  }
+
+  const db = getDb();
+  const hashSecret = process.env.ENQUIRY_HASH_SECRET;
+  if (!db || !hashSecret || hashSecret.length < 32) {
+    console.error("The contact form is not configured (DATABASE_URL, ENQUIRY_HASH_SECRET).");
+    return reply(503, { ok: false, error: "unavailable" });
+  }
+
+  // shortcut: the sender address is trusted from the platform's headers, which is only safe behind
+  // Vercel (it sets x-real-ip and overwrites x-forwarded-for). Behind any other proxy a visitor could
+  // choose their own. Revisit if hosting changes (docs/runbook.md). If neither header is present,
+  // senders share one "unknown" group, which the other limits still cap.
+  const clientIp =
+    request.headers.get("x-real-ip") ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    "unknown";
+
+  const result = await handleContact(body, {
+    db,
+    now: Date.now,
+    hashSecret,
+    clientIp,
+    onSaveError: (code) =>
+      Sentry.captureMessage("Contact enquiry could not be saved", {
+        level: "error",
+        extra: { code },
+      }),
+  });
+
+  const headers: Record<string, string> =
+    result.status === 429 ? { "Retry-After": String(result.retryAfterSeconds) } : {};
+  const response = reply(result.status, result.body, headers);
+
+  if (result.status === 200) {
+    // T-058: lets the thank-you page know this visitor just sent a message. Short-lived, same-site,
+    // not readable by scripts, and it holds nothing about the enquiry.
+    response.cookies.set("contact_sent", "1", {
+      path: "/contact",
+      maxAge: 600,
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    // T-056: a first attempt to send the emails right away, after the visitor has their answer.
+    // If it fails or never runs, the scheduled retry (and the stale-delivery alarm) cover it.
+    const config = getMailConfig();
+    if (config) {
+      after(async () => {
+        try {
+          await processDeliveries({
+            db,
+            config,
+            now: Date.now,
+            onPermanentFailure: (code) =>
+              Sentry.captureMessage("An enquiry email failed permanently", {
+                level: "error",
+                extra: { code },
+              }),
+          });
+        } catch {
+          // The deliveries stay pending; the retry picks them up.
+          Sentry.captureMessage("Enquiry delivery run failed", { level: "error" });
+        }
+      });
+    }
+  }
+  return response;
 }
