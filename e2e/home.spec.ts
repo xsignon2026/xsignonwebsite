@@ -26,12 +26,6 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(slides).toHaveCount(5);
     await expect(slides.first()).toHaveClass(/act/);
 
-    // Verify Pause control on hero slider
-    const pauseBtn = heroCard.locator(".hpause");
-    await expect(pauseBtn).toBeVisible();
-    await pauseBtn.click();
-    await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
-
     // Dot interaction
     const dot2 = heroCard.locator(".hdot").nth(1);
     await dot2.click();

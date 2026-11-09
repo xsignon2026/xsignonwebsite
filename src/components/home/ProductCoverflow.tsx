@@ -443,15 +443,6 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
             >
               →
             </button>
-            <button
-              className="cf-arrow cf-play-pause text-xs font-semibold"
-              type="button"
-              aria-label={isPaused ? "Resume product rotation" : "Pause product rotation"}
-              aria-pressed={isPaused}
-              onClick={() => setIsPaused((prev) => !prev)}
-            >
-              {isPaused ? "▶" : "❚❚"}
-            </button>
             <p className="cf-status" id="cfStatus" aria-live="polite">
               {activeCard.name}, {currentIndex + 1} of {total}
             </p>

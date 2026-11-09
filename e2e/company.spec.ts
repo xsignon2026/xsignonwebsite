@@ -43,14 +43,7 @@ test.describe("Company Batch QA (T-129)", () => {
       await expect(panel.getByRole("link", { name: /Explore Identity Governance/i })).toBeVisible();
     });
 
-    test("Why XSignOn hub rotates and responds to pause controls", async ({ page }) => {
-      const pauseBtn = page.locator("#wxPause");
-      await expect(pauseBtn).toBeVisible();
-      await expect(pauseBtn).toContainText("Pause rotation");
-
-      await pauseBtn.click();
-      await expect(pauseBtn).toContainText("Resume rotation");
-
+    test("Why XSignOn hub rotates and switches tabs", async ({ page }) => {
       // Verify tabs switch active selection
       const tab2 = page.getByRole("tab", { name: /Autonomy within authority/i });
       await tab2.click();

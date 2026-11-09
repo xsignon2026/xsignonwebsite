@@ -108,7 +108,6 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           <div className="pmeta">
             <span className="ptag">{article.author}</span>
             <span className="ptag">{article.date}</span>
-            <span className="ptag">{article.readingTime}</span>
           </div>
         </div>
       </section>

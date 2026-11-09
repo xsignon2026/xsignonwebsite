@@ -137,14 +137,13 @@ function renderHeroSvg(iconKey: HomeHeroSlide["iconKey"]) {
   }
 }
 
-// T-091: Hero product carousel: auto-advance, keyboard navigation, and explicit pause control
+// T-091: Hero product carousel: auto-advance, keyboard navigation, and hover pause
 export function HeroSlider({ slides = defaultSlides }: HeroSliderProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [userPaused, setUserPaused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement | null>(null);
 
-  const isPaused = userPaused || isHovered;
+  const isPaused = isHovered;
   const total = slides.length;
 
   const show = (idx: number) => {
@@ -234,19 +233,6 @@ export function HeroSlider({ slides = defaultSlides }: HeroSliderProps) {
             );
           })}
         </div>
-        <button
-          type="button"
-          className="hpause"
-          aria-pressed={userPaused}
-          aria-label={
-            userPaused
-              ? "Resume product slides auto-rotation"
-              : "Pause product slides auto-rotation"
-          }
-          onClick={() => setUserPaused((prev) => !prev)}
-        >
-          {userPaused ? "Resume" : "Pause"}
-        </button>
       </div>
     </div>
   );

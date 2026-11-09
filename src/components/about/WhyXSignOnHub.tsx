@@ -159,36 +159,6 @@ export function WhyXSignOnHub(): React.JSX.Element {
         <p id="wxP">{current.desc}</p>
       </div>
 
-      <div
-        className="hubx-foot wx-foot"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "16px",
-          marginTop: "24px",
-        }}
-      >
-        <button
-          className="hubx-pause btn"
-          id="wxPause"
-          type="button"
-          onClick={() => setIsPaused((prev) => !prev)}
-          style={{
-            padding: "8px 18px",
-            borderRadius: "999px",
-            border: "1px solid var(--line)",
-            background: "var(--card)",
-            color: "var(--txt)",
-            fontSize: "13px",
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
-        >
-          {isPaused ? "▶ Resume rotation" : "⏸ Pause rotation"}
-        </button>
-      </div>
-
       {/* Static Fallback Links for Keyboard & Screen Reader Users (T-126 Invariant) */}
       <div
         className="static-pillars"

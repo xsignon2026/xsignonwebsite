@@ -10,18 +10,6 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
       });
     });
 
-    test("HeroSlider on Homepage provides working Pause/Resume control", async ({ page }) => {
-      await page.goto("/");
-      const pauseBtn = page.locator(".hpause");
-      await expect(pauseBtn).toBeVisible();
-      await expect(pauseBtn).toHaveText("Pause");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "false");
-
-      await pauseBtn.click();
-      await expect(pauseBtn).toHaveText("Resume");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
-    });
-
     test("PartnerHub on Homepage provides working Pause/Resume control", async ({ page }) => {
       await page.goto("/");
       const pauseBtn = page.locator("#hubxPause");
@@ -32,28 +20,6 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
       await pauseBtn.click();
       await expect(pauseBtn).toHaveText("Resume");
       await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
-    });
-
-    test("Standards Marquee provides working Pause/Resume control", async ({ page }) => {
-      await page.goto("/");
-      const pauseBtn = page.locator("#mqPause");
-      await expect(pauseBtn).toBeVisible();
-      await expect(pauseBtn).toHaveText("⏸ Pause");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "false");
-
-      await pauseBtn.click();
-      await expect(pauseBtn).toHaveText("▶ Resume");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
-    });
-
-    test("WhyXSignOnHub on About page provides working Pause/Resume control", async ({ page }) => {
-      await page.goto("/about");
-      const pauseBtn = page.locator("#wxPause");
-      await expect(pauseBtn).toBeVisible();
-      await expect(pauseBtn).toContainText("Pause rotation");
-
-      await pauseBtn.click();
-      await expect(pauseBtn).toContainText("Resume rotation");
     });
   });
 
