@@ -8,7 +8,7 @@ This is a draft. Section 8 (audit results) is filled in as the three audits fini
 
 - **Branch:** `Version-2`, created from `Version-1` (commit `89eb178`). Nothing on `Version-1` is changed.
 - **Reference:** the prototype is copied into the repository at `reference/prototype-v5/` (open `index.html`; each page is a view, opened with `index.html#<name>`, for example `#products` or `#postureone`). It is the source of truth for how every page looks.
-- **Definition of "same as the prototype":** the same sections in the same order, the same words, the same images, the same colours, spacing, type sizes, card and button styles, the same dark and light bands, the same interactive pieces (tabs, carousels, the ROI calculator, scroll reveal), and the same layout at 1280, 900 and 375 px. "Same coding language" is read as: the prototype's own HTML structure, CSS class names and design tokens are copied across as they are (not re-interpreted), and the app stays on its stack (Next.js, React, TypeScript). If you meant dropping Next.js for plain HTML, say so now: it changes the plan.
+- **Definition of "same as the prototype":** the design is the same. The same sections in the same order, the same words, the same images, the same colours, spacing, type sizes, card and button styles, the same dark and light bands, the same interactive pieces (tabs, carousels, the ROI calculator, scroll reveal), and the same layout at 1280, 900 and 375 px. The prototype's own CSS rules and markup are copied across rather than re-interpreted, so the result matches. The app stays on Next.js and React.
 
 ## 2. What is verified about Version-1 so far
 
@@ -139,8 +139,7 @@ To be filled in as each finishes:
 
 ## 10. Decisions for the project lead
 
-1. **"Same coding language":** confirm the reading in section 1 (prototype's markup and CSS, app stays on Next.js).
-2. **The allocation in section 3:** confirm, or move pages between the two halves.
-3. **My earlier batch branches:** they hold the hardened contact form, the email delivery with retries, the owner page and the review fixes. Version-1 has its own versions of some of these. After the audits, I recommend which version of each to keep. Do you want me to re-push those branches so they are on GitHub?
-4. **Sanity:** who creates the project, and when (section 6, steps 1 to 5).
-5. **Who merges:** the plan has Claude merge into `Version-2`. If a human developer must approve, name them.
+1. **The allocation in section 3:** confirm, or move pages between the two halves.
+2. **My earlier batch branches:** they hold the hardened contact form, the email delivery with retries, the owner page and the review fixes. Version-1 has its own versions of some of these. After the audits, I recommend which version of each to keep. Do you want me to re-push those branches so they are on GitHub?
+3. **Sanity:** who creates the project, and when (section 6, steps 1 to 5).
+4. **Who merges:** the plan has Claude merge into `Version-2`. If a human developer must approve, name them.
