@@ -2,6 +2,7 @@
 @import "../styles/tokens.css";
 @import "./home-and-proof.css";
 @import "../styles/primitives.css";
+@import "../styles/shell.css";
 
 /* S-10 base styles, from the handoff sections 3, 4 and 5.5 */
 @layer base {

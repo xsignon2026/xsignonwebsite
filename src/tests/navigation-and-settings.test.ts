@@ -19,7 +19,7 @@ describe("Navigation & Site Settings Fallback Data", () => {
 
   it("provides valid siteSettings fallback data", () => {
     expect(siteSettingsFallback.headerCta).not.toBeNull();
-    expect(siteSettingsFallback.headerCta?.label).toBe("Contact");
+    expect(siteSettingsFallback.headerCta?.label).toBe("Contact Us");
     expect(siteSettingsFallback.headerCta?.link.href).toBe("/contact");
 
     expect(siteSettingsFallback.footerGroups.length).toBe(4);

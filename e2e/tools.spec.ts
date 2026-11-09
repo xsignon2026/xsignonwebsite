@@ -118,37 +118,6 @@ test.describe("Tools & Utility Batch QA (T-136)", () => {
     });
   });
 
-  test.describe("Consent Banner (T-135)", () => {
-    test("displays on fresh visit, accepts consent, and remains hidden on subsequent visits", async ({
-      page,
-    }) => {
-      // Clear storage
-      await page.goto("/");
-      await page.evaluate(() => window.localStorage.clear());
-      await page.reload();
-
-      const banner = page.getByRole("region", { name: "Cookie consent" });
-      await expect(banner).toBeVisible();
-
-      // Click Accept All
-      const acceptBtn = banner.getByRole("button", { name: "Accept All" });
-      await acceptBtn.click();
-
-      // Banner should disappear
-      await expect(banner).toBeHidden();
-
-      // Check localStorage
-      const status = await page.evaluate(() =>
-        window.localStorage.getItem("xsignon_consent_status"),
-      );
-      expect(status).toBe("accepted");
-
-      // Reload - banner stays hidden
-      await page.reload();
-      await expect(page.getByRole("region", { name: "Cookie consent" })).toBeHidden();
-    });
-  });
-
   test.describe("Mobile 320px Responsiveness Check", () => {
     test("does not introduce horizontal overflow at 320px viewport", async ({ page }) => {
       await page.setViewportSize({ width: 320, height: 640 });

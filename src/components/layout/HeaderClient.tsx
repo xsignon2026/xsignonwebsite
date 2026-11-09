@@ -1,11 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import type { NavItem } from "@/types/navigation";
-import { NavDesktop } from "./NavDesktop";
-import { NavMobile } from "./NavMobile";
-import { ButtonLink } from "../ui/ButtonLink";
 
 type HeaderClientProps = {
   navItems: NavItem[];
@@ -15,22 +13,17 @@ type HeaderClientProps = {
   } | null;
 };
 
-// Handoff 5.1 / CSV T-041: Header Client with theme detection (84px offset) and sticky blur.
+// The site header, built from the prototype's markup and classes (src/styles/shell.css).
+// It switches between a dark and a light look depending on the band under it (data-nav on sections).
 export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [mounted, setMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const mountTimer = setTimeout(() => {
-      setMounted(true);
-    }, 0);
-
     function checkTheme() {
-      // Find the first [data-nav] section that covers the point 84px from viewport top
-      const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-nav]"));
+      // The first [data-nav] band that covers the point 84px from the top of the window.
       const targetY = 84;
-
-      for (const section of sections) {
+      for (const section of document.querySelectorAll<HTMLElement>("[data-nav]")) {
         const rect = section.getBoundingClientRect();
         if (rect.top <= targetY && rect.bottom >= targetY) {
           const navTheme = section.getAttribute("data-nav");
@@ -46,18 +39,12 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
     window.addEventListener("scroll", checkTheme, { passive: true });
     window.addEventListener("resize", checkTheme, { passive: true });
     window.addEventListener("popstate", checkTheme);
-
-    // Observe client-side route transitions when main content updates
-    const observer = new MutationObserver(() => {
-      checkTheme();
-    });
-    const mainEl = document.getElementById("main-content");
-    if (mainEl) {
-      observer.observe(mainEl, { childList: true, subtree: true });
-    }
+    // Pages change without a reload, so look again when the content changes.
+    const observer = new MutationObserver(checkTheme);
+    const main = document.getElementById("main-content");
+    if (main) observer.observe(main, { childList: true, subtree: true });
 
     return () => {
-      clearTimeout(mountTimer);
       observer.disconnect();
       window.removeEventListener("scroll", checkTheme);
       window.removeEventListener("resize", checkTheme);
@@ -65,49 +52,113 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
     };
   }, []);
 
-  const isDark = theme === "dark";
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  const close = () => setMenuOpen(false);
 
   return (
-    <header
-      id="site-header"
-      className={`sticky top-0 z-[90] h-[69px] max-md:h-[62px] w-full border-b backdrop-blur-md ease-brand ${
-        mounted ? "transition-colors duration-200" : ""
-      } ${isDark ? "border-d-line bg-d1/97 text-white" : "border-line bg-paper/97 text-txt"}`}
-    >
-      <div className="mx-auto flex h-full max-w-[1180px] items-center justify-between px-8 max-md:px-5">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="group inline-flex items-center transition-transform active:scale-[.98]"
-          aria-label="XSignOn - Simplifying cybersecurity"
-        >
-          <img
-            src={isDark ? "/images/logo-dark.png" : "/images/logo-light.png"}
+    <header className={`site nav-${theme}`} id="siteHeader">
+      <div className="wrap">
+        <Link className="logo" href="/" aria-label="XSignOn home" onClick={close}>
+          <Image
+            className="logo-img on-dark"
+            src="/images/logo-dark.png"
             alt="XSignOn - Simplifying cybersecurity"
-            className="h-9 md:h-11 w-auto object-contain"
+            width={760}
+            height={198}
+            priority
+          />
+          <Image
+            className="logo-img on-light"
+            src="/images/logo-light.png"
+            alt=""
+            aria-hidden="true"
+            width={760}
+            height={198}
+            priority
           />
         </Link>
 
-        {/* Desktop Nav */}
-        <NavDesktop items={navItems} />
+        <nav className="main" aria-label="Primary">
+          {navItems.map((item) => {
+            const children = (item.children ?? []).filter((child) => !child.mobileOnly);
+            return (
+              <div className="nav-item" key={item.label}>
+                <Link className="nav-link" href={item.link?.href ?? "#"}>
+                  {item.label}{" "}
+                  {children.length > 0 && (
+                    <span className="caret" aria-hidden="true">
+                      &#9662;
+                    </span>
+                  )}
+                </Link>
+                {children.length > 0 && (
+                  <div className="dropdown">
+                    {children.map((child) =>
+                      child.link.href ? (
+                        <Link key={child.label} href={child.link.href}>
+                          {child.label}
+                        </Link>
+                      ) : null,
+                    )}
+                    {item.crossLink && (
+                      <div className="drop-foot">
+                        <span className="meta">Cross-link</span>
+                        <Link href={item.crossLink.href}>{item.crossLink.label}</Link>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </nav>
 
-        {/* Right CTA & Mobile Menu */}
-        <div className="flex items-center gap-3">
+        <div className="head-actions">
           {headerCta && (
-            <div className="hidden sm:block">
-              <ButtonLink
-                href={headerCta.href}
-                variant="contact"
-                className={isDark ? "border-on-dark-ctl text-white" : "border-ctl text-txt"}
-              >
-                {headerCta.label}
-              </ButtonLink>
-            </div>
+            <Link className="btn btn-contact" href={headerCta.href} onClick={close}>
+              {headerCta.label}
+            </Link>
           )}
-
-          <NavMobile items={navItems} cta={headerCta} />
+          <button
+            className="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="mobileNav"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            Menu
+          </button>
         </div>
       </div>
+
+      <nav className={`mobile-nav${menuOpen ? " open" : ""}`} id="mobileNav" aria-label="Mobile">
+        {navItems.map((item) => (
+          <React.Fragment key={item.label}>
+            <div className="m-group">{item.label}</div>
+            {(item.children ?? []).map((child) =>
+              child.link.href ? (
+                <Link key={child.label} href={child.link.href} onClick={close}>
+                  {child.label}
+                </Link>
+              ) : null,
+            )}
+          </React.Fragment>
+        ))}
+        {headerCta && (
+          <Link className="m-top" href={headerCta.href} onClick={close}>
+            {headerCta.label}
+          </Link>
+        )}
+      </nav>
     </header>
   );
 }

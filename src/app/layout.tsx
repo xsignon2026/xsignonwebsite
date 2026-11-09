@@ -4,7 +4,6 @@ import { SkipLink } from "@/components/layout/SkipLink";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { QuestionsWidget } from "@/components/layout/QuestionsWidget";
-import { ConsentBanner } from "@/components/common/ConsentBanner";
 import { WebVitals } from "@/components/common/WebVitals";
 import { JsonLd } from "@/components/common/JsonLd";
 import { createOrganizationSchema } from "@/lib/schema-org";
@@ -38,7 +37,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main id="main-content">{children}</main>
         <Footer />
         <QuestionsWidget />
-        <ConsentBanner />
         <WebVitals />
       </body>
     </html>

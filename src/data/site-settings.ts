@@ -2,7 +2,7 @@ import type { SiteSettingsData } from "@/types/site-settings";
 
 export const siteSettingsFallback: SiteSettingsData = {
   headerCta: {
-    label: "Contact",
+    label: "Contact Us",
     link: { linkType: "internal", href: "/contact" },
   },
   footerGroups: [
