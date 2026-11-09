@@ -110,7 +110,6 @@
 
 /* Tailwind utilities that point at the tokens above (bg-d1, text-txt, border-line ...) */
 @theme inline {
-  --color-*: initial;
   --color-white: #ffffff;
   --color-transparent: transparent;
   --color-current: currentColor;

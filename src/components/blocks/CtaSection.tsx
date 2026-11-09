@@ -42,7 +42,7 @@ export function CtaSection({
                   className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-acc px-7 py-3 text-button font-semibold text-white shadow-lg transition-[background-color,transform] duration-280 ease-brand hover:bg-acc-hov active:scale-[.97]"
                 >
                   <span>{buttonText}</span>
-                  <span aria-hidden="true">&nearr;</span>
+                  <span aria-hidden="true">↗</span>
                 </Link>
               </div>
             </div>

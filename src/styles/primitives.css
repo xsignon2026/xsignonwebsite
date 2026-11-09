@@ -1,0 +1,164 @@
+/*
+ * V2 shared layout primitives, copied from the approved prototype (reference/prototype-v5/css/styles.css,
+ * lines 55-68, 243-244, 324-327, 412-425, 500-552, 848-854, 1504, 1530-1531).
+ * Loaded after home-and-proof.css so these rules win. Owned by the shell owner; pages must not redefine them.
+ */
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.2;
+  min-height: 48px;
+  padding: 12px 26px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition:
+    background 0.28s var(--ease),
+    border-color 0.28s var(--ease),
+    transform 0.15s var(--ease);
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn .chev {
+  margin-left: 8px;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1;
+}
+.btn-white {
+  background: #fff;
+  color: #081325;
+}
+.btn-white:hover {
+  background: var(--paper);
+}
+.btn-navy {
+  background: var(--acc);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 16px;
+}
+.btn-navy:hover {
+  background: var(--acc-hov);
+}
+.btn-ghost-d {
+  border-color: var(--d-line);
+  color: #fff;
+}
+.btn-ghost-d:hover {
+  border-color: #fff;
+}
+.btn-ghost-l {
+  border-color: var(--line);
+  color: var(--txt);
+}
+.btn-ghost-l:hover {
+  border-color: var(--txt);
+}
+
+.sec-head {
+  margin-bottom: 60px;
+}
+.sec-head.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-hero {
+  background: var(--d1);
+  color: #fff;
+  padding: 44px 0 84px;
+}
+.page-hero h1 {
+  color: #fff;
+  max-width: 920px;
+}
+.page-hero .pmeta {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.page-sec {
+  padding: 88px 0 0;
+}
+.page-sec .sec-head {
+  margin-bottom: 40px;
+}
+.page-sec.tight {
+  padding-top: 52px;
+}
+
+.cta-sec {
+  padding: 128px 0;
+  display: block;
+  background: linear-gradient(180deg, #120b3a 0, var(--footer) 100%);
+}
+.cta-sec.sm {
+  padding: 88px 0 110px;
+}
+.cta-panel {
+  position: relative;
+  display: block;
+  background: var(--d1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 76px 64px;
+  color: #fff;
+  overflow: visible;
+}
+.cta-panel.plain {
+  padding: 64px;
+}
+.cta-panel h2 {
+  color: #fff;
+  max-width: 520px;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-wrap: wrap;
+}
+.cta-panel .btn {
+  margin-top: 36px;
+}
+
+@media (max-width: 900px) {
+  .cta-panel.plain {
+    padding: 48px 40px;
+  }
+  .page-hero {
+    padding: 36px 0 60px;
+  }
+  .page-sec {
+    padding: 56px 0 0;
+  }
+  .cta-panel {
+    padding: 56px 40px;
+  }
+}
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 20px;
+  }
+  .sec-head {
+    margin-bottom: 36px;
+  }
+  .cta-sec {
+    padding: 76px 0;
+  }
+  .cta-panel,
+  .cta-panel.plain {
+    padding: 44px 26px;
+  }
+}
