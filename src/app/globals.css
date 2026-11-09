@@ -90,7 +90,7 @@
     --shadow-hub: var(--shadow-hub);
     --shadow-dropdown: var(--shadow-dropdown);
     --ease-soft: var(--ease-soft);
-    --text-display: clamp(38px, 4.2vw, 56px);
+    --text-display: clamp(38px, 4.8vw, 56px);
     --text-display--line-height: 1.08;
     --text-display--letter-spacing: -0.03em;
     --text-h2: clamp(30px, 3.8vw, 40px);
@@ -4299,6 +4299,55 @@ a.rel-row:hover .t {
     padding: 44px 26px;
   }
 }
+.h-display {
+  font-size: clamp(38px, 4.8vw, 56px);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--txt);
+}
+.hero-split .h-display, .hero-split h1, .about-hero h1, .page-hero .h-display, .page-hero h1, [data-nav="dark"] .h-display {
+  color: #fff;
+}
+.h2 {
+  font-size: clamp(30px, 3.8vw, 40px);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.h3 {
+  font-size: clamp(24px, 2.8vw, 28px);
+  line-height: 1.18;
+  font-weight: 700;
+}
+.meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--gray);
+}
+.ptag {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  letter-spacing: 0.03em;
+  color: var(--gray);
+}
+.page-hero .ptag, [data-nav="dark"] .ptag, section.dark .ptag {
+  border-color: var(--on-dark-ctl);
+  color: #b4bfd3;
+}
+.cf-dots {
+  gap: 0;
+  padding: 0 6px;
+}
+.cf-dot {
+  box-sizing: content-box;
+  padding: 8px;
+  background-clip: content-box;
+}
 header.site {
   position: sticky;
   top: 0;
@@ -4664,7 +4713,7 @@ footer li a:hover {
   h1 {
     font-size: var(--text-display);
     line-height: 1.08;
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: -0.03em;
   }
   h2 {

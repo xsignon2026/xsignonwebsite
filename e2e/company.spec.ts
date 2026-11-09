@@ -104,7 +104,10 @@ test.describe("Company Batch QA (T-129)", () => {
       for (let i = 0; i < count; i++) {
         const text = await jsonLdScripts.nth(i).textContent();
         if (text && text.includes("Security Engineer")) {
-          const parsed = JSON.parse(text);
+          // A page may carry one posting or a list of them.
+          const parsed = [JSON.parse(text)]
+            .flat()
+            .find((item: { title?: string }) => item.title === "Security Engineer");
           expect(parsed["@type"]).toBe("JobPosting");
           expect(parsed.title).toBe("Security Engineer");
           expect(parsed.hiringOrganization.name).toBe("XSignOn");

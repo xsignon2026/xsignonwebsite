@@ -164,7 +164,9 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
 
   test("T-100: Rejects non-existent or invalid slug with 404", async ({ page }) => {
     await page.goto("/proof/invalid-slug-12345");
-    await expect(page.getByRole("heading", { name: "404", level: 1 })).toBeVisible();
-    await expect(page.getByText("This page could not be found.")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "This page has moved.", level: 1 }),
+    ).toBeVisible();
+    await expect(page.locator(".ptag", { hasText: "404" })).toBeVisible();
   });
 });

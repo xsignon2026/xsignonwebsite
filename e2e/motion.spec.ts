@@ -67,7 +67,7 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
 
       // 1. Check Homepage
       await noJsPage.goto("/");
-      await expect(noJsPage.locator("h1")).toContainText("One sign-in people can trust");
+      await expect(noJsPage.locator("h1")).toContainText("Identity and access built on trust");
 
       // 2. Check Solutions Hub
       await noJsPage.goto("/solutions");

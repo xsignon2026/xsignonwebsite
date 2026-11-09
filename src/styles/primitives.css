@@ -162,3 +162,65 @@
     padding: 44px 26px;
   }
 }
+
+/* Headings and small text, from the prototype (lines 48-54, 831-833). */
+.h-display {
+  font-size: clamp(38px, 4.8vw, 56px);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--txt);
+}
+.hero-split .h-display,
+.hero-split h1,
+.about-hero h1,
+.page-hero .h-display,
+.page-hero h1,
+[data-nav="dark"] .h-display {
+  color: #fff;
+}
+.h2 {
+  font-size: clamp(30px, 3.8vw, 40px);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.h3 {
+  font-size: clamp(24px, 2.8vw, 28px);
+  line-height: 1.18;
+  font-weight: 700;
+}
+.meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--gray);
+}
+
+/* Tags: mono outline pills. Light text on dark bands, dark text on light ones (contrast 4.5:1). */
+.ptag {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  letter-spacing: 0.03em;
+  color: var(--gray);
+}
+.page-hero .ptag,
+[data-nav="dark"] .ptag,
+section.dark .ptag {
+  border-color: var(--on-dark-ctl);
+  color: #b4bfd3;
+}
+
+/* Touch targets: the dots keep their look but get a 24px press area (WCAG 2.2, target size). */
+.cf-dots {
+  gap: 0;
+  padding: 0 6px;
+}
+.cf-dot {
+  box-sizing: content-box;
+  padding: 8px;
+  background-clip: content-box;
+}

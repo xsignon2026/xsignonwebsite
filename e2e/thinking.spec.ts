@@ -319,8 +319,10 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
 
   test("T-115: Rejects non-existent article slug with 404", async ({ page }) => {
     await page.goto("/thinking/non-existent-article-slug");
-    await expect(page.getByRole("heading", { name: "404", level: 1 })).toBeVisible();
-    await expect(page.getByText("This page could not be found.")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "This page has moved.", level: 1 }),
+    ).toBeVisible();
+    await expect(page.locator(".ptag", { hasText: "404" })).toBeVisible();
   });
 
   test("T-115: Responsive layout at 320px viewport has zero horizontal scroll", async ({

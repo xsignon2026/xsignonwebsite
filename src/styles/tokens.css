@@ -162,7 +162,7 @@
 
 /* 3.1 Type scale */
 @theme {
-  --text-display: clamp(38px, 4.2vw, 56px);
+  --text-display: clamp(38px, 4.8vw, 56px);
   --text-display--line-height: 1.08;
   --text-display--letter-spacing: -0.03em;
   --text-h2: clamp(30px, 3.8vw, 40px);

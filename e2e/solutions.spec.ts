@@ -266,7 +266,9 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
 
   test("T-107: Rejects non-existent solution slug with 404", async ({ page }) => {
     await page.goto("/solutions/unknown-solution-404");
-    await expect(page.getByRole("heading", { name: "404", level: 1 })).toBeVisible();
-    await expect(page.getByText("This page could not be found.")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "This page has moved.", level: 1 }),
+    ).toBeVisible();
+    await expect(page.locator(".ptag", { hasText: "404" })).toBeVisible();
   });
 });
