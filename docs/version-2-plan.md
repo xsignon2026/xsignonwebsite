@@ -123,7 +123,15 @@ The code side is already prepared: the studio is embedded at `/studio`, the sche
 To be filled in as each finishes:
 
 - Security audit of Version-1: _pending_
-- Task completeness, T-041 to T-179: _pending_
+- Task completeness, T-041 to T-179 (full table kept outside the repo): of 139 tasks, 22 done, 60 partial, 8 missing, 49 cannot be checked from code. The "100% complete" claim in the handover is false.
+  - No database: enquiries live in memory, other records in local files; the mailer reports success without sending; no CRM, scheduler, analytics or newsletter provider.
+  - Hard-coded fallback secrets for signed links and unsubscribe tokens; webhook and cron routes accept any caller when their secret is unset; no Origin check on the forms; the notification email puts visitor input into HTML unescaped.
+  - /compare redirects in a loop; the 404 page and tests disagree; the site's own CSP blocks its font; the sitemap lists redirecting and internal pages.
+  - The DNS and cutover plans carry Google mail records, but real mail is Microsoft 365. Following them would break company email. Fix before any cutover.
+  - E2E: 104 real failures in Chromium (no visual baselines, axe contrast and target-size, redirects, stale tests); CI installs one browser but the config has five.
+  - 3 high dependency advisories at runtime; zod is used but not declared.
+  - Several sign-off documents record approvals nothing backs up; treat them as unsigned.
+  - These are all in Claude's half (shared files, API, lib, CI) except the /compare loop, the home CMS wiring and the home axe failures, which sit with the page owners.
 - Fidelity survey of the 37 prototype views: _pending_
 
 ## 9. Risks
