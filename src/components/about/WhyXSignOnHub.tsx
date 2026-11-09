@@ -1,213 +1,148 @@
 "use client";
 
-import Link from "next/link";
-import React, { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { whyXSignOn } from "@/data/about";
 
-interface PillarData {
-  num: string;
-  title: string;
-  desc: string;
-  href: string;
-}
+// "Why XSignOn": four ideas around a centre mark. One is shown at a time and they rotate every five
+// seconds while the hub is on screen (prototype js/07.js). The Pause button is in the prototype too;
+// rotation also stops under "reduce motion", and the four ideas can always be picked by hand.
+const INTERVAL = 5000;
 
-const PILLARS: PillarData[] = [
-  {
-    num: "01",
-    title: "Human oversight by design",
-    desc: "Review, approval and override are built into the flow of work, with a named person accountable at every step that matters.",
-    href: "/solutions/ai-and-digital-governance",
-  },
-  {
-    num: "02",
-    title: "Autonomy within authority",
-    desc: "Agents act freely inside the tier they have earned, and the boundary is always visible to the people who set it.",
-    href: "/solutions/ai-and-digital-governance",
-  },
-  {
-    num: "03",
-    title: "Evidence everywhere",
-    desc: "Every decision carries its signals, sources and reasoning, ready for reviewers today and auditors tomorrow.",
-    href: "/solutions/identity-governance",
-  },
-  {
-    num: "04",
-    title: "Governance on the inside",
-    desc: "Policy lives inside the product, applied as work happens, rather than in documents checked after the fact.",
-    href: "/enterprise",
-  },
+const CONNECTORS = [
+  "M240 63 C330 63, 340 150, 400 210",
+  "M560 63 C470 63, 460 150, 400 210",
+  "M240 357 C330 357, 340 270, 400 210",
+  "M560 357 C470 357, 460 270, 400 210",
 ];
 
-function subscribeReducedMotion(callback: () => void) {
-  if (typeof window === "undefined") return () => {};
-  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-  mq.addEventListener("change", callback);
-  return () => mq.removeEventListener("change", callback);
-}
-
-function getReducedMotionSnapshot(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-function getServerSnapshot(): boolean {
-  return false;
-}
-
-export function WhyXSignOnHub(): React.JSX.Element {
-  const [active, setActive] = useState<number>(0);
-  const [isPaused, setIsPaused] = useState<boolean>(false);
-  const isReducedMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotionSnapshot,
-    getServerSnapshot,
-  );
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+export function WhyXSignOnHub() {
+  const hub = useRef<HTMLDivElement>(null);
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  const [swapping, setSwapping] = useState(false);
+  const [pulse, setPulse] = useState<number | null>(null);
 
   useEffect(() => {
-    if (isPaused || isReducedMotion) {
-      if (timerRef.current) clearInterval(timerRef.current);
-      return;
-    }
-
-    timerRef.current = setInterval(() => {
-      setActive((prev) => (prev + 1) % PILLARS.length);
-    }, 5000);
-
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(query.matches);
+    update();
+    query.addEventListener("change", update);
+    const observer = new IntersectionObserver((e) => setVisible(e[0].isIntersecting), {
+      threshold: 0.2,
+    });
+    if (hub.current) observer.observe(hub.current);
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      query.removeEventListener("change", update);
+      observer.disconnect();
     };
-  }, [isPaused, isReducedMotion]);
+  }, []);
 
-  const current = PILLARS[active];
+  const select = useCallback(
+    (index: number) => {
+      if (!reduced) {
+        setSwapping(true);
+        setPulse(index);
+        window.setTimeout(() => setSwapping(false), 180);
+      }
+      setCurrent(index);
+    },
+    [reduced],
+  );
+
+  // The timer restarts whenever the shown idea changes, so a click gives a full five seconds.
+  useEffect(() => {
+    if (paused || !visible || reduced) return;
+    const timer = window.setTimeout(() => select((current + 1) % whyXSignOn.length), INTERVAL);
+    return () => window.clearTimeout(timer);
+  }, [current, paused, visible, reduced, select]);
+
+  const item = whyXSignOn[current];
+  const running = !paused && visible && !reduced;
 
   return (
-    <div className="whyx rv" id="whyHub">
-      <div className="wx-stage" role="tablist" aria-label="Why XSignOn core principles">
+    <div className="whyx rv" id="whyHub" ref={hub}>
+      <div className="wx-stage" role="tablist" aria-label="Why XSignOn">
         <svg
           className="wx-lines"
           viewBox="0 0 800 420"
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <path
-            className={`wx-conn ${active === 0 ? "on" : ""}`}
-            d="M240 63 C330 63, 340 150, 400 210"
-          />
-          <path
-            className={`wx-conn ${active === 1 ? "on" : ""}`}
-            d="M560 63 C470 63, 460 150, 400 210"
-          />
-          <path
-            className={`wx-conn ${active === 2 ? "on" : ""}`}
-            d="M240 357 C330 357, 340 270, 400 210"
-          />
-          <path
-            className={`wx-conn ${active === 3 ? "on" : ""}`}
-            d="M560 357 C470 357, 460 270, 400 210"
-          />
+          {CONNECTORS.map((d, i) => (
+            <path key={`c${i}`} className={`wx-conn${current === i ? " on" : ""}`} d={d} />
+          ))}
+          {CONNECTORS.map((d, i) => (
+            <path
+              key={`p${i}`}
+              className={`wx-pulse${pulse === i ? " go" : ""}`}
+              pathLength={100}
+              d={d}
+              onAnimationEnd={() => setPulse(null)}
+            />
+          ))}
         </svg>
-
-        {PILLARS.map((p, idx) => {
-          const isSelected = active === idx;
-          const nodeClasses = ["n1", "n2", "n3", "n4"][idx];
-
-          return (
-            <button
-              key={p.num}
-              className={`wx-node ${nodeClasses}`}
-              type="button"
-              role="tab"
-              aria-selected={isSelected}
-              onClick={() => {
-                setActive(idx);
-                setIsPaused(true);
-              }}
-            >
-              <span className="wnum">{p.num}</span>
-              <span className="wtxt">{p.title}</span>
-            </button>
-          );
-        })}
-
+        {whyXSignOn.map((idea, i) => (
+          <button
+            key={idea.n}
+            className={`wx-node n${i + 1}`}
+            type="button"
+            role="tab"
+            aria-selected={current === i}
+            onClick={() => select(i)}
+          >
+            <span className="wnum">{idea.n}</span>
+            <span className="wtxt">{idea.title}</span>
+          </button>
+        ))}
         <div className="hubx-centre wx-centre" aria-hidden="true">
           <span className="hx-ring r1" />
           <span className="hx-ring r2" />
           <span className="hx-ring r3" />
-          <div
-            className="hubx-core"
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              background: "var(--acc-ink, #4f46e5)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#ffffff",
-              fontWeight: 800,
-              fontSize: "16px",
-            }}
-          >
-            X
+          <div className="hubx-core">
+            <Image
+              className="mk-dark"
+              src="/images/about/img-c4e2d2b6.png"
+              alt=""
+              width={150}
+              height={160}
+            />
+            <Image
+              className="mk-light"
+              src="/images/about/img-eb58cada.png"
+              alt=""
+              width={150}
+              height={160}
+            />
           </div>
         </div>
       </div>
-
-      <div className="wx-detail" aria-live="polite">
-        <p className="wd-n">{current.num}</p>
-        <h3 id="wxT">{current.title}</h3>
-        <p id="wxP">{current.desc}</p>
+      <div className={`wx-detail${swapping ? " swap" : ""}`} aria-live="polite">
+        <p className="wd-n" id="wxN">
+          {item.n}
+        </p>
+        <h3 id="wxT">{item.title}</h3>
+        <p id="wxP">{item.text}</p>
       </div>
-
-      {/* Static Fallback Links for Keyboard & Screen Reader Users (T-126 Invariant) */}
-      <div
-        className="static-pillars"
-        style={{
-          marginTop: "40px",
-          paddingTop: "24px",
-          borderTop: "1px solid var(--line)",
-        }}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: "16px",
-          }}
-        >
-          {PILLARS.map((p) => (
-            <Link
-              key={p.num}
-              href={p.href}
-              className="rel-row"
-              style={{ display: "block", textDecoration: "none" }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--mono)",
-                  fontSize: "12px",
-                  color: "var(--acc-ink, #4f46e5)",
-                  marginBottom: "4px",
-                }}
-              >
-                Pillar {p.num}
-              </div>
-              <div
-                style={{
-                  fontWeight: 600,
-                  color: "var(--txt)",
-                  fontSize: "14px",
-                  marginBottom: "4px",
-                }}
-              >
-                {p.title}
-              </div>
-              <div style={{ fontSize: "13px", color: "var(--gray)", lineHeight: 1.5 }}>
-                {p.desc}
-              </div>
-            </Link>
-          ))}
+      <div className="hubx-foot wx-foot">
+        <div className="hubx-timer" aria-hidden="true">
+          <i
+            key={current}
+            className={running ? "run" : undefined}
+            style={running ? { animationDuration: `${INTERVAL}ms` } : undefined}
+          />
         </div>
+        <button
+          className="hubx-pause"
+          id="wxPause"
+          type="button"
+          aria-pressed={paused}
+          onClick={() => setPaused((p) => !p)}
+        >
+          {paused ? "Play" : "Pause"}
+        </button>
       </div>
     </div>
   );

@@ -15,19 +15,12 @@ test.describe("Company Batch QA (T-129)", () => {
       await page.goto("/about");
     });
 
-    test("renders header, hero, and sticky in-page navigation", async ({ page }) => {
-      const h1 = page.locator("h1");
-      await expect(h1).toContainText("About XSignOn");
-
-      const whoLink = page.getByRole("link", { name: "Who we are" }).first();
-      const whatLink = page.getByRole("link", { name: "What we do" }).first();
-      const howLink = page.getByRole("link", { name: "How we work" }).first();
-      const whyLink = page.getByRole("link", { name: "Why XSignOn" }).first();
-
-      await expect(whoLink).toBeVisible();
-      await expect(whatLink).toBeVisible();
-      await expect(howLink).toBeVisible();
-      await expect(whyLink).toBeVisible();
+    test("renders the hero and the five sections of the approved design", async ({ page }) => {
+      await expect(page.locator("h1")).toContainText("About XSignOn");
+      for (const id of ["who", "what", "how", "why", "a-thinking"]) {
+        await expect(page.locator(`#${id}`)).toBeAttached();
+      }
+      await expect(page.getByRole("heading", { name: "Who we are", level: 2 })).toBeVisible();
     });
 
     test("expanding What We Do cards toggle aria-expanded properly", async ({ page }) => {
@@ -38,9 +31,9 @@ test.describe("Company Batch QA (T-129)", () => {
       await firstCardBtn.click();
       await expect(firstCardBtn).toHaveAttribute("aria-expanded", "true");
 
-      const panel = page.locator("#wc-sol-identity");
+      const panel = page.locator("#wc-0");
       await expect(panel).toBeVisible();
-      await expect(panel.getByRole("link", { name: /Explore Identity Governance/i })).toBeVisible();
+      await expect(panel.getByRole("link", { name: /View more/i })).toBeVisible();
     });
 
     test("Why XSignOn hub rotates and switches tabs", async ({ page }) => {

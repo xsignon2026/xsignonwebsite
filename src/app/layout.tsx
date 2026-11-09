@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`}>
+    <html lang="en" data-home="descent" className={`${inter.variable} antialiased`}>
       <body className="min-h-screen">
         <JsonLd schema={createOrganizationSchema()} />
         <SkipLink />
