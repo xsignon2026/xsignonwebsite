@@ -1093,9 +1093,6 @@
       border-color: color-mix(in oklab, var(--color-amber-500) 20%, transparent);
     }
   }
-  .border-blue-200 {
-    border-color: var(--color-blue-200);
-  }
   .border-ctl {
     border-color: var(--ctl);
   }
@@ -1194,9 +1191,6 @@
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-amber-500) 10%, transparent);
     }
-  }
-  .bg-blue-50 {
-    background-color: var(--color-blue-50);
   }
   .bg-blue-400 {
     background-color: var(--color-blue-400);
@@ -1701,9 +1695,6 @@
   }
   .text-amber-800 {
     color: var(--color-amber-800);
-  }
-  .text-blue-600 {
-    color: var(--color-blue-600);
   }
   .text-d1 {
     color: var(--d1);

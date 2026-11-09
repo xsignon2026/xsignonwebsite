@@ -69,6 +69,14 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
     // Newsletter section
     const newsBand = page.locator("#view-thinking .news-band");
     await expect(newsBand).toBeVisible();
+    // The server answer is faked: the real route is tested in src/tests/subscription-routes.test.ts.
+    await page.route("**/api/subscribe", (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ success: true, message: "ok" }),
+      }),
+    );
     const emailInput = newsBand.getByLabel("Work email");
     await emailInput.fill("architect@enterprise.org");
     await newsBand.getByRole("button", { name: "Subscribe" }).click();

@@ -57,7 +57,7 @@ test.describe("Production Go-Live Smoke Suite (T-173)", () => {
     const form = page.locator("form").first();
     await expect(form).toBeVisible();
     await expect(form.locator('input[name="name"]')).toBeVisible();
-    await expect(form.locator('input[name="website_url_hp"]')).toBeAttached();
+    await expect(form.locator('input[name="hp_check"]')).toBeAttached();
   });
 
   test("SMK-05: Newsletter endpoint rejects invalid submission with 400", async ({ request }) => {

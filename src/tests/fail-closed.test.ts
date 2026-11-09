@@ -4,6 +4,11 @@ import { POST as cleanup } from "@/app/api/cron/cleanup/route";
 import { POST as webhook } from "@/app/api/webhooks/email/route";
 import { requireSecret } from "@/lib/require-secret";
 
+vi.mock("next/server", async (original) => ({
+  ...(await original<typeof import("next/server")>()),
+  connection: async () => {},
+}));
+
 afterEach(() => vi.unstubAllEnvs());
 
 const call = (url: string, headers: Record<string, string> = {}) =>

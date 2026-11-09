@@ -16,6 +16,18 @@ test.describe("T-070: Unsubscribe Flow (#view-unsubscribe)", () => {
     const heading = page.locator("h1");
     await expect(heading).toContainText("Unsubscribe");
 
+    // The server answer is faked: the real route is tested in src/tests/subscription-routes.test.ts.
+    await page.route("**/api/unsubscribe", (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          success: true,
+          message: "If that address is subscribed, we have emailed it a link to confirm removal.",
+        }),
+      }),
+    );
+
     // 2. Fill in Email
     await page.fill("input#unEmail", "optout-user@company.com");
 
@@ -27,8 +39,6 @@ test.describe("T-070: Unsubscribe Flow (#view-unsubscribe)", () => {
     const doneContainer = page.locator("#unsubDone");
     await expect(doneContainer).toBeVisible();
     await expect(doneContainer).toContainText("Request confirmed.");
-    await expect(doneContainer).toContainText(
-      "The address you entered has been recorded for removal from XSignOn marketing emails.",
-    );
+    await expect(doneContainer).toContainText("we have emailed it a link to confirm removal");
   });
 });

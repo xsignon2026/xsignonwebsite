@@ -10,6 +10,8 @@ import {
 const nextConfig: NextConfig = {
   /* config options here */
   poweredByHeader: false,
+  // The private PDFs are read from disk by the download route, so they must be shipped with it.
+  outputFileTracingIncludes: { "/api/white-papers/download": ["./private/white-papers/**/*"] },
   experimental: {
     cpus: 1,
   },
