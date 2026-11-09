@@ -3,7 +3,8 @@
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
-  :root, :host {
+  :root,
+  :host {
     --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --color-red-50: oklch(97.1% 0.013 17.38);
     --color-red-200: oklch(88.5% 0.062 18.334);
@@ -89,8 +90,10 @@
     --blur-md: 12px;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    --default-font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --default-mono-font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    --default-font-family:
+      "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --default-mono-font-family:
+      ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
     --shadow-hero-card: var(--shadow-hero-card);
     --shadow-carousel: var(--shadow-carousel);
     --shadow-hub: var(--shadow-hub);
@@ -127,17 +130,36 @@
   }
 }
 @layer base {
-  *, ::after, ::before, ::backdrop, ::file-selector-button {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     border: 0 solid;
   }
-  html, :host {
+  html,
+  :host {
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
     tab-size: 4;
-    font-family: var(--default-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
+    font-family: var(
+      --default-font-family,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      "Helvetica Neue",
+      "Noto Sans",
+      Arial,
+      sans-serif,
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+      "Noto Color Emoji"
+    );
     font-feature-settings: var(--default-font-feature-settings, normal);
     font-variation-settings: var(--default-font-variation-settings, normal);
     -webkit-tap-highlight-color: transparent;
@@ -151,7 +173,12 @@
     -webkit-text-decoration: underline dotted;
     text-decoration: underline dotted;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-size: inherit;
     font-weight: inherit;
   }
@@ -160,11 +187,25 @@
     -webkit-text-decoration: inherit;
     text-decoration: inherit;
   }
-  b, strong {
+  b,
+  strong {
     font-weight: bolder;
   }
-  code, kbd, samp, pre {
-    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(
+      --default-mono-font-family,
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Monaco,
+      Consolas,
+      "Liberation Mono",
+      "Courier New",
+      monospace
+    );
     font-feature-settings: var(--default-mono-font-feature-settings, normal);
     font-variation-settings: var(--default-mono-font-variation-settings, normal);
     font-size: 1em;
@@ -172,7 +213,8 @@
   small {
     font-size: 80%;
   }
-  sub, sup {
+  sub,
+  sup {
     font-size: 75%;
     line-height: 0;
     position: relative;
@@ -198,18 +240,33 @@
   summary {
     display: list-item;
   }
-  ol, ul, menu {
+  ol,
+  ul,
+  menu {
     list-style: none;
   }
-  img, svg, video, canvas, audio, iframe, embed, object {
+  img,
+  svg,
+  video,
+  canvas,
+  audio,
+  iframe,
+  embed,
+  object {
     display: block;
     vertical-align: middle;
   }
-  img, video {
+  img,
+  video {
     max-width: 100%;
     height: auto;
   }
-  button, input, select, optgroup, textarea, ::file-selector-button {
+  button,
+  input,
+  select,
+  optgroup,
+  textarea,
+  ::file-selector-button {
     font: inherit;
     font-feature-settings: inherit;
     font-variation-settings: inherit;
@@ -231,7 +288,7 @@
   ::placeholder {
     opacity: 1;
   }
-  @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {
+  @supports (not (-webkit-appearance: -apple-pay-button)) or (contain-intrinsic-size: 1px) {
     ::placeholder {
       color: currentcolor;
       @supports (color: color-mix(in lab, red, red)) {
@@ -255,7 +312,15 @@
   ::-webkit-datetime-edit-fields-wrapper {
     padding: 0;
   }
-  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {
+  ::-webkit-datetime-edit,
+  ::-webkit-datetime-edit-year-field,
+  ::-webkit-datetime-edit-month-field,
+  ::-webkit-datetime-edit-day-field,
+  ::-webkit-datetime-edit-hour-field,
+  ::-webkit-datetime-edit-minute-field,
+  ::-webkit-datetime-edit-second-field,
+  ::-webkit-datetime-edit-millisecond-field,
+  ::-webkit-datetime-edit-meridiem-field {
     padding-block: 0;
   }
   ::-webkit-calendar-picker-indicator {
@@ -264,10 +329,13 @@
   :-moz-ui-invalid {
     box-shadow: none;
   }
-  button, input:where([type="button"], [type="reset"], [type="submit"]), ::file-selector-button {
+  button,
+  input:where([type="button"], [type="reset"], [type="submit"]),
+  ::file-selector-button {
     appearance: button;
   }
-  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button {
     height: auto;
   }
   [hidden]:where(:not([hidden="until-found"])) {
@@ -761,7 +829,8 @@
     rotate: 180deg;
   }
   .transform {
-    transform: var(--tw-rotate-x, ) var(--tw-rotate-y, ) var(--tw-rotate-z, ) var(--tw-skew-x, ) var(--tw-skew-y, );
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,)
+      var(--tw-skew-y,);
   }
   .animate-spin {
     animation: var(--animate-spin);
@@ -1403,7 +1472,13 @@
     vertical-align: top;
   }
   .font-sans {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
   }
   .text-display {
     font-size: var(--text-display);
@@ -1586,19 +1661,19 @@
     white-space: nowrap;
   }
   .text-\[\#1A1240\] {
-    color: #1A1240;
+    color: #1a1240;
   }
   .text-\[\#25205C\] {
-    color: #25205C;
+    color: #25205c;
   }
   .text-\[\#081325\] {
     color: #081325;
   }
   .text-\[\#B3AED0\] {
-    color: #B3AED0;
+    color: #b3aed0;
   }
   .text-\[\#F6F4FB\] {
-    color: #F6F4FB;
+    color: #f6f4fb;
   }
   .text-\[\#b4bfd3\] {
     color: #b4bfd3;
@@ -1756,47 +1831,79 @@
   }
   .shadow-2xl {
     --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-\[0_30px_60px_rgba\(0\,0\,0\,0\.4\)\] {
-    --tw-shadow: 0 30px 60px var(--tw-shadow-color, rgba(0,0,0,0.4));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-shadow: 0 30px 60px var(--tw-shadow-color, rgba(0, 0, 0, 0.4));
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-carousel {
     --tw-shadow: var(--shadow-carousel);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-dropdown {
     --tw-shadow: var(--shadow-dropdown);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-lg {
-    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-shadow:
+      0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)),
+      0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-md {
-    --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-shadow:
+      0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)),
+      0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-sm {
-    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-shadow:
+      0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)),
+      0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-xl {
-    --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-shadow:
+      0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)),
+      0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-xs {
     --tw-shadow: 0 1px 2px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.05));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .ring {
-    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width))
+      var(--tw-ring-color, currentcolor);
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .ring-1 {
-    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width))
+      var(--tw-ring-color, currentcolor);
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .ring-ctl {
     --tw-ring-color: var(--ctl);
@@ -1807,46 +1914,83 @@
   }
   .blur {
     --tw-blur: blur(8px);
-    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,)
+      var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,)
+      var(--tw-drop-shadow,);
   }
   .blur-\[4px\] {
     --tw-blur: blur(4px);
-    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,)
+      var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,)
+      var(--tw-drop-shadow,);
   }
   .blur-none {
     --tw-blur:  ;
-    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,)
+      var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,)
+      var(--tw-drop-shadow,);
   }
   .filter {
-    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,)
+      var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,)
+      var(--tw-drop-shadow,);
   }
   .backdrop-blur-md {
     --tw-backdrop-blur: blur(var(--blur-md));
-    -webkit-backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
-    backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,)
+      var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,)
+      var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,)
+      var(--tw-backdrop-sepia,);
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,)
+      var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,)
+      var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,)
+      var(--tw-backdrop-sepia,);
   }
   .transition {
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+    transition-property:
+      color,
+      background-color,
+      border-color,
+      outline-color,
+      text-decoration-color,
+      fill,
+      stroke,
+      --tw-gradient-from,
+      --tw-gradient-via,
+      --tw-gradient-to,
+      opacity,
+      box-shadow,
+      transform,
+      translate,
+      scale,
+      rotate,
+      filter,
+      -webkit-backdrop-filter,
+      backdrop-filter,
+      display,
+      content-visibility,
+      overlay,
+      pointer-events;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
   .transition-\[background-color\,border-color\,color\,transform\] {
-    transition-property: background-color,border-color,color,transform;
+    transition-property: background-color, border-color, color, transform;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
   .transition-\[background-color\,transform\] {
-    transition-property: background-color,transform;
+    transition-property: background-color, transform;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
   .transition-\[border-color\,box-shadow\] {
-    transition-property: border-color,box-shadow;
+    transition-property: border-color, box-shadow;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
   .transition-\[transform\,box-shadow\,border-color\] {
-    transition-property: transform,box-shadow,border-color;
+    transition-property: transform, box-shadow, border-color;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
@@ -1856,7 +2000,9 @@
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
   .transition-colors {
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    transition-property:
+      color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,
+      --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
@@ -1890,8 +2036,8 @@
     transition-duration: 800ms;
   }
   .duration-\[280ms\,280ms\,280ms\,150ms\] {
-    --tw-duration: 280ms,280ms,280ms,150ms;
-    transition-duration: 280ms,280ms,280ms,150ms;
+    --tw-duration: 280ms, 280ms, 280ms, 150ms;
+    transition-duration: 280ms, 280ms, 280ms, 150ms;
   }
   .ease-brand {
     --tw-ease: var(--ease);
@@ -2049,16 +2195,28 @@
       text-decoration-line: underline;
     }
     .hover\:shadow-lg:hover {
-      --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      --tw-shadow:
+        0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)),
+        0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+      box-shadow:
+        var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+        var(--tw-ring-shadow), var(--tw-shadow);
     }
     .hover\:shadow-md:hover {
-      --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      --tw-shadow:
+        0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)),
+        0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+      box-shadow:
+        var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+        var(--tw-ring-shadow), var(--tw-shadow);
     }
     .hover\:shadow-xl:hover {
-      --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      --tw-shadow:
+        0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)),
+        0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+      box-shadow:
+        var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+        var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
   .focus\:not-sr-only:focus {
@@ -2116,16 +2274,26 @@
     color: #ffffff;
   }
   .focus\:shadow-lg:focus {
-    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-shadow:
+      0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)),
+      0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .focus\:ring-1:focus {
-    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width))
+      var(--tw-ring-color, currentcolor);
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .focus\:ring-2:focus {
-    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width))
+      var(--tw-ring-color, currentcolor);
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .focus\:ring-acc:focus {
     --tw-ring-color: var(--acc);
@@ -2159,8 +2327,11 @@
     color: #ffffff;
   }
   .focus-visible\:ring-2:focus-visible {
-    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width))
+      var(--tw-ring-color, currentcolor);
+    box-shadow:
+      var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+      var(--tw-ring-shadow), var(--tw-shadow);
   }
   .focus-visible\:ring-focus:focus-visible {
     --tw-ring-color: var(--focus);
@@ -2170,10 +2341,10 @@
     outline-style: none;
   }
   .active\:scale-\[\.97\]:active {
-    scale: .97;
+    scale: 0.97;
   }
   .active\:scale-\[\.98\]:active {
-    scale: .98;
+    scale: 0.98;
   }
   .active\:scale-\[0\.98\]:active {
     scale: 0.98;
@@ -2376,7 +2547,7 @@
       display: none;
     }
     .xl\:grid-cols-\[1\.5fr_repeat\(4\,1fr\)\] {
-      grid-template-columns: 1.5fr repeat(4,1fr);
+      grid-template-columns: 1.5fr repeat(4, 1fr);
     }
     .xl\:grid-cols-\[1fr_420px\] {
       grid-template-columns: 1fr 420px;
@@ -2510,7 +2681,8 @@
   }
 }
 @keyframes artPulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.5;
   }
@@ -2836,7 +3008,8 @@
   width: max-content;
   animation: mq 25s linear infinite;
 }
-.marquee:hover .mq-track, .marquee:focus-within .mq-track {
+.marquee:hover .mq-track,
+.marquee:focus-within .mq-track {
   animation-play-state: paused;
 }
 .mq-set {
@@ -2900,7 +3073,11 @@
   flex-direction: column;
   color: var(--txt, #1a1240);
   box-shadow: 0 24px 48px rgba(8, 19, 37, 0.14);
-  transition: transform 0.72s cubic-bezier(0.3, 1.32, 0.42, 1), opacity 0.55s ease, box-shadow 0.3s ease, border-color 0.2s ease;
+  transition:
+    transform 0.72s cubic-bezier(0.3, 1.32, 0.42, 1),
+    opacity 0.55s ease,
+    box-shadow 0.3s ease,
+    border-color 0.2s ease;
   will-change: transform;
   cursor: pointer;
 }
@@ -2923,7 +3100,9 @@
 .cf-card.is-active {
   cursor: default;
   border-color: var(--acc-ink, #c6001d);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.46), 0 0 0 1px rgba(198, 0, 29, 0.2);
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.46),
+    0 0 0 1px rgba(198, 0, 29, 0.2);
 }
 .cf-card .cf-photo {
   position: relative;
@@ -2939,7 +3118,9 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: filter 0.5s ease, transform 0.6s cubic-bezier(0.3, 1.32, 0.42, 1);
+  transition:
+    filter 0.5s ease,
+    transform 0.6s cubic-bezier(0.3, 1.32, 0.42, 1);
 }
 .cf-card.is-active .cf-photo img {
   filter: none;
@@ -2983,7 +3164,9 @@
 .cf-card:not(.is-active) .cf-photo .pcard-icon {
   opacity: 0;
 }
-.cf-card:not(.is-active) .cf-desc, .cf-card:not(.is-active) .cf-tags, .cf-card:not(.is-active) .cf-btn {
+.cf-card:not(.is-active) .cf-desc,
+.cf-card:not(.is-active) .cf-tags,
+.cf-card:not(.is-active) .cf-btn {
   display: none !important;
 }
 .cf-card:not(.is-active) .cf-body {
@@ -3194,7 +3377,8 @@
   .cf-photo {
     height: 184px;
   }
-  .cf-controls, .cf-timer {
+  .cf-controls,
+  .cf-timer {
     display: none;
   }
 }
@@ -3750,7 +3934,14 @@
 }
 #view-solutions #solList {
   padding-bottom: 88px;
-  background: linear-gradient( 180deg, #060129 0%, #1a1240 10%, #3b3668 34%, #8f89b8 68%, #d9d4eb 100% );
+  background: linear-gradient(
+    180deg,
+    #060129 0%,
+    #1a1240 10%,
+    #3b3668 34%,
+    #8f89b8 68%,
+    #d9d4eb 100%
+  );
 }
 #view-solutions #solList .sec-row .h2 {
   color: #f6f4fb;
@@ -3775,7 +3966,10 @@
   border-radius: 20px;
   background: var(--card, #ffffff);
   overflow: hidden;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .sol-card:nth-child(n + 4) {
   grid-column: span 3;
@@ -3833,7 +4027,9 @@
   border: 1px solid #25205c;
   border-radius: 24px;
   color: #f6f4fb;
-  background: radial-gradient(520px 300px at 100% 0%, rgba(212, 0, 31, 0.34), transparent 66%), radial-gradient(520px 320px at 0% 100%, rgba(108, 92, 231, 0.42), transparent 64%), #060129;
+  background:
+    radial-gradient(520px 300px at 100% 0%, rgba(212, 0, 31, 0.34), transparent 66%),
+    radial-gradient(520px 320px at 0% 100%, rgba(108, 92, 231, 0.42), transparent 64%), #060129;
 }
 .eb-top {
   display: grid;
@@ -3864,7 +4060,10 @@
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.06);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease;
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    background 0.3s ease;
 }
 .eb-m:hover {
   transform: translateY(-4px);
@@ -3943,7 +4142,9 @@
   color: var(--gray, #475569);
   font-size: 16.5px;
   line-height: 1.6;
-  transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    border-color 0.3s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .res-view .feat-list li:hover {
   border-color: #64748b;
@@ -3997,7 +4198,8 @@ a.rel-row:hover .t {
   .sol-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .sol-card, .sol-card:nth-child(n + 4) {
+  .sol-card,
+  .sol-card:nth-child(n + 4) {
     grid-column: auto;
   }
   .eb-top {
@@ -4021,7 +4223,9 @@ a.rel-row:hover .t {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sol-card, .eb-m, .res-view .feat-list li {
+  .sol-card,
+  .eb-m,
+  .res-view .feat-list li {
     transition: none !important;
   }
 }
@@ -4052,7 +4256,9 @@ a.rel-row:hover .t {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 .bcard:hover {
   border-color: #6366f1;
@@ -4070,10 +4276,14 @@ a.rel-row:hover .t {
 .bcard .link-arrow {
   margin-top: 22px;
 }
-[data-nav="light"] .link-arrow, .bcard .link-arrow, .case-card .link-arrow {
+[data-nav="light"] .link-arrow,
+.bcard .link-arrow,
+.case-card .link-arrow {
   color: var(--acc-ink, #a60019);
 }
-[data-nav="light"] .link-arrow:hover, .bcard .link-arrow:hover, .case-card .link-arrow:hover {
+[data-nav="light"] .link-arrow:hover,
+.bcard .link-arrow:hover,
+.case-card .link-arrow:hover {
   color: #ff5a62;
 }
 .pill-cat {
@@ -4222,7 +4432,9 @@ a.rel-row:hover .t {
   font-weight: 600;
   color: var(--txt, #1f1d2b);
 }
-.f-field input, .f-field select, .f-field textarea {
+.f-field input,
+.f-field select,
+.f-field textarea {
   font: inherit;
   font-size: 16px;
   padding: 12px 14px;
@@ -4232,7 +4444,9 @@ a.rel-row:hover .t {
   color: var(--txt, #1f1d2b);
   width: 100%;
 }
-.f-field input:focus, .f-field select:focus, .f-field textarea:focus {
+.f-field input:focus,
+.f-field select:focus,
+.f-field textarea:focus {
   outline: 2px solid var(--blue, #4f46e5);
   outline-offset: 1px;
   border-color: transparent;
@@ -4299,13 +4513,15 @@ a.rel-row:hover .t {
 .legal-body {
   max-width: 800px;
 }
-.legal-body h2, .legal-body h3 {
+.legal-body h2,
+.legal-body h3 {
   margin: 36px 0 10px;
   font-size: 21px;
   font-weight: 700;
   color: var(--txt, #1f1d2b);
 }
-.legal-body h2:first-child, .legal-body h3:first-child {
+.legal-body h2:first-child,
+.legal-body h3:first-child {
   margin-top: 0;
 }
 .legal-body p {
@@ -4406,7 +4622,10 @@ a.rel-row:hover .t {
   padding: 12px 26px;
   border: 1px solid transparent;
   white-space: nowrap;
-  transition: background 0.28s var(--ease), border-color 0.28s var(--ease), transform 0.15s var(--ease);
+  transition:
+    background 0.28s var(--ease),
+    border-color 0.28s var(--ease),
+    transform 0.15s var(--ease);
 }
 .btn:active {
   transform: scale(0.97);
@@ -4535,12 +4754,14 @@ a.rel-row:hover .t {
   .cta-sec {
     padding: 76px 0;
   }
-  .cta-panel, .cta-panel.plain {
+  .cta-panel,
+  .cta-panel.plain {
     padding: 44px 26px;
   }
 }
 @layer base {
-  html, body {
+  html,
+  body {
     overflow-x: clip;
   }
   [id] {
@@ -4556,7 +4777,10 @@ a.rel-row:hover .t {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     text-wrap: balance;
   }
   p {
@@ -4591,18 +4815,28 @@ a.rel-row:hover .t {
   }
   :focus-visible {
     outline: none;
-    box-shadow: inset 0 0 0 2px #ffffff, 0 0 0 4px var(--focus);
+    box-shadow:
+      inset 0 0 0 2px #ffffff,
+      0 0 0 4px var(--focus);
     border-radius: 6px;
   }
-  [data-nav="dark"] :focus-visible, .band-dark :focus-visible {
-    box-shadow: inset 0 0 0 2px var(--d1), 0 0 0 4px var(--focus-d);
+  [data-nav="dark"] :focus-visible,
+  .band-dark :focus-visible {
+    box-shadow:
+      inset 0 0 0 2px var(--d1),
+      0 0 0 4px var(--focus-d);
   }
-  .band-dark h1, .band-dark h2, .band-dark h3, .band-dark h4 {
+  .band-dark h1,
+  .band-dark h2,
+  .band-dark h3,
+  .band-dark h4 {
     color: var(--on-dark);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     transition: none !important;
     animation: none !important;
     scroll-behavior: auto !important;
@@ -4858,8 +5092,12 @@ a.rel-row:hover .t {
   }
 }
 @layer properties {
-  @supports ((-webkit-hyphens: none) and (not (margin-trim: block))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
-    *, ::before, ::after, ::backdrop {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: block))) or
+    ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
+    *,
+    ::before,
+    ::after,
+    ::backdrop {
       --tw-translate-x: 0;
       --tw-translate-y: 0;
       --tw-translate-z: 0;
