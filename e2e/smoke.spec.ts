@@ -44,7 +44,12 @@ test.describe("Production Go-Live Smoke Suite (T-173)", () => {
   test("SMK-02: Product detail loads with headline and capabilities", async ({ page }) => {
     await page.goto("/products/postureone");
     await expect(page.locator("h1").first()).toBeVisible();
-    await expect(page.locator("text=/PostureOne/i").first()).toBeVisible();
+    await expect(
+      page
+        .locator("main")
+        .getByText(/PostureOne/i)
+        .first(),
+    ).toBeVisible();
   });
 
   test("SMK-03: Thought leadership article renders body and typography", async ({ page }) => {

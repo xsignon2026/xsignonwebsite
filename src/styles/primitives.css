@@ -124,9 +124,6 @@
 .cta-panel h2 {
   color: #fff;
   max-width: 520px;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit;
   text-wrap: wrap;
 }
 .cta-panel .btn {
@@ -178,23 +175,6 @@
 .page-hero h1,
 [data-nav="dark"] .h-display {
   color: #fff;
-}
-.h2 {
-  font-size: clamp(30px, 3.8vw, 40px);
-  line-height: 1.12;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-}
-.h3 {
-  font-size: clamp(24px, 2.8vw, 28px);
-  line-height: 1.18;
-  font-weight: 700;
-}
-.meta {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--gray);
 }
 
 /* Tags: mono outline pills. Light text on dark bands, dark text on light ones (contrast 4.5:1). */
@@ -344,4 +324,29 @@ section.dark .ptag {
     opacity 0.35s ease,
     transform 0.35s ease,
     visibility 0s;
+}
+
+/* Hero card dots: the same look, with a 24px press area (WCAG 2.2, target size). */
+.hdots {
+  gap: 0;
+}
+.hdot {
+  box-sizing: content-box;
+  padding: 8px;
+  background-clip: content-box;
+}
+
+/* Article pictures sized by their card (next/image adds width and height attributes, which would
+   otherwise stretch the card to the picture's own ratio). */
+.think-panel {
+  position: relative;
+  min-height: 240px;
+}
+.think-panel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
 }

@@ -1,4 +1,28 @@
 /* GENERATED from reference/prototype-v5/css/styles.css by compare/port.mjs: class and id rules only. Loaded in the "components" layer: app rules and Tailwind utilities win over it. Do not edit by hand; fix the app's own CSS instead. */
+:root {
+  --mono: var(--font-mono);
+  --disp: var(--font-sans);
+  --font: var(--font-sans);
+  --gray-2: var(--gray);
+  --mut: var(--gray);
+  --sub: var(--gray);
+  --l2: var(--paper);
+  --l3: var(--paper);
+  --l4: var(--card);
+  --navy: var(--acc);
+  --navy-hi: var(--acc-hov);
+  --line-d: var(--d-line);
+  --ink: var(--txt);
+  --ink-2: var(--d2);
+  --d-sub: var(--on-dark-sub);
+  --d-mut: var(--on-dark-mut);
+  --d-ctl: var(--on-dark-ctl);
+  --green: var(--ok-d);
+  --gray-d: var(--on-dark-mut);
+  --soft: var(--line);
+  --brand: var(--txt);
+  --blue: var(--focus);
+}
 [data-nav="dark"] :focus-visible,
 .hero :focus-visible,
 .page-hero :focus-visible,

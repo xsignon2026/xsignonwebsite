@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
-import { getHomePageData } from "@/lib/home";
-import { HeroSplit } from "@/components/home/HeroSplit";
-import { ProductCoverflow } from "@/components/home/ProductCoverflow";
-import { PartnerHub } from "@/components/home/PartnerHub";
-import { SolutionsJourney } from "@/components/home/SolutionsJourney";
-import { ThinkingBand } from "@/components/home/ThinkingBand";
-import { HomeCtaBand } from "@/components/home/HomeCtaBand";
+import { HomeBehaviors } from "@/components/home/HomeBehaviors";
+import { HomeView } from "@/components/home/HomeView";
 
 export const metadata: Metadata = {
   title: "XSignOn · Identity and access built on trust",
@@ -28,9 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function HomePage() {
-  const data = await getHomePageData();
-
+export default function HomePage() {
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -51,14 +44,8 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
-      <div id="view-home">
-        <HeroSplit hero={data.hero} standards={data.standardsMarquee} />
-        <ProductCoverflow cards={data.coverflowCards} />
-        <PartnerHub categories={data.partnerCategories} />
-        <SolutionsJourney solutions={data.solutions} />
-        <ThinkingBand thinking={data.thinking} />
-        <HomeCtaBand cta={data.cta} />
-      </div>
+      <HomeView />
+      <HomeBehaviors />
     </>
   );
 }

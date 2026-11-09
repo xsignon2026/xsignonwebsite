@@ -79,7 +79,7 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
 
     // Live detail text updates
     const detail = page.locator("#hubxDetail");
-    await expect(detail).toContainText("AI security scanners");
+    await expect(detail).toContainText("Data security partners");
   });
 
   test("T-094: Solutions Journey and Our Thinking bands operate smoothly", async ({ page }) => {
@@ -91,15 +91,12 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await railButtons.nth(1).click();
     await expect(railButtons.nth(1)).toHaveClass(/act/);
 
-    // Our Thinking accordion
+    // Our Thinking rows open into their card on hover or keyboard focus
     const thinkRows = page.locator(".think-row");
-    await expect(thinkRows).toHaveCount(3);
-
-    // Click first accordion item
-    await thinkRows.first().click();
+    await expect(thinkRows).toHaveCount(4);
+    await thinkRows.first().focus();
     await expect(thinkRows.first()).toHaveAttribute("aria-expanded", "true");
-    const openExpand = page.locator(".think-expand.open");
-    await expect(openExpand).toBeVisible();
+    await expect(page.locator(".think-item.open")).toHaveCount(1);
   });
 
   test("T-095: Home Contact CTA band links to contact page", async ({ page }) => {
@@ -110,6 +107,9 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
   });
 
   test("T-097: Home page meets WCAG 2.2 AA accessibility standards", async ({ page }) => {
+    // With motion reduced, nothing is fading in while axe measures colours.
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.reload();
     const axeResults = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
       .analyze();

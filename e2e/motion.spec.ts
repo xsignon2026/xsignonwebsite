@@ -18,7 +18,7 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
       await expect(pauseBtn).toHaveAttribute("aria-pressed", "false");
 
       await pauseBtn.click();
-      await expect(pauseBtn).toHaveText("Resume");
+      await expect(pauseBtn).toHaveText("Play");
       await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
     });
   });
