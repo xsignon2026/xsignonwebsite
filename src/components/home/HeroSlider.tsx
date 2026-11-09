@@ -58,14 +58,8 @@ function renderHeroSvg(iconKey: HomeHeroSlide["iconKey"]) {
           aria-hidden="true"
         >
           <path d="M60 12l38 13v26c0 26-16 44-38 55C38 95 22 77 22 51V25z" />
-          <path
-            d="M60 25l26 9v18c0 19-11 32-26 41C45 84 34 71 34 52V34z"
-            opacity=".6"
-          />
-          <path
-            d="M60 38l15 5v9c0 12-6.5 21-15 27C51.5 73 45 64 45 52v-9z"
-            opacity=".38"
-          />
+          <path d="M60 25l26 9v18c0 19-11 32-26 41C45 84 34 71 34 52V34z" opacity=".6" />
+          <path d="M60 38l15 5v9c0 12-6.5 21-15 27C51.5 73 45 64 45 52v-9z" opacity=".38" />
           <line x1="60" y1="12" x2="60" y2="106" stroke="#ff5a62" />
         </svg>
       );
@@ -244,7 +238,11 @@ export function HeroSlider({ slides = defaultSlides }: HeroSliderProps) {
           type="button"
           className="hpause"
           aria-pressed={userPaused}
-          aria-label={userPaused ? "Resume product slides auto-rotation" : "Pause product slides auto-rotation"}
+          aria-label={
+            userPaused
+              ? "Resume product slides auto-rotation"
+              : "Pause product slides auto-rotation"
+          }
           onClick={() => setUserPaused((prev) => !prev)}
         >
           {userPaused ? "Resume" : "Pause"}

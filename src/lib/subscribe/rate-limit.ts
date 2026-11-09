@@ -16,7 +16,7 @@ const emailStore = new Map<string, WindowRecord>();
 export function checkSubscribeRateLimit(
   ip: string,
   email: string,
-  now: number = Date.now()
+  now: number = Date.now(),
 ): { allowed: boolean; reason?: "ip_limit" | "email_limit" } {
   const cleanIp = ip || "unknown";
   const cleanEmail = email.toLowerCase().trim() || "unknown";

@@ -14,9 +14,7 @@ export async function generateStaticParams() {
   return Object.keys(FALLBACK_WHITE_PAPERS).map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: WhitePaperPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: WhitePaperPageProps): Promise<Metadata> {
   const { slug } = await params;
   const whitePaper = await getWhitePaperBySlug(slug);
   if (!whitePaper) return {};
@@ -81,11 +79,13 @@ export default async function WhitePaperPage({ params }: WhitePaperPageProps) {
             {/* Main Narrative Column */}
             <div className="space-y-10">
               <section className="space-y-4">
-                <h2 className="text-2xl font-bold tracking-tight text-txt">
-                  Executive Summary
-                </h2>
+                <h2 className="text-2xl font-bold tracking-tight text-txt">Executive Summary</h2>
                 <p className="text-body text-gray leading-relaxed">
-                  Enterprise security models are undergoing a fundamental transformation. As identity architectures extend beyond human operators to autonomous agents and non-human identities, perimeter-based verification is insufficient. This document provides senior security architects and CISOs with a concrete implementation blueprint.
+                  Enterprise security models are undergoing a fundamental transformation. As
+                  identity architectures extend beyond human operators to autonomous agents and
+                  non-human identities, perimeter-based verification is insufficient. This document
+                  provides senior security architects and CISOs with a concrete implementation
+                  blueprint.
                 </p>
               </section>
 
@@ -99,7 +99,11 @@ export default async function WhitePaperPage({ params }: WhitePaperPageProps) {
                       1
                     </span>
                     <span>
-                      <strong className="text-txt font-semibold">Continuous Posture Evaluation:</strong> Moving from one-time authentication gates to continuous cryptographic device integrity signals.
+                      <strong className="text-txt font-semibold">
+                        Continuous Posture Evaluation:
+                      </strong>{" "}
+                      Moving from one-time authentication gates to continuous cryptographic device
+                      integrity signals.
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
@@ -107,7 +111,11 @@ export default async function WhitePaperPage({ params }: WhitePaperPageProps) {
                       2
                     </span>
                     <span>
-                      <strong className="text-txt font-semibold">Phishing-Resistant FIDO2 Workflows:</strong> Binding public-key credentials to platform TPM hardware chips to eliminate credential relay attacks.
+                      <strong className="text-txt font-semibold">
+                        Phishing-Resistant FIDO2 Workflows:
+                      </strong>{" "}
+                      Binding public-key credentials to platform TPM hardware chips to eliminate
+                      credential relay attacks.
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
@@ -115,7 +123,9 @@ export default async function WhitePaperPage({ params }: WhitePaperPageProps) {
                       3
                     </span>
                     <span>
-                      <strong className="text-txt font-semibold">Audit Evidence Automation:</strong> Structured NDJSON telemetry generation for real-time compliance validation under FedRAMP, SOC 2, and ISO 27001.
+                      <strong className="text-txt font-semibold">Audit Evidence Automation:</strong>{" "}
+                      Structured NDJSON telemetry generation for real-time compliance validation
+                      under FedRAMP, SOC 2, and ISO 27001.
                     </span>
                   </li>
                 </ul>
@@ -148,10 +158,7 @@ export default async function WhitePaperPage({ params }: WhitePaperPageProps) {
 
             {/* Sticky Download Sidebar */}
             <div className="lg:sticky lg:top-28">
-              <WhitePaperDownloadForm
-                slug={whitePaper.slug}
-                title={whitePaper.title}
-              />
+              <WhitePaperDownloadForm slug={whitePaper.slug} title={whitePaper.title} />
             </div>
           </div>
         </Container>

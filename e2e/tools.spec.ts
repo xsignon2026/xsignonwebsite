@@ -146,7 +146,9 @@ test.describe("Tools & Utility Batch QA (T-136)", () => {
   });
 
   test.describe("404 and Error Recovery (/not-found)", () => {
-    test("returns 404 HTTP status code and recovery navigation for unmatched paths", async ({ page }) => {
+    test("returns 404 HTTP status code and recovery navigation for unmatched paths", async ({
+      page,
+    }) => {
       const response = await page.goto("/non-existent-page-route-random-404");
       expect(response?.status()).toBe(404);
 
@@ -159,7 +161,9 @@ test.describe("Tools & Utility Batch QA (T-136)", () => {
   });
 
   test.describe("Consent Banner (T-135)", () => {
-    test("displays on fresh visit, accepts consent, and remains hidden on subsequent visits", async ({ page }) => {
+    test("displays on fresh visit, accepts consent, and remains hidden on subsequent visits", async ({
+      page,
+    }) => {
       // Clear storage
       await page.goto("/");
       await page.evaluate(() => window.localStorage.clear());
@@ -176,7 +180,9 @@ test.describe("Tools & Utility Batch QA (T-136)", () => {
       await expect(banner).toBeHidden();
 
       // Check localStorage
-      const status = await page.evaluate(() => window.localStorage.getItem("xsignon_consent_status"));
+      const status = await page.evaluate(() =>
+        window.localStorage.getItem("xsignon_consent_status"),
+      );
       expect(status).toBe("accepted");
 
       // Reload - banner stays hidden

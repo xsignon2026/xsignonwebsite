@@ -64,7 +64,14 @@
   /* Home background version 2, "ombre": dark at the top (hero into products),
      fades through lilac into paper across partners, and stays pure white through our thinking and cta.
      Exact stops from the prototype (Section 12.1). Closes Q-07. */
-  --bg-products: linear-gradient(180deg, #060129 0%, #1a1240 12%, #3b3668 40%, #6e6a9a 72%, #b3aed0 100%);
+  --bg-products: linear-gradient(
+    180deg,
+    #060129 0%,
+    #1a1240 12%,
+    #3b3668 40%,
+    #6e6a9a 72%,
+    #b3aed0 100%
+  );
   --bg-partners: linear-gradient(180deg, #b3aed0 0%, #d9d4eb 30%, #ece8f7 65%, #f6f4fb 100%);
   --bg-thinking: linear-gradient(180deg, #f6f4fb 0%, #ffffff 100%);
   --bg-cta: #ffffff;

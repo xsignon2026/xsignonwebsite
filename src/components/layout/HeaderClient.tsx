@@ -27,9 +27,7 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
 
     function checkTheme() {
       // Find the first [data-nav] section that covers the point 84px from viewport top
-      const sections = Array.from(
-        document.querySelectorAll<HTMLElement>("[data-nav]"),
-      );
+      const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-nav]"));
       const targetY = 84;
 
       for (const section of sections) {
@@ -74,11 +72,7 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
       id="site-header"
       className={`sticky top-0 z-[90] h-[69px] max-md:h-[62px] w-full border-b backdrop-blur-md ease-brand ${
         mounted ? "transition-colors duration-200" : ""
-      } ${
-        isDark
-          ? "border-d-line bg-d1/97 text-white"
-          : "border-line bg-paper/97 text-txt"
-      }`}
+      } ${isDark ? "border-d-line bg-d1/97 text-white" : "border-line bg-paper/97 text-txt"}`}
     >
       <div className="mx-auto flex h-full max-w-[1180px] items-center justify-between px-8 max-md:px-5">
         {/* Logo */}

@@ -96,7 +96,9 @@ export async function sendEnquiryEmails(enquiry: EnquiryRecord): Promise<{
   // Graceful local/staging fallback (logged cleanly)
   if (process.env.NODE_ENV !== "test") {
     console.info(`[Mailer Fallback] Dispatched to ${teamRecipient}:`, teamSubject);
-    console.info(`[Mailer Fallback] Confirmation (${visitorSubject}) sent to ${enquiry.data.email}`);
+    console.info(
+      `[Mailer Fallback] Confirmation (${visitorSubject}) sent to ${enquiry.data.email}`,
+    );
   }
 
   // Preserve references for production email payload integration
@@ -141,7 +143,10 @@ export async function sendVerificationEmail(options: {
   }
 
   if (process.env.NODE_ENV !== "test") {
-    console.info(`[Mailer Fallback] Verification email dispatched to ${recipient}:`, rendered.subject);
+    console.info(
+      `[Mailer Fallback] Verification email dispatched to ${recipient}:`,
+      rendered.subject,
+    );
   }
 
   return { success: true, messageId: `mock-verif-${Date.now()}` };
@@ -149,7 +154,7 @@ export async function sendVerificationEmail(options: {
 
 // T-071: Dispatches transactional signed download links after white paper verification
 export async function sendWhitePaperDeliveryEmail(
-  options: WhitePaperDeliveryOptions
+  options: WhitePaperDeliveryOptions,
 ): Promise<EmailResult> {
   const rendered = renderWhitePaperDeliveryEmail(options);
   const env = getAppEnvironment();
@@ -173,7 +178,10 @@ export async function sendWhitePaperDeliveryEmail(
   }
 
   if (process.env.NODE_ENV !== "test") {
-    console.info(`[Mailer Fallback] White paper delivery email dispatched to ${recipient}:`, rendered.subject);
+    console.info(
+      `[Mailer Fallback] White paper delivery email dispatched to ${recipient}:`,
+      rendered.subject,
+    );
   }
 
   return { success: true, messageId: `mock-wp-${Date.now()}` };

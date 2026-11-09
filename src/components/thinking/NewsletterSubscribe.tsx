@@ -54,7 +54,9 @@ export function NewsletterSubscribe({ sourcePage = "/thinking" }: NewsletterSubs
   return (
     <div className="news-band rv">
       <h3 className="h3">Stay informed</h3>
-      <p>New thinking on identity, AI governance and verified sign-in, in your inbox as it publishes.</p>
+      <p>
+        New thinking on identity, AI governance and verified sign-in, in your inbox as it publishes.
+      </p>
 
       {status === "success" ? (
         <div className="news-done" role="status">
@@ -84,11 +86,7 @@ export function NewsletterSubscribe({ sourcePage = "/thinking" }: NewsletterSubs
             onChange={(e) => setEmail(e.target.value)}
             disabled={status === "submitting"}
           />
-          <button
-            className="btn btn-white"
-            type="submit"
-            disabled={status === "submitting"}
-          >
+          <button className="btn btn-white" type="submit" disabled={status === "submitting"}>
             {status === "submitting" ? "Subscribing..." : "Subscribe"}
           </button>
         </form>

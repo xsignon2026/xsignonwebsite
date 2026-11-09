@@ -12,9 +12,7 @@ export async function generateStaticParams() {
   return studies.map((cs) => ({ slug: cs.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: CaseStudyPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {
   const { slug } = await params;
   const caseStudy = await getCaseStudyBySlug(slug);
 
@@ -81,9 +79,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               {caseStudy.industry}
               {caseStudy.location ? ` · ${caseStudy.location}` : ""}
             </span>
-            {caseStudy.deploymentDate && (
-              <span className="ptag">{caseStudy.deploymentDate}</span>
-            )}
+            {caseStudy.deploymentDate && <span className="ptag">{caseStudy.deploymentDate}</span>}
             {caseStudy.relatedProducts?.map((p) => (
               <span key={p.slug} className="ptag">
                 {p.name}
@@ -99,15 +95,11 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         <section className="page-sec py-14 border-b border-slate-100">
           <div className="wrap mx-auto max-w-[1280px] px-6">
             <div className="sec-head mb-4">
-              <h2 className="h2 text-2xl font-semibold text-navy">
-                Where they started
-              </h2>
+              <h2 className="h2 text-2xl font-semibold text-navy">Where they started</h2>
             </div>
             <div className="body-copy max-w-3xl text-slate-700 leading-relaxed space-y-4">
               <p>{caseStudy.challenge}</p>
-              {caseStudy.challengeParagraph2 && (
-                <p>{caseStudy.challengeParagraph2}</p>
-              )}
+              {caseStudy.challengeParagraph2 && <p>{caseStudy.challengeParagraph2}</p>}
             </div>
           </div>
         </section>
@@ -116,9 +108,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         <section className="page-sec py-14 border-b border-slate-100">
           <div className="wrap mx-auto max-w-[1280px] px-6">
             <div className="sec-head mb-4">
-              <h2 className="h2 text-2xl font-semibold text-navy">
-                What was deployed
-              </h2>
+              <h2 className="h2 text-2xl font-semibold text-navy">What was deployed</h2>
             </div>
             <div className="body-copy max-w-3xl text-slate-700 leading-relaxed">
               <p>{caseStudy.approach}</p>
@@ -129,8 +119,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
                   <li key={feat.title} className="flex items-start gap-3 text-slate-700">
                     <span className="w-2 h-2 rounded-full bg-coral mt-2 flex-shrink-0" />
                     <span>
-                      <strong className="text-navy">{feat.title}</strong>:{" "}
-                      {feat.description}
+                      <strong className="text-navy">{feat.title}</strong>: {feat.description}
                     </span>
                   </li>
                 ))}
@@ -150,12 +139,8 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
                 {caseStudy.rolloutSteps.map((step) => (
                   <div key={step.stepNumber} className="step-card rv">
                     <span className="how-num">{step.stepNumber}</span>
-                    <h4 className="text-lg font-semibold text-navy mb-2">
-                      {step.title}
-                    </h4>
-                    <p className="text-slate-600 text-sm leading-relaxed">
-                      {step.description}
-                    </p>
+                    <h4 className="text-lg font-semibold text-navy mb-2">{step.title}</h4>
+                    <p className="text-slate-600 text-sm leading-relaxed">{step.description}</p>
                   </div>
                 ))}
               </div>

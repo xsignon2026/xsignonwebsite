@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("E2E: CMS Publish-to-Live & Webhook Security", () => {
-  test("rejects unauthenticated requests to revalidation webhook with 401 or 500", async ({ request }) => {
+  test("rejects unauthenticated requests to revalidation webhook with 401 or 500", async ({
+    request,
+  }) => {
     const response = await request.post("/api/revalidate", {
       data: {
         _id: "test-product-id",

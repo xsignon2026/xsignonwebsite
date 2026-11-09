@@ -72,7 +72,10 @@ export default async function SolutionsPage() {
                     <h3>{sol.title}</h3>
                     <p>{sol.summary}</p>
                     <Link className="link-arrow" href={`/solutions/${sol.slug}`}>
-                      View solution <span className="arr" aria-hidden="true">→</span>
+                      View solution{" "}
+                      <span className="arr" aria-hidden="true">
+                        →
+                      </span>
                     </Link>
                   </div>
                 </article>
@@ -85,9 +88,7 @@ export default async function SolutionsPage() {
         <section className="page-sec py-16" id="solMore" data-nav="light">
           <div className="wrap mx-auto max-w-[1280px] px-6">
             <div className="sec-row mb-8">
-              <h2 className="h2 text-3xl font-semibold text-slate-900">
-                Enterprise and insights
-              </h2>
+              <h2 className="h2 text-3xl font-semibold text-slate-900">Enterprise and insights</h2>
             </div>
 
             {/* Enterprise Band */}
@@ -96,14 +97,17 @@ export default async function SolutionsPage() {
                 <div className="eb-copy">
                   <h3>Enterprise</h3>
                   <p>
-                    Every identity, fully in control: identity command, three deployment
-                    models, and a standards posture for enterprise estates.
+                    Every identity, fully in control: identity command, three deployment models, and
+                    a standards posture for enterprise estates.
                   </p>
                   <Link
                     className="btn btn-white inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-navy font-semibold hover:bg-slate-100 transition-colors"
                     href="/enterprise"
                   >
-                    View the Enterprise page <span className="chev" aria-hidden="true">›</span>
+                    View the Enterprise page{" "}
+                    <span className="chev" aria-hidden="true">
+                      ›
+                    </span>
                   </Link>
                 </div>
 
@@ -193,18 +197,23 @@ export default async function SolutionsPage() {
                 className="products-all inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-navy"
                 href="/thinking"
               >
-                All articles <span className="arr" aria-hidden="true">→</span>
+                All articles{" "}
+                <span className="arr" aria-hidden="true">
+                  →
+                </span>
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <article className="border border-slate-200 rounded-2xl p-6 bg-white hover:border-slate-400 transition-colors">
-                <span className="text-xs font-sans font-medium uppercase tracking-[0.14em] text-slate-500">Identity & Risk</span>
+                <span className="text-xs font-sans font-medium uppercase tracking-[0.14em] text-slate-500">
+                  Identity & Risk
+                </span>
                 <h4 className="text-xl font-semibold text-navy mt-2 mb-2">
                   Non-Human Identities, and the Future of Cyber Risk
                 </h4>
                 <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                  Why machine identities, service accounts, and AI agents require continuous
-                  posture scoring and cryptographic attribution.
+                  Why machine identities, service accounts, and AI agents require continuous posture
+                  scoring and cryptographic attribution.
                 </p>
                 <Link
                   className="text-sm font-semibold text-navy hover:text-coral inline-flex items-center gap-1"
@@ -215,7 +224,9 @@ export default async function SolutionsPage() {
               </article>
 
               <article className="border border-slate-200 rounded-2xl p-6 bg-white hover:border-slate-400 transition-colors">
-                <span className="text-xs font-sans font-medium uppercase tracking-[0.14em] text-slate-500">Data & AI Governance</span>
+                <span className="text-xs font-sans font-medium uppercase tracking-[0.14em] text-slate-500">
+                  Data & AI Governance
+                </span>
                 <h4 className="text-xl font-semibold text-navy mt-2 mb-2">
                   Data + AI Security Built for Visibility, Control, and Trust
                 </h4>
@@ -238,14 +249,15 @@ export default async function SolutionsPage() {
         <section className="cta-sec sm bg-white py-16 border-t border-slate-100" data-nav="light">
           <div className="wrap mx-auto max-w-[1280px] px-6 text-center">
             <div className="cta-panel plain bg-navy text-white rounded-3xl p-12 max-w-4xl mx-auto">
-              <h2 className="h2 text-3xl font-semibold mb-6">
-                Which solution fits your goals?
-              </h2>
+              <h2 className="h2 text-3xl font-semibold mb-6">Which solution fits your goals?</h2>
               <Link
                 className="btn btn-white inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-navy font-semibold hover:bg-slate-100 transition-colors"
                 href="/contact"
               >
-                Book a strategy call <span className="chev" aria-hidden="true">›</span>
+                Book a strategy call{" "}
+                <span className="chev" aria-hidden="true">
+                  ›
+                </span>
               </Link>
             </div>
           </div>

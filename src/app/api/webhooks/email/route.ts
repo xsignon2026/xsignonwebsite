@@ -14,19 +14,13 @@ export async function POST(request: NextRequest) {
 
     // Validate webhook secret if configured in environment
     if (expectedSecret && authHeader !== expectedSecret) {
-      return NextResponse.json(
-        { error: "Unauthorized webhook caller" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized webhook caller" }, { status: 401 });
     }
 
     const payload = await request.json().catch(() => null);
 
     if (!payload) {
-      return NextResponse.json(
-        { error: "Invalid JSON payload" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
     }
 
     // Support standard webhook formats (Postmark, SendGrid, SES, Mailgun)
@@ -52,7 +46,7 @@ export async function POST(request: NextRequest) {
     if (!targetEmail) {
       return NextResponse.json(
         { error: "Target email address missing in webhook payload" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -62,9 +56,7 @@ export async function POST(request: NextRequest) {
       eventType.includes("undelivered") ||
       eventType.includes("permanent");
 
-    const isComplaint =
-      eventType.includes("complaint") ||
-      eventType.includes("spam");
+    const isComplaint = eventType.includes("complaint") || eventType.includes("spam");
 
     if (isBounce || isComplaint) {
       // 1. Mark pending verifications as bounced
@@ -75,7 +67,7 @@ export async function POST(request: NextRequest) {
         targetEmail,
         isComplaint
           ? "Spam complaint received via webhook"
-          : "Hard bounce recorded via email webhook"
+          : "Hard bounce recorded via email webhook",
       );
 
       return NextResponse.json({
@@ -94,9 +86,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("[Email Webhook Error]:", error);
-    return NextResponse.json(
-      { error: "Internal webhook processing error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal webhook processing error" }, { status: 500 });
   }
 }

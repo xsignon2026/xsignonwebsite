@@ -7,18 +7,23 @@ This document specifies the required DNS records for sending transactional and i
 To achieve high deliverability and pass strict DMARC enforcement:
 
 ### A. SPF (Sender Policy Framework)
+
 Ensure the root domain TXT record authorises the sending service:
+
 - **Type:** `TXT`
 - **Host:** `@`
-- **Value:** `v=spf1 include:_spf.google.com include:sendgrid.net ~all` *(or matching your chosen ESP)*
+- **Value:** `v=spf1 include:_spf.google.com include:sendgrid.net ~all` _(or matching your chosen ESP)_
 
 ### B. DKIM (DomainKeys Identified Mail)
+
 Generate two CNAME records from your ESP dashboard to sign all outgoing mail cryptographically:
+
 - **Type:** `CNAME`
 - **Host:** `s1._domainkey` / `s2._domainkey`
 - **Value:** Provided by ESP (e.g. `s1.domainkey.u12345.sendgrid.net`)
 
 ### C. DMARC (Domain-based Message Authentication, Reporting, and Conformance)
+
 - **Type:** `TXT`
 - **Host:** `_dmarc.xsignon.com`
 - **Value:** `v=DMARC1; p=reject; rua=mailto:dmarc-reports@xsignon.com; pct=100; aspf=s; adkim=s;`

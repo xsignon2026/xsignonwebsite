@@ -169,11 +169,7 @@ export function ProductOverviewInteractive() {
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
             <h2 className="text-display-sm font-bold text-txt">Overview of products</h2>
             <div className="flex items-center gap-4">
-              <p
-                id="ovCount"
-                aria-live="polite"
-                className="font-sans text-sm text-gray"
-              >
+              <p id="ovCount" aria-live="polite" className="font-sans text-sm text-gray">
                 {selectedKeys.length} of {ALL_KEYS.length} selected
               </p>
               {selectedKeys.length > 0 && (
@@ -200,10 +196,7 @@ export function ProductOverviewInteractive() {
               <table className="w-full border-collapse text-left" id="ovTable">
                 <thead>
                   <tr className="border-b border-line bg-soft">
-                    <th
-                      scope="col"
-                      className="p-5 font-semibold text-txt w-56 min-w-[200px]"
-                    >
+                    <th scope="col" className="p-5 font-semibold text-txt w-56 min-w-[200px]">
                       <span className="text-base">Compare products</span>
                     </th>
                     {ALL_KEYS.map((key) => {

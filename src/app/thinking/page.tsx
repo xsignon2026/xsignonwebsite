@@ -12,14 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default async function ThinkingHubPage() {
-  const [articles, featuredArticle] = await Promise.all([
-    getAllArticles(),
-    getFeaturedArticle(),
-  ]);
+  const [articles, featuredArticle] = await Promise.all([getAllArticles(), getFeaturedArticle()]);
 
-  const gridArticles = articles.filter(
-    (art) => art.slug !== featuredArticle?.slug
-  );
+  const gridArticles = articles.filter((art) => art.slug !== featuredArticle?.slug);
 
   return (
     <div id="view-thinking" className="res-view">
@@ -42,9 +37,7 @@ export default async function ThinkingHubPage() {
         <section className="page-sec">
           <div className="wrap">
             {/* Featured Article Card */}
-            {featuredArticle && (
-              <ArticleCard article={featuredArticle} featured={true} />
-            )}
+            {featuredArticle && <ArticleCard article={featuredArticle} featured={true} />}
 
             {/* Grid of Other Articles */}
             <div className="case-grid" style={{ marginTop: "34px" }}>

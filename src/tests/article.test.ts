@@ -36,9 +36,7 @@ describe("Epic E09: Article Data, Aliases & Security Verification (T-113 to T-12
     const featured = await getFeaturedArticle();
     expect(featured).not.toBeNull();
     expect(featured?.slug).toBe("identity-first-controls");
-    expect(featured?.title).toBe(
-      "Elevate Enterprise Security with Identity-First Controls"
-    );
+    expect(featured?.title).toBe("Elevate Enterprise Security with Identity-First Controls");
     expect(featured?.featured).toBe(true);
   });
 
@@ -57,9 +55,7 @@ describe("Epic E09: Article Data, Aliases & Security Verification (T-113 to T-12
     const article = await getArticleBySlug("data-and-ai-security");
     expect(article).not.toBeNull();
     expect(article?.topic).toBe("Data + AI");
-    expect(article?.sections[0].heading).toBe(
-      "The questions arrive before the evidence exists"
-    );
+    expect(article?.sections[0].heading).toBe("The questions arrive before the evidence exists");
     expect(article?.ctaHeadline).toBe("Have evidence before the letter arrives.");
 
     const byAlias = await getArticleBySlug("article-data-ai");
@@ -81,9 +77,7 @@ describe("Epic E09: Article Data, Aliases & Security Verification (T-113 to T-12
     const article = await getArticleBySlug("non-human-identities");
     expect(article).not.toBeNull();
     expect(article?.topic).toBe("Non-Human Identity");
-    expect(article?.sections[0].heading).toBe(
-      "The identities doing the work are changing"
-    );
+    expect(article?.sections[0].heading).toBe("The identities doing the work are changing");
     expect(article?.ctaHeadline).toBe("Govern every identity, human or not.");
 
     const byAlias = await getArticleBySlug("article-nonhuman");

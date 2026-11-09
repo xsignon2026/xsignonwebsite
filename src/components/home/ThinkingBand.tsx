@@ -32,7 +32,8 @@ const defaultThinking: HomeThinking = {
       imageAlt: "Engineer working on a laptop in a technology lab",
     },
     {
-      title: "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
+      title:
+        "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
       date: "June 29, 2026",
       desc: "A growing share of sign-ins comes from non-human identities: service accounts, automations and AI agents. Each one deserves the same governance as a person's account: an owner, a scope, and a review cycle.",
       href: "/thinking/non-human-identities",
@@ -70,8 +71,14 @@ export function ThinkingBand({ thinking = defaultThinking }: ThinkingBandProps) 
               <h4 className="h4">{thinking.lead.title}</h4>
               <p className="meta">{thinking.lead.date}</p>
               <p>{thinking.lead.desc}</p>
-              <Link className="link-arrow text-navy hover:text-coral inline-flex items-center gap-2" href={thinking.lead.href}>
-                Read the article <span className="arr" aria-hidden="true">→</span>
+              <Link
+                className="link-arrow text-navy hover:text-coral inline-flex items-center gap-2"
+                href={thinking.lead.href}
+              >
+                Read the article{" "}
+                <span className="arr" aria-hidden="true">
+                  →
+                </span>
               </Link>
             </div>
             <div
@@ -133,7 +140,10 @@ export function ThinkingBand({ thinking = defaultThinking }: ThinkingBandProps) 
                         className="link-arrow text-navy hover:text-coral inline-flex items-center gap-2 text-sm font-semibold"
                         href={item.href}
                       >
-                        Read the article <span className="arr" aria-hidden="true">→</span>
+                        Read the article{" "}
+                        <span className="arr" aria-hidden="true">
+                          →
+                        </span>
                       </Link>
                     </div>
                   </div>

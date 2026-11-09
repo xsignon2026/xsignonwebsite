@@ -8,9 +8,7 @@ export function ReadingProgressBar() {
 
   useEffect(() => {
     // Respect user's motion preferences
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
     function handleScroll() {
@@ -20,10 +18,7 @@ export function ReadingProgressBar() {
         return;
       }
 
-      const currentProgress = Math.min(
-        1,
-        Math.max(0, window.scrollY / scrollHeight)
-      );
+      const currentProgress = Math.min(1, Math.max(0, window.scrollY / scrollHeight));
       setProgress(currentProgress);
       setIsVisible(window.scrollY > 40);
     }

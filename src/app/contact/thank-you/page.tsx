@@ -18,11 +18,7 @@ type ThankYouPageProps = {
   searchParams: Promise<{ session?: string }>;
 };
 
-async function ThankYouContent({
-  searchParams,
-}: {
-  searchParams: Promise<{ session?: string }>;
-}) {
+async function ThankYouContent({ searchParams }: { searchParams: Promise<{ session?: string }> }) {
   const { session } = await searchParams;
   const enquiry = session ? await getEnquiryById(session) : null;
 
@@ -30,11 +26,15 @@ async function ThankYouContent({
     <div className="mt-8 max-w-xl text-lg text-on-dark-mut leading-relaxed">
       {enquiry ? (
         <p>
-          We have received your inquiry for <strong className="text-white">{enquiry.data.reason}</strong>. Our architecture team will review your requirements and reach out to <strong className="text-white">{enquiry.data.email}</strong> within one business day.
+          We have received your inquiry for{" "}
+          <strong className="text-white">{enquiry.data.reason}</strong>. Our architecture team will
+          review your requirements and reach out to{" "}
+          <strong className="text-white">{enquiry.data.email}</strong> within one business day.
         </p>
       ) : (
         <p>
-          Your inquiry has been accepted into our architecture review queue. We will review your requirements and reach out within one business day.
+          Your inquiry has been accepted into our architecture review queue. We will review your
+          requirements and reach out within one business day.
         </p>
       )}
     </div>
@@ -69,7 +69,8 @@ export default function ThankYouPage({ searchParams }: ThankYouPageProps) {
             fallback={
               <div className="mt-8 max-w-xl text-lg text-on-dark-mut leading-relaxed">
                 <p>
-                  Your inquiry has been accepted into our architecture review queue. We will review your requirements and reach out within one business day.
+                  Your inquiry has been accepted into our architecture review queue. We will review
+                  your requirements and reach out within one business day.
                 </p>
               </div>
             }

@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     if (!email || !EMAIL_REGEX.test(email)) {
       return NextResponse.json(
         { success: false, message: "Please provide a valid email address." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -20,13 +20,14 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: "The address you entered has been recorded for removal from XSignOn marketing emails.",
+      message:
+        "The address you entered has been recorded for removal from XSignOn marketing emails.",
     });
   } catch (err) {
     console.error("[Unsubscribe API] Error:", err);
     return NextResponse.json(
       { success: false, message: "Unable to process unsubscribe request at this time." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

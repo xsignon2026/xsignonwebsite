@@ -6,9 +6,7 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await page.goto("/");
   });
 
-  test("T-091: Hero split renders canvas beams, product slider, and marquee", async ({
-    page,
-  }) => {
+  test("T-091: Hero split renders canvas beams, product slider, and marquee", async ({ page }) => {
     // Check main display headline
     const headline = page.getByRole("heading", {
       name: /Identity and access/i,
@@ -46,9 +44,7 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(marquee.getByText("SOC 2").first()).toBeVisible();
   });
 
-  test("T-092: Product Coverflow carousel renders and controls active slide", async ({
-    page,
-  }) => {
+  test("T-092: Product Coverflow carousel renders and controls active slide", async ({ page }) => {
     const coverflow = page.locator("#productCoverflow");
     await expect(coverflow).toBeVisible();
 
@@ -69,9 +65,7 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(status).toHaveText(/Passwordless Keys/);
   });
 
-  test("T-093: Partner Ecosystem hub renders tabs and keeps links accessible", async ({
-    page,
-  }) => {
+  test("T-093: Partner Ecosystem hub renders tabs and keeps links accessible", async ({ page }) => {
     const partnerHub = page.locator("#partnerHub");
     await expect(partnerHub).toBeVisible();
 
@@ -94,9 +88,7 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(detail).toContainText("AI security scanners");
   });
 
-  test("T-094: Solutions Journey and Our Thinking bands operate smoothly", async ({
-    page,
-  }) => {
+  test("T-094: Solutions Journey and Our Thinking bands operate smoothly", async ({ page }) => {
     // Solutions rail
     const railButtons = page.locator(".j-rail button");
     await expect(railButtons).toHaveCount(5);
@@ -123,9 +115,7 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(ctaBtn).toHaveAttribute("href", "/contact");
   });
 
-  test("T-097: Home page meets WCAG 2.2 AA accessibility standards", async ({
-    page,
-  }) => {
+  test("T-097: Home page meets WCAG 2.2 AA accessibility standards", async ({ page }) => {
     const axeResults = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
       .analyze();

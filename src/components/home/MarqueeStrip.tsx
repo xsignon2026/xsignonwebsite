@@ -6,28 +6,25 @@ interface MarqueeStripProps {
   standards?: string[];
 }
 
-const defaultStandards = [
-  "FIDO2",
-  "SOC 2",
-  "ISO 27001",
-  "NIST AI-RMF",
-  "NIST 800-207",
-  "GDPR",
-];
+const defaultStandards = ["FIDO2", "SOC 2", "ISO 27001", "NIST AI-RMF", "NIST 800-207", "GDPR"];
 
 // T-091, T-141: Standards marquee strip with visible pause controls and reduced motion support
 export function MarqueeStrip({ standards = defaultStandards }: MarqueeStripProps) {
   const [isPaused, setIsPaused] = useState(false);
 
   return (
-    <div
-      className="strip"
-      data-nav="dark"
-      role="region"
-      aria-label="Frameworks we align with"
-    >
+    <div className="strip" data-nav="dark" role="region" aria-label="Frameworks we align with">
       <div className="wrap mx-auto max-w-[1280px] px-6">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap", marginBottom: "12px" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "16px",
+            flexWrap: "wrap",
+            marginBottom: "12px",
+          }}
+        >
           <p className="strip-label" style={{ margin: 0 }}>
             Aligned with the frameworks your auditors ask about
           </p>

@@ -13,7 +13,7 @@ describe("T-162: Supply Chain Dependency Pinning Suite", () => {
     for (const [dep, version] of Object.entries(deps)) {
       expect(
         /^[0-9]+\.[0-9]+\.[0-9]+(-.+)?$/.test(version as string),
-        `Dependency "${dep}" is not strictly pinned: found "${version}"`
+        `Dependency "${dep}" is not strictly pinned: found "${version}"`,
       ).toBe(true);
     }
   });
@@ -25,7 +25,7 @@ describe("T-162: Supply Chain Dependency Pinning Suite", () => {
     for (const [dep, version] of Object.entries(devDeps)) {
       expect(
         /^[0-9]+\.[0-9]+\.[0-9]+(-.+)?$/.test(version as string),
-        `devDependency "${dep}" is not strictly pinned: found "${version}"`
+        `devDependency "${dep}" is not strictly pinned: found "${version}"`,
       ).toBe(true);
     }
   });

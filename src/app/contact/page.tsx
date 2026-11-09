@@ -47,15 +47,19 @@ export default function ContactPage() {
               <div>
                 <h2 className="text-xl font-bold text-txt mb-2">What happens next.</h2>
                 <p>
-                  Every inquiry goes directly to an architect who replies with care. Strategy calls are short working sessions on your access, AI governance, or quantum readiness goals, leaving you with a clear, actionable next step.
+                  Every inquiry goes directly to an architect who replies with care. Strategy calls
+                  are short working sessions on your access, AI governance, or quantum readiness
+                  goals, leaving you with a clear, actionable next step.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-lg font-bold text-txt mb-1">Office</h3>
                 <p>
-                  XSignOn Corporation<br />
-                  3900 S Stonebridge Dr., Suite 1101<br />
+                  XSignOn Corporation
+                  <br />
+                  3900 S Stonebridge Dr., Suite 1101
+                  <br />
                   McKinney, TX 75070
                 </p>
               </div>
@@ -86,7 +90,9 @@ export default function ContactPage() {
 
               <div className="rounded-card border border-line bg-card p-6 text-sm">
                 <p className="m-0 text-gray">
-                  This form is designed to be quick and welcoming. To book quickly, choose <strong className="text-txt">&quot;Book a strategy call&quot;</strong> and share your preferred timing in the message.
+                  This form is designed to be quick and welcoming. To book quickly, choose{" "}
+                  <strong className="text-txt">&quot;Book a strategy call&quot;</strong> and share
+                  your preferred timing in the message.
                 </p>
               </div>
             </div>
@@ -101,7 +107,8 @@ export default function ContactPage() {
             <div>
               <h2 className="text-xl font-bold text-txt">Prefer reading first?</h2>
               <p className="text-body text-gray mt-1">
-                Explore our engineering perspectives on identity security, micro-segmentation, and AI governance.
+                Explore our engineering perspectives on identity security, micro-segmentation, and
+                AI governance.
               </p>
             </div>
             <Link

@@ -5,8 +5,7 @@ import { RegisterForm } from "@/components/auth/RegisterForm";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Create account | XSignOn",
-  description:
-    "Your identity, ready for what's next. Create an enterprise account with XSignOn.",
+  description: "Your identity, ready for what's next. Create an enterprise account with XSignOn.",
   path: "/register",
   noindex: true,
 });

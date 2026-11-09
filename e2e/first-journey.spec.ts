@@ -4,7 +4,9 @@ import { expect, test } from "@playwright/test";
 test.describe("T-061: First Customer Journey (Product Discovery -> Inquiry -> Thank You)", () => {
   test.setTimeout(60000);
 
-  test("visitor discovers PostureOne, navigates to inquiry, and submits successfully", async ({ page }) => {
+  test("visitor discovers PostureOne, navigates to inquiry, and submits successfully", async ({
+    page,
+  }) => {
     // 1. Visit Product Page
     await page.goto("/products/postureone", { waitUntil: "networkidle" });
 
@@ -32,7 +34,10 @@ test.describe("T-061: First Customer Journey (Product Discovery -> Inquiry -> Th
     await page.fill("input#cfName", "Jordan Lee");
     await page.fill("input#cfEmail", "jordan.lee@cyberguard.net");
     await page.fill("input#cfCompany", "CyberGuard Solutions");
-    await page.fill("textarea#cfMsg", "Requesting technical architecture review for zero-trust posture.");
+    await page.fill(
+      "textarea#cfMsg",
+      "Requesting technical architecture review for zero-trust posture.",
+    );
     await page.check("input#cfSms");
 
     // 4. Wait for minimum human interaction time (bot defense check requires >1500ms)

@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   if (!token || !email) {
     return NextResponse.json(
       { success: false, error: "missing_parameters", message: "Token and email are required." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -28,8 +28,12 @@ export async function GET(request: NextRequest) {
 
   if (!record || record.email.toLowerCase() !== email.toLowerCase().trim()) {
     return NextResponse.json(
-      { success: false, error: "invalid_token", message: "Verification link is invalid or has already been used." },
-      { status: 400 }
+      {
+        success: false,
+        error: "invalid_token",
+        message: "Verification link is invalid or has already been used.",
+      },
+      { status: 400 },
     );
   }
 
@@ -41,7 +45,7 @@ export async function GET(request: NextRequest) {
         error: "expired_token",
         message: "This verification link has expired (24-hour limit). Please request a new one.",
       },
-      { status: 410 }
+      { status: 410 },
     );
   }
 
@@ -53,7 +57,7 @@ export async function GET(request: NextRequest) {
         error: "bounced_email",
         message: "Email delivery bounced for this address. Verification cannot proceed.",
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 

@@ -13,7 +13,10 @@ const MAX_REQUESTS_PER_WINDOW = 5;
 const ipStore = new Map<string, RateRecord>();
 const idempotencyStore = new Map<string, { timestamp: number; response: unknown }>();
 
-export function checkRateLimit(ip: string, now: number = Date.now()): { allowed: boolean; remaining: number } {
+export function checkRateLimit(
+  ip: string,
+  now: number = Date.now(),
+): { allowed: boolean; remaining: number } {
   const cleanIp = ip || "unknown";
   const existing = ipStore.get(cleanIp);
 

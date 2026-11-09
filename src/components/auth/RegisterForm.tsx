@@ -77,7 +77,8 @@ export function RegisterForm() {
           <div className="form-done">
             <h2 className="h3">Registration initiated.</h2>
             <p>
-              Thank you for registering. An onboarding link has been dispatched to your corporate email. In the live deployment, your hardware key will be bound during initial setup.
+              Thank you for registering. An onboarding link has been dispatched to your corporate
+              email. In the live deployment, your hardware key will be bound during initial setup.
             </p>
             <Link className="btn btn-ghost-l" href="/">
               Back to home
@@ -89,7 +90,10 @@ export function RegisterForm() {
       <p style={{ marginTop: "24px", fontSize: "16px", color: "var(--gray)" }}>
         Already have an account?{" "}
         <Link className="link-arrow" href="/login">
-          Log in <span className="arr" aria-hidden="true">&#8594;</span>
+          Log in{" "}
+          <span className="arr" aria-hidden="true">
+            &#8594;
+          </span>
         </Link>
       </p>
     </div>

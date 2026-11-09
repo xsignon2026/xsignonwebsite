@@ -28,7 +28,7 @@ test.describe("T-070: Unsubscribe Flow (#view-unsubscribe)", () => {
     await expect(doneContainer).toBeVisible();
     await expect(doneContainer).toContainText("Request confirmed.");
     await expect(doneContainer).toContainText(
-      "The address you entered has been recorded for removal from XSignOn marketing emails."
+      "The address you entered has been recorded for removal from XSignOn marketing emails.",
     );
   });
 });

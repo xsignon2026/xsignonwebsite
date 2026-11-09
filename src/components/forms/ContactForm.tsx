@@ -38,7 +38,7 @@ export function ContactForm() {
   }, []);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
@@ -137,7 +137,10 @@ export function ContactForm() {
           {/* Name */}
           <div>
             <label htmlFor="cfName" className="block text-sm font-semibold text-txt mb-2">
-              Name <span className="text-acc" aria-hidden="true">*</span>
+              Name{" "}
+              <span className="text-acc" aria-hidden="true">
+                *
+              </span>
             </label>
             <input
               ref={nameRef}
@@ -165,7 +168,10 @@ export function ContactForm() {
           {/* Email */}
           <div>
             <label htmlFor="cfEmail" className="block text-sm font-semibold text-txt mb-2">
-              Work email <span className="text-acc" aria-hidden="true">*</span>
+              Work email{" "}
+              <span className="text-acc" aria-hidden="true">
+                *
+              </span>
             </label>
             <input
               ref={emailRef}
@@ -195,7 +201,10 @@ export function ContactForm() {
           {/* Company */}
           <div>
             <label htmlFor="cfCompany" className="block text-sm font-semibold text-txt mb-2">
-              Company <span className="text-acc" aria-hidden="true">*</span>
+              Company{" "}
+              <span className="text-acc" aria-hidden="true">
+                *
+              </span>
             </label>
             <input
               ref={companyRef}
@@ -250,7 +259,10 @@ export function ContactForm() {
         {/* Reason */}
         <div>
           <label htmlFor="cfReason" className="block text-sm font-semibold text-txt mb-2">
-            Reason for contacting <span className="text-acc" aria-hidden="true">*</span>
+            Reason for contacting{" "}
+            <span className="text-acc" aria-hidden="true">
+              *
+            </span>
           </label>
           <select
             ref={reasonRef}
@@ -283,7 +295,10 @@ export function ContactForm() {
         {/* Message */}
         <div>
           <label htmlFor="cfMsg" className="block text-sm font-semibold text-txt mb-2">
-            Message <span className="text-acc" aria-hidden="true">*</span>
+            Message{" "}
+            <span className="text-acc" aria-hidden="true">
+              *
+            </span>
           </label>
           <textarea
             ref={messageRef}
@@ -318,9 +333,7 @@ export function ContactForm() {
               onChange={handleChange}
               className="mt-1 h-4 w-4 rounded border-line text-acc focus:ring-acc"
             />
-            <span className="text-xs text-gray leading-relaxed">
-              {TCPA_CONSENT_TEXT}
-            </span>
+            <span className="text-xs text-gray leading-relaxed">{TCPA_CONSENT_TEXT}</span>
           </label>
         </div>
 

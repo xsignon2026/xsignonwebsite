@@ -28,11 +28,11 @@ To eliminate cascading failure modes during emergencies, application code, CMS c
 
 ## 2. Procedure 1: Application Rollback (Code & Infrastructure)
 
-* **Trigger**: Critical runtime regression, unhandled exceptions spike, or fatal build artifact detected post-deployment.
-* **Mechanism**: Vercel Instant Rollback or Git deployment tag revert.
-* **RTO (Recovery Time Objective)**: **< 60 seconds**.
-* **RPO (Recovery Point Objective)**: **0 seconds** (Git history is immutable).
-* **Step-by-Step Execution**:
+- **Trigger**: Critical runtime regression, unhandled exceptions spike, or fatal build artifact detected post-deployment.
+- **Mechanism**: Vercel Instant Rollback or Git deployment tag revert.
+- **RTO (Recovery Time Objective)**: **< 60 seconds**.
+- **RPO (Recovery Point Objective)**: **0 seconds** (Git history is immutable).
+- **Step-by-Step Execution**:
   1. Open Vercel Project Dashboard > Deployments.
   2. Locate the previous verified healthy deployment hash (e.g. `dpl_prev_healthy`).
   3. Click `...` > **Instant Rollback**.
@@ -46,11 +46,11 @@ To eliminate cascading failure modes during emergencies, application code, CMS c
 
 ## 3. Procedure 2: Content Recovery Rollback (Sanity CMS)
 
-* **Trigger**: Accidental bulk document deletion, corrupt rich text publication, schema mismatch, or unauthorized edits during content freeze.
-* **Mechanism**: Dataset restoration from verified offline NDJSON snapshot using `scripts/sanity-dataset-backup.mjs` (established in T-154).
-* **RTO**: **< 15 minutes**.
-* **RPO**: **< 1 hour** (backed by automated hourly dataset exports).
-* **Step-by-Step Execution**:
+- **Trigger**: Accidental bulk document deletion, corrupt rich text publication, schema mismatch, or unauthorized edits during content freeze.
+- **Mechanism**: Dataset restoration from verified offline NDJSON snapshot using `scripts/sanity-dataset-backup.mjs` (established in T-154).
+- **RTO**: **< 15 minutes**.
+- **RPO**: **< 1 hour** (backed by automated hourly dataset exports).
+- **Step-by-Step Execution**:
   1. Identify the latest clean backup snapshot in `backups/sanity-production-<timestamp>.ndjson`.
   2. Run reference integrity validation dry-run:
      ```bash
@@ -67,12 +67,12 @@ To eliminate cascading failure modes during emergencies, application code, CMS c
 
 ## 4. Procedure 3: DNS & Traffic Rollback (Authoritative DNS)
 
-* **Trigger**: Global edge CDN provider outage, SSL certificate provisioning failure, or catastrophic edge routing breakdown.
-* **Mechanism**: Authoritative DNS A/CNAME record pointer swap back to legacy hosting / static maintenance cluster, backed by the 300s TTL step-down executed in T-155.
-* **RTO**: **< 5 minutes** (within the 300s TTL window).
-* **RPO**: **0 seconds** (stateless traffic reroute).
-* **Critical Invariant**: MX, SPF, DKIM, DMARC, and domain verification records **must remain strictly untouched** (as documented in `docs/migration/dns-preservation-plan.md`).
-* **Step-by-Step Execution**:
+- **Trigger**: Global edge CDN provider outage, SSL certificate provisioning failure, or catastrophic edge routing breakdown.
+- **Mechanism**: Authoritative DNS A/CNAME record pointer swap back to legacy hosting / static maintenance cluster, backed by the 300s TTL step-down executed in T-155.
+- **RTO**: **< 5 minutes** (within the 300s TTL window).
+- **RPO**: **0 seconds** (stateless traffic reroute).
+- **Critical Invariant**: MX, SPF, DKIM, DMARC, and domain verification records **must remain strictly untouched** (as documented in `docs/migration/dns-preservation-plan.md`).
+- **Step-by-Step Execution**:
   1. Access Cloudflare / DNS Provider control plane.
   2. Revert apex `@` and `www` CNAME records from Vercel edge to backup maintenance IP (`198.51.100.10`).
   3. Query recursive resolvers to verify propagation:
@@ -87,11 +87,11 @@ To eliminate cascading failure modes during emergencies, application code, CMS c
 
 All three procedures have been rehearsed under simulated failure scenarios.
 
-| Procedure | Rehearsal Scenario | Measured Recovery Time | Verification Result | Lead Engineer | Rehearsal Date |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **1. Application Rollback** | Simulated fatal syntax injection in preview | **42 seconds** (Target: < 60s) | PASS — Reverted to previous healthy build with zero traffic disruption. | Developer A | 2026-11-08 14:15 UTC |
-| **2. Content Recovery** | Simulated deletion of 10 product documents | **7 minutes 18 seconds** (Target: < 15m) | PASS — Restored 100% document count and reference parity. | Developer A | 2026-11-08 14:30 UTC |
-| **3. DNS Rollback** | Simulated edge failover record swap | **3 minutes 45 seconds** (Target: < 5m) | PASS — DNS query returned fallback IP within 300s TTL; MX/SPF preserved. | Developer B | 2026-11-08 14:50 UTC |
+| Procedure                   | Rehearsal Scenario                          | Measured Recovery Time                   | Verification Result                                                      | Lead Engineer | Rehearsal Date       |
+| :-------------------------- | :------------------------------------------ | :--------------------------------------- | :----------------------------------------------------------------------- | :------------ | :------------------- |
+| **1. Application Rollback** | Simulated fatal syntax injection in preview | **42 seconds** (Target: < 60s)           | PASS — Reverted to previous healthy build with zero traffic disruption.  | Developer A   | 2026-11-08 14:15 UTC |
+| **2. Content Recovery**     | Simulated deletion of 10 product documents  | **7 minutes 18 seconds** (Target: < 15m) | PASS — Restored 100% document count and reference parity.                | Developer A   | 2026-11-08 14:30 UTC |
+| **3. DNS Rollback**         | Simulated edge failover record swap         | **3 minutes 45 seconds** (Target: < 5m)  | PASS — DNS query returned fallback IP within 300s TTL; MX/SPF preserved. | Developer B   | 2026-11-08 14:50 UTC |
 
 ---
 
@@ -99,6 +99,6 @@ All three procedures have been rehearsed under simulated failure scenarios.
 
 The three rollback procedures have been rehearsed, measured, and verified as production-ready.
 
-- **Developer A (Infrastructure & Security):** SIGNED (2026-11-08)  
-- **Developer B (Frontend & DNS Verification):** SIGNED (2026-11-08)  
-- **Client Operations Approver:** SIGNED (2026-11-08)  
+- **Developer A (Infrastructure & Security):** SIGNED (2026-11-08)
+- **Developer B (Frontend & DNS Verification):** SIGNED (2026-11-08)
+- **Client Operations Approver:** SIGNED (2026-11-08)

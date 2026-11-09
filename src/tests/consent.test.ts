@@ -77,10 +77,11 @@ describe("Analytics and Consent Manager (T-135)", () => {
 
   it("persists 'accepted' in localStorage and dispatches event", () => {
     const listener = vi.fn();
-    (globalThis as unknown as { window: { addEventListener: (t: string, cb: (e: unknown) => void) => void } }).window.addEventListener(
-      CONSENT_CHANGE_EVENT,
-      listener
-    );
+    (
+      globalThis as unknown as {
+        window: { addEventListener: (t: string, cb: (e: unknown) => void) => void };
+      }
+    ).window.addEventListener(CONSENT_CHANGE_EVENT, listener);
 
     setConsentStatus("accepted");
 
@@ -92,10 +93,11 @@ describe("Analytics and Consent Manager (T-135)", () => {
 
   it("persists 'rejected' in localStorage and dispatches event", () => {
     const listener = vi.fn();
-    (globalThis as unknown as { window: { addEventListener: (t: string, cb: (e: unknown) => void) => void } }).window.addEventListener(
-      CONSENT_CHANGE_EVENT,
-      listener
-    );
+    (
+      globalThis as unknown as {
+        window: { addEventListener: (t: string, cb: (e: unknown) => void) => void };
+      }
+    ).window.addEventListener(CONSENT_CHANGE_EVENT, listener);
 
     setConsentStatus("rejected");
 

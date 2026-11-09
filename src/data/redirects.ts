@@ -19,9 +19,17 @@ export const CANONICAL_REDIRECTS: ReadonlyArray<RedirectEntry> = [
   { source: "/solution", destination: "/solutions", permanent: true },
   { source: "/solutions/identity", destination: "/solutions/identity-governance", permanent: true },
   { source: "/solutions/ai", destination: "/solutions/ai-and-digital-governance", permanent: true },
-  { source: "/solutions/quantum", destination: "/solutions/quantum-safe-security", permanent: true },
+  {
+    source: "/solutions/quantum",
+    destination: "/solutions/quantum-safe-security",
+    permanent: true,
+  },
   { source: "/solutions/process", destination: "/solutions/business-process", permanent: true },
-  { source: "/solutions/enterprise", destination: "/solutions/enterprise-technology", permanent: true },
+  {
+    source: "/solutions/enterprise",
+    destination: "/solutions/enterprise-technology",
+    permanent: true,
+  },
 
   // Company & About
   { source: "/about-us", destination: "/about", permanent: true },

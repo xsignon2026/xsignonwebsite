@@ -18,7 +18,7 @@ export type RenderedDeliveryEmail = {
 };
 
 export function renderWhitePaperDeliveryEmail(
-  options: WhitePaperDeliveryOptions
+  options: WhitePaperDeliveryOptions,
 ): RenderedDeliveryEmail {
   const host = options.baseUrl
     ? options.baseUrl.replace(/\/+$/, "")

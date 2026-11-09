@@ -37,19 +37,13 @@ export function HeroSplit({ hero, standards }: HeroSplitProps) {
               </h1>
               <p className="hero-sub">{hero.subline}</p>
               <div className="hero-actions">
-                <Link
-                  className="btn btn-navy"
-                  href={hero.primaryButton.href}
-                >
+                <Link className="btn btn-navy" href={hero.primaryButton.href}>
                   {hero.primaryButton.text}{" "}
                   <span className="arr-up" aria-hidden="true">
                     ↗
                   </span>
                 </Link>
-                <Link
-                  className="link-arrow"
-                  href={hero.secondaryButton.href}
-                >
+                <Link className="link-arrow" href={hero.secondaryButton.href}>
                   {hero.secondaryButton.text}{" "}
                   <span className="arr" aria-hidden="true">
                     →

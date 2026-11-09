@@ -15,9 +15,7 @@ export function FrameworkTable({ table }: FrameworkTableProps) {
         <div className="mb-6">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-txt">{table.title}</h2>
           {table.subtitle && (
-            <p className="mt-3 max-w-3xl text-lg text-gray leading-relaxed">
-              {table.subtitle}
-            </p>
+            <p className="mt-3 max-w-3xl text-lg text-gray leading-relaxed">{table.subtitle}</p>
           )}
         </div>
 
@@ -54,11 +52,7 @@ export function FrameworkTable({ table }: FrameworkTableProps) {
                     const colLabel = table.columns[cIdx + 1] || "";
                     const isConfirmSpec = val.toLowerCase().includes("confirm spec");
                     return (
-                      <td
-                        key={cIdx}
-                        data-th={colLabel}
-                        className="px-5 py-4 text-gray align-top"
-                      >
+                      <td key={cIdx} data-th={colLabel} className="px-5 py-4 text-gray align-top">
                         {isConfirmSpec ? (
                           <span className="inline-block rounded-md bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 text-xs font-medium text-amber-700">
                             {val}
@@ -76,9 +70,7 @@ export function FrameworkTable({ table }: FrameworkTableProps) {
         </div>
 
         {table.footnote && (
-          <p className="mt-4 text-sm text-gray-2 leading-relaxed max-w-3xl">
-            {table.footnote}
-          </p>
+          <p className="mt-4 text-sm text-gray-2 leading-relaxed max-w-3xl">{table.footnote}</p>
         )}
       </div>
     </section>

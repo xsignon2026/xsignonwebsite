@@ -20,8 +20,7 @@ export default function AboutPage(): React.JSX.Element {
     name: "XSignOn",
     url: "https://xsignon.com",
     logo: "https://xsignon.com/icon.svg",
-    description:
-      "Enterprise identity governance and passwordless authentication platform.",
+    description: "Enterprise identity governance and passwordless authentication platform.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "McKinney",
@@ -51,7 +50,14 @@ export default function AboutPage(): React.JSX.Element {
           <h1 className="h-display ah-title" aria-label="About XSignOn">
             About XSignOn
           </h1>
-          <p className="about-sub" style={{ color: "var(--d-mut, #94a3b8)", fontSize: "clamp(18px, 2vw, 22px)", maxWidth: "680px" }}>
+          <p
+            className="about-sub"
+            style={{
+              color: "var(--d-mut, #94a3b8)",
+              fontSize: "clamp(18px, 2vw, 22px)",
+              maxWidth: "680px",
+            }}
+          >
             Sign-in people can trust. Governance an auditor can check.
           </p>
         </div>
@@ -70,20 +76,43 @@ export default function AboutPage(): React.JSX.Element {
           padding: "12px 0",
         }}
       >
-        <div className="wrap" style={{ display: "flex", gap: "20px", overflowX: "auto", whiteSpace: "nowrap" }}>
-          <a href="#who" className="subnav-link" style={{ fontSize: "14px", fontWeight: 600, color: "var(--txt)" }}>
+        <div
+          className="wrap"
+          style={{ display: "flex", gap: "20px", overflowX: "auto", whiteSpace: "nowrap" }}
+        >
+          <a
+            href="#who"
+            className="subnav-link"
+            style={{ fontSize: "14px", fontWeight: 600, color: "var(--txt)" }}
+          >
             Who we are
           </a>
-          <a href="#what" className="subnav-link" style={{ fontSize: "14px", fontWeight: 600, color: "var(--txt)" }}>
+          <a
+            href="#what"
+            className="subnav-link"
+            style={{ fontSize: "14px", fontWeight: 600, color: "var(--txt)" }}
+          >
             What we do
           </a>
-          <a href="#how" className="subnav-link" style={{ fontSize: "14px", fontWeight: 600, color: "var(--txt)" }}>
+          <a
+            href="#how"
+            className="subnav-link"
+            style={{ fontSize: "14px", fontWeight: 600, color: "var(--txt)" }}
+          >
             How we work
           </a>
-          <a href="#why" className="subnav-link" style={{ fontSize: "14px", fontWeight: 600, color: "var(--txt)" }}>
+          <a
+            href="#why"
+            className="subnav-link"
+            style={{ fontSize: "14px", fontWeight: 600, color: "var(--txt)" }}
+          >
             Why XSignOn
           </a>
-          <a href="#think" className="subnav-link" style={{ fontSize: "14px", fontWeight: 600, color: "var(--txt)" }}>
+          <a
+            href="#think"
+            className="subnav-link"
+            style={{ fontSize: "14px", fontWeight: 600, color: "var(--txt)" }}
+          >
             Our thinking
           </a>
         </div>
@@ -99,10 +128,13 @@ export default function AboutPage(): React.JSX.Element {
             <div className="about-split">
               <div className="about-text rv">
                 <p className="statement">
-                  XSignOn works with regulated teams to replace passwords with sign-in people can trust, and to govern access for staff, devices and AI agents with evidence an auditor can check.
+                  XSignOn works with regulated teams to replace passwords with sign-in people can
+                  trust, and to govern access for staff, devices and AI agents with evidence an
+                  auditor can check.
                 </p>
                 <p>
-                  Our name points at the moment that matters most: the sign-on. We focus our work there, from the keys staff carry to the governance behind them.
+                  Our name points at the moment that matters most: the sign-on. We focus our work
+                  there, from the keys staff carry to the governance behind them.
                 </p>
               </div>
               <figure className="about-fig rv" aria-label="Who we are banner">
@@ -122,7 +154,14 @@ export default function AboutPage(): React.JSX.Element {
                   }}
                 >
                   <div>
-                    <div style={{ fontFamily: "var(--disp)", fontSize: "24px", fontWeight: 700, marginBottom: "8px" }}>
+                    <div
+                      style={{
+                        fontFamily: "var(--disp)",
+                        fontSize: "24px",
+                        fontWeight: 700,
+                        marginBottom: "8px",
+                      }}
+                    >
                       Identity at the Center
                     </div>
                     <p style={{ color: "#cbd5e1", fontSize: "14px", margin: 0 }}>
@@ -140,20 +179,35 @@ export default function AboutPage(): React.JSX.Element {
             <div className="principles">
               <article className="principle rv">
                 <span className="pi" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
                 </span>
                 <h4>Cryptographic root of trust</h4>
                 <p>
-                  FIDO2 Level 2+ hardware-backed biometric attestation eliminates shared credentials and phishing vectors at the source.
+                  FIDO2 Level 2+ hardware-backed biometric attestation eliminates shared credentials
+                  and phishing vectors at the source.
                 </p>
               </article>
 
               <article className="principle rv">
                 <span className="pi" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                     <polyline points="14 2 14 8 20 8" />
                     <line x1="16" y1="13" x2="8" y2="13" />
@@ -163,13 +217,21 @@ export default function AboutPage(): React.JSX.Element {
                 </span>
                 <h4>Continuous evidence</h4>
                 <p>
-                  Unforgeable proof packs for SOC 2, ISO 27001, and NIST AI-RMF are produced automatically from day-to-day operations.
+                  Unforgeable proof packs for SOC 2, ISO 27001, and NIST AI-RMF are produced
+                  automatically from day-to-day operations.
                 </p>
               </article>
 
               <article className="principle rv">
                 <span className="pi" aria-hidden="true">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                     <circle cx="9" cy="7" r="4" />
                     <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -178,7 +240,8 @@ export default function AboutPage(): React.JSX.Element {
                 </span>
                 <h4>Human-in-the-loop oversight</h4>
                 <p>
-                  AI systems evaluate and advise; named security owners approve, hold authority, and decide.
+                  AI systems evaluate and advise; named security owners approve, hold authority, and
+                  decide.
                 </p>
               </article>
             </div>
@@ -196,49 +259,138 @@ export default function AboutPage(): React.JSX.Element {
         </section>
 
         {/* Section 3: How we work */}
-        <section className="about-sec page-sec" id="how" data-nav="dark" style={{ background: "var(--d0, #08070d)", color: "var(--d-txt, #f6f5fa)", scrollMarginTop: "120px" }}>
+        <section
+          className="about-sec page-sec"
+          id="how"
+          data-nav="dark"
+          style={{
+            background: "var(--d0, #08070d)",
+            color: "var(--d-txt, #f6f5fa)",
+            scrollMarginTop: "120px",
+          }}
+        >
           <div className="wrap">
             <div className="sec-row rv">
-              <h2 className="h2" style={{ color: "#ffffff" }}>How we work</h2>
+              <h2 className="h2" style={{ color: "#ffffff" }}>
+                How we work
+              </h2>
             </div>
             <div className="how-box">
               <div className="steps-grid three">
-                <div className="step-card rv" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
-                  <div style={{ fontFamily: "var(--mono)", fontSize: "13px", color: "#a5b4fc", marginBottom: "8px" }}>
+                <div
+                  className="step-card rv"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.05)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: "var(--mono)",
+                      fontSize: "13px",
+                      color: "#a5b4fc",
+                      marginBottom: "8px",
+                    }}
+                  >
                     01 · BASELINE
                   </div>
-                  <h4 style={{ color: "#ffffff", fontSize: "18px", marginBottom: "8px" }}>Discovery and Living Inventory</h4>
+                  <h4 style={{ color: "#ffffff", fontSize: "18px", marginBottom: "8px" }}>
+                    Discovery and Living Inventory
+                  </h4>
                   <p style={{ color: "#94a3b8", fontSize: "15px", lineHeight: 1.6 }}>
-                    We surface every person, device, service account and AI agent with current posture scored continuously.
+                    We surface every person, device, service account and AI agent with current
+                    posture scored continuously.
                   </p>
-                  <p className="you-get" style={{ color: "#cbd5e1", fontSize: "13.5px", marginTop: "12px", borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "8px" }}>
-                    <b>You get:</b> A living inventory, an objective risk score, and missing owners identified.
+                  <p
+                    className="you-get"
+                    style={{
+                      color: "#cbd5e1",
+                      fontSize: "13.5px",
+                      marginTop: "12px",
+                      borderTop: "1px solid rgba(255,255,255,0.1)",
+                      paddingTop: "8px",
+                    }}
+                  >
+                    <b>You get:</b> A living inventory, an objective risk score, and missing owners
+                    identified.
                   </p>
                 </div>
 
-                <div className="step-card rv" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
-                  <div style={{ fontFamily: "var(--mono)", fontSize: "13px", color: "#a5b4fc", marginBottom: "8px" }}>
+                <div
+                  className="step-card rv"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.05)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: "var(--mono)",
+                      fontSize: "13px",
+                      color: "#a5b4fc",
+                      marginBottom: "8px",
+                    }}
+                  >
                     02 · ARCHITECTURE
                   </div>
-                  <h4 style={{ color: "#ffffff", fontSize: "18px", marginBottom: "8px" }}>Zero Trust Rollout</h4>
+                  <h4 style={{ color: "#ffffff", fontSize: "18px", marginBottom: "8px" }}>
+                    Zero Trust Rollout
+                  </h4>
                   <p style={{ color: "#94a3b8", fontSize: "15px", lineHeight: 1.6 }}>
-                    We design the target state across products, policies and frameworks, then sequence rollout so teams keep continuous access.
+                    We design the target state across products, policies and frameworks, then
+                    sequence rollout so teams keep continuous access.
                   </p>
-                  <p className="you-get" style={{ color: "#cbd5e1", fontSize: "13.5px", marginTop: "12px", borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "8px" }}>
-                    <b>You get:</b> A target architecture, a phased plan, and recovery flows tested with real staff.
+                  <p
+                    className="you-get"
+                    style={{
+                      color: "#cbd5e1",
+                      fontSize: "13.5px",
+                      marginTop: "12px",
+                      borderTop: "1px solid rgba(255,255,255,0.1)",
+                      paddingTop: "8px",
+                    }}
+                  >
+                    <b>You get:</b> A target architecture, a phased plan, and recovery flows tested
+                    with real staff.
                   </p>
                 </div>
 
-                <div className="step-card rv" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
-                  <div style={{ fontFamily: "var(--mono)", fontSize: "13px", color: "#a5b4fc", marginBottom: "8px" }}>
+                <div
+                  className="step-card rv"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.05)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: "var(--mono)",
+                      fontSize: "13px",
+                      color: "#a5b4fc",
+                      marginBottom: "8px",
+                    }}
+                  >
                     03 · GOVERNANCE
                   </div>
-                  <h4 style={{ color: "#ffffff", fontSize: "18px", marginBottom: "8px" }}>Continuous Compliance & Response</h4>
+                  <h4 style={{ color: "#ffffff", fontSize: "18px", marginBottom: "8px" }}>
+                    Continuous Compliance & Response
+                  </h4>
                   <p style={{ color: "#94a3b8", fontSize: "15px", lineHeight: 1.6 }}>
-                    Posture stays current after go-live. Access reviews run on a cycle and evidence stays mapped to auditor frameworks.
+                    Posture stays current after go-live. Access reviews run on a cycle and evidence
+                    stays mapped to auditor frameworks.
                   </p>
-                  <p className="you-get" style={{ color: "#cbd5e1", fontSize: "13.5px", marginTop: "12px", borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "8px" }}>
-                    <b>You get:</b> Current posture in one view and evidence ready when an auditor asks.
+                  <p
+                    className="you-get"
+                    style={{
+                      color: "#cbd5e1",
+                      fontSize: "13.5px",
+                      marginTop: "12px",
+                      borderTop: "1px solid rgba(255,255,255,0.1)",
+                      paddingTop: "8px",
+                    }}
+                  >
+                    <b>You get:</b> Current posture in one view and evidence ready when an auditor
+                    asks.
                   </p>
                 </div>
               </div>
@@ -277,17 +429,41 @@ export default function AboutPage(): React.JSX.Element {
                 <p className="kicker">Featured</p>
                 <h3>Tiers, not toggles: a richer language for agent authority</h3>
                 <p className="tf-p">
-                  On and off is too blunt for agents that book, buy and build. Five tiers give teams a vocabulary for autonomy that grows with trust.
+                  On and off is too blunt for agents that book, buy and build. Five tiers give teams
+                  a vocabulary for autonomy that grows with trust.
                 </p>
                 <Link className="more" href="/thinking/agentic-ai-cybersecurity">
                   Read the article{" "}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <polyline points="9 18 15 12 9 6" />
                   </svg>
                 </Link>
               </div>
-              <div className="tf-img" style={{ background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px" }}>
-                <span style={{ color: "#a5b4fc", fontFamily: "var(--disp)", fontSize: "20px", fontWeight: 700 }}>
+              <div
+                className="tf-img"
+                style={{
+                  background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "24px",
+                }}
+              >
+                <span
+                  style={{
+                    color: "#a5b4fc",
+                    fontFamily: "var(--disp)",
+                    fontSize: "20px",
+                    fontWeight: 700,
+                  }}
+                >
                   Agent Authority Tiers
                 </span>
               </div>
@@ -298,9 +474,14 @@ export default function AboutPage(): React.JSX.Element {
                 <div className="tc-body">
                   <h3>Elevate Enterprise Security with Identity-First Controls</h3>
                   <p className="excerpt">
-                    Why modern perimeter defenses fail without continuous identity verification and cryptographically bound device attestation.
+                    Why modern perimeter defenses fail without continuous identity verification and
+                    cryptographically bound device attestation.
                   </p>
-                  <Link href="/thinking/identity-first-controls" className="more" style={{ marginTop: "12px", display: "inline-block" }}>
+                  <Link
+                    href="/thinking/identity-first-controls"
+                    className="more"
+                    style={{ marginTop: "12px", display: "inline-block" }}
+                  >
                     Read article →
                   </Link>
                 </div>
@@ -310,9 +491,14 @@ export default function AboutPage(): React.JSX.Element {
                 <div className="tc-body">
                   <h3>Data & AI Security in Regulated Environments</h3>
                   <p className="excerpt">
-                    Navigating NIST AI-RMF, ISO 42001, and cross-border sovereignty requirements for enterprise LLM deployments.
+                    Navigating NIST AI-RMF, ISO 42001, and cross-border sovereignty requirements for
+                    enterprise LLM deployments.
                   </p>
-                  <Link href="/thinking/data-and-ai-security" className="more" style={{ marginTop: "12px", display: "inline-block" }}>
+                  <Link
+                    href="/thinking/data-and-ai-security"
+                    className="more"
+                    style={{ marginTop: "12px", display: "inline-block" }}
+                  >
                     Read article →
                   </Link>
                 </div>
@@ -321,7 +507,9 @@ export default function AboutPage(): React.JSX.Element {
 
             <div className="about-bottom" style={{ textAlign: "center", marginTop: "48px" }}>
               <Link className="back-pill on-light" href="/">
-                <span className="arr" aria-hidden="true">←</span>
+                <span className="arr" aria-hidden="true">
+                  ←
+                </span>
                 Back to home
               </Link>
             </div>
@@ -334,7 +522,10 @@ export default function AboutPage(): React.JSX.Element {
             <div className="cta-panel plain rv">
               <h2 className="h2">Talk to us about sign-in your team will love.</h2>
               <Link className="btn btn-white" href="/contact">
-                Book a strategy call <span className="chev" aria-hidden="true">›</span>
+                Book a strategy call{" "}
+                <span className="chev" aria-hidden="true">
+                  ›
+                </span>
               </Link>
             </div>
           </div>

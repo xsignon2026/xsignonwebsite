@@ -32,23 +32,19 @@ export async function Footer() {
               >
                 X
               </span>
-              <span className="font-sans font-extrabold tracking-[-0.03em]">
-                XSignOn
-              </span>
+              <span className="font-sans font-extrabold tracking-[-0.03em]">XSignOn</span>
               <span className="sr-only"> home</span>
             </Link>
             <p className="max-w-[270px] text-[15px] leading-relaxed text-on-dark-sub">
-              Identity, AI governance and quantum-safe security for regulated
-              teams. McKinney, Texas.
+              Identity, AI governance and quantum-safe security for regulated teams. McKinney,
+              Texas.
             </p>
           </div>
 
           {/* Dynamic Link Groups */}
           {siteSettings.footerGroups.map((group, gIdx) => (
             <div key={gIdx} className="flex flex-col gap-3">
-              <h4 className="text-[14px] font-semibold tracking-wide text-white">
-                {group.title}
-              </h4>
+              <h4 className="text-[14px] font-semibold tracking-wide text-white">{group.title}</h4>
               <ul className="flex flex-col gap-[11px]">
                 {group.links.map((item, lIdx) => (
                   <li key={lIdx}>
@@ -60,9 +56,7 @@ export async function Footer() {
                         {item.label}
                       </Link>
                     ) : (
-                      <span className="text-[15px] text-on-dark-mut opacity-60">
-                        {item.label}
-                      </span>
+                      <span className="text-[15px] text-on-dark-mut opacity-60">{item.label}</span>
                     )}
                   </li>
                 ))}
@@ -75,10 +69,7 @@ export async function Footer() {
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-d-line pt-8 text-[13px] text-on-dark-sub">
           <p>{siteSettings.legalLine || "© 2026 XSignOn. All rights reserved."}</p>
           <div className="flex items-center gap-6">
-            <Link
-              href="/login"
-              className="hover:text-white transition-colors"
-            >
+            <Link href="/login" className="hover:text-white transition-colors">
               Log in
             </Link>
             <span>McKinney, Texas.</span>

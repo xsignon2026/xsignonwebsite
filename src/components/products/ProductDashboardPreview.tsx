@@ -37,9 +37,7 @@ export function ProductDashboardPreview({
       <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] min-h-[280px]">
         {/* Sidebar */}
         <aside className="hidden md:flex flex-col gap-1 border-r border-white/10 p-4 text-xs text-on-dark-sub">
-          <span className="rounded bg-white/10 px-2.5 py-1.5 font-medium text-white">
-            Overview
-          </span>
+          <span className="rounded bg-white/10 px-2.5 py-1.5 font-medium text-white">Overview</span>
           <span className="px-2.5 py-1.5">Protection</span>
           <span className="px-2.5 py-1.5">Findings</span>
           <span className="px-2.5 py-1.5">Evidence</span>
@@ -56,7 +54,8 @@ export function ProductDashboardPreview({
               <div className="mt-1 font-bold text-4xl text-white tracking-tight">
                 {dashboard.score}
                 <span className="text-lg font-normal text-on-dark-sub">
-                  {" "}/ {dashboard.maxScore}
+                  {" "}
+                  / {dashboard.maxScore}
                 </span>
               </div>
             </div>
@@ -98,7 +97,9 @@ export function ProductDashboardPreview({
                   style={{ width: `${dashboard.fileIntegrityChecks}%` }}
                 />
               </div>
-              <b className="text-right text-white font-semibold">{dashboard.fileIntegrityChecks}%</b>
+              <b className="text-right text-white font-semibold">
+                {dashboard.fileIntegrityChecks}%
+              </b>
             </div>
           </div>
         </div>

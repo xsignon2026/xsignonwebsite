@@ -15,12 +15,13 @@ export function HomeCtaBand({ cta }: HomeCtaBandProps) {
           <PerspectiveGrid horizon={0.35} alpha={0.6} />
           <h2 className="h2 relative z-10">{cta.title}</h2>
           {cta.subtitle && (
-            <p className="text-white/70 max-w-xl text-base -mt-2 relative z-10">
-              {cta.subtitle}
-            </p>
+            <p className="text-white/70 max-w-xl text-base -mt-2 relative z-10">{cta.subtitle}</p>
           )}
           <Link className="btn btn-white relative z-10" href={cta.buttonHref}>
-            {cta.buttonText} <span className="chev" aria-hidden="true">›</span>
+            {cta.buttonText}{" "}
+            <span className="chev" aria-hidden="true">
+              ›
+            </span>
           </Link>
           {/* 11.3 Authentic Logo Tile (hidden on narrow screens) */}
           <div

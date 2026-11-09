@@ -74,7 +74,7 @@ test.describe("Epic E05: Products Hub & Detail Pages (T-082 to T-089)", () => {
 
     await expect(page.locator("h1")).toContainText("XSense");
     await expect(
-      page.getByText("Deployment follows your estate: SaaS, on-premises, or air-gapped")
+      page.getByText("Deployment follows your estate: SaaS, on-premises, or air-gapped"),
     ).toBeVisible();
     await expect(page.getByText("XS", { exact: true })).toBeVisible();
 
@@ -104,7 +104,9 @@ test.describe("Epic E05: Products Hub & Detail Pages (T-082 to T-089)", () => {
     await expect(page.getByRole("heading", { name: "AUTH Bio", exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { name: "AUTH Bio Pro", exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { name: "AUTH Bio Touch", exact: true })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "AUTH Bio Desktop", exact: true })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "AUTH Bio Desktop", exact: true }),
+    ).toBeVisible();
     await expect(page.locator("text=Hardware comparison")).toBeVisible();
 
     const axeResults = await new AxeBuilder({ page })

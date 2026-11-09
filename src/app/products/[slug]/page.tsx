@@ -32,9 +32,7 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: ProductPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
   if (!PRODUCT_SLUG_REGEX.test(slug)) return {};
   const product = await getProductBySlug(slug);
@@ -43,12 +41,8 @@ export async function generateMetadata({
   return {
     title: product.seo?.title || `${product.name} | XSignOn`,
     description: product.seo?.description || product.tagline,
-    alternates: product.seo?.canonical
-      ? { canonical: product.seo.canonical }
-      : undefined,
-    robots: product.seo?.noIndex
-      ? { index: false, follow: false }
-      : undefined,
+    alternates: product.seo?.canonical ? { canonical: product.seo.canonical } : undefined,
+    robots: product.seo?.noIndex ? { index: false, follow: false } : undefined,
   };
 }
 
@@ -139,24 +133,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
             )}
 
             {/* EvalOne Checklist Panel */}
-            {product.checklist && (
-              <ProductChecklistPanel checklist={product.checklist} />
-            )}
+            {product.checklist && <ProductChecklistPanel checklist={product.checklist} />}
 
             {/* AMS Lifecycle Snapshot Panel */}
-            {product.snapshot && (
-              <ProductSnapshotPanel snapshot={product.snapshot} />
-            )}
+            {product.snapshot && <ProductSnapshotPanel snapshot={product.snapshot} />}
 
             {/* XSense Visual Badge */}
-            {product.keyViz && (
-              <ProductKeyViz keyViz={product.keyViz} />
-            )}
+            {product.keyViz && <ProductKeyViz keyViz={product.keyViz} />}
 
             {/* Passwordless Keys Case Cards */}
-            {product.caseCards && (
-              <ProductCaseCards cards={product.caseCards} />
-            )}
+            {product.caseCards && <ProductCaseCards cards={product.caseCards} />}
           </Container>
         </section>
 
@@ -185,9 +171,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         )}
 
         {/* Specification & Evaluation Tables (EvalOne, Passwordless Keys) */}
-        {product.specTable && (
-          <FrameworkTable table={product.specTable} />
-        )}
+        {product.specTable && <FrameworkTable table={product.specTable} />}
 
         {/* Documentation Tablist (XSense, AMS) */}
         {product.docTabs && (
@@ -259,9 +243,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         )}
 
         {/* Reusable Related Items */}
-        {product.relatedItems && (
-          <RelatedItems items={product.relatedItems} />
-        )}
+        {product.relatedItems && <RelatedItems items={product.relatedItems} />}
 
         {/* Bottom CTA Panel */}
         <CtaSection

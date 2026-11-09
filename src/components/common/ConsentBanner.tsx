@@ -30,11 +30,7 @@ function getServerSnapshot(): ConsentStatus {
 }
 
 export function ConsentBanner() {
-  const status = useSyncExternalStore(
-    subscribeConsent,
-    getConsentSnapshot,
-    getServerSnapshot
-  );
+  const status = useSyncExternalStore(subscribeConsent, getConsentSnapshot, getServerSnapshot);
 
   const handleChoice = (choice: "accepted" | "rejected") => {
     setConsentStatus(choice);
@@ -45,22 +41,14 @@ export function ConsentBanner() {
   }
 
   return (
-    <section
-      className="consent-banner-wrapper"
-      role="region"
-      aria-label="Cookie consent"
-    >
+    <section className="consent-banner-wrapper" role="region" aria-label="Cookie consent">
       <div className="consent-banner-inner">
         <div className="consent-banner-text">
-          We use essential cookies to maintain security posture and optional analytics to understand site usage. Read our{" "}
-          <Link href="/privacy">Privacy Policy</Link> for details.
+          We use essential cookies to maintain security posture and optional analytics to understand
+          site usage. Read our <Link href="/privacy">Privacy Policy</Link> for details.
         </div>
         <div className="consent-banner-actions">
-          <button
-            type="button"
-            className="btn btn-white"
-            onClick={() => handleChoice("accepted")}
-          >
+          <button type="button" className="btn btn-white" onClick={() => handleChoice("accepted")}>
             Accept All
           </button>
           <button

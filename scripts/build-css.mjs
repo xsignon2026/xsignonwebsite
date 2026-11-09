@@ -1,7 +1,7 @@
-const fs = require("fs");
-const path = require("path");
-const { compile } = require("@tailwindcss/node");
-const { Scanner } = require("@tailwindcss/oxide");
+import fs from "node:fs";
+import path from "node:path";
+import { compile } from "@tailwindcss/node";
+import { Scanner } from "@tailwindcss/oxide";
 
 async function buildCss() {
   const rootDir = process.cwd();
@@ -81,7 +81,7 @@ async function buildCss() {
   const compiledCss = compiler.build([...candidates]);
   fs.writeFileSync(outputCssPath, compiledCss, "utf8");
   console.log(
-    `Successfully generated ${outputCssPath} (${(compiledCss.length / 1024).toFixed(1)} KB)`
+    `Successfully generated ${outputCssPath} (${(compiledCss.length / 1024).toFixed(1)} KB)`,
   );
 }
 

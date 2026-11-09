@@ -70,7 +70,9 @@ test.describe("Company Batch QA (T-129)", () => {
       await page.goto("/enterprise");
     });
 
-    test("renders enterprise headline, dashboard preview, and deployment models", async ({ page }) => {
+    test("renders enterprise headline, dashboard preview, and deployment models", async ({
+      page,
+    }) => {
       await expect(page.locator("h1")).toContainText("Every identity. Fully in control.");
       await expect(page.getByText("command.xsignon.app")).toBeVisible();
       await expect(page.getByRole("heading", { name: "Deployment models" })).toBeVisible();

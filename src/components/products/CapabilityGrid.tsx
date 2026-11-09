@@ -16,12 +16,8 @@ export function CapabilityGrid({ cards }: CapabilityGridProps) {
           key={index}
           className="flex flex-col justify-start rounded-card border border-line bg-card p-7 md:p-8 shadow-sm transition-[border-color,box-shadow] duration-200 hover:border-gray hover:shadow-md"
         >
-          <h3 className="text-h4 font-bold text-txt tracking-tight mb-3">
-            {card.title}
-          </h3>
-          <p className="text-body text-gray leading-relaxed m-0">
-            {card.description}
-          </p>
+          <h3 className="text-h4 font-bold text-txt tracking-tight mb-3">{card.title}</h3>
+          <p className="text-body text-gray leading-relaxed m-0">{card.description}</p>
         </article>
       ))}
     </div>

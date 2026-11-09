@@ -13,11 +13,7 @@ type BreadcrumbProps = {
 };
 
 // CSV T-044: Accessible Breadcrumbs component for subpages.
-export function Breadcrumb({
-  items,
-  onDark = false,
-  className = "",
-}: BreadcrumbProps) {
+export function Breadcrumb({ items, onDark = false, className = "" }: BreadcrumbProps) {
   if (!items || items.length === 0) return null;
 
   const baseText = onDark ? "text-on-dark-sub" : "text-gray";
@@ -33,10 +29,7 @@ export function Breadcrumb({
           return (
             <li key={idx} className="flex items-center gap-2">
               {idx > 0 && (
-                <span
-                  aria-hidden="true"
-                  className={onDark ? "text-on-dark-ctl" : "text-gray/50"}
-                >
+                <span aria-hidden="true" className={onDark ? "text-on-dark-ctl" : "text-gray/50"}>
                   /
                 </span>
               )}
@@ -48,10 +41,7 @@ export function Breadcrumb({
                   {item.label}
                 </span>
               ) : (
-                <Link
-                  href={item.href}
-                  className={`transition-colors ${baseText} ${hoverText}`}
-                >
+                <Link href={item.href} className={`transition-colors ${baseText} ${hoverText}`}>
                   {item.label}
                 </Link>
               )}

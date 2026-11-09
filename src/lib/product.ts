@@ -49,12 +49,6 @@ export async function getAllProductSlugs(): Promise<string[]> {
 }
 
 export async function getAllProducts(): Promise<Product[]> {
-  const orderedList = [
-    postureOneProduct,
-    keysProduct,
-    evalOneProduct,
-    xsenseProduct,
-    amsProduct,
-  ];
+  const orderedList = [postureOneProduct, keysProduct, evalOneProduct, xsenseProduct, amsProduct];
   return orderedList;
 }

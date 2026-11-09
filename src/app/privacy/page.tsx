@@ -33,23 +33,32 @@ export default function PrivacyPage() {
             <div className="legal-body">
               <h2 className="h3">Information we collect</h2>
               <p>
-                Placeholder copy for legal review. This section will describe the categories of information XSignOn collects from visitors, customers and trial users, and how each category is collected.
+                Placeholder copy for legal review. This section will describe the categories of
+                information XSignOn collects from visitors, customers and trial users, and how each
+                category is collected.
               </p>
               <h2 className="h3">How we use information</h2>
               <p>
-                Placeholder copy for legal review. This section will describe the purposes for which collected information is used, including providing products, responding to enquiries and improving the service.
+                Placeholder copy for legal review. This section will describe the purposes for which
+                collected information is used, including providing products, responding to enquiries
+                and improving the service.
               </p>
               <h2 className="h3">Sharing and disclosure</h2>
               <p>
-                Placeholder copy for legal review. This section will describe when information is shared with service providers, partners or authorities, and the safeguards that apply.
+                Placeholder copy for legal review. This section will describe when information is
+                shared with service providers, partners or authorities, and the safeguards that
+                apply.
               </p>
               <h2 className="h3">Your rights</h2>
               <p>
-                Placeholder copy for legal review. This section will describe the rights individuals have over their information, including access, correction and deletion, and how to exercise them.
+                Placeholder copy for legal review. This section will describe the rights individuals
+                have over their information, including access, correction and deletion, and how to
+                exercise them.
               </p>
               <h2 className="h3">Contact</h2>
               <p>
-                Placeholder copy for legal review. This section will name the point of contact for privacy questions and requests.
+                Placeholder copy for legal review. This section will name the point of contact for
+                privacy questions and requests.
               </p>
             </div>
           </div>
@@ -60,7 +69,10 @@ export default function PrivacyPage() {
             <div className="cta-panel plain rv">
               <h2 className="h2">Questions about your data?</h2>
               <Link className="btn btn-white" href="/contact">
-                Contact us <span className="chev" aria-hidden="true">&#8250;</span>
+                Contact us{" "}
+                <span className="chev" aria-hidden="true">
+                  &#8250;
+                </span>
               </Link>
             </div>
           </div>

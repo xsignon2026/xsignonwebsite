@@ -53,14 +53,7 @@ export const fallbackHomeData: HomePageData = {
       },
     ],
   },
-  standardsMarquee: [
-    "FIDO2",
-    "SOC 2",
-    "ISO 27001",
-    "NIST AI-RMF",
-    "NIST 800-207",
-    "GDPR",
-  ],
+  standardsMarquee: ["FIDO2", "SOC 2", "ISO 27001", "NIST AI-RMF", "NIST 800-207", "GDPR"],
   featuredProductSlugs: ["postureone", "keys", "evalone", "xsense", "ams"],
   coverflowCards: [
     {
@@ -203,7 +196,8 @@ export const fallbackHomeData: HomePageData = {
         imageAlt: "Engineer working on a laptop in a technology lab",
       },
       {
-        title: "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
+        title:
+          "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
         date: "June 29, 2026",
         desc: "A growing share of sign-ins comes from non-human identities: service accounts, automations and AI agents. Each one deserves the same governance as a person's account: an owner, a scope, and a review cycle.",
         href: "/thinking/non-human-identities",

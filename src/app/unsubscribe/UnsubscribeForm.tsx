@@ -14,7 +14,7 @@ export function UnsubscribeForm() {
   const [error, setError] = useState(
     urlStatus === "invalid"
       ? "The unsubscribe link provided is invalid or has expired. Please enter your email below."
-      : ""
+      : "",
   );
 
   const handleSubmit = async (e: React.FormEvent) => {

@@ -23,7 +23,7 @@ export function computeDownloadSignature(
   slug: string,
   email: string,
   expires: number,
-  secret: string = SIGNED_URL_SECRET
+  secret: string = SIGNED_URL_SECRET,
 ): string {
   const payload = `${slug.toLowerCase().trim()}:${email.toLowerCase().trim()}:${expires}`;
   return crypto.createHmac("sha256", secret).update(payload).digest("hex");
@@ -36,7 +36,7 @@ export function generateSignedDownloadUrl(
   slug: string,
   email: string,
   ttlMs: number = DEFAULT_LINK_TTL_MS,
-  baseUrl: string = ""
+  baseUrl: string = "",
 ): string {
   const expires = Date.now() + ttlMs;
   const sig = computeDownloadSignature(slug, email, expires);
@@ -60,7 +60,7 @@ export function verifySignedDownloadParams(
   expiresStr: string,
   sig: string,
   now: number = Date.now(),
-  secret: string = SIGNED_URL_SECRET
+  secret: string = SIGNED_URL_SECRET,
 ): { valid: boolean; reason?: "expired" | "invalid_signature" | "malformed" } {
   if (!slug || !email || !expiresStr || !sig) {
     return { valid: false, reason: "malformed" };

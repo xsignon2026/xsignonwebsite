@@ -28,9 +28,7 @@ export function ProductChecklistPanel({ checklist }: ProductChecklistPanelProps)
             <span
               aria-hidden="true"
               className={`grid h-5 w-5 place-items-center rounded-full text-xs font-bold transition-colors ${
-                item.done
-                  ? "bg-emerald-600 text-white"
-                  : "border border-ctl text-transparent"
+                item.done ? "bg-emerald-600 text-white" : "border border-ctl text-transparent"
               }`}
             >
               ✓

@@ -182,17 +182,27 @@ export function ExpandingWhatWeDo(): React.JSX.Element {
                   </span>
                 </button>
 
-                <div
-                  className="wc-panel"
-                  id={panelId}
-                  role="region"
-                  aria-label={item.title}
-                >
+                <div className="wc-panel" id={panelId} role="region" aria-label={item.title}>
                   <div className="wc-inner">
-                    <p style={{ color: "var(--gray)", fontSize: "15px", lineHeight: 1.6, margin: "8px 0 16px" }}>
+                    <p
+                      style={{
+                        color: "var(--gray)",
+                        fontSize: "15px",
+                        lineHeight: 1.6,
+                        margin: "8px 0 16px",
+                      }}
+                    >
                       {item.summary}
                     </p>
-                    <p className="wc-label" style={{ fontFamily: "var(--mono)", fontSize: "12px", color: "var(--gray)", marginBottom: "8px" }}>
+                    <p
+                      className="wc-label"
+                      style={{
+                        fontFamily: "var(--mono)",
+                        fontSize: "12px",
+                        color: "var(--gray)",
+                        marginBottom: "8px",
+                      }}
+                    >
                       Covered solutions & products
                     </p>
                     <div style={{ display: "grid", gap: "8px", marginBottom: "16px" }}>
@@ -206,10 +216,15 @@ export function ExpandingWhatWeDo(): React.JSX.Element {
                     <Link
                       href={item.href}
                       className="more"
-                      style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontWeight: 600, fontSize: "14px" }}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        fontWeight: 600,
+                        fontSize: "14px",
+                      }}
                     >
-                      {item.ctaText}{" "}
-                      <span aria-hidden="true">→</span>
+                      {item.ctaText} <span aria-hidden="true">→</span>
                     </Link>
                   </div>
                 </div>

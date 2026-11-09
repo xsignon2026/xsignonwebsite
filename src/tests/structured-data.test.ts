@@ -58,7 +58,9 @@ describe("T-151: Sitemap, Robots and Structured Data", () => {
     });
     expect(article["@type"]).toBe("Article");
     expect(article.headline).toBe("Zero Trust Architecture");
-    expect(article.mainEntityOfPage["@id"]).toBe("https://xsignon.com/thinking/zero-trust-architecture");
+    expect(article.mainEntityOfPage["@id"]).toBe(
+      "https://xsignon.com/thinking/zero-trust-architecture",
+    );
   });
 
   it("generates valid BreadcrumbList schema", () => {

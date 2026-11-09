@@ -1,8 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import type { HomeCoverflowCard } from "@/types/home";
+
+// The visitor's "reduce motion" setting, kept in step with the system without setting state in an effect.
+function usePrefersReducedMotion() {
+  return useSyncExternalStore(
+    (notify) => {
+      const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+      query.addEventListener("change", notify);
+      return () => query.removeEventListener("change", notify);
+    },
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    () => false,
+  );
+}
 
 interface ProductCoverflowProps {
   cards?: HomeCoverflowCard[];
@@ -78,7 +91,15 @@ function renderCardIcon(key: HomeCoverflowCard["iconKey"]) {
   switch (key) {
     case "postureone":
       return (
-        <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          viewBox="0 0 96 96"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <rect x="10" y="10" width="76" height="76" rx="16" />
           <line x1="48" y1="10" x2="48" y2="86" />
           <line x1="10" y1="48" x2="86" y2="48" />
@@ -91,7 +112,15 @@ function renderCardIcon(key: HomeCoverflowCard["iconKey"]) {
       );
     case "keys":
       return (
-        <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          viewBox="0 0 96 96"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <rect x="10" y="10" width="76" height="76" rx="16" />
           <path d="M26 72 V52 a22 22 0 0 1 44 0 V72" />
           <path d="M34 72 V52 a14 14 0 0 1 28 0 V72" />
@@ -100,7 +129,15 @@ function renderCardIcon(key: HomeCoverflowCard["iconKey"]) {
       );
     case "evalone":
       return (
-        <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          viewBox="0 0 96 96"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <rect x="10" y="10" width="76" height="76" rx="16" />
           <circle cx="48" cy="48" r="27" />
           <circle cx="48" cy="48" r="18" />
@@ -110,7 +147,15 @@ function renderCardIcon(key: HomeCoverflowCard["iconKey"]) {
       );
     case "xsense":
       return (
-        <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          viewBox="0 0 96 96"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <rect x="10" y="10" width="76" height="76" rx="16" />
           <circle cx="48" cy="48" r="10" />
           <line x1="61" y1="48" x2="68" y2="48" stroke="#ff5a62" />
@@ -121,7 +166,15 @@ function renderCardIcon(key: HomeCoverflowCard["iconKey"]) {
       );
     case "ams":
       return (
-        <svg viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          viewBox="0 0 96 96"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <rect x="10" y="10" width="76" height="76" rx="16" />
           <path d="M48 24 L72 36 L48 48 L24 36 Z" />
           <path d="M24 50 L48 62 L72 50" opacity=".6" />
@@ -137,7 +190,7 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [clientWidth, setClientWidth] = useState(1200);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const dragXRef = useRef<number | null>(null);
@@ -159,17 +212,11 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
     };
 
     if (typeof window !== "undefined") {
-      const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-      setPrefersReducedMotion(mq.matches);
-      const handleMq = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
-      mq.addEventListener("change", handleMq);
-
       updateDimensions();
       window.addEventListener("resize", updateDimensions);
 
       return () => {
         window.removeEventListener("resize", updateDimensions);
-        mq.removeEventListener("change", handleMq);
       };
     }
   }, []);
@@ -209,7 +256,10 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
             href="/products"
             style={{ color: "#F6F4FB" }}
           >
-            View all products <span className="arr" aria-hidden="true">→</span>
+            View all products{" "}
+            <span className="arr" aria-hidden="true">
+              →
+            </span>
           </Link>
         </div>
 
@@ -293,7 +343,11 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
                     transform = `translateX(-50%) translateX(${off * 62}%) translateZ(${-a * 130}px) rotateY(${off === 0 ? 0 : -off * 36}deg) scale(${1 - a * 0.07})`;
                   }
                 }
-                const opacity = prefersReducedMotion ? (isActive ? "1" : "0") : String(1 - a * 0.16);
+                const opacity = prefersReducedMotion
+                  ? isActive
+                    ? "1"
+                    : "0"
+                  : String(1 - a * 0.16);
                 const zIndex = 20 - a;
 
                 const imgData = productImages[card.iconKey] || {
@@ -323,9 +377,7 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
                     }}
                   >
                     <div className="cf-photo">
-                      <div className="pcard-icon">
-                        {renderCardIcon(card.iconKey)}
-                      </div>
+                      <div className="pcard-icon">{renderCardIcon(card.iconKey)}</div>
                       <img
                         src={card.imageSrc || imgData.src}
                         alt={card.imageAlt || imgData.alt}
@@ -336,10 +388,7 @@ export function ProductCoverflow({ cards = defaultCards }: ProductCoverflowProps
                     <div className="cf-body">
                       <h3>{card.name}</h3>
                       <p className="cf-desc">{card.desc}</p>
-                      <div
-                        className="cf-tags"
-                        aria-label={`${card.name} tags`}
-                      >
+                      <div className="cf-tags" aria-label={`${card.name} tags`}>
                         {card.tags.map((tag) => (
                           <span key={tag}>{tag}</span>
                         ))}

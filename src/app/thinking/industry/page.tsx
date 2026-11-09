@@ -53,9 +53,7 @@ export default function IndustryThinkingPage() {
           </nav>
           <h1 className="h-display">Industry Thinking</h1>
           <div className="pmeta">
-            <span className="ptag">
-              Practical thinking for security, governance, and growth
-            </span>
+            <span className="ptag">Practical thinking for security, governance, and growth</span>
           </div>
         </div>
       </section>
@@ -73,13 +71,11 @@ export default function IndustryThinkingPage() {
                 Why AI Governance Is Becoming a Security Priority
               </h3>
               <p>
-                AI use is now part of everyday operations, and governance is
-                joining the security agenda: inventories, owners, and evidence
-                for every system in production.
+                AI use is now part of everyday operations, and governance is joining the security
+                agenda: inventories, owners, and evidence for every system in production.
               </p>
               <span className="status-chip" style={{ marginTop: "18px" }}>
-                <b>Full text pending:</b> this piece is being prepared for
-                publication.
+                <b>Full text pending:</b> this piece is being prepared for publication.
               </span>
             </article>
 
@@ -90,8 +86,7 @@ export default function IndustryThinkingPage() {
                   <h3 className="h4">{item.title}</h3>
                   <p>{item.desc}</p>
                   <span className="status-chip">
-                    <b>Full text pending:</b> this piece is being prepared for
-                    publication.
+                    <b>Full text pending:</b> this piece is being prepared for publication.
                   </span>
                 </article>
               ))}

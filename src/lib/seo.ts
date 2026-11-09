@@ -27,9 +27,7 @@ export function createPageMetadata(options: PageSeoOptions): Metadata {
     alternates: {
       canonical: url,
     },
-    robots: options.noindex
-      ? { index: false, follow: false }
-      : { index: true, follow: true },
+    robots: options.noindex ? { index: false, follow: false } : { index: true, follow: true },
     openGraph: {
       title: options.title,
       description: options.description,

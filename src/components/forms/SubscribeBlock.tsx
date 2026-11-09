@@ -8,10 +8,7 @@ type SubscribeBlockProps = {
   sourcePage?: string;
 };
 
-export function SubscribeBlock({
-  className = "",
-  sourcePage = "footer",
-}: SubscribeBlockProps) {
+export function SubscribeBlock({ className = "", sourcePage = "footer" }: SubscribeBlockProps) {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -110,9 +107,7 @@ export function SubscribeBlock({
       className={`news-band rounded-2xl bg-d1 p-7 md:p-11 text-white shadow-xl ${className}`}
       data-nav="dark"
     >
-      <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-        Stay informed
-      </h3>
+      <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white">Stay informed</h3>
       <p className="mt-3 text-base md:text-[17px] leading-relaxed text-[#b4bfd3] max-w-[620px]">
         New thinking on identity, AI governance and verified sign-in, in your inbox as it publishes.
       </p>
@@ -137,7 +132,8 @@ export function SubscribeBlock({
             <div>
               <p className="font-semibold text-white">Check your email</p>
               <p className="mt-1 text-sm text-[#b4bfd3]">
-                We sent a verification link to <strong className="text-white">{email}</strong>. Please click the link to confirm your subscription.
+                We sent a verification link to <strong className="text-white">{email}</strong>.
+                Please click the link to confirm your subscription.
               </p>
               <div className="mt-4 flex items-center gap-3">
                 <button
@@ -214,7 +210,10 @@ export function SubscribeBlock({
               }}
               className="mt-1 h-4 w-4 rounded border-[#6f7c97] bg-d3 text-white focus:ring-white/50"
             />
-            <label htmlFor={consentId} className="text-xs leading-relaxed text-[#b4bfd3] select-none">
+            <label
+              htmlFor={consentId}
+              className="text-xs leading-relaxed text-[#b4bfd3] select-none"
+            >
               {NEWSLETTER_CONSENT_TEXT}
             </label>
           </div>

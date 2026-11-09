@@ -33,23 +33,29 @@ export default function TermsPage() {
             <div className="legal-body">
               <h2 className="h3">Use of the site</h2>
               <p>
-                Placeholder copy for legal review. This section will set out the acceptable and prohibited uses of this website and its content.
+                Placeholder copy for legal review. This section will set out the acceptable and
+                prohibited uses of this website and its content.
               </p>
               <h2 className="h3">Products and services</h2>
               <p>
-                Placeholder copy for legal review. This section will describe how product descriptions, trials and orders on this site relate to the agreements that govern actual use.
+                Placeholder copy for legal review. This section will describe how product
+                descriptions, trials and orders on this site relate to the agreements that govern
+                actual use.
               </p>
               <h2 className="h3">Intellectual property</h2>
               <p>
-                Placeholder copy for legal review. This section will describe ownership of site content, trademarks and product names.
+                Placeholder copy for legal review. This section will describe ownership of site
+                content, trademarks and product names.
               </p>
               <h2 className="h3">Limitation of liability</h2>
               <p>
-                Placeholder copy for legal review. This section will describe the limits that apply to liability arising from use of the site.
+                Placeholder copy for legal review. This section will describe the limits that apply
+                to liability arising from use of the site.
               </p>
               <h2 className="h3">Contact</h2>
               <p>
-                Placeholder copy for legal review. This section will name the point of contact for questions about these terms.
+                Placeholder copy for legal review. This section will name the point of contact for
+                questions about these terms.
               </p>
             </div>
           </div>
@@ -60,7 +66,10 @@ export default function TermsPage() {
             <div className="cta-panel plain rv">
               <h2 className="h2">Questions about these terms?</h2>
               <Link className="btn btn-white" href="/contact">
-                Contact us <span className="chev" aria-hidden="true">&#8250;</span>
+                Contact us{" "}
+                <span className="chev" aria-hidden="true">
+                  &#8250;
+                </span>
               </Link>
             </div>
           </div>

@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
   if (!isGranted) {
     return NextResponse.json(
       { error: "Unauthorized. Please verify your email before downloading." },
-      { status: 403 }
+      { status: 403 },
     );
   }
 
@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
   } catch {
     return NextResponse.json(
       { error: "Requested white paper asset is currently unavailable." },
-      { status: 404 }
+      { status: 404 },
     );
   }
 }

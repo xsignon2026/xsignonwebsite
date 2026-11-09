@@ -13,8 +13,7 @@ export const metadata: Metadata = {
     "XSignOn gives people and AI agents the right access at the right moment, with human oversight woven into every decision. One platform for posture, sign-in, evaluation and day-to-day access operations.",
   openGraph: {
     title: "XSignOn · Identity and access built on trust",
-    description:
-      "One platform for posture, sign-in, evaluation and day-to-day access operations.",
+    description: "One platform for posture, sign-in, evaluation and day-to-day access operations.",
     url: "https://xsignon.com",
     siteName: "XSignOn",
     type: "website",
@@ -22,8 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "XSignOn · Identity and access built on trust",
-    description:
-      "One platform for posture, sign-in, evaluation and day-to-day access operations.",
+    description: "One platform for posture, sign-in, evaluation and day-to-day access operations.",
   },
   alternates: {
     canonical: "https://xsignon.com",

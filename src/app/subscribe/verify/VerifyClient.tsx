@@ -118,7 +118,14 @@ export function VerifyClient() {
     return (
       <div className="rounded-2xl border border-line bg-card p-8 md:p-12 shadow-sm max-w-xl mx-auto">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 mb-6 border border-emerald-200">
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
@@ -143,7 +150,8 @@ export function VerifyClient() {
               Download PDF &rarr;
             </a>
             <p className="text-caption text-gray">
-              A backup copy with this signed link has also been sent to your email inbox. Link valid for 15 minutes.
+              A backup copy with this signed link has also been sent to your email inbox. Link valid
+              for 15 minutes.
             </p>
           </div>
         )}
@@ -165,14 +173,23 @@ export function VerifyClient() {
     return (
       <div className="rounded-2xl border border-line bg-card p-8 md:p-12 shadow-sm max-w-xl mx-auto">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-50 text-blue-600 mb-6 border border-blue-200">
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
         </div>
 
-        <h2 className="text-2xl font-bold tracking-tight text-txt">
-          Already verified
-        </h2>
+        <h2 className="text-2xl font-bold tracking-tight text-txt">Already verified</h2>
 
         <p className="mt-3 text-body text-gray leading-relaxed">
           {isDownload
@@ -189,9 +206,7 @@ export function VerifyClient() {
             >
               Download PDF &rarr;
             </a>
-            <p className="text-caption text-gray">
-              Signed link refreshed for 15 minutes.
-            </p>
+            <p className="text-caption text-gray">Signed link refreshed for 15 minutes.</p>
           </div>
         )}
 
@@ -214,17 +229,27 @@ export function VerifyClient() {
     return (
       <div className="rounded-2xl border border-line bg-card p-8 md:p-12 shadow-sm max-w-xl mx-auto">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-50 text-amber-600 mb-6 border border-amber-200">
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
         </div>
 
-        <h2 className="text-2xl font-bold tracking-tight text-txt">
-          Verification link expired
-        </h2>
+        <h2 className="text-2xl font-bold tracking-tight text-txt">Verification link expired</h2>
 
         <p className="mt-3 text-body text-gray leading-relaxed">
-          Verification links expire 24 hours after request for your security. Please enter your work email to receive a new link.
+          Verification links expire 24 hours after request for your security. Please enter your work
+          email to receive a new link.
         </p>
 
         <form onSubmit={handleRequestNewLink} className="mt-6 space-y-4">
@@ -275,17 +300,23 @@ export function VerifyClient() {
   return (
     <div className="rounded-2xl border border-line bg-card p-8 md:p-12 shadow-sm max-w-xl mx-auto">
       <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-rose-50 text-rose-600 mb-6 border border-rose-200">
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          aria-hidden="true"
+        >
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </div>
 
-      <h2 className="text-2xl font-bold tracking-tight text-txt">
-        Verification link invalid
-      </h2>
+      <h2 className="text-2xl font-bold tracking-tight text-txt">Verification link invalid</h2>
 
       <p className="mt-3 text-body text-gray leading-relaxed">
-        This link is malformed or unverified. Please submit your request again to receive a fresh verification link.
+        This link is malformed or unverified. Please submit your request again to receive a fresh
+        verification link.
       </p>
 
       <form onSubmit={handleRequestNewLink} className="mt-6 space-y-4">

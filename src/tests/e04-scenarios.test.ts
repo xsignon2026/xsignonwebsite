@@ -9,15 +9,8 @@ import {
   markVerificationBounced,
   type VerificationRecord,
 } from "../lib/verification/store";
-import {
-  generateVerificationToken,
-  hashToken,
-  isTokenExpired,
-} from "../lib/verification/tokens";
-import {
-  generateSignedDownloadUrl,
-  verifySignedDownloadParams,
-} from "../lib/storage/signed-urls";
+import { generateVerificationToken, hashToken, isTokenExpired } from "../lib/verification/tokens";
+import { generateSignedDownloadUrl, verifySignedDownloadParams } from "../lib/storage/signed-urls";
 import {
   syncVerifiedSubscriber,
   unsubscribeEmail,

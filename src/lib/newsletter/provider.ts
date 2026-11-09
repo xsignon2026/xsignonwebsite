@@ -77,7 +77,7 @@ export async function addSuppression(email: string, reason?: string): Promise<vo
  * Adds or updates a verified subscriber. Handles duplicates idempotently.
  */
 export async function syncVerifiedSubscriber(
-  contact: Omit<SubscriberContact, "status">
+  contact: Omit<SubscriberContact, "status">,
 ): Promise<{ success: boolean; id: string }> {
   await ensureNewsletterFiles();
   const normalizedEmail = contact.email.toLowerCase().trim();
@@ -92,9 +92,7 @@ export async function syncVerifiedSubscriber(
   const lines = content.trim().split("\n").filter(Boolean);
   const subscribers = lines.map((l) => JSON.parse(l) as SubscriberContact);
 
-  const existingIndex = subscribers.findIndex(
-    (s) => s.email.toLowerCase() === normalizedEmail
-  );
+  const existingIndex = subscribers.findIndex((s) => s.email.toLowerCase() === normalizedEmail);
 
   let subscriberId: string;
 
@@ -136,7 +134,7 @@ export async function syncVerifiedSubscriber(
  */
 export async function unsubscribeEmail(
   email: string,
-  reason?: string
+  reason?: string,
 ): Promise<{ success: boolean }> {
   await ensureNewsletterFiles();
   const normalized = email.toLowerCase().trim();
@@ -173,7 +171,5 @@ export async function getActiveSubscribers(): Promise<SubscriberContact[]> {
   await ensureNewsletterFiles();
   const content = await fs.readFile(SUBSCRIBERS_FILE, "utf-8");
   const lines = content.trim().split("\n").filter(Boolean);
-  return lines
-    .map((l) => JSON.parse(l) as SubscriberContact)
-    .filter((s) => s.status === "active");
+  return lines.map((l) => JSON.parse(l) as SubscriberContact).filter((s) => s.status === "active");
 }

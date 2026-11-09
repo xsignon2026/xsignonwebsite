@@ -203,9 +203,7 @@ export function QuestionsWidget(): React.JSX.Element {
                   key={item.q}
                   style={{
                     borderBottom:
-                      idx < FAQ_ITEMS.length - 1
-                        ? "1px solid rgba(255, 255, 255, 0.12)"
-                        : "none",
+                      idx < FAQ_ITEMS.length - 1 ? "1px solid rgba(255, 255, 255, 0.12)" : "none",
                   }}
                 >
                   <button
@@ -278,9 +276,7 @@ export function QuestionsWidget(): React.JSX.Element {
               gap: "12px",
             }}
           >
-            <span style={{ fontSize: "13px", color: "#b4bfd3" }}>
-              Ready to talk architecture?
-            </span>
+            <span style={{ fontSize: "13px", color: "#b4bfd3" }}>Ready to talk architecture?</span>
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}

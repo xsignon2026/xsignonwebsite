@@ -32,13 +32,13 @@ test.describe("Epic E04: Subscribe, White Paper & Unsubscribe E2E Journeys", () 
     await expect(doneBox).toContainText(testEmail);
   });
 
-  test("White paper detail page renders gated form and passes WCAG 2.2 AA", async ({
-    page,
-  }) => {
+  test("White paper detail page renders gated form and passes WCAG 2.2 AA", async ({ page }) => {
     await page.goto("/white-papers/zero-trust-posture-guide");
     await page.waitForLoadState("networkidle");
 
-    await expect(page.locator("h1")).toContainText("Zero-Trust Device & Cloud Security Posture Guide");
+    await expect(page.locator("h1")).toContainText(
+      "Zero-Trust Device & Cloud Security Posture Guide",
+    );
 
     // Form interaction (scoped to gated download panel)
     const emailInput = page.locator('.lg\\:sticky input[type="email"]');
@@ -82,7 +82,7 @@ test.describe("Epic E04: Subscribe, White Paper & Unsubscribe E2E Journeys", () 
     });
 
     await page.goto(
-      `/subscribe/verify?token=${tokenData.rawToken}&email=${encodeURIComponent(testEmail)}`
+      `/subscribe/verify?token=${tokenData.rawToken}&email=${encodeURIComponent(testEmail)}`,
     );
     await page.waitForLoadState("networkidle");
 
@@ -118,7 +118,7 @@ test.describe("Epic E04: Subscribe, White Paper & Unsubscribe E2E Journeys", () 
     });
 
     await page.goto(
-      `/subscribe/verify?token=${tokenData.rawToken}&email=${encodeURIComponent(testEmail)}`
+      `/subscribe/verify?token=${tokenData.rawToken}&email=${encodeURIComponent(testEmail)}`,
     );
     await page.waitForLoadState("networkidle");
 
@@ -126,21 +126,19 @@ test.describe("Epic E04: Subscribe, White Paper & Unsubscribe E2E Journeys", () 
     await expect(page.locator('button:has-text("Send new verification link")')).toBeVisible();
   });
 
-  test("One-click unsubscribe endpoint redirects to confirmation screen", async ({
-    page,
-  }) => {
+  test("One-click unsubscribe endpoint redirects to confirmation screen", async ({ page }) => {
     const testEmail = `oneclick-e2e-${Date.now()}@domain.org`;
     const token = generateUnsubscribeToken(testEmail);
 
     await page.goto(
-      `/api/unsubscribe/one-click?email=${encodeURIComponent(testEmail)}&token=${token}`
+      `/api/unsubscribe/one-click?email=${encodeURIComponent(testEmail)}&token=${token}`,
     );
     await page.waitForLoadState("networkidle");
 
     await expect(page).toHaveURL(/.*\/unsubscribe\?status=confirmed/);
     await expect(page.locator("text=Request confirmed")).toBeVisible();
     await expect(page.locator("#unsubDone")).toContainText(
-      "The address you entered has been recorded for removal"
+      "The address you entered has been recorded for removal",
     );
   });
 });

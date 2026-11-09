@@ -125,9 +125,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   {section.paragraphs.map((p, pIdx) => (
                     <p key={pIdx}>{p}</p>
                   ))}
-                  {section.pullQuote && (
-                    <div className="pull">{section.pullQuote}</div>
-                  )}
+                  {section.pullQuote && <div className="pull">{section.pullQuote}</div>}
                 </div>
               ))}
             </div>
@@ -168,10 +166,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 {article.relatedWhitePaper.description && (
                   <p>{article.relatedWhitePaper.description}</p>
                 )}
-                <Link
-                  className="link-arrow"
-                  href={article.relatedWhitePaper.href}
-                >
+                <Link className="link-arrow" href={article.relatedWhitePaper.href}>
                   Download White Paper{" "}
                   <span className="arr" aria-hidden="true">
                     &#8594;

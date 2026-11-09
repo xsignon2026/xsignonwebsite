@@ -39,9 +39,12 @@ describe("T-066: Cryptographic Token Engine", () => {
   });
 
   it("sanitizes raw tokens from log strings", () => {
-    const raw = "https://xsignon.com/subscribe/verify?token=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef&user=test";
+    const raw =
+      "https://xsignon.com/subscribe/verify?token=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef&user=test";
     const cleaned = sanitizeLog(raw);
-    expect(cleaned).not.toContain("0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef");
+    expect(cleaned).not.toContain(
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    );
     expect(cleaned).toContain("token=REDACTED");
   });
 });
@@ -73,12 +76,22 @@ describe("T-064: Signed URLs and Expiration", () => {
     const sig = computeDownloadSignature(slug, email, futureExpires);
 
     // Tampered slug
-    const tamperedSlug = verifySignedDownloadParams("other-slug", email, futureExpires.toString(), sig);
+    const tamperedSlug = verifySignedDownloadParams(
+      "other-slug",
+      email,
+      futureExpires.toString(),
+      sig,
+    );
     expect(tamperedSlug.valid).toBe(false);
     expect(tamperedSlug.reason).toBe("invalid_signature");
 
     // Tampered email
-    const tamperedEmail = verifySignedDownloadParams(slug, "attacker@evil.com", futureExpires.toString(), sig);
+    const tamperedEmail = verifySignedDownloadParams(
+      slug,
+      "attacker@evil.com",
+      futureExpires.toString(),
+      sig,
+    );
     expect(tamperedEmail.valid).toBe(false);
     expect(tamperedEmail.reason).toBe("invalid_signature");
   });

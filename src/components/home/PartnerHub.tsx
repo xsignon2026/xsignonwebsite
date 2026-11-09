@@ -70,7 +70,7 @@ export function PartnerHub({ categories = defaultCategories }: PartnerHubProps) 
   const prefersReducedMotion = useSyncExternalStore(
     subscribeReducedMotion,
     getReducedMotionSnapshot,
-    getServerSnapshot
+    getServerSnapshot,
   );
 
   const total = categories.length;
@@ -94,15 +94,16 @@ export function PartnerHub({ categories = defaultCategories }: PartnerHubProps) 
       data-nav="light"
       style={{
         paddingTop: 0,
-        background:
-          "linear-gradient(180deg, #B3AED0 0%, #D9D4EB 30%, #ECE8F7 65%, #F6F4FB 100%)",
+        background: "linear-gradient(180deg, #B3AED0 0%, #D9D4EB 30%, #ECE8F7 65%, #F6F4FB 100%)",
       }}
     >
       <div className="wrap mx-auto max-w-[1280px] px-6">
         <div className="sec-row mb-8">
           <div>
             <h2 className="text-3xl font-semibold text-[#1A1240]">Partner ecosystem</h2>
-            <p className="text-[#25205C] font-medium mt-1">Works alongside the tools your teams already use</p>
+            <p className="text-[#25205C] font-medium mt-1">
+              Works alongside the tools your teams already use
+            </p>
           </div>
         </div>
 
@@ -162,10 +163,10 @@ export function PartnerHub({ categories = defaultCategories }: PartnerHubProps) 
                   activeTab === 0
                     ? "M75 0 C75 50, 240 40, 300 96"
                     : activeTab === 1
-                    ? "M225 0 C225 52, 285 46, 300 96"
-                    : activeTab === 2
-                    ? "M375 0 C375 52, 315 46, 300 96"
-                    : "M525 0 C525 50, 360 40, 300 96"
+                      ? "M225 0 C225 52, 285 46, 300 96"
+                      : activeTab === 2
+                        ? "M375 0 C375 52, 315 46, 300 96"
+                        : "M525 0 C525 50, 360 40, 300 96"
                 }
               />
             )}

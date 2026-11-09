@@ -20,9 +20,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: "Too many inquiries sent from this address. Please wait a few minutes before trying again.",
+          message:
+            "Too many inquiries sent from this address. Please wait a few minutes before trying again.",
         },
-        { status: 429 }
+        { status: 429 },
       );
     }
 
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
           errors: validation.errors,
           message: "Please correct the highlighted fields.",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -81,7 +82,11 @@ export async function POST(request: NextRequest) {
       if (emailResult.notification.success) {
         await updateEnquiryStatus(enquiryId, "delivered");
       } else {
-        await updateEnquiryStatus(enquiryId, "failed_pending_retry", emailResult.notification.error);
+        await updateEnquiryStatus(
+          enquiryId,
+          "failed_pending_retry",
+          emailResult.notification.error,
+        );
       }
     } catch (deliveryError) {
       const err = deliveryError instanceof Error ? deliveryError.message : "Delivery failure";
@@ -106,7 +111,7 @@ export async function POST(request: NextRequest) {
         success: false,
         message: "An unexpected server error occurred while processing your inquiry.",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

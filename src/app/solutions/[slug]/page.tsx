@@ -14,9 +14,7 @@ export async function generateStaticParams() {
   return solutions.map((s) => ({ slug: s.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: SolutionPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: SolutionPageProps): Promise<Metadata> {
   const { slug } = await params;
   const solution = await getSolutionBySlug(slug);
 
@@ -115,9 +113,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
         <section className="page-sec py-14 border-b border-slate-100">
           <div className="wrap mx-auto max-w-[1280px] px-6">
             <div className="sec-head mb-6">
-              <h2 className="h2 text-2xl font-semibold text-navy">
-                How XSignOn supports it
-              </h2>
+              <h2 className="h2 text-2xl font-semibold text-navy">How XSignOn supports it</h2>
             </div>
             <ul className="feat-list">
               {solution.features.map((feat) => (
@@ -135,9 +131,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
         <section className="page-sec py-14 border-b border-slate-100">
           <div className="wrap mx-auto max-w-[1280px] px-6">
             <div className="sec-head mb-6">
-              <h2 className="h2 text-2xl font-semibold text-navy">
-                Products that deliver it
-              </h2>
+              <h2 className="h2 text-2xl font-semibold text-navy">Products that deliver it</h2>
             </div>
             <div className="max-w-3xl">
               {solution.products.map((p) => (
@@ -154,9 +148,7 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
         <section className="page-sec py-14 border-b border-slate-100">
           <div className="wrap mx-auto max-w-[1280px] px-6">
             <div className="sec-head mb-6">
-              <h2 className="h2 text-2xl font-semibold text-navy">
-                Proof and reading
-              </h2>
+              <h2 className="h2 text-2xl font-semibold text-navy">Proof and reading</h2>
             </div>
             <div className="max-w-3xl">
               {solution.proofAndReading.map((r) => (
@@ -173,14 +165,15 @@ export default async function SolutionDetailPage({ params }: SolutionPageProps) 
         <section className="cta-sec sm py-16 bg-white" data-nav="light">
           <div className="wrap mx-auto max-w-[1280px] px-6 text-center">
             <div className="cta-panel plain bg-navy text-white rounded-3xl p-12 max-w-4xl mx-auto">
-              <h2 className="h2 text-3xl font-semibold mb-6">
-                {solution.ctaHeadline}
-              </h2>
+              <h2 className="h2 text-3xl font-semibold mb-6">{solution.ctaHeadline}</h2>
               <Link
                 className="btn btn-white inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-navy font-semibold hover:bg-slate-100 transition-colors"
                 href="/contact"
               >
-                Book a strategy call <span className="chev" aria-hidden="true">›</span>
+                Book a strategy call{" "}
+                <span className="chev" aria-hidden="true">
+                  ›
+                </span>
               </Link>
             </div>
           </div>

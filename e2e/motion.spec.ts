@@ -74,7 +74,9 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
   });
 
   test.describe("Reduced Motion & Zero-JS Fallbacks (T-144)", () => {
-    test("Respects prefers-reduced-motion: reduce across heroes and animations", async ({ page }) => {
+    test("Respects prefers-reduced-motion: reduce across heroes and animations", async ({
+      page,
+    }) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.goto("/");
 
@@ -85,11 +87,15 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
       // Check marquee track animation is paused/none under reduced motion
       const marqueeTrack = page.locator(".mq-track");
       await expect(marqueeTrack).toBeVisible();
-      const animName = await marqueeTrack.evaluate((el) => window.getComputedStyle(el).animationName);
+      const animName = await marqueeTrack.evaluate(
+        (el) => window.getComputedStyle(el).animationName,
+      );
       expect(animName === "none" || animName === "").toBe(true);
     });
 
-    test("Prerendered HTML remains fully readable with JavaScript disabled", async ({ browser }) => {
+    test("Prerendered HTML remains fully readable with JavaScript disabled", async ({
+      browser,
+    }) => {
       const context = await browser.newContext({ javaScriptEnabled: false });
       const noJsPage = await context.newPage();
 

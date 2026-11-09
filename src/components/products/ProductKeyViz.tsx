@@ -17,9 +17,7 @@ export function ProductKeyViz({ keyViz }: ProductKeyVizProps) {
       <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-acc text-white font-bold text-xl shadow-xs">
         {keyViz.badge}
       </div>
-      <p className="text-sm md:text-base text-gray leading-relaxed m-0">
-        {keyViz.description}
-      </p>
+      <p className="text-sm md:text-base text-gray leading-relaxed m-0">{keyViz.description}</p>
     </div>
   );
 }

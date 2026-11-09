@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     if (!rawEmail || !EMAIL_REGEX.test(rawEmail) || rawEmail.length > 254) {
       return NextResponse.json(
         { success: false, message: "Please provide a valid work email address." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: "Too many subscription requests. Please try again later.",
         },
-        { status: 429 }
+        { status: 429 },
       );
     }
 
@@ -76,9 +76,7 @@ export async function POST(request: NextRequest) {
     // but return the identical uniform response.
     if (purpose === "newsletter") {
       const activeSubscribers = await getVerifiedSubscribers();
-      const alreadySubscribed = activeSubscribers.some(
-        (s) => s.email.toLowerCase() === rawEmail
-      );
+      const alreadySubscribed = activeSubscribers.some((s) => s.email.toLowerCase() === rawEmail);
       if (alreadySubscribed) {
         // Enforce baseline execution timing before returning
         const elapsed = Date.now() - startTime;
@@ -133,7 +131,10 @@ export async function POST(request: NextRequest) {
     // 7. Uniform Response Guarantee
     return NextResponse.json(UNIFORM_SUCCESS_RESPONSE, { status: 200 });
   } catch (error) {
-    console.error("[Subscribe API] Error handling subscription:", error instanceof Error ? error.message : error);
+    console.error(
+      "[Subscribe API] Error handling subscription:",
+      error instanceof Error ? error.message : error,
+    );
     return NextResponse.json(UNIFORM_SUCCESS_RESPONSE, { status: 200 });
   }
 }

@@ -54,19 +54,22 @@ export default function CareersPage(): React.JSX.Element {
               <div className="step-card rv">
                 <h4>Evidence over assertion</h4>
                 <p>
-                  We work the way our products work: claims point at evidence, and owners are named. It applies to posture reviews and to how we run the company.
+                  We work the way our products work: claims point at evidence, and owners are named.
+                  It applies to posture reviews and to how we run the company.
                 </p>
               </div>
               <div className="step-card rv">
                 <h4>The secure way is the easy way</h4>
                 <p>
-                  Security work that slows teams down is unfinished design. We hold our own tools to the standard we sell.
+                  Security work that slows teams down is unfinished design. We hold our own tools to
+                  the standard we sell.
                 </p>
               </div>
               <div className="step-card rv">
                 <h4>Small team, real responsibility</h4>
                 <p>
-                  XSignOn is an early team in McKinney, Texas. The work touches products customers trust for every sign-in.
+                  XSignOn is an early team in McKinney, Texas. The work touches products customers
+                  trust for every sign-in.
                 </p>
               </div>
             </div>
@@ -87,17 +90,12 @@ export default function CareersPage(): React.JSX.Element {
                       className="ptag"
                       style={{ borderColor: "var(--line)", color: "var(--gray)" }}
                     >
-                      {job.locationType === "hybrid"
-                        ? `Hybrid · ${job.location}`
-                        : job.location}
+                      {job.locationType === "hybrid" ? `Hybrid · ${job.location}` : job.location}
                     </span>
                   </div>
                   <h3 className="h3">{job.title}</h3>
                   <p>{job.description}</p>
-                  <Link
-                    className="link-arrow"
-                    href="/contact?reason=Careers"
-                  >
+                  <Link className="link-arrow" href="/contact?reason=Careers">
                     Apply through Contact
                     <span className="sr-only"> for {job.title}</span>{" "}
                     <span className="arr" aria-hidden="true">
@@ -112,7 +110,8 @@ export default function CareersPage(): React.JSX.Element {
             <div className="role-state rv" style={{ marginTop: "36px" }}>
               <h3 className="h3">General applications</h3>
               <p>
-                For roles beyond the two listed here, send your background through Contact and choose &ldquo;Careers&rdquo; as the reason.
+                For roles beyond the two listed here, send your background through Contact and
+                choose &ldquo;Careers&rdquo; as the reason.
               </p>
               <Link className="btn btn-navy" href="/contact?reason=Careers">
                 Contact us about careers
@@ -127,7 +126,10 @@ export default function CareersPage(): React.JSX.Element {
             <div className="cta-panel plain rv">
               <h2 className="h2">Want to build sign-in people trust?</h2>
               <Link className="btn btn-white" href="/contact?reason=Careers">
-                Get in touch <span className="chev" aria-hidden="true">›</span>
+                Get in touch{" "}
+                <span className="chev" aria-hidden="true">
+                  ›
+                </span>
               </Link>
             </div>
           </div>

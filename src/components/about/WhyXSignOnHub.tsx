@@ -59,7 +59,7 @@ export function WhyXSignOnHub(): React.JSX.Element {
   const isReducedMotion = useSyncExternalStore(
     subscribeReducedMotion,
     getReducedMotionSnapshot,
-    getServerSnapshot
+    getServerSnapshot,
   );
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -89,10 +89,22 @@ export function WhyXSignOnHub(): React.JSX.Element {
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <path className={`wx-conn ${active === 0 ? "on" : ""}`} d="M240 63 C330 63, 340 150, 400 210" />
-          <path className={`wx-conn ${active === 1 ? "on" : ""}`} d="M560 63 C470 63, 460 150, 400 210" />
-          <path className={`wx-conn ${active === 2 ? "on" : ""}`} d="M240 357 C330 357, 340 270, 400 210" />
-          <path className={`wx-conn ${active === 3 ? "on" : ""}`} d="M560 357 C470 357, 460 270, 400 210" />
+          <path
+            className={`wx-conn ${active === 0 ? "on" : ""}`}
+            d="M240 63 C330 63, 340 150, 400 210"
+          />
+          <path
+            className={`wx-conn ${active === 1 ? "on" : ""}`}
+            d="M560 63 C470 63, 460 150, 400 210"
+          />
+          <path
+            className={`wx-conn ${active === 2 ? "on" : ""}`}
+            d="M240 357 C330 357, 340 270, 400 210"
+          />
+          <path
+            className={`wx-conn ${active === 3 ? "on" : ""}`}
+            d="M560 357 C470 357, 460 270, 400 210"
+          />
         </svg>
 
         {PILLARS.map((p, idx) => {
@@ -147,7 +159,16 @@ export function WhyXSignOnHub(): React.JSX.Element {
         <p id="wxP">{current.desc}</p>
       </div>
 
-      <div className="hubx-foot wx-foot" style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "16px", marginTop: "24px" }}>
+      <div
+        className="hubx-foot wx-foot"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "16px",
+          marginTop: "24px",
+        }}
+      >
         <button
           className="hubx-pause btn"
           id="wxPause"
@@ -177,7 +198,13 @@ export function WhyXSignOnHub(): React.JSX.Element {
           borderTop: "1px solid var(--line)",
         }}
       >
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "16px",
+          }}
+        >
           {PILLARS.map((p) => (
             <Link
               key={p.num}
@@ -185,10 +212,24 @@ export function WhyXSignOnHub(): React.JSX.Element {
               className="rel-row"
               style={{ display: "block", textDecoration: "none" }}
             >
-              <div style={{ fontFamily: "var(--mono)", fontSize: "12px", color: "var(--acc-ink, #4f46e5)", marginBottom: "4px" }}>
+              <div
+                style={{
+                  fontFamily: "var(--mono)",
+                  fontSize: "12px",
+                  color: "var(--acc-ink, #4f46e5)",
+                  marginBottom: "4px",
+                }}
+              >
                 Pillar {p.num}
               </div>
-              <div style={{ fontWeight: 600, color: "var(--txt)", fontSize: "14px", marginBottom: "4px" }}>
+              <div
+                style={{
+                  fontWeight: 600,
+                  color: "var(--txt)",
+                  fontSize: "14px",
+                  marginBottom: "4px",
+                }}
+              >
                 {p.title}
               </div>
               <div style={{ fontSize: "13px", color: "var(--gray)", lineHeight: 1.5 }}>

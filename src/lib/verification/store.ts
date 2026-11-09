@@ -83,7 +83,7 @@ async function getAllVerifications(): Promise<VerificationRecord[]> {
  * Finds a pending verification request by the SHA-256 hash of its token.
  */
 export async function findVerificationByTokenHash(
-  tokenHash: string
+  tokenHash: string,
 ): Promise<VerificationRecord | null> {
   const records = await getAllVerifications();
   // Find the most recent matching token hash
@@ -100,7 +100,7 @@ export async function findVerificationByTokenHash(
  */
 export async function markVerificationVerified(
   id: string,
-  consentAudit: ConsentAudit
+  consentAudit: ConsentAudit,
 ): Promise<VerificationRecord | null> {
   const records = await getAllVerifications();
   let updatedRecord: VerificationRecord | null = null;
@@ -137,7 +137,7 @@ export async function getVerifiedSubscribers(): Promise<VerificationRecord[]> {
  */
 export async function grantWhitePaperDownload(
   email: string,
-  whitePaperSlug: string
+  whitePaperSlug: string,
 ): Promise<DownloadGrantRecord> {
   await ensureDataFiles();
   const normalizedEmail = email.toLowerCase().trim();
@@ -182,10 +182,7 @@ export async function hasDownloadGrant(email: string, whitePaperSlug: string): P
 /**
  * Increments download count and updates lastDownloadedAt timestamp.
  */
-export async function recordDownloadAccess(
-  email: string,
-  whitePaperSlug: string
-): Promise<void> {
+export async function recordDownloadAccess(email: string, whitePaperSlug: string): Promise<void> {
   await ensureDataFiles();
   const content = await fs.readFile(GRANTS_FILE, "utf-8");
   const lines = content.trim().split("\n").filter(Boolean);
@@ -241,7 +238,7 @@ export async function markVerificationBounced(email: string): Promise<number> {
 export async function updateDeliveryStatus(
   id: string,
   status: "delivered" | "queued_retry" | "failed",
-  error?: string
+  error?: string,
 ): Promise<void> {
   await ensureDataFiles();
   const content = await fs.readFile(VERIFICATIONS_FILE, "utf-8");
@@ -274,6 +271,6 @@ export async function getPendingRetries(): Promise<VerificationRecord[]> {
 
   const records = lines.map((l) => JSON.parse(l) as VerificationRecord);
   return records.filter(
-    (r) => r.deliveryStatus === "queued_retry" && (r.retries || 0) < 3 && r.status === "pending"
+    (r) => r.deliveryStatus === "queued_retry" && (r.retries || 0) < 3 && r.status === "pending",
   );
 }

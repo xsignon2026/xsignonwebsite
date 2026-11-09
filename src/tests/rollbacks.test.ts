@@ -5,11 +5,11 @@ import path from "path";
 describe("T-170: Three Rollbacks Integrity & Rehearsal Suite", () => {
   const runbook = fs.readFileSync(
     path.resolve(process.cwd(), "docs/operations/rollback-rehearsal-runbook.md"),
-    "utf-8"
+    "utf-8",
   );
   const rehearsalScript = fs.readFileSync(
     path.resolve(process.cwd(), "scripts/rehearse-rollbacks.mjs"),
-    "utf-8"
+    "utf-8",
   );
 
   it("verifies Procedure 1 (Application Rollback) targets RTO < 60s with zero downtime", () => {

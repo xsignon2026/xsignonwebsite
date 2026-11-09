@@ -11,10 +11,7 @@ const SECRET =
  */
 export function generateUnsubscribeToken(email: string): string {
   const normalized = email.toLowerCase().trim();
-  return crypto
-    .createHmac("sha256", SECRET)
-    .update(`${normalized}:unsubscribe`)
-    .digest("hex");
+  return crypto.createHmac("sha256", SECRET).update(`${normalized}:unsubscribe`).digest("hex");
 }
 
 /**
@@ -37,10 +34,7 @@ export function verifyUnsubscribeToken(email: string, token: string): boolean {
 /**
  * Constructs the full RFC 8058 HTTPS URL for one-click unsubscribe.
  */
-export function getOneClickUnsubscribeUrl(
-  email: string,
-  baseUrl = "https://xsignon.com"
-): string {
+export function getOneClickUnsubscribeUrl(email: string, baseUrl = "https://xsignon.com"): string {
   const token = generateUnsubscribeToken(email);
   const params = new URLSearchParams({
     email: email.toLowerCase().trim(),

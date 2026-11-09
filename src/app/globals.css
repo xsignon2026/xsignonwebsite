@@ -2234,7 +2234,14 @@
   --ramp-deep: #3b3668;
   --ramp-night: #060129;
   --d-deep: #120b3a;
-  --bg-products: linear-gradient(180deg, #060129 0%, #1a1240 12%, #3b3668 40%, #6e6a9a 72%, #b3aed0 100%);
+  --bg-products: linear-gradient(
+    180deg,
+    #060129 0%,
+    #1a1240 12%,
+    #3b3668 40%,
+    #6e6a9a 72%,
+    #b3aed0 100%
+  );
   --bg-partners: linear-gradient(180deg, #b3aed0 0%, #d9d4eb 30%, #ece8f7 65%, #f6f4fb 100%);
   --bg-thinking: linear-gradient(180deg, #f6f4fb 0%, #ffffff 100%);
   --bg-cta: #ffffff;
@@ -3541,7 +3548,7 @@
 }
 #view-solutions #solList {
   padding-bottom: 88px;
-  background: linear-gradient(180deg, #060129 0%, #1a1240 10%, #3b3668 34%, #8f89b8 68%, #d9d4eb 100%);
+  background: linear-gradient( 180deg, #060129 0%, #1a1240 10%, #3b3668 34%, #8f89b8 68%, #d9d4eb 100% );
 }
 #view-solutions #solList .sec-row .h2 {
   color: #f6f4fb;
@@ -3822,7 +3829,7 @@ a.rel-row:hover .t {
   left: 0;
   right: 0;
   height: 3px;
-  background: #8F89B8;
+  background: #8f89b8;
   transform-origin: left;
   transform: scaleX(0);
   z-index: 200;

@@ -36,12 +36,14 @@ To ensure transparent operational governance, issues reported post-launch are ca
 ```
 
 ### Defect Remediation Lifecycle:
-* Any defect identified within the 90-day warranty period is remediated and verified through automated regression testing at no additional cost to the client.
+
+- Any defect identified within the 90-day warranty period is remediated and verified through automated regression testing at no additional cost to the client.
 
 ### Change Request (CR) Process:
-* Client submits CR to `#project-change-requests`.
-* Provider delivers architectural estimate, cost estimate, and timeline within 3 business days.
-* Approved CRs branch from `main`, pass full CI/CD gates, and deploy via standard preview/staging workflow.
+
+- Client submits CR to `#project-change-requests`.
+- Provider delivers architectural estimate, cost estimate, and timeline within 3 business days.
+- Approved CRs branch from `main`, pass full CI/CD gates, and deploy via standard preview/staging workflow.
 
 ---
 
@@ -49,14 +51,14 @@ To ensure transparent operational governance, issues reported post-launch are ca
 
 Security hygiene and proactive maintenance are shared according to the following operational division:
 
-| Responsibility | Frequency | Assigned Party | Tooling & Verification |
-| :--- | :--- | :--- | :--- |
-| **Vulnerability Scanning** | Weekly (Automated) | Support Provider | Dependabot & `npm audit` |
-| **Patch Level Upgrades** | Monthly | Support Provider | Non-breaking patch releases tested in Staging |
-| **Framework Minor Upgrades** | Quarterly | Support Provider | Next.js / React minor updates with full regression suite |
-| **Domain & SSL Maintenance** | Continuous | Client Operations | Cloudflare / Vercel automated renewal |
-| **Content Backups Audit** | Weekly | Support Provider | Verify automated Sanity ndjson export integrity |
-| **Sentry Error Scrubbing** | Bi-weekly | Support Provider | Review noise, verify zero PII leaks |
+| Responsibility               | Frequency          | Assigned Party    | Tooling & Verification                                   |
+| :--------------------------- | :----------------- | :---------------- | :------------------------------------------------------- |
+| **Vulnerability Scanning**   | Weekly (Automated) | Support Provider  | Dependabot & `npm audit`                                 |
+| **Patch Level Upgrades**     | Monthly            | Support Provider  | Non-breaking patch releases tested in Staging            |
+| **Framework Minor Upgrades** | Quarterly          | Support Provider  | Next.js / React minor updates with full regression suite |
+| **Domain & SSL Maintenance** | Continuous         | Client Operations | Cloudflare / Vercel automated renewal                    |
+| **Content Backups Audit**    | Weekly             | Support Provider  | Verify automated Sanity ndjson export integrity          |
+| **Sentry Error Scrubbing**   | Bi-weekly          | Support Provider  | Review noise, verify zero PII leaks                      |
 
 > [!IMPORTANT]
 > **Strict Lockfile Invariant:** All dependency updates must be executed using `npm update <package>` or explicit version bumps in `package.json` followed by `npm install`, preserving `package-lock.json`. Unpinned major version upgrades (`^` or `*`) are strictly prohibited per T-162.
@@ -82,16 +84,16 @@ Support incidents are triaged and prioritized strictly based on impact:
 └─────────────────┴──────────────────────────────────────────┴──────────────┴──────────────┘
 ```
 
-* **MTTA (Mean Time to Acknowledge):** Time elapsed between ticket generation and engineer assignment with initial response.
-* **MTTR (Mean Time to Resolve):** Time elapsed until fix is verified in staging and deployed to production.
+- **MTTA (Mean Time to Acknowledge):** Time elapsed between ticket generation and engineer assignment with initial response.
+- **MTTR (Mean Time to Resolve):** Time elapsed until fix is verified in staging and deployed to production.
 
 ---
 
 ## 5. Escalation & Communication Channels
 
-* **Emergency Incident Hotline (P1 Only):** PagerDuty On-Call Integration (`pagerduty: xsignon-infra-p1`)
-* **Technical Slack Channel (P1/P2/P3):** `#xsignon-support` (Shared Slack Connect)
-* **Ticketing & Bug Tracker:** GitHub Issues (`xsignon2026/xsignonwebsite/issues`) with label `severity:p1`, `severity:p2`, or `severity:p3`.
+- **Emergency Incident Hotline (P1 Only):** PagerDuty On-Call Integration (`pagerduty: xsignon-infra-p1`)
+- **Technical Slack Channel (P1/P2/P3):** `#xsignon-support` (Shared Slack Connect)
+- **Ticketing & Bug Tracker:** GitHub Issues (`xsignon2026/xsignonwebsite/issues`) with label `severity:p1`, `severity:p2`, or `severity:p3`.
 
 ---
 

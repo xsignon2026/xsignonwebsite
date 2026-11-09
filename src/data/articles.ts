@@ -167,8 +167,7 @@ export const canonicalArticles: Article[] = [
   },
   {
     slug: "non-human-identities",
-    title:
-      "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
+    title: "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
     excerpt:
       "Service accounts, automations and AI agents hold access too. Each one gets an owner, a scope, and a review cycle.",
     author: "XSignOn Team",
@@ -221,8 +220,7 @@ export const canonicalArticles: Article[] = [
   },
   {
     slug: "agentic-ai-cybersecurity",
-    title:
-      "Building Smarter Cybersecurity with Agentic AI and the AutoGen Framework",
+    title: "Building Smarter Cybersecurity with Agentic AI and the AutoGen Framework",
     excerpt:
       "Agents that plan, act and check each other's work, governed with owners and evidence from the first deployment.",
     author: "XSignOn Team",

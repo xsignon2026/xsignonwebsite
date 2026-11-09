@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { validateContactForm, type ContactFormData } from "../lib/contact/validation";
 import { checkRateLimit, checkIdempotency, saveIdempotency } from "../lib/contact/rate-limit";
-import { saveEnquiry, updateEnquiryStatus, getEnquiryById, type EnquiryRecord } from "../lib/enquiry/store";
+import {
+  saveEnquiry,
+  updateEnquiryStatus,
+  getEnquiryById,
+  type EnquiryRecord,
+} from "../lib/enquiry/store";
 import { sendEnquiryEmails } from "../lib/mailer";
 
 describe("T-054 / T-055 / T-059: Contact Form Validation & Bot Protection", () => {

@@ -1,5 +1,10 @@
 import { describe, expect, it, afterEach } from "vitest";
-import { saveEnquiry, updateEnquiryStatus, getEnquiryById, type EnquiryRecord } from "../lib/enquiry/store";
+import {
+  saveEnquiry,
+  updateEnquiryStatus,
+  getEnquiryById,
+  type EnquiryRecord,
+} from "../lib/enquiry/store";
 import { sendEnquiryEmails } from "../lib/mailer";
 import { getProductBySlug } from "../lib/product";
 
@@ -27,7 +32,8 @@ describe("T-061: Full First Journey Integration Test", () => {
         email: "alex.rivera@enterprise.com",
         company: "Enterprise Corp",
         reason: "Book a strategy call",
-        message: "We need continuous device health and compliance verification for 5000 Mac endpoints.",
+        message:
+          "We need continuous device health and compliance verification for 5000 Mac endpoints.",
         smsConsent: true,
         smsConsentText: "By checking this box, I agree to receive text messages from XSignOn...",
         ipAddress: "192.168.1.50",

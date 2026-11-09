@@ -19,7 +19,7 @@ export type RetryResult = {
  */
 export async function alertOwnerOfFailedDeliveries(
   record: VerificationRecord,
-  errorMsg: string
+  errorMsg: string,
 ): Promise<void> {
   const alertRecipient =
     process.env.STAGING_NOTIFICATION_EMAIL ||
@@ -28,7 +28,7 @@ export async function alertOwnerOfFailedDeliveries(
 
   if (process.env.NODE_ENV !== "test") {
     console.error(
-      `[ALERT OWNER] Transactional email outage: Failed 3 attempts delivering to ${record.email} for record ${record.id}. Reason: ${errorMsg}. Alerting ${alertRecipient}.`
+      `[ALERT OWNER] Transactional email outage: Failed 3 attempts delivering to ${record.email} for record ${record.id}. Reason: ${errorMsg}. Alerting ${alertRecipient}.`,
     );
   }
 }
@@ -36,9 +36,7 @@ export async function alertOwnerOfFailedDeliveries(
 /**
  * Retries all pending verification emails that experienced provider outages.
  */
-export async function retryPendingEmails(
-  baseUrl = "https://xsignon.com"
-): Promise<RetryResult> {
+export async function retryPendingEmails(baseUrl = "https://xsignon.com"): Promise<RetryResult> {
   const pending = await getPendingRetries();
 
   let succeeded = 0;
@@ -64,11 +62,7 @@ export async function retryPendingEmails(
       const newRetries = (record.retries || 0) + 1;
       const isExhausted = newRetries >= 3;
 
-      await updateDeliveryStatus(
-        record.id,
-        isExhausted ? "failed" : "queued_retry",
-        result.error
-      );
+      await updateDeliveryStatus(record.id, isExhausted ? "failed" : "queued_retry", result.error);
 
       failed++;
 

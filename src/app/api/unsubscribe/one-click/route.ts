@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
   if (!email || !token) {
     return NextResponse.json(
       { success: false, error: "missing_parameters", message: "Email and token are required." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
   if (!isValid) {
     return NextResponse.json(
       { success: false, error: "invalid_token", message: "Invalid or tampered unsubscribe token." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       email,
       message: "You have been successfully unsubscribed from XSignOn communications.",
     },
-    { status: 200 }
+    { status: 200 },
   );
 }
 
@@ -54,6 +54,6 @@ export async function GET(request: NextRequest) {
   await unsubscribeEmail(email);
 
   return NextResponse.redirect(
-    `${redirectBase}/unsubscribe?status=confirmed&email=${encodeURIComponent(email)}`
+    `${redirectBase}/unsubscribe?status=confirmed&email=${encodeURIComponent(email)}`,
   );
 }

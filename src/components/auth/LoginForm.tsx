@@ -53,7 +53,8 @@ export function LoginForm() {
           <div className="form-done">
             <h2 className="h3">Welcome back.</h2>
             <p>
-              This redesign mock does not sign you in. In the live product, your verified hardware-bound FIDO2 key or biometric passkey completes sign-in here.
+              This redesign mock does not sign you in. In the live product, your verified
+              hardware-bound FIDO2 key or biometric passkey completes sign-in here.
             </p>
             <Link className="btn btn-ghost-l" href="/">
               Back to home
@@ -65,7 +66,10 @@ export function LoginForm() {
       <p style={{ marginTop: "24px", fontSize: "16px", color: "var(--gray)" }}>
         New to XSignOn?{" "}
         <Link className="link-arrow" href="/register">
-          Create an account <span className="arr" aria-hidden="true">&#8594;</span>
+          Create an account{" "}
+          <span className="arr" aria-hidden="true">
+            &#8594;
+          </span>
         </Link>
       </p>
     </div>

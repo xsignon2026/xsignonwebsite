@@ -20,11 +20,7 @@ export function CtaSection({
   className = "",
 }: CtaSectionProps) {
   return (
-    <section
-      id="cta"
-      data-nav="light"
-      className={`bg-white py-(--section-pad) ${className}`}
-    >
+    <section id="cta" data-nav="light" className={`bg-white py-(--section-pad) ${className}`}>
       <Container>
         <div
           className="relative isolate overflow-hidden rounded-card border border-white/20 bg-d1 p-10 md:p-14 text-white shadow-2xl"
@@ -37,12 +33,8 @@ export function CtaSection({
           <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-10">
             {/* Left Content */}
             <div className="max-w-2xl">
-              <h2 className="text-h2 font-bold tracking-tight text-white leading-tight">
-                {title}
-              </h2>
-              <p className="mt-4 text-body text-on-dark-mut leading-relaxed">
-                {subtitle}
-              </p>
+              <h2 className="text-h2 font-bold tracking-tight text-white leading-tight">{title}</h2>
+              <p className="mt-4 text-body text-on-dark-mut leading-relaxed">{subtitle}</p>
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Link
