@@ -7,10 +7,10 @@ export interface RedirectEntry {
 export const CANONICAL_REDIRECTS: ReadonlyArray<RedirectEntry> = [
   // Products
   { source: "/product", destination: "/products", permanent: true },
+  { source: "/features", destination: "/products", permanent: true },
   { source: "/products/fido2", destination: "/products/keys", permanent: true },
   { source: "/products/posture", destination: "/products/postureone", permanent: true },
   { source: "/products/eval", destination: "/products/evalone", permanent: true },
-  { source: "/products/compare", destination: "/compare", permanent: true },
   { source: "/products/proof", destination: "/proof", permanent: true },
   { source: "/products/roi", destination: "/roi-calculator", permanent: true },
   { source: "/roi", destination: "/roi-calculator", permanent: true },

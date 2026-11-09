@@ -19,9 +19,10 @@ test("home page makes no third-party requests", async ({ page, baseURL }) => {
   const external: string[] = [];
   page.on("request", (request) => {
     const url = request.url();
-    if (!url.startsWith(baseURL ?? "") && !url.startsWith("data:") && !url.startsWith("blob:")) {
+    if (url.startsWith("data:") || url.startsWith("blob:")) return;
+    // Compared by host: the security policy upgrades our own http address to https, which is not a third party.
+    if (new URL(url).hostname !== new URL(baseURL ?? "http://localhost").hostname)
       external.push(url);
-    }
   });
   await page.goto("/", { waitUntil: "networkidle" });
   expect(external).toEqual([]);

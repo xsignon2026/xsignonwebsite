@@ -8,12 +8,17 @@ import { ConsentBanner } from "@/components/common/ConsentBanner";
 import { WebVitals } from "@/components/common/WebVitals";
 import { JsonLd } from "@/components/common/JsonLd";
 import { createOrganizationSchema } from "@/lib/schema-org";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-// S-09: Self-hosted Inter font definition with zero third-party external build dependencies.
-const inter = {
-  variable: "font-sans",
-};
+// S-09: Inter is downloaded at build time and served from our own address (no request to Google when a
+// visitor opens a page), which our security policy requires.
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
