@@ -132,7 +132,8 @@ To be filled in as each finishes:
   - 3 high dependency advisories at runtime; zod is used but not declared.
   - Several sign-off documents record approvals nothing backs up; treat them as unsigned.
   - These are all in Claude's half (shared files, API, lib, CI) except the /compare loop, the home CMS wiring and the home axe failures, which sit with the page owners.
-- Fidelity survey of the 37 prototype views: _pending_
+- Fidelity survey of the 37 prototype views: no view matches (0 A, 0 B, 34 C, 3 D: about, compare, enterprise). Full per-view list in `docs/fidelity-survey.md`; ChatGPT uses it for its pages.
+  - Root causes were shared: missing layout classes, non-pill buttons, light CTA band, palette reset that emptied Tailwind colours. The first four are fixed in `src/styles/primitives.css` (commit 0719617). Still open: footer, header, tokens (h1 weight, mono), `/compare` loop, broken links, missing key detail pages.
 
 ## 9. Risks
 
