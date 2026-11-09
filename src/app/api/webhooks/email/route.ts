@@ -1,97 +1,64 @@
-// T-075: Webhook handler for transactional email bounces and complaints.
-// CRITICAL INVARIANT: A bounced verification NEVER creates an active subscription.
-import { NextRequest, NextResponse } from "next/server";
-import { markVerificationBounced } from "@/lib/verification/store";
-import { addSuppression } from "@/lib/newsletter/provider";
-import { safeEqual } from "@/lib/safe-equal";
+// T-075: Resend tells us when an email bounced or was marked as spam. The address is then blocked for
+// good: nothing is sent to it again, and a bounced confirmation can never create a subscription.
+import { connection, type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { getDb } from "@/lib/db";
+import { readCapped } from "@/lib/read-capped";
+import { suppress } from "@/lib/subscriptions/core";
+import { isValidSvixSignature } from "@/lib/svix-signature";
+
+const MAX_BODY_BYTES = 64 * 1024;
+
+const eventSchema = z.object({
+  type: z.string(),
+  data: z.object({ to: z.array(z.string()).max(50).default([]) }),
+});
+
+const REASONS: Record<string, string> = {
+  "email.bounced": "bounced",
+  "email.complained": "complained",
+};
 
 export async function POST(request: NextRequest) {
+  await connection();
+
+  // Closed by default: with no secret configured, nobody can call this route.
+  const secret = process.env.RESEND_WEBHOOK_SECRET;
+  if (!secret) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const raw = await readCapped(request, MAX_BODY_BYTES);
+  if (raw === null) return NextResponse.json({ error: "Too large" }, { status: 413 });
+
+  const valid = isValidSvixSignature(
+    raw,
+    {
+      id: request.headers.get("svix-id"),
+      timestamp: request.headers.get("svix-timestamp"),
+      signature: request.headers.get("svix-signature"),
+    },
+    secret,
+  );
+  if (!valid) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  let payload: unknown;
   try {
-    const authHeader =
-      request.headers.get("x-webhook-secret") ||
-      request.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
-
-    const expectedSecret = process.env.WEBHOOK_SIGNING_SECRET;
-
-    // Closed by default: with no secret configured, nobody can call this route.
-    if (
-      !expectedSecret ||
-      expectedSecret.length < 16 ||
-      !authHeader ||
-      !safeEqual(authHeader, expectedSecret)
-    ) {
-      return NextResponse.json({ error: "Unauthorized webhook caller" }, { status: 401 });
-    }
-
-    const payload = await request.json().catch(() => null);
-
-    if (!payload) {
-      return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
-    }
-
-    // Support standard webhook formats (Postmark, SendGrid, SES, Mailgun)
-    const eventType = (
-      payload.event ||
-      payload.RecordType ||
-      payload.type ||
-      payload.eventType ||
-      ""
-    ).toLowerCase();
-
-    const targetEmail = (
-      payload.email ||
-      payload.recipient ||
-      payload.Email ||
-      payload.data?.email ||
-      payload.data?.recipient ||
-      ""
-    )
-      .toLowerCase()
-      .trim();
-
-    if (!targetEmail) {
-      return NextResponse.json(
-        { error: "Target email address missing in webhook payload" },
-        { status: 400 },
-      );
-    }
-
-    const isBounce =
-      eventType.includes("bounce") ||
-      eventType.includes("failed") ||
-      eventType.includes("undelivered") ||
-      eventType.includes("permanent");
-
-    const isComplaint = eventType.includes("complaint") || eventType.includes("spam");
-
-    if (isBounce || isComplaint) {
-      // 1. Mark pending verifications as bounced
-      const marked = await markVerificationBounced(targetEmail);
-
-      // 2. Add to permanent suppression ledger
-      await addSuppression(
-        targetEmail,
-        isComplaint
-          ? "Spam complaint received via webhook"
-          : "Hard bounce recorded via email webhook",
-      );
-
-      return NextResponse.json({
-        success: true,
-        action: "suppressed_and_bounced",
-        email: targetEmail,
-        bouncedVerificationsCount: marked,
-      });
-    }
-
-    // Other non-destructive events (e.g. delivered, opened, clicked)
-    return NextResponse.json({
-      success: true,
-      action: "ignored_event",
-      event: eventType,
-    });
-  } catch (error) {
-    console.error("[Email Webhook Error]:", error);
-    return NextResponse.json({ error: "Internal webhook processing error" }, { status: 500 });
+    payload = JSON.parse(raw);
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
+  const event = eventSchema.safeParse(payload);
+  if (!event.success) return NextResponse.json({ received: true }, { status: 200 });
+
+  const reason = REASONS[event.data.type];
+  if (!reason) return NextResponse.json({ received: true }, { status: 200 });
+
+  const db = getDb();
+  if (!db) return NextResponse.json({ error: "Unavailable" }, { status: 503 });
+
+  for (const address of event.data.data.to) {
+    // Resend may give "Name <a@b.c>"; keep only the address.
+    const email = (address.match(/<([^>]+)>/)?.[1] ?? address).trim().toLowerCase();
+    if (email.length <= 254) await suppress(db, email, reason);
+  }
+  return NextResponse.json({ received: true }, { status: 200 });
 }

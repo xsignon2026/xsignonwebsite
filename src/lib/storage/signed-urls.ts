@@ -1,95 +1,43 @@
-// T-064: Private PDF storage signed link engine.
-// Issues HMAC SHA-256 signed URLs with short-lived expiration (e.g. 15 minutes).
-import crypto from "crypto";
-
+// T-064: short-lived signed download links for the private white papers. The link names the
+// confirmation (not the email address), the paper and an expiry, and carries an HMAC over all three.
+import { createHmac } from "node:crypto";
 import { requireSecret } from "@/lib/require-secret";
+import { safeEqual } from "@/lib/safe-equal";
 
-export const DEFAULT_LINK_TTL_MS = 15 * 60 * 1000; // 15 minutes
+export const DEFAULT_LINK_TTL_MS = 15 * 60 * 1000;
 
-export type SignedUrlParams = {
-  slug: string;
-  email: string;
-  expires: number; // Unix timestamp in ms
-  sig: string;
-};
+const sign = (slug: string, verificationId: string, expires: number) =>
+  createHmac("sha256", requireSecret("SIGNED_URL_SECRET"))
+    .update(`${slug}:${verificationId}:${expires}`)
+    .digest("base64url");
 
-/**
- * Computes an HMAC SHA-256 signature for a white paper download grant.
- */
-export function computeDownloadSignature(
+export function signedDownloadPath(
   slug: string,
-  email: string,
-  expires: number,
-  secret: string = requireSecret("SIGNED_URL_SECRET"),
+  verificationId: string,
+  now = Date.now(),
+  ttlMs = DEFAULT_LINK_TTL_MS,
 ): string {
-  const payload = `${slug.toLowerCase().trim()}:${email.toLowerCase().trim()}:${expires}`;
-  return crypto.createHmac("sha256", secret).update(payload).digest("hex");
-}
-
-/**
- * Generates an HTTPS signed download link.
- */
-export function generateSignedDownloadUrl(
-  slug: string,
-  email: string,
-  ttlMs: number = DEFAULT_LINK_TTL_MS,
-  baseUrl: string = "",
-): string {
-  const expires = Date.now() + ttlMs;
-  const sig = computeDownloadSignature(slug, email, expires);
+  const expires = now + ttlMs;
   const query = new URLSearchParams({
-    slug: slug.trim(),
-    email: email.trim(),
-    expires: expires.toString(),
-    sig,
+    slug,
+    v: verificationId,
+    expires: String(expires),
+    sig: sign(slug, verificationId, expires),
   });
-
-  const path = `/api/white-papers/download?${query.toString()}`;
-  return baseUrl ? `${baseUrl.replace(/\/+$/, "")}${path}` : path;
+  return `/api/white-papers/download?${query.toString()}`;
 }
 
-/**
- * Validates a signed download URL parameters using timing-safe comparison.
- */
-export function verifySignedDownloadParams(
+export function verifySignedDownload(
   slug: string,
-  email: string,
-  expiresStr: string,
+  verificationId: string,
+  expires: string,
   sig: string,
-  now: number = Date.now(),
-  secret: string = requireSecret("SIGNED_URL_SECRET"),
-): { valid: boolean; reason?: "expired" | "invalid_signature" | "malformed" } {
-  if (!slug || !email || !expiresStr || !sig) {
-    return { valid: false, reason: "malformed" };
+  now = Date.now(),
+): { valid: true } | { valid: false; reason: "expired" | "invalid" } {
+  const at = Number(expires);
+  if (!slug || !verificationId || !sig || !Number.isSafeInteger(at)) {
+    return { valid: false, reason: "invalid" };
   }
-
-  const expires = Number(expiresStr);
-  if (isNaN(expires)) {
-    return { valid: false, reason: "malformed" };
-  }
-
-  // 1. Expiration check
-  if (now > expires) {
-    return { valid: false, reason: "expired" };
-  }
-
-  // 2. Cryptographic signature check (timing-safe)
-  const expectedSig = computeDownloadSignature(slug, email, expires, secret);
-  try {
-    const sigBuffer = Buffer.from(sig, "hex");
-    const expectedBuffer = Buffer.from(expectedSig, "hex");
-
-    if (sigBuffer.length !== expectedBuffer.length) {
-      return { valid: false, reason: "invalid_signature" };
-    }
-
-    const match = crypto.timingSafeEqual(sigBuffer, expectedBuffer);
-    if (!match) {
-      return { valid: false, reason: "invalid_signature" };
-    }
-
-    return { valid: true };
-  } catch {
-    return { valid: false, reason: "invalid_signature" };
-  }
+  if (!safeEqual(sig, sign(slug, verificationId, at))) return { valid: false, reason: "invalid" };
+  return at < now ? { valid: false, reason: "expired" } : { valid: true };
 }

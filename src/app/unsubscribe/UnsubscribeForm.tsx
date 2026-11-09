@@ -7,19 +7,23 @@ export function UnsubscribeForm() {
   const searchParams = useSearchParams();
   const urlStatus = searchParams.get("status");
   const urlEmail = searchParams.get("email") || "";
+  const urlToken = searchParams.get("token") || "";
+  // With the link from our email, one press removes the address. Without it, the server emails a link.
+  const confirmMode = Boolean(urlEmail && urlToken && urlStatus !== "invalid");
 
   const [email, setEmail] = useState(urlEmail);
-  const [submitted, setSubmitted] = useState(urlStatus === "confirmed");
+  const [submitted, setSubmitted] = useState(false);
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(
     urlStatus === "invalid"
-      ? "The unsubscribe link provided is invalid or has expired. Please enter your email below."
+      ? "This unsubscribe link is not valid. Enter your email below and we will send a new one."
       : "",
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email && !confirmMode) return;
 
     setLoading(true);
     setError("");
@@ -28,11 +32,12 @@ export function UnsubscribeForm() {
       const res = await fetch("/api/unsubscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify(confirmMode ? { email: urlEmail, token: urlToken } : { email }),
       });
 
       const data = await res.json();
       if (res.ok && data.success) {
+        setMessage(data.message || "");
         setSubmitted(true);
       } else {
         setError(data.message || "Failed to unsubscribe. Please try again.");
@@ -50,7 +55,7 @@ export function UnsubscribeForm() {
         <div className="space-y-2">
           <h3 className="text-2xl font-bold tracking-tight text-txt">Request confirmed.</h3>
           <p className="text-body text-gray leading-relaxed">
-            The address you entered has been recorded for removal from XSignOn marketing emails.
+            {message || "Your request has been recorded."}
           </p>
         </div>
       </div>
@@ -75,6 +80,7 @@ export function UnsubscribeForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          readOnly={confirmMode}
           placeholder="name@company.com"
           className="w-full rounded-xl border border-line bg-white px-4 py-3 text-base text-txt placeholder:text-gray/50 focus:border-txt focus:outline-none focus:ring-1 focus:ring-txt"
         />

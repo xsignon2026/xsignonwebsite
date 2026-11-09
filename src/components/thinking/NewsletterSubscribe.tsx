@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { NEWSLETTER_CONSENT_TEXT } from "@/lib/consent/wording";
 
 interface NewsletterSubscribeProps {
   sourcePage?: string;
@@ -30,6 +31,8 @@ export function NewsletterSubscribe({ sourcePage = "/thinking" }: NewsletterSubs
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          // Pressing Subscribe, next to the notice below, is the agreement; the confirmation email is the second step.
+          consent: true,
           purpose: "newsletter",
           sourcePage,
           hp_company: hpCompany,
@@ -90,6 +93,12 @@ export function NewsletterSubscribe({ sourcePage = "/thinking" }: NewsletterSubs
             {status === "submitting" ? "Subscribing..." : "Subscribe"}
           </button>
         </form>
+      )}
+
+      {status !== "success" && (
+        <p style={{ marginTop: "12px", fontSize: "13px", opacity: 0.8 }}>
+          {NEWSLETTER_CONSENT_TEXT} We will email you a link to confirm.
+        </p>
       )}
 
       {status === "error" && (

@@ -1,135 +1,86 @@
-import crypto from "crypto";
-import { NextRequest, NextResponse } from "next/server";
-import {
-  findVerificationByTokenHash,
-  markVerificationVerified,
-  grantWhitePaperDownload,
-} from "@/lib/verification/store";
-import { hashToken, isTokenExpired } from "@/lib/verification/tokens";
-import { generateSignedDownloadUrl } from "@/lib/storage/signed-urls";
-import { syncVerifiedSubscriber } from "@/lib/newsletter/provider";
-import { getWhitePaperBySlug } from "@/lib/white-paper";
-import { sendWhitePaperDeliveryEmail } from "@/lib/mailer";
+import { connection, type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { clientIp, readJson } from "@/lib/api-guard";
+import { limitKey, senderGroup } from "@/lib/contact/keys";
+import { getDb } from "@/lib/db";
+import { overLimit } from "@/lib/rate-limit-db";
+import { signedDownloadPath } from "@/lib/storage/signed-urls";
+import { confirmVerification } from "@/lib/subscriptions/core";
 
-export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const token = searchParams.get("token") || "";
-  const email = searchParams.get("email") || "";
+// T-066: the visitor opens the link in the email and the page sends the token here. It is a POST
+// because it changes something (a link scanner that only fetches pages must not use up the link).
+// The token works once; reusing it never hands out a second download link.
+const NO_STORE = { "Cache-Control": "no-store" };
+const bodySchema = z.object({ token: z.string().min(20).max(200) });
 
-  if (!token || !email) {
-    return NextResponse.json(
-      { success: false, error: "missing_parameters", message: "Token and email are required." },
-      { status: 400 },
-    );
-  }
+const MESSAGES = {
+  invalid: { status: 400, message: "This verification link is not valid." },
+  expired: {
+    status: 410,
+    message: "This verification link has expired (24-hour limit). Please request a new one.",
+  },
+  used: {
+    status: 409,
+    message:
+      "This verification link has already been used. Please request a new one if you need it.",
+  },
+  bounced: {
+    status: 400,
+    message: "Email delivery bounced for this address. Verification cannot proceed.",
+  },
+} as const;
 
-  const tokenHash = hashToken(token);
-  const record = await findVerificationByTokenHash(tokenHash);
+function reply(status: number, body: object) {
+  return NextResponse.json(body, { status, headers: NO_STORE });
+}
 
-  if (!record || record.email.toLowerCase() !== email.toLowerCase().trim()) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: "invalid_token",
-        message: "Verification link is invalid or has already been used.",
-      },
-      { status: 400 },
-    );
-  }
+export async function POST(request: NextRequest) {
+  await connection();
 
-  // Check 24-hour expiration
-  if (isTokenExpired(record.expiresAt)) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: "expired_token",
-        message: "This verification link has expired (24-hour limit). Please request a new one.",
-      },
-      { status: 410 },
-    );
-  }
-
-  // T-075 Invariant: A bounced verification NEVER creates an active subscription
-  if (record.status === "bounced") {
-    return NextResponse.json(
-      {
-        success: false,
-        error: "bounced_email",
-        message: "Email delivery bounced for this address. Verification cannot proceed.",
-      },
-      { status: 400 },
-    );
-  }
-
-  // Idempotent check: if already verified, handle gracefully without creating duplicate records
-  if (record.status === "verified") {
-    let downloadUrl: string | undefined;
-    if (record.purpose === "whitepaper_download" && record.targetSlug) {
-      downloadUrl = generateSignedDownloadUrl(record.targetSlug, record.email);
-    }
-
-    return NextResponse.json({
-      success: true,
-      alreadyVerified: true,
-      purpose: record.purpose,
-      targetSlug: record.targetSlug,
-      downloadUrl,
-      message: "Email address is already verified.",
+  const read = await readJson(request, 1024);
+  if (!read.ok) return reply(read.status, { success: false, error: "invalid_token" });
+  const parsed = bodySchema.safeParse(read.body);
+  if (!parsed.success) {
+    return reply(400, {
+      success: false,
+      error: "invalid_token",
+      message: MESSAGES.invalid.message,
     });
   }
 
-  // Record Consent Audit
-  const clientIp =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "127.0.0.1";
-  const ipHash = crypto.createHash("sha256").update(clientIp).digest("hex").substring(0, 16);
-  const userAgent = request.headers.get("user-agent") || "unknown";
+  const db = getDb();
+  const hashSecret = process.env.ENQUIRY_HASH_SECRET;
+  if (!db || !hashSecret || hashSecret.length < 32) {
+    return reply(503, { success: false, error: "unavailable" });
+  }
 
-  const consentAudit = {
-    timestamp: new Date().toISOString(),
-    ipHash,
-    userAgent,
-    wording:
-      record.purpose === "whitepaper_download"
-        ? "Verified email to receive technical white paper download link."
-        : "Confirmed subscription to XSignOn updates and thinking.",
-  };
+  // Guessing tokens is hopeless (256 random bits), but a limit keeps the endpoint cheap to defend.
+  const ipKey = limitKey(hashSecret, "verify-ip", senderGroup(clientIp(request)));
+  if (await overLimit(db, ipKey, { max: 30, windowMs: 60 * 60 * 1000 }, Date.now())) {
+    return reply(429, { success: false, error: "rate_limited" });
+  }
 
-  await markVerificationVerified(record.id, consentAudit);
+  // Kept for the consent record: who confirmed, as a keyed hash.
+  const ipHash = limitKey(hashSecret, "consent-ip", senderGroup(clientIp(request))).slice(0, 80);
+  const result = await confirmVerification(db, parsed.data.token, ipHash);
 
-  let downloadUrl: string | undefined;
-
-  // Handle Purpose
-  if (record.purpose === "newsletter") {
-    await syncVerifiedSubscriber({
-      email: record.email,
-      consentDate: consentAudit.timestamp,
-      source: record.sourcePage,
-      wordingVersion: record.wordingVersion,
-      tags: ["newsletter", "web-opt-in"],
-    });
-  } else if (record.purpose === "whitepaper_download" && record.targetSlug) {
-    await grantWhitePaperDownload(record.email, record.targetSlug);
-    downloadUrl = generateSignedDownloadUrl(record.targetSlug, record.email);
-
-    // T-071: Dispatches backup email with short-lived signed link
-    const wp = await getWhitePaperBySlug(record.targetSlug);
-    const title = wp?.title || "Technical White Paper";
-    await sendWhitePaperDeliveryEmail({
-      email: record.email,
-      whitePaperSlug: record.targetSlug,
-      whitePaperTitle: title,
-      downloadUrl,
+  if (result.status !== "ok") {
+    const m = MESSAGES[result.status];
+    return reply(m.status, {
+      success: false,
+      error: `${result.status}_token`,
+      message: m.message,
     });
   }
 
-  return NextResponse.json({
+  const isDownload = result.purpose === "whitepaper_download" && result.targetSlug;
+  return reply(200, {
     success: true,
-    alreadyVerified: false,
-    purpose: record.purpose,
-    targetSlug: record.targetSlug,
-    downloadUrl,
+    purpose: result.purpose,
+    targetSlug: result.targetSlug ?? undefined,
+    downloadUrl: isDownload
+      ? signedDownloadPath(result.targetSlug!, result.verificationId)
+      : undefined,
     message: "Email address verified successfully.",
   });
 }

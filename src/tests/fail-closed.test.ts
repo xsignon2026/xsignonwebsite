@@ -16,14 +16,26 @@ describe("routes that need a secret refuse to run without one", () => {
   });
 
   it("rejects the email webhook when its secret is not set, even with a header", async () => {
-    vi.stubEnv("WEBHOOK_SIGNING_SECRET", "");
-    const res = await webhook(call("/api/webhooks/email", { "x-webhook-secret": "anything" }));
+    vi.stubEnv("RESEND_WEBHOOK_SECRET", "");
+    const res = await webhook(
+      call("/api/webhooks/email", {
+        "svix-id": "a",
+        "svix-timestamp": "1",
+        "svix-signature": "v1,x",
+      }),
+    );
     expect(res.status).toBe(401);
   });
 
   it("rejects a wrong secret", async () => {
-    vi.stubEnv("WEBHOOK_SIGNING_SECRET", "a-long-enough-webhook-secret");
-    const res = await webhook(call("/api/webhooks/email", { "x-webhook-secret": "wrong" }));
+    vi.stubEnv("RESEND_WEBHOOK_SECRET", "whsec_dGVzdC1zZWNyZXQtdmFsdWU=");
+    const res = await webhook(
+      call("/api/webhooks/email", {
+        "svix-id": "a",
+        "svix-timestamp": "1",
+        "svix-signature": "v1,x",
+      }),
+    );
     expect(res.status).toBe(401);
   });
 });
