@@ -203,3 +203,121 @@ section.dark .ptag {
   padding: 8px;
   background-clip: content-box;
 }
+
+/*
+ * Home hero: a brighter violet background, and the product card shown as layered white cards (a white
+ * card in a lilac frame, a slim icon rail behind it and a small status card in front), for strong contrast.
+ * Our own colours throughout: violet, navy and red.
+ */
+.hero-split {
+  background:
+    radial-gradient(900px 540px at 94% -10%, rgba(226, 20, 52, 0.5), transparent 66%),
+    radial-gradient(980px 600px at 2% 106%, rgba(124, 58, 237, 0.8), transparent 64%),
+    linear-gradient(160deg, #2c10a6 0%, #16096a 55%, #0b0446 100%);
+}
+.hero-split .hero-sub {
+  color: rgba(255, 255, 255, 0.92);
+}
+.hero-visual {
+  position: relative;
+  padding-left: 42px;
+}
+.hero-split .hcard {
+  background: #fff;
+  border: 10px solid rgba(196, 176, 255, 0.6);
+  border-radius: 30px;
+  box-shadow: 0 40px 90px rgba(8, 3, 60, 0.55);
+}
+.hero-split .hviz {
+  background: linear-gradient(150deg, #5a2ae0 0%, #2b57ea 62%, #1c3fb9 100%);
+}
+.hero-split .hviz::before {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+}
+.hero-split .hviz::after {
+  background: radial-gradient(320px 220px at 70% 24%, rgba(255, 255, 255, 0.3), transparent 70%);
+}
+.hero-split .hviz svg {
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 40, 0.4));
+}
+.hero-split .hinfo {
+  background: #fff;
+  color: #1a1240;
+}
+.hero-split .hinfo h3 {
+  color: #14103a;
+}
+.hero-split .hdesc {
+  color: #443f6b;
+}
+.hero-split .hcat {
+  color: #a60019;
+}
+.hero-split .hcount {
+  color: #6b6790;
+}
+.hero-split .hdot {
+  background-color: #cfc8ee;
+}
+.hero-split .hdot.act {
+  background-color: #c6001d;
+}
+.hero-rail {
+  position: absolute;
+  left: 0;
+  top: 11%;
+  bottom: 11%;
+  width: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background: #fff;
+  border: 8px solid rgba(196, 176, 255, 0.6);
+  border-radius: 26px;
+  color: #4b2bd6;
+  box-shadow: 0 24px 60px rgba(8, 3, 60, 0.4);
+}
+.hero-rail svg:nth-child(2) {
+  color: #c6001d;
+}
+.hero-float {
+  position: absolute;
+  right: -18px;
+  bottom: -26px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px 12px 14px;
+  background: #fff;
+  border: 8px solid rgba(196, 176, 255, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(8, 3, 60, 0.45);
+  color: #14103a;
+  font-size: 15px;
+  font-weight: 600;
+}
+.hero-float-ic {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e3f4f0;
+  color: #00695c;
+}
+@media (max-width: 1080px) {
+  .hero-visual {
+    padding-left: 0;
+    margin-top: 12px;
+  }
+  .hero-rail {
+    display: none;
+  }
+  .hero-float {
+    right: 12px;
+    bottom: -22px;
+  }
+}
