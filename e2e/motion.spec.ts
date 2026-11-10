@@ -12,6 +12,8 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
 
     test("PartnerHub on Homepage provides working Pause/Resume control", async ({ page }) => {
       await page.goto("/");
+      // The page's scripts mark <html> once they are running; click only after that.
+      await page.waitForSelector("html.js");
       const pauseBtn = page.locator("#hubxPause");
       await expect(pauseBtn).toBeVisible();
       await expect(pauseBtn).toHaveText("Pause");

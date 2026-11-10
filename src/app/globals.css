@@ -1496,9 +1496,6 @@
     .lg\:hidden {
       display: none;
     }
-    .lg\:grid-cols-\[1\.1fr_0\.9fr\] {
-      grid-template-columns: 1.1fr 0.9fr;
-    }
     .lg\:grid-cols-\[1fr_380px\] {
       grid-template-columns: 1fr 380px;
     }
