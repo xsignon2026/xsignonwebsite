@@ -4,10 +4,10 @@ import Link from "next/link";
 import React from "react";
 import { AboutHero } from "@/components/about/AboutHero";
 import { AboutHow } from "@/components/about/AboutHow";
-import { AboutThinkingCards } from "@/components/about/AboutThinking";
+import { ThinkingShowcase } from "@/components/about/ThinkingShowcase";
 import { AboutWhatWeDo } from "@/components/about/AboutWhatWeDo";
 import { WhyXSignOnHub } from "@/components/about/WhyXSignOnHub";
-import { aboutImages, aboutThinking, principles } from "@/data/about";
+import { aboutImages, principles } from "@/data/about";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -65,7 +65,6 @@ const principleIcons = [
 ];
 
 export default function AboutPage(): React.JSX.Element {
-  const featured = aboutThinking.featured;
   return (
     <div id="view-about">
       <script
@@ -163,38 +162,7 @@ export default function AboutPage(): React.JSX.Element {
                 </span>
               </Link>
             </div>
-            <article className="t-feat rv">
-              <div className="tf-body">
-                <p className="kicker">Featured</p>
-                <h3>{featured.title}</h3>
-                <p className="tf-p">{featured.text}</p>
-                <Link className="more" href={featured.href}>
-                  Read the article{" "}
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M4 12h16m-6-6 6 6-6 6" />
-                  </svg>
-                </Link>
-              </div>
-              <div className="tf-img">
-                <Image
-                  src={featured.image.src}
-                  alt={featured.image.alt}
-                  width={featured.image.width}
-                  height={featured.image.height}
-                  sizes="(max-width: 900px) 100vw, 520px"
-                />
-              </div>
-            </article>
-            <AboutThinkingCards />
+            <ThinkingShowcase />
             <div className="about-bottom">
               <Link className="back-pill on-light" href="/">
                 <span className="arr" aria-hidden="true">

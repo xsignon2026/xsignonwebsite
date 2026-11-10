@@ -44,6 +44,9 @@ test.describe("Company Batch QA (T-129)", () => {
     });
 
     test("satisfies WCAG 2.2 AA accessibility requirements", async ({ page }) => {
+      // With motion reduced, nothing is mid-animation while axe measures colours.
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.reload();
       const results = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
         .analyze();
