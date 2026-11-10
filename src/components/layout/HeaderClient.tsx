@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useId, useRef, useState } from "react";
 import type { NavItem } from "@/types/navigation";
 
 type HeaderClientProps = {
@@ -13,148 +14,239 @@ type HeaderClientProps = {
   } | null;
 };
 
-// The site header, built from the prototype's markup and classes (src/styles/shell.css).
-// It switches between a dark and a light look depending on the band under it (data-nav on sections).
+const Chevron = () => (
+  <svg
+    className="nav2-chev"
+    width="12"
+    height="12"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+);
+
+// The site header: a light bar with the menus opening as wide panels underneath (a "mega menu"), and on
+// phones a card with one expandable row per menu. A menu opens when the visitor points at it, presses it
+// or reaches it with the keyboard; Escape, a click elsewhere or leaving the page closes it.
 export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const pathname = usePathname();
+  const baseId = useId();
+  const root = useRef<HTMLElement>(null);
+  const closeTimer = useRef<number | null>(null);
+  const [open, setOpen] = useState<number | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [section, setSection] = useState<number | null>(null);
+  const [lastPath, setLastPath] = useState(pathname);
+
+  // Going to another page closes everything. (Adjusting state while rendering is the supported way to
+  // react to a changed value without an effect.)
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setOpen(null);
+    setMenuOpen(false);
+    setSection(null);
+  }
 
   useEffect(() => {
-    function checkTheme() {
-      // The first [data-nav] band that covers the point 84px from the top of the window.
-      const targetY = 84;
-      for (const section of document.querySelectorAll<HTMLElement>("[data-nav]")) {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= targetY && rect.bottom >= targetY) {
-          const navTheme = section.getAttribute("data-nav");
-          if (navTheme === "light" || navTheme === "dark") {
-            setTheme(navTheme);
-            return;
-          }
-        }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(null);
+      setMenuOpen(false);
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (root.current && !root.current.contains(e.target as Node)) {
+        setOpen(null);
+        setMenuOpen(false);
       }
-    }
-
-    checkTheme();
-    window.addEventListener("scroll", checkTheme, { passive: true });
-    window.addEventListener("resize", checkTheme, { passive: true });
-    window.addEventListener("popstate", checkTheme);
-    // Pages change without a reload, so look again when the content changes.
-    const observer = new MutationObserver(checkTheme);
-    const main = document.getElementById("main-content");
-    if (main) observer.observe(main, { childList: true, subtree: true });
-
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
     return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", checkTheme);
-      window.removeEventListener("resize", checkTheme);
-      window.removeEventListener("popstate", checkTheme);
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
     };
   }, []);
 
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [menuOpen]);
-
-  const close = () => setMenuOpen(false);
+  const cancelClose = () => {
+    if (closeTimer.current !== null) window.clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  };
+  const closeSoon = () => {
+    cancelClose();
+    closeTimer.current = window.setTimeout(() => setOpen(null), 140);
+  };
+  const hoverOpen = (index: number) => (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    cancelClose();
+    setOpen(index);
+  };
 
   return (
-    <header className={`site nav-${theme}`} id="siteHeader">
-      <div className="wrap">
-        <Link className="logo" href="/" aria-label="XSignOn home" onClick={close}>
+    <header className="nav2" id="siteHeader" ref={root} onPointerLeave={closeSoon}>
+      <div className="nav2-bar">
+        <Link className="nav2-logo" href="/" aria-label="XSignOn home">
           <Image
-            className="logo-img on-dark"
-            src="/images/logo-dark.png"
-            alt="XSignOn - Simplifying cybersecurity"
-            width={760}
-            height={198}
-            priority
-          />
-          <Image
-            className="logo-img on-light"
             src="/images/logo-light.png"
-            alt=""
-            aria-hidden="true"
+            alt="XSignOn - Simplifying cybersecurity"
             width={760}
             height={198}
             priority
           />
         </Link>
 
-        <nav className="main" aria-label="Primary">
-          {navItems.map((item) => {
-            const children = (item.children ?? []).filter((child) => !child.mobileOnly);
+        <nav className="nav2-links" aria-label="Primary">
+          {navItems.map((item, i) => {
+            const panelId = `${baseId}-panel-${i}`;
+            const isOpen = open === i;
             return (
-              <div className="nav-item" key={item.label}>
-                <Link className="nav-link" href={item.link?.href ?? "#"}>
-                  {item.label}{" "}
-                  {children.length > 0 && (
-                    <span className="caret" aria-hidden="true">
-                      &#9662;
-                    </span>
-                  )}
-                </Link>
-                {children.length > 0 && (
-                  <div className="dropdown">
-                    {children.map((child) =>
-                      child.link.href ? (
-                        <Link key={child.label} href={child.link.href}>
-                          {child.label}
-                        </Link>
-                      ) : null,
-                    )}
-                    {item.crossLink && (
-                      <div className="drop-foot">
-                        <span className="meta">Cross-link</span>
-                        <Link href={item.crossLink.href}>{item.crossLink.label}</Link>
-                      </div>
+              <div className="nav2-item" key={item.label} onPointerEnter={hoverOpen(i)}>
+                <button
+                  type="button"
+                  className="nav2-trigger"
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  data-open={isOpen || undefined}
+                  onClick={() => setOpen(isOpen ? null : i)}
+                >
+                  {item.label}
+                  <Chevron />
+                </button>
+
+                <div
+                  className={`nav2-panel${item.featured ? " has-feature" : ""}`}
+                  id={panelId}
+                  hidden={!isOpen}
+                  onPointerEnter={cancelClose}
+                >
+                  <div className="nav2-panel-body">
+                    <ul className="nav2-list">
+                      {(item.children ?? []).map((child) =>
+                        child.link.href ? (
+                          <li key={child.label}>
+                            <Link className="nav2-card" href={child.link.href}>
+                              <span className="nav2-card-title">{child.label}</span>
+                              {child.description && (
+                                <span className="nav2-card-text">{child.description}</span>
+                              )}
+                            </Link>
+                          </li>
+                        ) : null,
+                      )}
+                    </ul>
+                    {item.featured && (
+                      <Link className="nav2-feature" href={item.featured.href}>
+                        <Image
+                          src={item.featured.image.src}
+                          alt={item.featured.image.alt}
+                          width={600}
+                          height={380}
+                          sizes="320px"
+                          loading="eager"
+                        />
+                        <span className="nav2-eyebrow">{item.featured.eyebrow}</span>
+                        <span className="nav2-feature-title">{item.featured.title}</span>
+                      </Link>
                     )}
                   </div>
-                )}
+                  {item.footerLink && (
+                    <div className="nav2-panel-foot">
+                      <Link href={item.footerLink.href}>
+                        {item.footerLink.label} <span aria-hidden="true">&#8594;</span>
+                      </Link>
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}
         </nav>
 
-        <div className="head-actions">
+        <div className="nav2-actions">
           {headerCta && (
-            <Link className="btn btn-contact" href={headerCta.href} onClick={close}>
+            <Link className="nav2-cta" href={headerCta.href}>
               {headerCta.label}
             </Link>
           )}
           <button
-            className="menu-btn"
-            id="menuBtn"
             type="button"
+            className="nav2-burger"
             aria-expanded={menuOpen}
-            aria-controls="mobileNav"
-            onClick={() => setMenuOpen((open) => !open)}
+            aria-controls={`${baseId}-mobile`}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((value) => !value)}
           >
-            Menu
+            {menuOpen ? (
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
+            ) : (
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+            )}
           </button>
         </div>
       </div>
 
-      <nav className={`mobile-nav${menuOpen ? " open" : ""}`} id="mobileNav" aria-label="Mobile">
-        {navItems.map((item) => (
-          <React.Fragment key={item.label}>
-            <div className="m-group">{item.label}</div>
-            {(item.children ?? []).map((child) =>
-              child.link.href ? (
-                <Link key={child.label} href={child.link.href} onClick={close}>
-                  {child.label}
-                </Link>
-              ) : null,
-            )}
-          </React.Fragment>
-        ))}
+      <nav className="nav2-mobile" id={`${baseId}-mobile`} aria-label="Mobile" hidden={!menuOpen}>
+        {navItems.map((item, i) => {
+          const isOpen = section === i;
+          return (
+            <div className="nav2-m-group" key={item.label}>
+              <button
+                type="button"
+                className="nav2-m-head"
+                aria-expanded={isOpen}
+                onClick={() => setSection(isOpen ? null : i)}
+              >
+                {item.label}
+                <Chevron />
+              </button>
+              {isOpen && (
+                <ul className="nav2-m-list">
+                  {(item.children ?? []).map((child) =>
+                    child.link.href ? (
+                      <li key={child.label}>
+                        <Link href={child.link.href}>{child.label}</Link>
+                      </li>
+                    ) : null,
+                  )}
+                  {item.footerLink && (
+                    <li>
+                      <Link href={item.footerLink.href}>{item.footerLink.label}</Link>
+                    </li>
+                  )}
+                </ul>
+              )}
+            </div>
+          );
+        })}
         {headerCta && (
-          <Link className="m-top" href={headerCta.href} onClick={close}>
+          <Link className="nav2-cta nav2-m-cta" href={headerCta.href}>
             {headerCta.label}
           </Link>
         )}

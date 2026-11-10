@@ -3,6 +3,7 @@
 @import "../styles/prototype.css" layer(components);
 @import "../styles/primitives.css" layer(components);
 @import "../styles/shell.css";
+@import "../styles/nav.css";
 
 /* S-10 base styles, from the handoff sections 3, 4 and 5.5 */
 @layer base {
