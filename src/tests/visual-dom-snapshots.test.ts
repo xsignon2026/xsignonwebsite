@@ -5,11 +5,11 @@ import path from "path";
 describe("T-166: Visual DOM Structural Consistency Suite", () => {
   it("verifies responsive column and grid layouts across primary templates", () => {
     const contactPage = fs.readFileSync(
-      path.resolve(process.cwd(), "src/app/contact/page.tsx"),
+      path.resolve(process.cwd(), "src/components/prototype/ContactView.tsx"),
       "utf-8",
     );
-    // Contact page has 1 col on mobile, 2 cols on lg
-    expect(contactPage).toContain("grid-cols-1 lg:grid-cols-[1.1fr_0.9fr]");
+    // The contact page uses the prototype's two-column split (it stacks on small screens in prototype.css)
+    expect(contactPage).toContain("about-split");
   });
 
   it("verifies container wrapping widths and responsive padding tokens", () => {

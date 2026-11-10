@@ -88,7 +88,7 @@ test.describe("Company Batch QA (T-129)", () => {
 
       const generalApp = page.getByRole("link", { name: "Contact us about careers" });
       await expect(generalApp).toBeVisible();
-      await expect(generalApp).toHaveAttribute("href", "/contact?reason=Careers");
+      await expect(generalApp).toHaveAttribute("href", "/contact?reason=careers");
     });
 
     test("embeds valid JobPosting JSON-LD for search engine indexing", async ({ page }) => {
