@@ -71,7 +71,7 @@ test.describe("Tools & Utility Batch QA (T-136)", () => {
     test("renders Privacy page with legal sections and timestamp", async ({ page }) => {
       await page.goto("/privacy");
       await expect(page.locator("h1")).toHaveText("Privacy Policy");
-      await expect(page.locator(".pmeta")).toContainText("Updated January 2026");
+      await expect(page.locator(".pmeta")).toContainText("Placeholder copy for legal review");
 
       await expect(page.getByRole("heading", { name: "Information we collect" })).toBeVisible();
       await expect(page.getByRole("heading", { name: "How we use information" })).toBeVisible();
@@ -88,7 +88,7 @@ test.describe("Tools & Utility Batch QA (T-136)", () => {
     test("renders Terms page with legal sections and timestamp", async ({ page }) => {
       await page.goto("/terms");
       await expect(page.locator("h1")).toHaveText("Terms");
-      await expect(page.locator(".pmeta")).toContainText("Updated January 2026");
+      await expect(page.locator(".pmeta")).toContainText("Placeholder copy for legal review");
 
       await expect(page.getByRole("heading", { name: "Use of the site" })).toBeVisible();
       await expect(page.getByRole("heading", { name: "Products and services" })).toBeVisible();
