@@ -4,14 +4,14 @@
 // and registers its clean-up in `cleanups`. Nothing here handles visitor-supplied text: the only HTML
 // it writes comes from the constants in this file.
 
-type Cleanup = () => void;
+export type Cleanup = () => void;
 
-const q = <T extends Element>(root: ParentNode, selector: string) =>
+export const q = <T extends Element>(root: ParentNode, selector: string) =>
   root.querySelector<T>(selector);
-const qa = <T extends Element>(root: ParentNode, selector: string) =>
+export const qa = <T extends Element>(root: ParentNode, selector: string) =>
   Array.from(root.querySelectorAll<T>(selector));
 
-function listen<K extends keyof HTMLElementEventMap>(
+export function listen<K extends keyof HTMLElementEventMap>(
   target: HTMLElement | Document | Window,
   type: K | string,
   handler: (event: never) => void,
@@ -274,7 +274,7 @@ function coverflow(root: HTMLElement, reduced: boolean, cleanups: Cleanup[]) {
 }
 
 // Headings and cards fade in as they scroll into view. Nothing stays hidden: after 1.6 s all show.
-function reveal(root: HTMLElement, reduced: boolean, cleanups: Cleanup[]) {
+export function reveal(root: HTMLElement, reduced: boolean, cleanups: Cleanup[]) {
   const items = qa<HTMLElement>(root, ".rv");
   const showAll = () => items.forEach((el) => el.classList.add("in"));
   if (!("IntersectionObserver" in window) || reduced) {

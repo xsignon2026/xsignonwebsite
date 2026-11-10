@@ -350,3 +350,13 @@ section.dark .ptag {
   min-height: 0;
   object-fit: cover;
 }
+
+/* Article carousel dots: the same look, with a 24px press area (WCAG 2.2, target size). */
+.tc2-dots {
+  gap: 0;
+}
+.tc2-dots button {
+  box-sizing: content-box;
+  padding: 8px;
+  background-clip: content-box;
+}
