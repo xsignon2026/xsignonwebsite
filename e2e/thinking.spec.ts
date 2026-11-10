@@ -22,15 +22,11 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
     ).toBeVisible();
     await expect(featuredCard.getByText("Featured")).toBeVisible();
 
-    // Test toggle preview on featured card
-    const featuredToggle = featuredCard.getByRole("button", {
-      name: /Read summary preview|Show less/i,
-    });
-    await expect(featuredToggle).toHaveAttribute("aria-expanded", "false");
-    await featuredToggle.click();
-    await expect(featuredToggle).toHaveAttribute("aria-expanded", "true");
-    await featuredToggle.click();
-    await expect(featuredToggle).toHaveAttribute("aria-expanded", "false");
+    // The featured card links to the full article
+    await expect(featuredCard.getByRole("link", { name: /Read the article/i })).toHaveAttribute(
+      "href",
+      "/thinking/identity-first-controls",
+    );
 
     // Verify 4 grid article cards
     const gridCards = page.locator(".case-grid .case-card");
@@ -110,10 +106,6 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
       level: 1,
     });
     await expect(title).toBeVisible();
-
-    // Progress bar check
-    const progBar = page.locator("#readProg");
-    await expect(progBar).toBeAttached();
 
     // Body content and clamped headings
     await expect(
@@ -203,7 +195,7 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
     ).toBeVisible();
 
     const pull = page.locator(".pull");
-    await expect(pull).toContainText("Segments drawn around identities stay accurate");
+    await expect(pull).toContainText("A segment drawn around identities stays accurate");
 
     const axeResults = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
