@@ -8608,12 +8608,6 @@
     padding: 8px;
     background-clip: content-box;
   }
-  .hero-split {
-    background: radial-gradient(900px 540px at 94% -10%, rgba(226, 20, 52, 0.5), transparent 66%), radial-gradient(980px 600px at 2% 106%, rgba(124, 58, 237, 0.8), transparent 64%), linear-gradient(160deg, #2c10a6 0%, #16096a 55%, #0b0446 100%);
-  }
-  .hero-split .hero-sub {
-    color: rgba(255, 255, 255, 0.92);
-  }
   .hero-visual {
     position: relative;
     padding-left: 42px;
@@ -8623,15 +8617,6 @@
     border: 10px solid rgba(196, 176, 255, 0.6);
     border-radius: 30px;
     box-shadow: 0 40px 90px rgba(8, 3, 60, 0.55);
-  }
-  .hero-split .hviz {
-    background: linear-gradient(150deg, #5a2ae0 0%, #2b57ea 62%, #1c3fb9 100%);
-  }
-  .hero-split .hviz::before {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
-  }
-  .hero-split .hviz::after {
-    background: radial-gradient(320px 220px at 70% 24%, rgba(255, 255, 255, 0.3), transparent 70%);
   }
   .hero-split .hviz svg {
     filter: drop-shadow(0 8px 16px rgba(0, 0, 40, 0.4));
