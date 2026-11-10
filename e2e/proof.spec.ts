@@ -45,7 +45,7 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
 
     // Verify ROI calculator link
     const roiLink = page.getByRole("link", { name: /Open the ROI Calculator/i });
-    await expect(roiLink).toHaveAttribute("href", "/roi");
+    await expect(roiLink).toHaveAttribute("href", "/roi-calculator");
 
     // Accessibility check
     const axeResults = await new AxeBuilder({ page })
@@ -114,9 +114,10 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
     });
     await expect(title).toBeVisible();
 
-    // Verify 3 steps
-    const stepCards = page.locator(".step-card");
-    await expect(stepCards).toHaveCount(3);
+    // The approved design shows the story and marks the unconfirmed details as pending
+    await expect(page.getByRole("heading", { name: "Where they started", level: 2 })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Rollout", level: 2 })).toBeVisible();
+    await expect(page.locator(".status-chip").first()).toBeVisible();
 
     // Verify related product
     await expect(page.getByRole("link", { name: /Passwordless Keys/i }).first()).toBeVisible();
