@@ -460,6 +460,160 @@ function thinkingRows(root: HTMLElement, cleanups: Cleanup[]) {
   });
 }
 
+const HUB = [
+  {
+    l: ["Segmentation policies", "Zone and flow maps", "Containment events"],
+    r: ["One posture view", "Owners and findings", "Audit-ready evidence"],
+    b: ["PostureOne"],
+    d: "<strong>Micro-Segmentation and Containment.</strong> Segmentation partners whose platforms PostureOne brings into one posture view.",
+  },
+  {
+    l: ["Data discovery findings", "Classification results", "AI data access"],
+    r: ["PostureOne evidence", "EvalOne evidence", "Reviewer-ready reports"],
+    b: ["PostureOne", "EvalOne"],
+    d: "<strong>Data + AI Security and DSPM.</strong> Data security partners whose findings flow into PostureOne and EvalOne evidence.",
+  },
+  {
+    l: ["FIDO2 biometric keys", "Key enrolment", "Hardware supply"],
+    r: ["The AUTH key range", "Governed sign-in", "Support from XSignOn"],
+    b: ["Passwordless Keys", "XSense"],
+    d: "<strong>Hardware Biometric Passwordless Authentication.</strong> The hardware behind the AUTH key range, delivered and supported by XSignOn.",
+  },
+  {
+    l: ["Cryptographic inventory", "Post-quantum methods", "Certificate and key use"],
+    r: ["Migration plan", "Evidence per system", "Clear owners"],
+    b: ["Quantum-Safe Security"],
+    d: "<strong>Quantum-Safe Encryption and Cryptography.</strong> Cryptography partners supporting the move to post-quantum methods.",
+  },
+];
+
+// Partner ecosystem hub: four tabs rotate every five seconds while on screen; Pause is in the prototype.
+function partnerHub(root: HTMLElement, reduced: boolean, cleanups: Cleanup[]) {
+  const hub = q<HTMLElement>(root, "#partnerHub");
+  if (!hub) return;
+  const INTERVAL = 5000;
+  const tabs = qa<HTMLElement>(hub, ".hubx-tab");
+  const pill = q<HTMLElement>(hub, "#hubxPill");
+  const detail = q<HTMLElement>(hub, "#hubxDetail");
+  const left = q<HTMLElement>(hub, "#hubxLeft");
+  const right = q<HTMLElement>(hub, "#hubxRight");
+  const plat = q<HTMLElement>(hub, "#hubxPlat");
+  const prog = q<HTMLElement>(hub, "#hubxProg");
+  const pauseButton = q<HTMLElement>(hub, "#hubxPause");
+  const conns = qa<SVGElement>(hub, ".hx-conn");
+  const pulses = qa<SVGElement>(hub, ".hx-pulse");
+  let current = -1;
+  let timer: number | null = null;
+  let visible = false;
+  let paused = false;
+
+  const rowsHtml = (list: string[]) => list.map((t) => `<div class="hubx-row">${t}</div>`).join("");
+  const place = () => {
+    const tab = tabs[current];
+    if (pill && tab) {
+      pill.style.left = `${tab.offsetLeft}px`;
+      pill.style.width = `${tab.offsetWidth}px`;
+    }
+  };
+  const fill = (d: (typeof HUB)[number]) => {
+    if (left) left.innerHTML = rowsHtml(d.l);
+    if (right) right.innerHTML = rowsHtml(d.r);
+    if (plat) plat.innerHTML = d.b.map((t) => `<div>${t}</div>`).join("");
+    if (detail) detail.innerHTML = d.d;
+  };
+  const activate = (i: number, pulse: boolean) => {
+    const first = current < 0;
+    current = i;
+    tabs.forEach((tab, j) => tab.setAttribute("aria-selected", j === i ? "true" : "false"));
+    conns.forEach((c, j) => c.classList.toggle("on", j === i));
+    place();
+    if (first || reduced) fill(HUB[i]);
+    else {
+      left?.classList.add("swap");
+      right?.classList.add("swap");
+      window.setTimeout(() => {
+        fill(HUB[i]);
+        left?.classList.remove("swap");
+        right?.classList.remove("swap");
+      }, 160);
+    }
+    const p = pulses[i];
+    if (pulse && !reduced && p) {
+      p.classList.remove("go");
+      void p.getBoundingClientRect();
+      p.classList.add("go");
+    }
+  };
+  const bar = (on: boolean) => {
+    if (!prog) return;
+    prog.classList.remove("run");
+    if (on && !reduced) {
+      void prog.offsetWidth;
+      prog.style.animationDuration = `${INTERVAL}ms`;
+      prog.classList.add("run");
+    }
+  };
+  const clear = () => {
+    if (timer !== null) window.clearTimeout(timer);
+    timer = null;
+    bar(false);
+  };
+  const schedule = () => {
+    clear();
+    if (paused || !visible || document.hidden) return;
+    bar(true);
+    timer = window.setTimeout(() => {
+      activate((current + 1) % tabs.length, true);
+      schedule();
+    }, INTERVAL);
+  };
+
+  tabs.forEach((tab, i) =>
+    listen(
+      tab,
+      "click",
+      () => {
+        activate(i, true);
+        schedule();
+      },
+      cleanups,
+    ),
+  );
+  if (pauseButton) {
+    listen(
+      pauseButton,
+      "click",
+      () => {
+        paused = !paused;
+        pauseButton.setAttribute("aria-pressed", String(paused));
+        pauseButton.textContent = paused ? "Play" : "Pause";
+        schedule();
+      },
+      cleanups,
+    );
+  }
+  listen(document, "visibilitychange", schedule, cleanups);
+  listen(window, "resize", place, cleanups);
+  activate(0, false);
+  const observer = new IntersectionObserver(
+    (entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible) {
+        hub.classList.add("inview");
+        place();
+        activate(current, true);
+      }
+      schedule();
+    },
+    { threshold: 0.15 },
+  );
+  observer.observe(hub);
+  cleanups.push(() => {
+    observer.disconnect();
+    clear();
+  });
+}
+
 export function initHome(root: HTMLElement): Cleanup {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const cleanups: Cleanup[] = [];
@@ -473,5 +627,6 @@ export function initHome(root: HTMLElement): Cleanup {
   proofWords(root, reduced, cleanups);
   journey(root, reduced, cleanups);
   thinkingRows(root, cleanups);
+  partnerHub(root, reduced, cleanups);
   return () => cleanups.forEach((fn) => fn());
 }
