@@ -59,27 +59,11 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(status).toHaveText(/Passwordless Keys/);
   });
 
-  test("T-093: Partner Ecosystem hub renders tabs and keeps links accessible", async ({ page }) => {
-    const partnerHub = page.locator("#partnerHub");
-    await expect(partnerHub).toBeVisible();
-
-    const tabs = partnerHub.locator(".hubx-tab");
-    await expect(tabs).toHaveCount(4);
-
-    // Pause button operates
-    const pauseBtn = page.locator("#hubxPause");
-    await expect(pauseBtn).toBeVisible();
-    await expect(pauseBtn).toHaveAttribute("aria-pressed", "false");
-    await pauseBtn.click();
-    await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
-
-    // Click second tab (Data + AI security)
-    await tabs.nth(1).click();
-    await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
-
-    // Live detail text updates
-    const detail = page.locator("#hubxDetail");
-    await expect(detail).toContainText("Data security partners");
+  test("T-093: Partner ecosystem diagram shows its five areas", async ({ page }) => {
+    const card = page.locator(".pe-card");
+    await expect(card).toBeVisible();
+    await expect(card.locator(".pe-sp")).toHaveCount(5);
+    await expect(card.locator(".pe-sp[data-on='true']")).toHaveCount(1);
   });
 
   test("T-094: Solutions Journey and Our Thinking bands operate smoothly", async ({ page }) => {

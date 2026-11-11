@@ -10,18 +10,15 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
       });
     });
 
-    test("PartnerHub on Homepage provides working Pause/Resume control", async ({ page }) => {
+    test("Partner ecosystem spotlight stops while a spoke is pointed at", async ({ page }) => {
       await page.goto("/");
-      // The page's scripts mark <html> once they are running; click only after that.
       await page.waitForSelector("html.js");
-      const pauseBtn = page.locator("#hubxPause");
-      await expect(pauseBtn).toBeVisible();
-      await expect(pauseBtn).toHaveText("Pause");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "false");
-
-      await pauseBtn.click();
-      await expect(pauseBtn).toHaveText("Play");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
+      const spoke = page.locator(".pe-sp").nth(2);
+      await spoke.scrollIntoViewIfNeeded();
+      await spoke.hover();
+      await expect(spoke).toHaveAttribute("data-on", "true");
+      await page.waitForTimeout(2000);
+      await expect(spoke).toHaveAttribute("data-on", "true");
     });
   });
 

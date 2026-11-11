@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PartnerEcosystem } from "@/components/home/PartnerEcosystem";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 
@@ -877,106 +878,7 @@ export function HomeView() {
             </div>
           </div>
 
-          <div className="hubx rv" id="partnerHub">
-            <div className="hubx-tabs" role="tablist" aria-label="Partner type">
-              <span className="hubx-pill" id="hubxPill" aria-hidden="true"></span>
-              <button className="hubx-tab" type="button" role="tab" aria-selected="true" data-i="0">
-                Micro-segmentation
-              </button>
-              <button
-                className="hubx-tab"
-                type="button"
-                role="tab"
-                aria-selected="false"
-                data-i="1"
-              >
-                Data + AI security
-              </button>
-              <button
-                className="hubx-tab"
-                type="button"
-                role="tab"
-                aria-selected="false"
-                data-i="2"
-              >
-                Hardware biometrics
-              </button>
-              <button
-                className="hubx-tab"
-                type="button"
-                role="tab"
-                aria-selected="false"
-                data-i="3"
-              >
-                Quantum-safe
-              </button>
-            </div>
-            <svg
-              className="hubx-top"
-              viewBox="0 0 600 100"
-              preserveAspectRatio="none"
-              aria-hidden="true"
-            >
-              <path className="hx-conn on" d="M75 0 C75 50, 240 40, 300 96" />
-              <path className="hx-conn" d="M225 0 C225 52, 285 46, 300 96" />
-              <path className="hx-conn" d="M375 0 C375 52, 315 46, 300 96" />
-              <path className="hx-conn" d="M525 0 C525 50, 360 40, 300 96" />
-              <path className="hx-pulse" pathLength="100" d="M75 0 C75 50, 240 40, 300 96" />
-              <path className="hx-pulse" pathLength="100" d="M225 0 C225 52, 285 46, 300 96" />
-              <path className="hx-pulse" pathLength="100" d="M375 0 C375 52, 315 46, 300 96" />
-              <path className="hx-pulse" pathLength="100" d="M525 0 C525 50, 360 40, 300 96" />
-            </svg>
-            <div className="hubx-mid">
-              <div className="hubx-box">
-                <div className="hubx-label">From partners</div>
-                <div className="hubx-rows" id="hubxLeft"></div>
-              </div>
-              <div className="hubx-h" aria-hidden="true">
-                <span>Findings</span>
-              </div>
-              <div className="hubx-centre">
-                <span className="hx-ring r1"></span>
-                <span className="hx-ring r2"></span>
-                <span className="hx-ring r3"></span>
-                <div className="hubx-core" role="img" aria-label="XSignOn">
-                  <Image
-                    className="mk-dark"
-                    src="/images/home/img-c4e2d2b6.png"
-                    alt=""
-                    width={150}
-                    height={160}
-                  />
-                  <Image
-                    className="mk-light"
-                    src="/images/home/img-eb58cada.png"
-                    alt=""
-                    width={150}
-                    height={160}
-                  />
-                </div>
-              </div>
-              <div className="hubx-h right" aria-hidden="true">
-                <span>Evidence</span>
-              </div>
-              <div className="hubx-box">
-                <div className="hubx-label">Lands in XSignOn</div>
-                <div className="hubx-rows" id="hubxRight"></div>
-              </div>
-            </div>
-            <div className="hubx-v" aria-hidden="true">
-              <span>Delivered through</span>
-            </div>
-            <div className="hubx-plat" id="hubxPlat" aria-label="Where it shows up"></div>
-            <p className="hubx-detail" id="hubxDetail" aria-live="polite"></p>
-            <div className="hubx-foot">
-              <div className="hubx-timer" aria-hidden="true">
-                <i id="hubxProg"></i>
-              </div>
-              <button className="hubx-pause" id="hubxPause" type="button" aria-pressed="false">
-                Pause
-              </button>
-            </div>
-          </div>
+          <PartnerEcosystem />
         </div>
       </section>
 
