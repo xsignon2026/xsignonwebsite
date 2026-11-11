@@ -303,7 +303,7 @@ section.dark .ptag {
 
 /* Partner ecosystem diagram (src/components/home/PartnerEcosystem.tsx): a spotlight moves down five spokes. */
 .pe-card {
-  background: #fff;
+  background: #f8f9fb;
   border: 1px solid var(--line);
   border-radius: 28px;
   padding: 28px 24px;
@@ -316,8 +316,8 @@ section.dark .ptag {
   font-family: inherit;
 }
 .pe-title {
-  font-size: 22px;
-  font-weight: 500;
+  font-size: 27px;
+  font-weight: 600;
   fill: #1a1240;
 }
 .pe-sp .pe-ln {
@@ -329,31 +329,40 @@ section.dark .ptag {
   transition: stroke 0.5s ease;
 }
 .pe-sp .pe-dot {
-  fill: #cfc9e6;
-  transition: fill 0.5s ease;
+  fill: var(--c);
 }
 .pe-sp .pe-num {
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 500;
   fill: #6b6790;
 }
 .pe-sp .pe-name {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13.5px;
+  font-weight: 600;
   fill: #6b6790;
   transition: fill 0.5s ease;
 }
 .pe-sp .pe-desc {
-  font-size: 12px;
+  font-size: 11.5px;
   fill: #6b6790;
   transition: fill 0.5s ease;
 }
-.pe-sp .pe-neck {
-  fill: #d9d4eb;
+.pe-sp .pe-base {
+  fill: #cdd5de;
   transition: fill 0.5s ease;
 }
+.pe-sp[data-on="true"] .pe-base {
+  fill: var(--c);
+}
+.pe-sp .pe-glow {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.pe-sp[data-on="true"] .pe-glow {
+  opacity: 0.85;
+}
 .pe-sp .pe-cap {
-  stroke: #e4def5;
+  stroke: #eef0f5;
   transition: stroke 0.5s ease;
 }
 .pe-sp .pe-ic {
@@ -364,8 +373,7 @@ section.dark .ptag {
 .pe-sp[data-on="true"] .pe-nd {
   stroke: var(--c);
 }
-.pe-sp[data-on="true"] .pe-dot,
-.pe-sp[data-on="true"] .pe-neck {
+.pe-sp[data-on="true"] .pe-dot {
   fill: var(--c);
 }
 .pe-sp[data-on="true"] .pe-num {
@@ -382,6 +390,97 @@ section.dark .ptag {
 }
 .pe-sp[data-on="true"] .pe-ic {
   stroke: #1a1240;
+}
+.pe-detail {
+  display: grid;
+  grid-template-columns: 1fr minmax(150px, 0.7fr) 1fr;
+  gap: 20px;
+  align-items: center;
+  margin: 8px auto 0;
+  max-width: 940px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  animation: pe-in 0.5s ease both;
+}
+@keyframes pe-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.pe-box {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px -22px rgba(26, 18, 64, 0.35);
+}
+.pe-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b6790;
+  padding: 12px 18px;
+  background: #f3f1fa;
+}
+.pe-box ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pe-box li {
+  padding: 13px 18px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1a1240;
+  border-top: 1px solid var(--line);
+}
+.pe-via {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
+}
+.pe-via-line {
+  width: 1px;
+  height: 14px;
+  background: repeating-linear-gradient(#b3aed0 0 3px, transparent 3px 6px);
+}
+.pe-pill {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1240;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+.pe-pill-prod {
+  background: #1a1240;
+  color: #fff;
+  border-color: #1a1240;
+}
+.pe-lead {
+  grid-column: 1 / -1;
+  margin: 8px 0 0;
+  text-align: center;
+  color: #4a4670;
+  font-size: 16px;
+  line-height: 1.55;
+}
+.pe-lead strong {
+  color: #1a1240;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pe-detail {
+    animation: none;
+  }
 }
 .pe-list {
   display: none;
@@ -417,7 +516,8 @@ section.dark .ptag {
   color: var(--gray);
 }
 @media (max-width: 720px) {
-  .pe-svg {
+  .pe-svg,
+  .pe-detail {
     display: none;
   }
   .pe-list {
