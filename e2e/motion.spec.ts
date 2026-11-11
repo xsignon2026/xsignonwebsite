@@ -14,8 +14,8 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
       await page.goto("/");
       await page.waitForSelector("html.js");
       const spoke = page.locator(".pe-sp").nth(2);
-      await spoke.scrollIntoViewIfNeeded();
-      await spoke.hover();
+      await page.locator(".pe-card").evaluate((el) => el.scrollIntoView({ block: "center" }));
+      await spoke.locator(".pe-dot").hover({ force: true });
       await expect(spoke).toHaveAttribute("data-on", "true");
       await page.waitForTimeout(2000);
       await expect(spoke).toHaveAttribute("data-on", "true");
