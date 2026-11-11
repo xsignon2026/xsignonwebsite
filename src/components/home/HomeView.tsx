@@ -876,7 +876,11 @@ export function HomeView() {
         style={{ paddingTop: "48px", paddingBottom: "56px" }}
       >
         <div className="wrap">
-          <h2 className="sr-only">Partner ecosystem</h2>
+          <div className="sec-row rv">
+            <div>
+              <h2 className="h2">Partner ecosystem</h2>
+            </div>
+          </div>
 
           <PartnerEcosystem />
         </div>

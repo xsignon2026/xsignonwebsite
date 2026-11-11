@@ -8822,6 +8822,12 @@
     .pe-card .pe-svg {
       max-width: 780px;
     }
+    .pe-card[data-size="m"] .pe-svg {
+      max-width: 920px;
+    }
+    .pe-card[data-size="l"] .pe-svg {
+      max-width: 1080px;
+    }
   }
 }
 .logo {

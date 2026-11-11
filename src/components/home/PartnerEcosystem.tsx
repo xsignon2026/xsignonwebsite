@@ -105,7 +105,7 @@ function Icon({ name }: { name: IconName }) {
   }
 }
 
-export function PartnerEcosystem() {
+export function PartnerEcosystem({ size = "s" }: { size?: "s" | "m" | "l" }) {
   const uid = useId().replace(/:/g, "");
   const [active, setActive] = useState(0);
   const [held, setHeld] = useState(false);
@@ -133,7 +133,7 @@ export function PartnerEcosystem() {
   };
 
   return (
-    <div className="pe-card rv">
+    <div className="pe-card rv" data-size={size === "s" ? undefined : size}>
       <svg
         className="pe-svg"
         viewBox="0 0 740 288"
@@ -259,7 +259,7 @@ export function PartnerEcosystem() {
                 {s.title}
               </text>
               {s.lines.map((line, k) => (
-                <text key={line} x={tx} y={ny + 9 + k * 11} className="pe-desc">
+                <text key={line} x={tx} y={ny + 10 + k * 13.5} className="pe-desc">
                   {line}
                 </text>
               ))}

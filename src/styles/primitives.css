@@ -504,3 +504,13 @@ section.dark .ptag {
     max-width: 780px;
   }
 }
+
+/* Three sizes for the diagram on wide screens: s (default), m and l. */
+@media (min-width: 1081px) {
+  .pe-card[data-size="m"] .pe-svg {
+    max-width: 920px;
+  }
+  .pe-card[data-size="l"] .pe-svg {
+    max-width: 1080px;
+  }
+}
