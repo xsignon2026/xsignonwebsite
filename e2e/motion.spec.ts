@@ -13,9 +13,9 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
     test("Partner ecosystem spotlight stops while a spoke is pointed at", async ({ page }) => {
       await page.goto("/");
       await page.waitForSelector("html.js");
-      const spoke = page.locator(".pe-sp").nth(2);
-      await page.locator(".pe-card").evaluate((el) => el.scrollIntoView({ block: "center" }));
-      await spoke.locator(".pe-dot").hover({ force: true });
+      const spoke = page.locator(".pt-sp").nth(2);
+      await page.locator(".pt-card").evaluate((el) => el.scrollIntoView({ block: "center" }));
+      await spoke.locator(".pt-dot").hover({ force: true });
       await expect(spoke).toHaveAttribute("data-on", "true");
       await page.waitForTimeout(2000);
       await expect(spoke).toHaveAttribute("data-on", "true");

@@ -60,10 +60,10 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
   });
 
   test("T-093: Partner ecosystem diagram shows its five areas", async ({ page }) => {
-    const card = page.locator(".pe-card");
+    const card = page.locator(".pt-card");
     await expect(card).toBeVisible();
-    await expect(card.locator(".pe-sp")).toHaveCount(5);
-    await expect(card.locator(".pe-sp[data-on='true']")).toHaveCount(1);
+    await expect(card.locator(".pt-sp")).toHaveCount(5);
+    await expect(card.locator(".pt-sp[data-on='true']")).toHaveCount(1);
   });
 
   test("T-094: Solutions Journey and Our Thinking bands operate smoothly", async ({ page }) => {

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PartnerEcosystem } from "@/components/home/PartnerEcosystem";
+import { PartnerEcosystemTall } from "@/components/home/PartnerEcosystemTall";
 import { PartnerEcosystemFirst } from "@/components/home/PartnerEcosystemFirst";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
@@ -883,7 +883,7 @@ export function HomeView() {
             </div>
           </div>
 
-          <PartnerEcosystem />
+          <PartnerEcosystemTall />
         </div>
       </section>
 
