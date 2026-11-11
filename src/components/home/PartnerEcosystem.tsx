@@ -369,6 +369,24 @@ export function PartnerEcosystem() {
         })}
       </svg>
 
+      <ol className="pe-list">
+        {SPOKES.map((s, i) => (
+          <li key={s.n} data-on={active === i} style={{ "--c": s.color } as React.CSSProperties}>
+            <button
+              type="button"
+              aria-pressed={held && active === i}
+              onClick={() => (held && active === i ? setHeld(false) : hold(i))}
+            >
+              <span className="pe-list-num">{s.n}</span>
+              <span>
+                <strong>{s.title}</strong>
+                <span>{s.lines.join(" ")}</span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ol>
+
       <div className="pe-detail" key={active}>
         <div className="pe-box">
           <div className="pe-eyebrow">From partners</div>
@@ -399,18 +417,6 @@ export function PartnerEcosystem() {
           <strong>{DETAIL[active].lead}</strong> {DETAIL[active].text}
         </p>
       </div>
-
-      <ol className="pe-list">
-        {SPOKES.map((s) => (
-          <li key={s.n} style={{ "--c": s.color } as React.CSSProperties}>
-            <span className="pe-list-num">{s.n}</span>
-            <span>
-              <strong>{s.title}</strong>
-              <span>{s.lines.join(" ")}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
     </div>
   );
 }

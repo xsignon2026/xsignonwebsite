@@ -509,16 +509,47 @@ section.dark .ptag {
   font-size: 17px;
   color: var(--txt);
 }
-.pe-list li > span:last-child > span {
+.pe-list button > span:last-child > span {
   display: block;
   margin-top: 2px;
   font-size: 15px;
   color: var(--gray);
 }
 @media (max-width: 720px) {
-  .pe-svg,
-  .pe-detail {
+  .pe-svg {
     display: none;
+  }
+  .pe-detail {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 6px;
+    padding-top: 20px;
+  }
+  .pe-via {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pe-via-line {
+    display: none;
+  }
+  .pe-box li {
+    font-size: 15px;
+  }
+  .pe-lead {
+    font-size: 15px;
+    text-align: left;
+  }
+  .pe-eyebrow {
+    font-size: 12px;
+  }
+  .pe-list-num {
+    font-size: 14px;
+  }
+  .hcat,
+  .hcount,
+  .ptag {
+    font-size: 13px;
   }
   .pe-list {
     display: block;
@@ -526,4 +557,46 @@ section.dark .ptag {
   .pe-card {
     padding: 8px 18px;
   }
+}
+
+/* On phones the floating "Questions" button is a small round icon, so it stops covering the page. */
+@media (max-width: 720px) {
+  #questionsLauncher {
+    right: 14px !important;
+    bottom: 14px !important;
+    width: 48px;
+    height: 48px;
+    padding: 0 !important;
+    justify-content: center;
+    gap: 0 !important;
+  }
+  #questionsLauncher > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+.pe-list button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.pe-list button:focus-visible {
+  outline: 2px solid var(--acc, #c6001d);
+  outline-offset: 2px;
+}
+.pe-list li[data-on="true"] strong {
+  color: var(--acc, #c6001d);
+}
+.pe-list button {
+  text-align: left;
+  color: inherit;
 }
