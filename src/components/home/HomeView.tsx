@@ -869,14 +869,14 @@ export function HomeView() {
         </div>
       </section>
 
-      <section className="block" id="partners" data-nav="light" style={{ paddingTop: "0" }}>
+      <section
+        className="block"
+        id="partners"
+        data-nav="light"
+        style={{ paddingTop: "48px", paddingBottom: "56px" }}
+      >
         <div className="wrap">
-          <div className="sec-row rv">
-            <div>
-              <h2 className="h2">Partner ecosystem</h2>
-              <p className="sec-sub">Works alongside the tools your teams already use</p>
-            </div>
-          </div>
+          <h2 className="sr-only">Partner ecosystem</h2>
 
           <PartnerEcosystem />
         </div>
