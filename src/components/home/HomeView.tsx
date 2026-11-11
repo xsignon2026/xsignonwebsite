@@ -882,29 +882,7 @@ export function HomeView() {
             </div>
           </div>
 
-          {(
-            [
-              ["s", "Small"],
-              ["m", "Medium"],
-              ["l", "Large"],
-            ] as const
-          ).map(([key, label]) => (
-            <div key={key} style={{ marginTop: "28px" }}>
-              <p
-                style={{
-                  margin: "0 0 10px",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "13px",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "#4a4670",
-                }}
-              >
-                {label}
-              </p>
-              <PartnerEcosystem size={key} />
-            </div>
-          ))}
+          <PartnerEcosystem />
         </div>
       </section>
 
