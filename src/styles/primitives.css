@@ -395,7 +395,7 @@ section.dark .ptag {
 }
 .pe-detail {
   display: grid;
-  grid-template-columns: 1fr minmax(150px, 0.7fr) 1fr;
+  grid-template-columns: 1fr minmax(190px, 0.75fr) 1fr;
   gap: 20px;
   align-items: center;
   margin: 0 auto;
@@ -464,20 +464,10 @@ section.dark .ptag {
   padding: 6px 14px;
 }
 .pe-pill-prod {
+  white-space: nowrap;
   background: #1a1240;
   color: #fff;
   border-color: #1a1240;
-}
-.pe-lead {
-  grid-column: 1 / -1;
-  margin: 8px 0 0;
-  text-align: center;
-  color: #4a4670;
-  font-size: 14.5px;
-  line-height: 1.55;
-}
-.pe-lead strong {
-  color: #1a1240;
 }
 @media (prefers-reduced-motion: reduce) {
   .pe-detail {
@@ -537,10 +527,6 @@ section.dark .ptag {
   }
   .pe-box li {
     font-size: 15px;
-  }
-  .pe-lead {
-    font-size: 15px;
-    text-align: left;
   }
   .pe-eyebrow {
     font-size: 12px;

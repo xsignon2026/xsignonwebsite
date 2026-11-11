@@ -82,43 +82,31 @@ const DETAIL: ReadonlyArray<{
   from: string[];
   to: string[];
   via: string[];
-  lead: string;
-  text: string;
 }> = [
   {
     from: ["Segmentation policies", "Zone and flow maps", "Containment events"],
     to: ["One posture view", "Owners and findings", "Audit-ready evidence"],
     via: ["PostureOne"],
-    lead: "Micro-Segmentation and Containment.",
-    text: "Segmentation partners whose platforms PostureOne brings into one posture view.",
   },
   {
     from: ["Data discovery findings", "Classification results", "AI data access"],
     to: ["PostureOne evidence", "EvalOne evidence", "Reviewer-ready reports"],
     via: ["PostureOne", "EvalOne"],
-    lead: "Data + AI Security and DSPM.",
-    text: "Data security partners whose findings flow into PostureOne and EvalOne evidence.",
   },
   {
     from: ["FIDO2 biometric keys", "Key enrolment", "Hardware supply"],
     to: ["The AUTH key range", "Governed sign-in", "Support from XSignOn"],
     via: ["Passwordless Keys", "XSense"],
-    lead: "Hardware Biometric Passwordless Authentication.",
-    text: "The hardware behind the AUTH key range, delivered and supported by XSignOn.",
   },
   {
     from: ["Cryptographic inventory", "Post-quantum methods", "Certificate and key use"],
     to: ["Migration plan", "Evidence per system", "Clear owners"],
     via: ["Quantum-Safe Security"],
-    lead: "Quantum-Safe Encryption and Cryptography.",
-    text: "Cryptography partners supporting the move to post-quantum methods.",
   },
   {
     from: ["Your security tools", "Your identity systems", "Your data platforms"],
     to: ["One posture view", "Evidence per system", "Clear owners"],
     via: ["PostureOne"],
-    lead: "Works with what you already use.",
-    text: "XSignOn sits alongside the tools your teams already run, so nothing has to be replaced.",
   },
 ];
 
@@ -413,9 +401,6 @@ export function PartnerEcosystem() {
             ))}
           </ul>
         </div>
-        <p className="pe-lead">
-          <strong>{DETAIL[active].lead}</strong> {DETAIL[active].text}
-        </p>
       </div>
     </div>
   );
