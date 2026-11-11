@@ -8643,6 +8643,8 @@
   .pe-svg {
     display: block;
     width: 100%;
+    max-width: 610px;
+    margin: 0 auto;
     height: auto;
     font-family: inherit;
   }
@@ -8726,9 +8728,9 @@
     grid-template-columns: 1fr minmax(150px, 0.7fr) 1fr;
     gap: 20px;
     align-items: center;
-    margin: 8px auto 0;
-    max-width: 940px;
-    padding-top: 28px;
+    margin: 0 auto;
+    max-width: 700px;
+    padding-top: 14px;
     border-top: 1px solid var(--line);
     animation: pe-in 0.5s ease both;
   }
@@ -8755,7 +8757,7 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #6b6790;
-    padding: 12px 18px;
+    padding: 9px 16px;
     background: #f3f1fa;
   }
   .pe-box ul {
@@ -8764,9 +8766,9 @@
     padding: 0;
   }
   .pe-box li {
-    padding: 13px 18px;
+    padding: 10px 16px;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14.5px;
     color: #1a1240;
     border-top: 1px solid var(--line);
   }
@@ -8801,7 +8803,7 @@
     margin: 8px 0 0;
     text-align: center;
     color: #4a4670;
-    font-size: 16px;
+    font-size: 14.5px;
     line-height: 1.55;
   }
   .pe-lead strong {
@@ -8922,6 +8924,21 @@
   .pe-list button {
     text-align: left;
     color: inherit;
+  }
+  @media (max-width: 720px) {
+    .hero-visual, .pe-detail {
+      display: none;
+    }
+  }
+  @media (min-width: 1081px) {
+    .pe-card {
+      min-height: 764px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
   }
 }
 .logo {
@@ -9314,6 +9331,73 @@ footer li a:hover {
     padding: 8px 16px;
     font-size: 14px;
   }
+}
+.nav2-trig-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+}
+.nav2-trig-wrap:hover, .nav2-trig-wrap[data-open] {
+  background: var(--paper);
+}
+.nav2-trig-wrap > .nav2-trigger {
+  background: none;
+  padding-right: 2px;
+}
+.nav2-chevbtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 12px 10px 4px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.nav2-chevbtn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.nav2-trig-wrap[data-open] .nav2-chev {
+  transform: rotate(180deg);
+}
+.nav2-trig-wrap[data-open]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: var(--acc);
+}
+.nav2-m-row {
+  display: flex;
+  align-items: stretch;
+}
+.nav2-m-row .nav2-m-head {
+  flex: 1;
+  width: auto;
+}
+.nav2-m-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.nav2-m-toggle[aria-expanded="true"] .nav2-chev {
+  transform: rotate(180deg);
+}
+.nav2-m-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 @layer base {
   html, body {

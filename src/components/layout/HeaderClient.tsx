@@ -106,17 +106,31 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
             const isOpen = open === i;
             return (
               <div className="nav2-item" key={item.label} onPointerEnter={hoverOpen(i)}>
-                <button
-                  type="button"
-                  className="nav2-trigger"
-                  aria-expanded={isOpen}
-                  aria-controls={panelId}
-                  data-open={isOpen || undefined}
-                  onClick={() => setOpen(isOpen ? null : i)}
-                >
-                  {item.label}
-                  <Chevron />
-                </button>
+                <div className="nav2-trig-wrap" data-open={isOpen || undefined}>
+                  {item.link?.href ? (
+                    <Link className="nav2-trigger" href={item.link.href}>
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      className="nav2-trigger"
+                      onClick={() => setOpen(isOpen ? null : i)}
+                    >
+                      {item.label}
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    className="nav2-chevbtn"
+                    aria-label={`${item.label} menu`}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpen(isOpen ? null : i)}
+                  >
+                    <Chevron />
+                  </button>
+                </div>
 
                 <div
                   className={`nav2-panel${item.featured ? " has-feature" : ""}`}
@@ -217,15 +231,24 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
           const isOpen = section === i;
           return (
             <div className="nav2-m-group" key={item.label}>
-              <button
-                type="button"
-                className="nav2-m-head"
-                aria-expanded={isOpen}
-                onClick={() => setSection(isOpen ? null : i)}
-              >
-                {item.label}
-                <Chevron />
-              </button>
+              <div className="nav2-m-row">
+                {item.link?.href ? (
+                  <Link className="nav2-m-head nav2-m-link" href={item.link.href}>
+                    {item.label}
+                  </Link>
+                ) : (
+                  <span className="nav2-m-head">{item.label}</span>
+                )}
+                <button
+                  type="button"
+                  className="nav2-m-toggle"
+                  aria-label={`${item.label} menu`}
+                  aria-expanded={isOpen}
+                  onClick={() => setSection(isOpen ? null : i)}
+                >
+                  <Chevron />
+                </button>
+              </div>
               {isOpen && (
                 <ul className="nav2-m-list">
                   {(item.children ?? []).map((child) =>
