@@ -43,7 +43,7 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(coverflow).toBeVisible();
 
     const cards = coverflow.locator(".cf-card");
-    await expect(cards).toHaveCount(5);
+    await expect(cards).toHaveCount(7);
     await expect(cards.first()).toHaveClass(/is-active/);
 
     // Check live status polite announcement

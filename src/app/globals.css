@@ -8665,18 +8665,18 @@
     fill: var(--c);
   }
   .pe-sp .pe-num {
-    font-size: 12.5px;
+    font-size: 10.5px;
     font-weight: 500;
     fill: #6b6790;
   }
   .pe-sp .pe-name {
-    font-size: 13.5px;
+    font-size: 12px;
     font-weight: 600;
     fill: #6b6790;
     transition: fill 0.5s ease;
   }
   .pe-sp .pe-desc {
-    font-size: 11.5px;
+    font-size: 10.5px;
     fill: #6b6790;
     transition: fill 0.5s ease;
   }
@@ -8723,87 +8723,6 @@
   .pe-sp[data-on="true"] .pe-ic {
     stroke: #1a1240;
   }
-  .pe-detail {
-    display: grid;
-    grid-template-columns: 1fr minmax(190px, 0.75fr) 1fr;
-    gap: 20px;
-    align-items: center;
-    margin: 0 auto;
-    max-width: 700px;
-    padding-top: 14px;
-    border-top: 1px solid var(--line);
-    animation: pe-in 0.5s ease both;
-  }
-  @keyframes pe-in {
-    from {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-  .pe-box {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 14px 30px -22px rgba(26, 18, 64, 0.35);
-  }
-  .pe-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #6b6790;
-    padding: 9px 16px;
-    background: #f3f1fa;
-  }
-  .pe-box ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .pe-box li {
-    padding: 8px 16px;
-    font-weight: 600;
-    font-size: 14px;
-    color: #1a1240;
-    border-top: 1px solid var(--line);
-  }
-  .pe-via {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0;
-  }
-  .pe-via-line {
-    width: 1px;
-    height: 14px;
-    background: repeating-linear-gradient(#b3aed0 0 3px, transparent 3px 6px);
-  }
-  .pe-pill {
-    font-size: 12px;
-    font-weight: 600;
-    color: #1a1240;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 6px 14px;
-  }
-  .pe-pill-prod {
-    white-space: nowrap;
-    background: #1a1240;
-    color: #fff;
-    border-color: #1a1240;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .pe-detail {
-      animation: none;
-    }
-  }
   .pe-list {
     display: none;
     list-style: none;
@@ -8840,26 +8759,6 @@
   @media (max-width: 720px) {
     .pe-svg {
       display: none;
-    }
-    .pe-detail {
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-top: 6px;
-      padding-top: 20px;
-    }
-    .pe-via {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .pe-via-line {
-      display: none;
-    }
-    .pe-box li {
-      font-size: 15px;
-    }
-    .pe-eyebrow {
-      font-size: 12px;
     }
     .pe-list-num {
       font-size: 14px;
@@ -8912,37 +8811,16 @@
     color: inherit;
   }
   @media (max-width: 720px) {
-    .hero-visual, .pe-detail {
+    .hero-visual {
       display: none;
     }
   }
   @media (min-width: 1081px) {
     .pe-card {
-      display: grid;
-      grid-template-columns: minmax(0, 520px) minmax(0, 1fr);
-      gap: 40px;
-      align-items: center;
       padding: 14px 40px;
     }
     .pe-card .pe-svg {
-      max-width: 520px;
-    }
-    .pe-card .pe-detail {
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin: 0;
-      max-width: 360px;
-      padding-top: 0;
-      border-top: 0;
-    }
-    .pe-card .pe-via {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-start;
-    }
-    .pe-card .pe-via-line {
-      display: none;
+      max-width: 780px;
     }
   }
 }

@@ -16,99 +16,48 @@ const SPOKES: ReadonlyArray<{
   lines: string[];
   color: string;
   icon: IconName;
-  node: [number, number];
-  text: [number, number, number]; // title x, title baseline y, description x
-  cap: [number, number]; // cylinder top face centre
-  base: [number, number]; // cylinder bottom centre
 }> = [
   {
     n: "01",
     title: "Micro-segmentation",
-    lines: ["Segmentation policies,", "zone and flow maps,", "containment events."],
+    lines: ["Segmentation policies, zone and flow", "maps, containment events."],
     color: "#b3aed0",
     icon: "grid",
-    node: [260, 190],
-    text: [262, 111, 276],
-    cap: [498, 65],
-    base: [474, 108],
   },
   {
     n: "02",
     title: "Data + AI security",
-    lines: ["Discovery findings,", "classification results,", "AI data access."],
+    lines: ["Discovery findings, classification", "results, AI data access."],
     color: "#8f89b8",
     icon: "database",
-    node: [324, 242],
-    text: [350, 195, 365],
-    cap: [593, 148],
-    base: [562, 190],
   },
   {
     n: "03",
     title: "Hardware biometrics",
-    lines: ["FIDO2 biometric keys,", "enrolment and hardware", "supply."],
+    lines: ["FIDO2 biometric keys, enrolment", "and hardware supply."],
     color: "#6f67a8",
     icon: "key",
-    node: [357, 314],
-    text: [380, 282, 397],
-    cap: [650, 252],
-    base: [620, 294],
   },
   {
     n: "04",
     title: "Quantum-safe",
-    lines: ["Cryptographic inventory", "and post-quantum", "methods."],
+    lines: ["Cryptographic inventory and", "post-quantum methods."],
     color: "#3b3668",
     icon: "atom",
-    node: [356, 390],
-    text: [401, 375, 411],
-    cap: [694, 378],
-    base: [664, 420],
   },
   {
     n: "05",
     title: "Your existing tools",
-    lines: ["Works alongside the tools", "your teams already use."],
+    lines: ["Works alongside the tools your", "teams already use."],
     color: "#c6001d",
     icon: "link",
-    node: [326, 457],
-    text: [387, 466, 395],
-    cap: [690, 504],
-    base: [660, 546],
   },
 ];
 
-const DETAIL: ReadonlyArray<{
-  from: string[];
-  to: string[];
-  via: string[];
-}> = [
-  {
-    from: ["Segmentation policies", "Zone and flow maps", "Containment events"],
-    to: ["One posture view", "Owners and findings", "Audit-ready evidence"],
-    via: ["PostureOne"],
-  },
-  {
-    from: ["Data discovery findings", "Classification results", "AI data access"],
-    to: ["PostureOne evidence", "EvalOne evidence", "Reviewer-ready reports"],
-    via: ["PostureOne", "EvalOne"],
-  },
-  {
-    from: ["FIDO2 biometric keys", "Key enrolment", "Hardware supply"],
-    to: ["The AUTH key range", "Governed sign-in", "Support from XSignOn"],
-    via: ["Passwordless Keys", "XSense"],
-  },
-  {
-    from: ["Cryptographic inventory", "Post-quantum methods", "Certificate and key use"],
-    to: ["Migration plan", "Evidence per system", "Clear owners"],
-    via: ["Quantum-Safe Security"],
-  },
-  {
-    from: ["Your security tools", "Your identity systems", "Your data platforms"],
-    to: ["One posture view", "Evidence per system", "Clear owners"],
-    via: ["PostureOne"],
-  },
-];
+// Layout of the wide, short diagram (units of the SVG view box).
+const ROW = 52;
+const TOP = 40;
+const NODE_X = [205, 240, 255, 240, 205];
 
 const INTERVAL_MS = 1500;
 
@@ -187,7 +136,7 @@ export function PartnerEcosystem() {
     <div className="pe-card rv">
       <svg
         className="pe-svg"
-        viewBox="0 8 806 618"
+        viewBox="0 0 740 288"
         role="group"
         aria-label="Partner ecosystem: five areas that work alongside your tools"
       >
@@ -219,69 +168,73 @@ export function PartnerEcosystem() {
           <filter
             id={`${uid}s`}
             filterUnits="userSpaceOnUse"
-            x="-200"
-            y="-200"
-            width="1400"
-            height="1100"
+            x="-100"
+            y="-100"
+            width="900"
+            height="500"
           >
-            <feGaussianBlur stdDeviation="9" />
+            <feGaussianBlur stdDeviation="5" />
           </filter>
           <filter
             id={`${uid}b`}
             filterUnits="userSpaceOnUse"
-            x="-200"
-            y="-200"
-            width="1400"
-            height="1100"
+            x="-100"
+            y="-100"
+            width="900"
+            height="500"
           >
-            <feGaussianBlur stdDeviation="3" />
+            <feGaussianBlur stdDeviation="2" />
           </filter>
         </defs>
 
-        <path
-          d="M268 172 A168 168 0 1 0 292 470"
-          fill="none"
-          stroke={`url(#${uid}a)`}
-          strokeWidth="3.5"
-          strokeLinecap="round"
-          strokeDasharray="0.1 15"
-        />
-        <ellipse
-          cx="200"
-          cy="500"
-          rx="150"
-          ry="22"
-          fill="#1a1240"
-          opacity="0.1"
-          filter={`url(#${uid}s)`}
-        />
-        <circle cx="196" cy="347" r="148" fill={`url(#${uid}e)`} />
-        <circle cx="196" cy="330" r="131" fill={`url(#${uid}w)`} />
-        <circle cx="196" cy="305" r="131" fill={`url(#${uid}d)`} />
-        <text x="196" y="298" textAnchor="middle" className="pe-title">
-          Partner
-        </text>
-        <text x="196" y="328" textAnchor="middle" className="pe-title">
-          ecosystem
-        </text>
-        <circle cx="166" cy="358" r="4.5" fill="#b3aed0" />
-        <circle cx="196" cy="358" r="4.5" fill="#6f67a8" />
-        <circle cx="226" cy="358" r="4.5" fill="#c6001d" />
+        <g transform="translate(-30 -103) scale(0.74)">
+          <path
+            d="M268 172 A168 168 0 1 0 292 470"
+            fill="none"
+            stroke={`url(#${uid}a)`}
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeDasharray="0.1 15"
+          />
+          <ellipse
+            cx="200"
+            cy="500"
+            rx="150"
+            ry="22"
+            fill="#1a1240"
+            opacity="0.1"
+            filter={`url(#${uid}s)`}
+          />
+          <circle cx="196" cy="347" r="148" fill={`url(#${uid}e)`} />
+          <circle cx="196" cy="330" r="131" fill={`url(#${uid}w)`} />
+          <circle cx="196" cy="305" r="131" fill={`url(#${uid}d)`} />
+          <text x="196" y="298" textAnchor="middle" className="pe-title">
+            Partner
+          </text>
+          <text x="196" y="328" textAnchor="middle" className="pe-title">
+            ecosystem
+          </text>
+          <circle cx="166" cy="358" r="4.5" fill="#b3aed0" />
+          <circle cx="196" cy="358" r="4.5" fill="#6f67a8" />
+          <circle cx="226" cy="358" r="4.5" fill="#c6001d" />
+        </g>
 
         <path
-          d="M260 190 C300 205 322 222 324 242 C326 270 356 290 357 314 C358 345 360 368 356 390 C352 420 340 440 326 457"
+          d="M205 40 C228 56 238 74 240 92 C242 112 255 124 255 144 C255 166 252 180 240 196 C232 214 220 232 205 248"
           fill="none"
           stroke={`url(#${uid}a)`}
-          strokeWidth="1.6"
+          strokeWidth="1.4"
         />
 
         {SPOKES.map((s, i) => {
           const on = reduced || active === i;
-          const [nx, ny] = s.node;
-          const [tx, ty, dx] = s.text;
-          const [cx, cy] = s.cap;
-          const [bx, by] = s.base;
-          const ly = ty + 10;
+          const ny = TOP + ROW * i;
+          const nx = NODE_X[i];
+          const tx = nx + 18;
+          const cx = nx + 400;
+          const cy = ny - 4;
+          const bx = cx - 10;
+          const by = cy + 14;
           return (
             <g
               key={s.n}
@@ -293,42 +246,42 @@ export function PartnerEcosystem() {
             >
               <path
                 className="pe-ln"
-                d={`M${nx + 2} ${ny - 11} C${nx + 6} ${ny - 40} ${tx - 6} ${ly + 8} ${tx + 8} ${ly} H${bx - 80} C${bx - 56} ${ly} ${bx - 52} ${by + 16} ${bx - 38} ${by + 22}`}
+                d={`M${nx + 8} ${ny - 4} H${bx - 52} C${bx - 36} ${ny - 4} ${bx - 32} ${by + 4} ${bx - 20} ${by + 9}`}
                 fill="none"
-                strokeWidth="1.5"
+                strokeWidth="1.2"
               />
-              <circle className="pe-nd" cx={nx} cy={ny} r="11" fill="#fff" strokeWidth="2" />
-              <circle className="pe-dot" cx={nx} cy={ny} r="5" />
-              <text x={tx} y={ty} className="pe-num">
+              <circle className="pe-nd" cx={nx} cy={ny} r="8" fill="#fff" strokeWidth="1.6" />
+              <circle className="pe-dot" cx={nx} cy={ny} r="3.4" />
+              <text x={tx} y={ny - 9} className="pe-num">
                 {s.n}
               </text>
-              <text x={tx + 22} y={ty} className="pe-name">
+              <text x={tx + 17} y={ny - 9} className="pe-name">
                 {s.title}
               </text>
               {s.lines.map((line, k) => (
-                <text key={line} x={dx} y={ty + 21 + k * 13.5} className="pe-desc">
+                <text key={line} x={tx} y={ny + 9 + k * 11} className="pe-desc">
                   {line}
                 </text>
               ))}
 
               <line
-                x1={bx - 12}
-                y1={by + 22}
-                x2={cx - 12}
-                y2={cy + 22}
+                x1={bx - 6}
+                y1={by + 11}
+                x2={cx - 6}
+                y2={cy + 11}
                 stroke="#1a1240"
                 strokeOpacity="0.12"
-                strokeWidth="96"
+                strokeWidth="40"
                 strokeLinecap="round"
                 filter={`url(#${uid}s)`}
               />
-              <ellipse className="pe-base" cx={bx - 4} cy={by + 34} rx="44" ry="15" />
+              <ellipse className="pe-base" cx={bx - 2} cy={by + 17} rx="18" ry="7" />
               <ellipse
                 className="pe-glow"
-                cx={bx - 4}
-                cy={by + 36}
-                rx="44"
-                ry="14"
+                cx={bx - 2}
+                cy={by + 18}
+                rx="18"
+                ry="6"
                 fill="var(--c)"
                 filter={`url(#${uid}b)`}
               />
@@ -338,13 +291,13 @@ export function PartnerEcosystem() {
                 x2={cx}
                 y2={cy}
                 stroke={`url(#${uid}c)`}
-                strokeWidth="96"
+                strokeWidth="40"
                 strokeLinecap="round"
               />
-              <circle className="pe-cap" cx={cx} cy={cy} r="48" fill="#fff" strokeWidth="1.5" />
+              <circle className="pe-cap" cx={cx} cy={cy} r="20" fill="#fff" strokeWidth="1" />
               <g
                 className="pe-ic"
-                transform={`translate(${cx} ${cy})`}
+                transform={`translate(${cx} ${cy}) scale(0.5)`}
                 fill="none"
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -374,34 +327,6 @@ export function PartnerEcosystem() {
           </li>
         ))}
       </ol>
-
-      <div className="pe-detail" key={active}>
-        <div className="pe-box">
-          <div className="pe-eyebrow">From partners</div>
-          <ul>
-            {DETAIL[active].from.map((x) => (
-              <li key={x}>{x}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="pe-via">
-          <span className="pe-via-line" />
-          <span className="pe-pill">Findings</span>
-          <span className="pe-via-line" />
-          <span className="pe-pill pe-pill-prod">{DETAIL[active].via.join(" + ")}</span>
-          <span className="pe-via-line" />
-          <span className="pe-pill">Evidence</span>
-          <span className="pe-via-line" />
-        </div>
-        <div className="pe-box">
-          <div className="pe-eyebrow">Lands in XSignOn</div>
-          <ul>
-            {DETAIL[active].to.map((x) => (
-              <li key={x}>{x}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
     </div>
   );
 }
