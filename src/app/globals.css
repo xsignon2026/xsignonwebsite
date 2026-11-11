@@ -8918,12 +8918,31 @@
   }
   @media (min-width: 1081px) {
     .pe-card {
-      min-height: 764px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 20px;
-      padding-bottom: 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 580px) minmax(0, 1fr);
+      gap: 36px;
+      align-items: center;
+      padding: 22px 36px;
+    }
+    .pe-card .pe-svg {
+      max-width: 580px;
+    }
+    .pe-card .pe-detail {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 0;
+      max-width: 380px;
+      padding-top: 0;
+      border-top: 0;
+    }
+    .pe-card .pe-via {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-start;
+    }
+    .pe-card .pe-via-line {
+      display: none;
     }
   }
 }
