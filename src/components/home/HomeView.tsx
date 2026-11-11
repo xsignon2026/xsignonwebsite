@@ -436,7 +436,7 @@ export function HomeView() {
                   className="cf-card is-active"
                   data-cf="0"
                   aria-roledescription="slide"
-                  aria-label="1 of 5: PostureOne"
+                  aria-label="1 of 7: PostureOne"
                 >
                   <div className="cf-photo">
                     <div className="pcard-icon">
@@ -500,7 +500,7 @@ export function HomeView() {
                   className="cf-card"
                   data-cf="1"
                   aria-roledescription="slide"
-                  aria-label="2 of 5: Passwordless Keys"
+                  aria-label="2 of 7: Passwordless Keys"
                 >
                   <div className="cf-photo">
                     <div className="pcard-icon">
@@ -556,7 +556,7 @@ export function HomeView() {
                   className="cf-card"
                   data-cf="2"
                   aria-roledescription="slide"
-                  aria-label="3 of 5: EvalOne"
+                  aria-label="3 of 7: EvalOne"
                 >
                   <div className="cf-photo">
                     <div className="pcard-icon">
@@ -610,7 +610,7 @@ export function HomeView() {
                   className="cf-card"
                   data-cf="3"
                   aria-roledescription="slide"
-                  aria-label="4 of 5: XSense"
+                  aria-label="4 of 7: XSense"
                 >
                   <div className="cf-photo">
                     <div className="pcard-icon">
@@ -678,7 +678,7 @@ export function HomeView() {
                   className="cf-card"
                   data-cf="4"
                   aria-roledescription="slide"
-                  aria-label="5 of 5: AMS"
+                  aria-label="5 of 7: AMS"
                 >
                   <div className="cf-photo">
                     <div className="pcard-icon">
@@ -732,6 +732,100 @@ export function HomeView() {
                     </Link>
                   </div>
                 </article>
+                <article
+                  className="cf-card"
+                  data-cf="5"
+                  aria-roledescription="slide"
+                  aria-label="6 of 7: XDMACsec"
+                >
+                  <div className="cf-photo">
+                    <div className="pcard-icon">
+                      <svg
+                        viewBox="0 0 96 96"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <rect x="10" y="10" width="76" height="76" rx="16" />
+                        <rect x="24" y="32" width="48" height="34" rx="6" />
+                        <path d="M24 38l24 17 24-17" stroke="currentColor" className="acc" />
+                      </svg>
+                    </div>
+                    <Image
+                      src="/images/home/img-86bd27dc.jpg"
+                      alt="Analytics dashboard with charts on a laptop screen"
+                      width={1600}
+                      height={1067}
+                    />
+                  </div>
+                  <div className="cf-body">
+                    <h3>XDMACsec</h3>
+                    <p className="cf-desc">Email security for your organization.</p>
+                    <div className="cf-tags" aria-label="XDMACsec tags">
+                      <span>Email security</span>
+                    </div>
+                    <Link
+                      className="btn pcard-btn cf-btn"
+                      href="/products"
+                      aria-label="View more about XDMACsec"
+                    >
+                      View more{" "}
+                      <span className="arr" aria-hidden="true">
+                        &#8594;
+                      </span>
+                    </Link>
+                  </div>
+                </article>
+                <article
+                  className="cf-card"
+                  data-cf="6"
+                  aria-roledescription="slide"
+                  aria-label="7 of 7: XDMACsec"
+                >
+                  <div className="cf-photo">
+                    <div className="pcard-icon">
+                      <svg
+                        viewBox="0 0 96 96"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <rect x="10" y="10" width="76" height="76" rx="16" />
+                        <rect x="24" y="32" width="48" height="34" rx="6" />
+                        <path d="M24 38l24 17 24-17" stroke="currentColor" className="acc" />
+                      </svg>
+                    </div>
+                    <Image
+                      src="/images/home/img-86bd27dc.jpg"
+                      alt="Analytics dashboard with charts on a laptop screen"
+                      width={1600}
+                      height={1067}
+                    />
+                  </div>
+                  <div className="cf-body">
+                    <h3>XDMACsec</h3>
+                    <p className="cf-desc">Email security for your organization.</p>
+                    <div className="cf-tags" aria-label="XDMACsec tags">
+                      <span>Email security</span>
+                    </div>
+                    <Link
+                      className="btn pcard-btn cf-btn"
+                      href="/products"
+                      aria-label="View more about XDMACsec"
+                    >
+                      View more{" "}
+                      <span className="arr" aria-hidden="true">
+                        &#8594;
+                      </span>
+                    </Link>
+                  </div>
+                </article>
               </div>
             </div>
             <div className="cf-controls">
@@ -753,12 +847,18 @@ export function HomeView() {
                 <button className="cf-dot" type="button" aria-label="Show EvalOne"></button>
                 <button className="cf-dot" type="button" aria-label="Show XSense"></button>
                 <button className="cf-dot" type="button" aria-label="Show AMS"></button>
+                <button className="cf-dot" type="button" aria-label="Show XDMACsec"></button>
+                <button
+                  className="cf-dot"
+                  type="button"
+                  aria-label="Show XDMACsec (second card)"
+                ></button>
               </div>
               <button className="cf-arrow cf-next" type="button" aria-label="Next product">
                 &#8594;
               </button>
               <p className="cf-status" id="cfStatus" aria-live="polite">
-                PostureOne, 1 of 5
+                PostureOne, 1 of 7
               </p>
             </div>
             <div className="cf-timer" aria-hidden="true">
