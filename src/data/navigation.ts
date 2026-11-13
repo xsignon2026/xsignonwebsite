@@ -32,6 +32,42 @@ export const navigationFallback: NavigationData = {
       footerLink: { label: "About XSignOn", href: "/about" },
     },
     {
+      label: "Insights",
+      link: { linkType: "internal", href: "/thinking" },
+      children: [
+        {
+          label: "Solutions",
+          link: { linkType: "internal", href: "/solutions" },
+          description: "Start from the problem you are solving.",
+        },
+        {
+          label: "Enterprise",
+          link: { linkType: "internal", href: "/enterprise" },
+          description: "Every identity, fully in control.",
+        },
+        {
+          label: "Our thinking",
+          link: { linkType: "internal", href: "/thinking" },
+          description: "Articles on identity, AI governance and sign-in.",
+        },
+        {
+          label: "Industry Thinking",
+          link: { linkType: "internal", href: "/thinking/industry" },
+          description: "Practical thinking for modern enterprises.",
+        },
+      ],
+      featured: {
+        eyebrow: "Latest thinking",
+        title: "Elevate Enterprise Security with Identity-First Controls",
+        href: "/thinking/identity-first-controls",
+        image: {
+          src: "/images/about/img-7e2521fe.jpg",
+          alt: "Glass office towers photographed from below",
+        },
+      },
+      footerLink: { label: "All articles", href: "/thinking" },
+    },
+    {
       label: "Products",
       link: { linkType: "internal", href: "/products" },
       children: [
@@ -83,42 +119,6 @@ export const navigationFallback: NavigationData = {
         image: { src: "/images/proof/img-c033247b.jpg", alt: "Stone bank building with columns" },
       },
       footerLink: { label: "All products", href: "/products" },
-    },
-    {
-      label: "Resources",
-      link: { linkType: "internal", href: "/solutions" },
-      children: [
-        {
-          label: "Solutions",
-          link: { linkType: "internal", href: "/solutions" },
-          description: "Start from the problem you are solving.",
-        },
-        {
-          label: "Enterprise",
-          link: { linkType: "internal", href: "/enterprise" },
-          description: "Every identity, fully in control.",
-        },
-        {
-          label: "Our thinking",
-          link: { linkType: "internal", href: "/thinking" },
-          description: "Articles on identity, AI governance and sign-in.",
-        },
-        {
-          label: "Industry Thinking",
-          link: { linkType: "internal", href: "/thinking/industry" },
-          description: "Practical thinking for modern enterprises.",
-        },
-      ],
-      featured: {
-        eyebrow: "Latest thinking",
-        title: "Elevate Enterprise Security with Identity-First Controls",
-        href: "/thinking/identity-first-controls",
-        image: {
-          src: "/images/about/img-7e2521fe.jpg",
-          alt: "Glass office towers photographed from below",
-        },
-      },
-      footerLink: { label: "All articles", href: "/thinking" },
     },
   ],
 };

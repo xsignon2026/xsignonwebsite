@@ -250,6 +250,10 @@
   display: none;
 }
 
+.nav2-mobile,
+.nav2-scrim {
+  display: none;
+}
 @media (max-width: 1080px) {
   .nav2-links {
     display: none;
@@ -260,16 +264,77 @@
   .nav2-burger {
     display: inline-flex;
   }
-  .nav2-mobile:not([hidden]) {
-    display: block;
-    margin: 0 16px 16px;
-    padding: 8px 18px 18px;
-    max-height: calc(100vh - 100px);
-    overflow: auto;
+  .nav2 {
     background: #fff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .nav2-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background: rgba(15, 11, 58, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.25s ease,
+      visibility 0s linear 0.25s;
+  }
+  .nav2-scrim[data-open] {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease;
+  }
+  .nav2-mobile {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    width: min(86vw, 380px);
+    padding: 12px 22px 28px;
+    overflow-y: auto;
+    background: #fff;
+    box-shadow: -24px 0 60px rgba(26, 18, 64, 0.22);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition:
+      transform 0.3s ease,
+      visibility 0s linear 0.3s;
+  }
+  .nav2-mobile[data-open] {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.3s ease;
+  }
+  .nav2-m-top {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 6px;
+  }
+  .nav2-m-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
     border: 1px solid var(--line);
-    border-radius: 20px;
-    box-shadow: 0 24px 60px rgba(26, 18, 64, 0.16);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--txt);
+    cursor: pointer;
+  }
+  .nav2-m-close:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav2-scrim,
+    .nav2-mobile {
+      transition: none;
+    }
   }
   .nav2-m-group {
     border-bottom: 1px solid var(--line);
@@ -391,4 +456,11 @@
   display: flex;
   align-items: center;
   text-decoration: none;
+}
+
+/* On phones the header is only the logo and the menu button; Contact is inside the menu. */
+@media (max-width: 760px) {
+  .nav2-actions > .nav2-cta {
+    display: none;
+  }
 }

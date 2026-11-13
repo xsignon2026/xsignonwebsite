@@ -1,8 +1,7 @@
+import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import Image from "next/image";
 import Link from "next/link";
 import { PartnerEcosystemTall } from "@/components/home/PartnerEcosystemTall";
-import { PartnerEcosystemFirst } from "@/components/home/PartnerEcosystemFirst";
-import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 
 // The Home page markup, converted from the approved prototype (view-home) by compare/html2jsx.py.
@@ -55,35 +54,24 @@ export function HomeView() {
         <div className="wrap">
           <div className="hero-grid">
             <div className="hero-copy">
+              <p className="hero-eyebrow">Identity, governance and security</p>
               <h1 className="h-display">
-                Identity and access{" "}
-                <span className="h1-acc">
-                  built on{" "}
-                  <span className="sel-box">
-                    <i className="sh tl" aria-hidden="true"></i>
-                    <i className="sh tr" aria-hidden="true"></i>
-                    <i className="sh bl" aria-hidden="true"></i>
-                    <i className="sh br" aria-hidden="true"></i>
-                    <i className="sh tm" aria-hidden="true"></i>
-                    <i className="sh bm" aria-hidden="true"></i>trust
-                  </span>
-                  .
-                </span>
+                Protect identity. Govern risk.{" "}
+                <span className="h1-acc">Prepare for what&apos;s next.</span>
               </h1>
               <p className="hero-sub">
-                XSignOn gives people and AI agents the right access at the right moment, with human
-                oversight woven into every decision. One platform for posture, sign-in, evaluation
-                and day-to-day access operations.
+                XSignOn develops security products across identity governance, passwordless
+                authentication, AI evaluation, and emerging digital risk.
               </p>
               <div className="hero-actions">
-                <Link className="btn btn-navy" href="/contact">
-                  Book a strategy call{" "}
+                <Link className="btn btn-navy" href="/products">
+                  Explore our products{" "}
                   <span className="arr-up" aria-hidden="true">
                     &#8599;
                   </span>
                 </Link>
-                <Link className="link-arrow" href="/products">
-                  View all products{" "}
+                <Link className="link-arrow" href="/about">
+                  About XSignOn{" "}
                   <span className="arr" aria-hidden="true">
                     &#8594;
                   </span>
@@ -884,18 +872,6 @@ export function HomeView() {
           </div>
 
           <PartnerEcosystemTall />
-        </div>
-      </section>
-
-      <section className="block" id="partners-first" data-nav="light" style={{ paddingTop: "0" }}>
-        <div className="wrap">
-          <div className="sec-row rv">
-            <div>
-              <h2 className="h2">Partner ecosystem: first version</h2>
-            </div>
-          </div>
-
-          <PartnerEcosystemFirst />
         </div>
       </section>
 

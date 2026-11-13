@@ -488,8 +488,8 @@ section.dark .ptag {
   color: inherit;
 }
 
-/* On phones the hero shows just the headline and buttons, without the product picture card. */
-@media (max-width: 720px) {
+/* On tablets and phones the hero shows just the text and buttons, without the product picture card. */
+@media (max-width: 1080px) {
   .hero-visual {
     display: none;
   }
@@ -512,133 +512,6 @@ section.dark .ptag {
   }
   .pe-card[data-size="l"] .pe-svg {
     max-width: 1080px;
-  }
-}
-
-/* The first version of the Partner ecosystem diagram, kept as its own section. */
-.pe1-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  padding: 28px 24px;
-  box-shadow: 0 30px 70px -30px rgba(26, 18, 64, 0.25);
-}
-.pe1-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  font-family: inherit;
-}
-.pe1-title {
-  font-size: 22px;
-  font-weight: 500;
-  fill: #1a1240;
-}
-.pe1-sp .pe1-ln {
-  stroke: #d9d4eb;
-  transition: stroke 0.5s ease;
-}
-.pe1-sp .pe1-nd {
-  stroke: #cfc9e6;
-  transition: stroke 0.5s ease;
-}
-.pe1-sp .pe1-dot {
-  fill: #cfc9e6;
-  transition: fill 0.5s ease;
-}
-.pe1-sp .pe1-num {
-  font-size: 12px;
-  font-weight: 500;
-  fill: #6b6790;
-}
-.pe1-sp .pe1-name {
-  font-size: 14px;
-  font-weight: 500;
-  fill: #6b6790;
-  transition: fill 0.5s ease;
-}
-.pe1-sp .pe1-desc {
-  font-size: 12px;
-  fill: #6b6790;
-  transition: fill 0.5s ease;
-}
-.pe1-sp .pe1-neck {
-  fill: #d9d4eb;
-  transition: fill 0.5s ease;
-}
-.pe1-sp .pe1-cap {
-  stroke: #e4def5;
-  transition: stroke 0.5s ease;
-}
-.pe1-sp .pe1-ic {
-  stroke: #a7a2c6;
-  transition: stroke 0.5s ease;
-}
-.pe1-sp[data-on="true"] .pe1-ln,
-.pe1-sp[data-on="true"] .pe1-nd {
-  stroke: var(--c);
-}
-.pe1-sp[data-on="true"] .pe1-dot,
-.pe1-sp[data-on="true"] .pe1-neck {
-  fill: var(--c);
-}
-.pe1-sp[data-on="true"] .pe1-num {
-  fill: #a60019;
-}
-.pe1-sp[data-on="true"] .pe1-name {
-  fill: #1a1240;
-}
-.pe1-sp[data-on="true"] .pe1-desc {
-  fill: #3a3560;
-}
-.pe1-sp[data-on="true"] .pe1-cap {
-  stroke: var(--c);
-}
-.pe1-sp[data-on="true"] .pe1-ic {
-  stroke: #1a1240;
-}
-.pe1-list {
-  display: none;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.pe1-list li {
-  display: flex;
-  gap: 14px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
-  border-left: 3px solid var(--c);
-  padding-left: 14px;
-}
-.pe1-list li:last-child {
-  border-bottom: 0;
-}
-.pe1-list-num {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--gray);
-}
-.pe1-list strong {
-  display: block;
-  font-size: 17px;
-  color: var(--txt);
-}
-.pe1-list li > span:last-child > span {
-  display: block;
-  margin-top: 2px;
-  font-size: 15px;
-  color: var(--gray);
-}
-@media (max-width: 720px) {
-  .pe1-svg {
-    display: none;
-  }
-  .pe1-list {
-    display: block;
-  }
-  .pe1-card {
-    padding: 8px 18px;
   }
 }
 
@@ -785,5 +658,43 @@ section.dark .ptag {
   }
   .pt-list-num {
     font-size: 14px;
+  }
+}
+
+/* The small red label above the hero headline. */
+.hero-eyebrow {
+  margin: 0 0 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ff5a6e;
+}
+
+/* No blur anywhere on Home: side cards in the product carousel stay sharp and are dimmed instead, and
+   sections fade and slide into view without a blur. */
+.cf-card:not(.is-active) .cf-photo img {
+  filter: brightness(0.68) saturate(0.85);
+  transform: none;
+}
+.cf-card:not(.is-active):hover .cf-photo img {
+  filter: brightness(0.82) saturate(0.95);
+}
+html.js .rv {
+  filter: none;
+}
+
+/* The red progress line under the product carousel is not shown. */
+.cf-timer {
+  display: none;
+}
+
+/* Phone hero: one button, and no background artwork (the line art and animated beams show on tablet
+   and desktop only). */
+@media (max-width: 760px) {
+  .hero-split .hero-actions .link-arrow,
+  .hero-split .hero-lines,
+  .hero-split .hero-beams {
+    display: none;
   }
 }

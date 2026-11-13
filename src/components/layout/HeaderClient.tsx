@@ -73,6 +73,15 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
     };
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [menuOpen]);
+
   const cancelClose = () => {
     if (closeTimer.current !== null) window.clearTimeout(closeTimer.current);
     closeTimer.current = null;
@@ -192,41 +201,59 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
             className="nav2-burger"
             aria-expanded={menuOpen}
             aria-controls={`${baseId}-mobile`}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMenuOpen((value) => !value)}
+            aria-label="Open menu"
+            onClick={() => setMenuOpen(true)}
           >
-            {menuOpen ? (
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                <path d="M6 6l12 12M18 6 6 18" />
-              </svg>
-            ) : (
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                <path d="M4 7h16M4 12h16M4 17h16" />
-              </svg>
-            )}
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
           </button>
         </div>
       </div>
 
-      <nav className="nav2-mobile" id={`${baseId}-mobile`} aria-label="Mobile" hidden={!menuOpen}>
+      <div
+        className="nav2-scrim"
+        data-open={menuOpen || undefined}
+        onClick={() => setMenuOpen(false)}
+        aria-hidden="true"
+      />
+      <nav
+        className="nav2-mobile"
+        id={`${baseId}-mobile`}
+        aria-label="Mobile"
+        data-open={menuOpen || undefined}
+      >
+        <div className="nav2-m-top">
+          <button
+            type="button"
+            className="nav2-m-close"
+            aria-label="Close menu"
+            onClick={() => setMenuOpen(false)}
+            tabIndex={menuOpen ? 0 : -1}
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
         {navItems.map((item, i) => {
           const isOpen = section === i;
           return (
