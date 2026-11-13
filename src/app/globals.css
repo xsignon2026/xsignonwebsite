@@ -9174,6 +9174,15 @@
       animation: none;
     }
   }
+  #journey .j-art {
+    background: #ecebf7;
+    border-color: #d9d4eb;
+  }
+  #journey .j-art svg {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 .logo {
   display: flex;

@@ -882,3 +882,14 @@ html.js .se-card[data-in] .se-drop {
     animation: none;
   }
 }
+
+/* The Solutions illustrations fill their whole tile, which has the same soft grey-violet background. */
+#journey .j-art {
+  background: #ecebf7;
+  border-color: #d9d4eb;
+}
+#journey .j-art svg {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
