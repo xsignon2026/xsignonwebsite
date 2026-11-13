@@ -20,7 +20,8 @@ const VIOLET: Palette = { t: "#6f67a8", l: "#554d90", r: "#3b3668" };
 const NAVY: Palette = { t: "#3b3668", l: "#2c2757", r: "#1f1b45" };
 const RED: Palette = { t: "#d4163a", l: "#a60019", r: "#7a0012" };
 
-// A cube or cuboid seen from above at an angle; (x, y) is the centre of its top face.
+// A cube or cuboid seen from above at an angle; (x, y) is the centre of its top face. Sharp edges, slightly
+// see-through faces, and a lighter right half on the top, like glass.
 function Cube({
   x,
   y,
@@ -36,22 +37,32 @@ function Cube({
 }) {
   const h = w * 0.58;
   return (
-    <g strokeWidth="2.5" strokeLinejoin="round">
+    <g>
       <polygon
         points={`${x - w},${y} ${x},${y + h} ${x},${y + h + d} ${x - w},${y + d}`}
         fill={c.l}
-        stroke={c.l}
+        fillOpacity="0.88"
+        stroke="#fff"
+        strokeOpacity="0.4"
+        strokeWidth="0.8"
       />
       <polygon
         points={`${x + w},${y} ${x},${y + h} ${x},${y + h + d} ${x + w},${y + d}`}
         fill={c.r}
-        stroke={c.r}
+        fillOpacity="0.88"
+        stroke="#fff"
+        strokeOpacity="0.4"
+        strokeWidth="0.8"
       />
       <polygon
         points={`${x},${y - h} ${x + w},${y} ${x},${y + h} ${x - w},${y}`}
         fill={c.t}
-        stroke={c.t}
+        fillOpacity="0.88"
+        stroke="#fff"
+        strokeOpacity="0.4"
+        strokeWidth="0.8"
       />
+      <polygon points={`${x},${y - h} ${x + w},${y} ${x},${y + h}`} fill="#fff" opacity="0.2" />
     </g>
   );
 }
@@ -85,7 +96,7 @@ function IdentityArt({ move }: { move: boolean }) {
   ];
   return (
     <>
-      <ellipse cx="130" cy="140" rx="84" ry="13" fill="#1a1240" opacity="0.07" />
+      <ellipse cx="130" cy="140" rx="84" ry="13" fill="#6f67a8" opacity="0.28" />
       <ellipse
         cx="130"
         cy="88"
@@ -98,8 +109,8 @@ function IdentityArt({ move }: { move: boolean }) {
       />
       <Sphere cx={130} cy={84} r={25} c="#3b3668" />
       <g opacity="0.9">
-        <rect x="12" y="12" width="64" height="18" rx="9" fill="#fff" stroke="#d9d4eb" />
-        <text x="44" y="24.5" textAnchor="middle" fontSize="9.5" fontWeight="600" fill="#3b3668">
+        <rect x="12" y="12" width="82" height="18" rx="9" fill="#fff" stroke="#d9d4eb" />
+        <text x="53" y="24.5" textAnchor="middle" fontSize="9.5" fontWeight="600" fill="#3b3668">
           Named owner
         </text>
         {move && (
@@ -139,7 +150,7 @@ function AiArt({ move }: { move: boolean }) {
   ];
   return (
     <>
-      <ellipse cx="130" cy="140" rx="96" ry="13" fill="#1a1240" opacity="0.07" />
+      <ellipse cx="130" cy="140" rx="96" ry="13" fill="#6f67a8" opacity="0.28" />
       {steps.map(([x, d, c, begin]) => (
         <g key={x}>
           {move && (
@@ -196,7 +207,7 @@ function AiArt({ move }: { move: boolean }) {
 function KeyArt({ move }: { move: boolean }) {
   return (
     <>
-      <ellipse cx="130" cy="140" rx="86" ry="13" fill="#1a1240" opacity="0.07" />
+      <ellipse cx="130" cy="140" rx="86" ry="13" fill="#6f67a8" opacity="0.28" />
       <Cube x={130} y={82} w={40} d={32} c={VIOLET} />
       {[0, 0.8, 1.6].map((begin) => (
         <ellipse
@@ -268,7 +279,7 @@ function AtomArt({ move }: { move: boolean }) {
   const xs = [52, 104, 156, 208];
   return (
     <>
-      <ellipse cx="130" cy="140" rx="100" ry="13" fill="#1a1240" opacity="0.07" />
+      <ellipse cx="130" cy="140" rx="100" ry="13" fill="#6f67a8" opacity="0.28" />
       {xs.map((x, i) => (
         <g key={x}>
           <Cube x={x} y={92} w={22} d={26} c={LILAC} />
@@ -330,7 +341,16 @@ export function SolutionIllustration({ name }: { name: ArtName }) {
       preserveAspectRatio="xMidYMid meet"
       aria-label={LABELS[name]}
     >
-      <rect width="260" height="160" rx="14" fill="#ecebf7" />
+      <rect width="260" height="160" rx="14" fill="none" />
+      <g className="si-tech" aria-hidden="true">
+        <path
+          d="M30 22l14-8 14 8v16l-14 8-14-8zM214 118l12-7 12 7v14l-12 7-12-7zM200 18l10-6 10 6v12l-10 6-10-6z"
+          fill="none"
+        />
+        <path className="si-trace" d="M60 138H18V96M200 52h30v30" fill="none" />
+        <circle className="si-node" cx="18" cy="96" r="3" />
+        <circle className="si-node" cx="230" cy="82" r="3" />
+      </g>
       <Art name={name} move={!reduced} />
     </svg>
   );

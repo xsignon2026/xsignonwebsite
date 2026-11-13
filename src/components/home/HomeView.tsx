@@ -1,9 +1,12 @@
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import Image from "next/image";
 import Link from "next/link";
+import { HeroArt } from "@/components/home/HeroArt";
+import { ContactCta } from "@/components/common/ContactCta";
+import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
+import { Standards } from "@/components/home/Standards";
 import { SecurityEcosystem } from "@/components/home/SecurityEcosystem";
 import { SolutionIllustration } from "@/components/home/SolutionIllustration";
-import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 
 // The Home page markup, converted from the approved prototype (view-home) by compare/html2jsx.py.
 // The interactive pieces (hero card, product coverflow, partner hub, journey, thinking rows, scroll
@@ -80,328 +83,11 @@ export function HomeView() {
               </div>
             </div>
             <div className="hero-visual">
-              <div className="hero-rail" aria-hidden="true">
-                <svg
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 3l7 2.5v5.2c0 4.4-3 7.6-7 9.3-4-1.7-7-4.9-7-9.3V5.5z" />
-                  <path d="m9 12 2.2 2.2L15.5 10" />
-                </svg>
-                <svg
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="8" />
-                  <circle cx="12" cy="12" r="3.5" />
-                  <path d="M12 2v3m0 14v3M2 12h3m14 0h3" />
-                </svg>
-                <svg
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 4a6 6 0 0 0-6 6v3m6-9a6 6 0 0 1 6 6v5m-9-5v3a6 6 0 0 0 .6 2.6M12 10v4a9 9 0 0 1-1.2 4.4M15 12v2.5" />
-                </svg>
-                <svg
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 3 3.5 7.5 12 12l8.5-4.5z" />
-                  <path d="m3.5 12 8.5 4.5 8.5-4.5M3.5 16.5 12 21l8.5-4.5" />
-                </svg>
-              </div>
-              <div
-                className="hcard"
-                id="heroCard"
-                role="region"
-                aria-roledescription="carousel"
-                aria-label="Featured products"
-              >
-                <div className="hslides">
-                  <article
-                    className="hslide act"
-                    aria-roledescription="slide"
-                    aria-label="1 of 5: PostureOne"
-                  >
-                    <div className="hviz" aria-hidden="true">
-                      <svg
-                        viewBox="0 0 120 120"
-                        fill="none"
-                        stroke="#9db9f5"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      >
-                        <path d="M60 12l38 13v26c0 26-16 44-38 55C38 95 22 77 22 51V25z" />
-                        <path
-                          d="M60 25l26 9v18c0 19-11 32-26 41C45 84 34 71 34 52V34z"
-                          opacity=".6"
-                        />
-                        <path
-                          d="M60 38l15 5v9c0 12-6.5 21-15 27C51.5 73 45 64 45 52v-9z"
-                          opacity=".38"
-                        />
-                        <line x1="60" y1="12" x2="60" y2="106" stroke="#be1b23" />
-                      </svg>
-                    </div>
-                    <div className="hinfo">
-                      <div className="hinfo-top">
-                        <p className="hcat">Security Posture</p>
-                        <span className="hcount">01 / 05</span>
-                      </div>
-                      <h3>PostureOne</h3>
-                      <p className="hdesc">
-                        Website and cloud security posture in one view, with findings, owners and
-                        evidence in a single place.
-                      </p>
-                    </div>
-                  </article>
-                  <article
-                    className="hslide"
-                    aria-roledescription="slide"
-                    aria-label="2 of 5: EvalOne"
-                    aria-hidden="true"
-                  >
-                    <div className="hviz" aria-hidden="true">
-                      <svg
-                        viewBox="0 0 120 120"
-                        fill="none"
-                        stroke="#9db9f5"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      >
-                        <circle cx="60" cy="60" r="46" opacity=".45" />
-                        <circle cx="60" cy="60" r="33" opacity=".65" />
-                        <circle cx="60" cy="60" r="20" />
-                        <line x1="60" y1="6" x2="60" y2="24" />
-                        <line x1="60" y1="96" x2="60" y2="114" />
-                        <line x1="6" y1="60" x2="24" y2="60" />
-                        <line x1="96" y1="60" x2="114" y2="60" />
-                        <circle cx="60" cy="60" r="5" fill="#be1b23" stroke="none" />
-                      </svg>
-                    </div>
-                    <div className="hinfo">
-                      <div className="hinfo-top">
-                        <p className="hcat">AI Evaluation</p>
-                        <span className="hcount">02 / 05</span>
-                      </div>
-                      <h3>EvalOne</h3>
-                      <p className="hdesc">
-                        AI systems evaluated against recognized frameworks, with evidence a reviewer
-                        can follow.
-                      </p>
-                    </div>
-                  </article>
-                  <article
-                    className="hslide"
-                    aria-roledescription="slide"
-                    aria-label="3 of 5: XSense"
-                    aria-hidden="true"
-                  >
-                    <div className="hviz" aria-hidden="true">
-                      <svg
-                        viewBox="0 0 120 120"
-                        fill="none"
-                        stroke="#9db9f5"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      >
-                        <path d="M28 78V58a32 32 0 0 1 64 0v20" opacity=".5" />
-                        <path d="M40 84V58a20 20 0 0 1 40 0v26" opacity=".75" />
-                        <path d="M52 88V60a8 8 0 0 1 16 0v30" />
-                        <line x1="60" y1="66" x2="60" y2="96" stroke="#be1b23" />
-                        <path d="M22 92c10 6 23 9 38 9s28-3 38-9" opacity=".5" />
-                      </svg>
-                    </div>
-                    <div className="hinfo">
-                      <div className="hinfo-top">
-                        <p className="hcat">Identity Analytics and MFA</p>
-                        <span className="hcount">03 / 05</span>
-                      </div>
-                      <h3>XSense</h3>
-                      <p className="hdesc">
-                        Identity analytics and a software-bound identity provider for governed
-                        sign-in at scale.
-                      </p>
-                    </div>
-                  </article>
-                  <article
-                    className="hslide"
-                    aria-roledescription="slide"
-                    aria-label="4 of 5: Passwordless Keys"
-                    aria-hidden="true"
-                  >
-                    <div className="hviz" aria-hidden="true">
-                      <svg
-                        viewBox="0 0 120 120"
-                        fill="none"
-                        stroke="#9db9f5"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      >
-                        <rect x="24" y="38" width="72" height="46" rx="14" />
-                        <circle cx="47" cy="61" r="10" />
-                        <line x1="57" y1="61" x2="84" y2="61" />
-                        <line x1="76" y1="61" x2="76" y2="72" />
-                        <line x1="84" y1="61" x2="84" y2="75" />
-                        <circle cx="47" cy="61" r="3.5" fill="#be1b23" stroke="none" />
-                      </svg>
-                    </div>
-                    <div className="hinfo">
-                      <div className="hinfo-top">
-                        <p className="hcat">FIDO2 Hardware Keys</p>
-                        <span className="hcount">04 / 05</span>
-                      </div>
-                      <h3>Passwordless Keys</h3>
-                      <p className="hdesc">
-                        FIDO2 biometric keys in four models, delivered and supported by XSignOn.
-                      </p>
-                    </div>
-                  </article>
-                  <article
-                    className="hslide"
-                    aria-roledescription="slide"
-                    aria-label="5 of 5: AMS"
-                    aria-hidden="true"
-                  >
-                    <div className="hviz" aria-hidden="true">
-                      <svg
-                        viewBox="0 0 120 120"
-                        fill="none"
-                        stroke="#9db9f5"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      >
-                        <path d="M60 18l40 15-40 15-40-15z" />
-                        <path d="M24 52l36 13 36-13" opacity=".65" />
-                        <path d="M24 71l36 13 36-13" opacity=".4" />
-                        <circle cx="60" cy="33" r="3.5" fill="#be1b23" stroke="none" />
-                      </svg>
-                    </div>
-                    <div className="hinfo">
-                      <div className="hinfo-top">
-                        <p className="hcat">Key Management</p>
-                        <span className="hcount">05 / 05</span>
-                      </div>
-                      <h3>AMS</h3>
-                      <p className="hdesc">
-                        The platform that delivers, enrolls and manages passwordless keys across the
-                        organization.
-                      </p>
-                    </div>
-                  </article>
-                </div>
-                <div className="hctl">
-                  <div className="hdots" role="group" aria-label="Choose slide">
-                    <button
-                      className="hdot act"
-                      type="button"
-                      aria-label="Show slide 1: PostureOne"
-                      aria-current="true"
-                    ></button>
-                    <button
-                      className="hdot"
-                      type="button"
-                      aria-label="Show slide 2: EvalOne"
-                    ></button>
-                    <button
-                      className="hdot"
-                      type="button"
-                      aria-label="Show slide 3: XSense"
-                    ></button>
-                    <button
-                      className="hdot"
-                      type="button"
-                      aria-label="Show slide 4: Passwordless Keys"
-                    ></button>
-                    <button className="hdot" type="button" aria-label="Show slide 5: AMS"></button>
-                  </div>
-                </div>
-              </div>
-              <div className="hero-float" aria-hidden="true">
-                <span className="hero-float-ic">
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m5 12.5 4.5 4.5L19 7.5" />
-                  </svg>
-                </span>
-                Evidence attached
-              </div>
+              <HeroArt />
             </div>
           </div>
         </div>
       </section>
-
-      <div className="strip" data-nav="dark" role="region" aria-label="Frameworks we align with">
-        <p className="strip-label">Aligned with the frameworks your auditors ask about</p>
-        <div
-          className="marquee"
-          role="group"
-          aria-label="Standards and frameworks: FIDO2, SOC 2, ISO 27001, NIST AI-RMF, NIST 800-207, GDPR"
-        >
-          <div className="mq-track" aria-hidden="true">
-            <div className="mq-set">
-              <span>FIDO2</span>
-              <i className="mq-dot"></i>
-              <span>SOC 2</span>
-              <i className="mq-dot"></i>
-              <span>ISO 27001</span>
-              <i className="mq-dot"></i>
-              <span>NIST AI-RMF</span>
-              <i className="mq-dot"></i>
-              <span>NIST 800-207</span>
-              <i className="mq-dot"></i>
-              <span>GDPR</span>
-              <i className="mq-dot"></i>
-            </div>
-            <div className="mq-set">
-              <span>FIDO2</span>
-              <i className="mq-dot"></i>
-              <span>SOC 2</span>
-              <i className="mq-dot"></i>
-              <span>ISO 27001</span>
-              <i className="mq-dot"></i>
-              <span>NIST AI-RMF</span>
-              <i className="mq-dot"></i>
-              <span>NIST 800-207</span>
-              <i className="mq-dot"></i>
-              <span>GDPR</span>
-              <i className="mq-dot"></i>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <section className="block" id="products" data-nav="light">
         <div className="wrap">
@@ -992,6 +678,8 @@ export function HomeView() {
         </div>
       </section>
 
+      <Standards />
+
       <section className="block think-band" id="thinking" data-nav="dark">
         <div className="wrap">
           <div className="sec-row rv">
@@ -1215,25 +903,7 @@ export function HomeView() {
         </div>
       </section>
 
-      <section className="cta-sec" id="contact" data-nav="dark">
-        <div className="wrap">
-          <div className="cta-panel rv has-persp">
-            <PerspectiveGrid className="bg-persp" horizon={0.28} alpha={1.6} />
-            <h2 className="h2">Talk to us about sign-in your team will love.</h2>
-            <Link className="btn btn-white" href="/contact">
-              Book a strategy call{" "}
-              <span className="chev" aria-hidden="true">
-                &#8250;
-              </span>
-            </Link>
-            <div className="cta-card cta-logo" aria-hidden="true">
-              <span className="cl-ring r1"></span>
-              <span className="cl-ring r2"></span>
-              <Image src="/images/home/img-990ffb0c.png" alt="" width={760} height={198} />
-            </div>
-          </div>
-        </div>
-      </section>
+      <ContactCta />
     </div>
   );
 }

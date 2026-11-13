@@ -154,9 +154,6 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
                           <li key={child.label}>
                             <Link className="nav2-card" href={child.link.href}>
                               <span className="nav2-card-title">{child.label}</span>
-                              {child.description && (
-                                <span className="nav2-card-text">{child.description}</span>
-                              )}
                             </Link>
                           </li>
                         ) : null,

@@ -1,19 +1,24 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { AboutHero } from "@/components/about/AboutHero";
-import { AboutHow } from "@/components/about/AboutHow";
-import { ThinkingShowcase } from "@/components/about/ThinkingShowcase";
-import { AboutWhatWeDo } from "@/components/about/AboutWhatWeDo";
-import { WhyXSignOnHub } from "@/components/about/WhyXSignOnHub";
-import { aboutImages, principles } from "@/data/about";
+import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
+import { ContactCta } from "@/components/common/ContactCta";
+import { GlassCubes } from "@/components/common/GlassCubes";
+import { GLASS_COLOURS, type GlassItem } from "@/components/common/glass";
+import {
+  SecurityEcosystem,
+  type EcoDetail,
+  type EcoItem,
+} from "@/components/home/SecurityEcosystem";
+import { SolutionIllustration } from "@/components/home/SolutionIllustration";
+import { getActiveJobs } from "@/lib/job";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "About XSignOn | Sign-in People Trust. Governance Auditors Check.",
+  title: "About XSignOn | Security Built Around Identity and Governance",
   description:
-    "XSignOn works with regulated teams to replace passwords with sign-in people can trust, and to govern access for staff, devices, and AI agents.",
+    "XSignOn develops cybersecurity products and security approaches that help organizations strengthen access, govern emerging technology, and prepare for evolving digital risk.",
   path: "/about",
 });
 
@@ -23,7 +28,8 @@ const organizationJsonLd = {
   name: "XSignOn",
   url: "https://xsignon.com",
   logo: "https://xsignon.com/icon.svg",
-  description: "Enterprise identity governance and passwordless authentication platform.",
+  description:
+    "Cybersecurity products for identity governance, passwordless authentication and AI evaluation.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "McKinney",
@@ -33,38 +39,108 @@ const organizationJsonLd = {
   sameAs: ["https://www.linkedin.com/company/xsignon"],
 };
 
-const iconProps = {
-  width: 24,
-  height: 24,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.8,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-  "aria-hidden": true,
-};
+const CAPABILITIES = [
+  {
+    title: "Identity governance",
+    text: "Understand identities, access, permissions and control gaps across your environment.",
+    art: "identity",
+  },
+  {
+    title: "AI and digital governance",
+    text: "Evaluate AI systems and digital risk against defined security and governance requirements.",
+    art: "ai",
+  },
+  {
+    title: "Passwordless authentication",
+    text: "Reduce credential exposure with biometric, phishing-resistant sign-in.",
+    art: "key",
+  },
+  {
+    title: "Quantum-safe security",
+    text: "Understand and prepare for emerging cryptographic risk.",
+    art: "atom",
+  },
+] as const;
 
-// The three principle icons, as drawn in the prototype.
-const principleIcons = [
-  <svg key="evidence" {...iconProps}>
-    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
-    <path d="M14 3v5h5" />
-    <path d="m9 14 2 2 4-4" />
-  </svg>,
-  <svg key="easy" {...iconProps}>
-    <path d="M4 17c4 0 4-10 8-10s4 10 8 10" />
-    <circle cx="4" cy="17" r="1.4" />
-    <circle cx="20" cy="17" r="1.4" />
-  </svg>,
-  <svg key="owner" {...iconProps}>
-    <circle cx="12" cy="8" r="3.5" />
-    <path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6" />
-    <path d="m15.5 4.5 1.4 1.4 2.6-2.6" />
-  </svg>,
+const STEPS: ReadonlyArray<GlassItem> = [
+  {
+    label: "01",
+    title: "Understand the environment",
+    kind: "Baseline report",
+    text: "Establish the identity, technology, data and risk baseline.",
+  },
+  {
+    label: "02",
+    title: "Define the architecture",
+    kind: "Architecture plan",
+    text: "Identify control gaps and design the right security approach.",
+  },
+  {
+    label: "03",
+    title: "Implement the solution",
+    kind: "Working controls",
+    text: "Introduce products, controls and workflows without unnecessary disruption.",
+  },
+  {
+    label: "04",
+    title: "Govern continuously",
+    kind: "Ongoing evidence",
+    text: "Monitor change, evaluate risk and maintain evidence over time.",
+  },
+].map((item, i) => ({ ...item, ...GLASS_COLOURS[i] }));
+
+const WHY: ReadonlyArray<EcoItem> = [
+  {
+    n: "01",
+    title: "Security must work in practice",
+    lines: ["A control is valuable only when it", "works in the real environment."],
+    icon: "grid",
+    top: "#b3aed0",
+    left: "#8f89b8",
+    right: "#6f67a8",
+    color: "#8f89b8",
+  },
+  {
+    n: "02",
+    title: "Identity is foundational",
+    lines: ["Access, governance and accountability", "begin with who or what is acting."],
+    icon: "key",
+    top: "#6f67a8",
+    left: "#554d90",
+    right: "#3b3668",
+    color: "#6f67a8",
+  },
+  {
+    n: "03",
+    title: "Evidence over assumption",
+    lines: ["Decisions rest on observable risk,", "controls and outcomes."],
+    icon: "database",
+    top: "#3b3668",
+    left: "#2c2757",
+    right: "#1f1b45",
+    color: "#3b3668",
+  },
+  {
+    n: "04",
+    title: "Prepare without disruption",
+    lines: ["Address emerging risk without", "abandoning systems that still serve you."],
+    icon: "atom",
+    top: "#d4163a",
+    left: "#a60019",
+    right: "#7a0012",
+    color: "#c6001d",
+  },
+];
+
+const WHY_DETAIL: ReadonlyArray<EcoDetail> = [
+  { from: [], via: ["Real environments"], to: [] },
+  { from: [], via: ["Who or what is acting"], to: [] },
+  { from: [], via: ["Observable outcomes"], to: [] },
+  { from: [], via: ["Systems still in use"], to: [] },
 ];
 
 export default function AboutPage(): React.JSX.Element {
+  const hasRoles = getActiveJobs().length > 0;
   return (
     <div id="view-about">
       <script
@@ -74,106 +150,117 @@ export default function AboutPage(): React.JSX.Element {
 
       <AboutHero />
 
-      <div>
-        <section className="about-sec" id="who" data-nav="light">
-          <div className="wrap">
-            <div className="sec-row rv">
-              <h2 className="h2">Who we are</h2>
-            </div>
-            <div className="about-split">
-              <div className="about-text rv">
-                <p className="statement">
-                  XSignOn works with regulated teams to replace passwords with sign-in people can
-                  trust, and to govern access for staff, devices and AI agents with evidence an
-                  auditor can check.
+      <section className="ab-sec" id="who" data-nav="light">
+        <div className="wrap">
+          <h2 className="h2 rv">Who we are</h2>
+          <div className="ab-who rv">
+            <div>
+              <p className="ab-statement">
+                XSignOn is a cybersecurity and identity company developing products across security
+                posture, passwordless authentication, and AI evaluation.
+              </p>
+              <div className="ab-copy">
+                <p>
+                  Our work connects identity, governance, data and emerging technology risk. We help
+                  organizations understand exposure, strengthen access, and build controls that can
+                  evolve with their operating environment.
                 </p>
                 <p>
-                  Our name points at the moment that matters most: the sign-on. We focus our work
-                  there, from the keys staff carry to the governance behind them.
+                  We combine product development, security architecture and continuous governance
+                  into one connected approach.
                 </p>
               </div>
-              <figure className="about-fig rv">
-                <Image
-                  src={aboutImages.team.src}
-                  alt="Team running a workshop with notes on a wall"
-                  width={aboutImages.team.width}
-                  height={aboutImages.team.height}
-                  sizes="(max-width: 900px) 100vw, 520px"
-                />
-                <figcaption>
-                  <i className="live" aria-hidden="true" />
-                  Sign-in people can trust
-                </figcaption>
-              </figure>
             </div>
-            <div className="principles">
-              {principles.map((principle, i) => (
-                <article className="principle rv" key={principle.title}>
-                  <span className="pi">{principleIcons[i]}</span>
-                  <h4>{principle.title}</h4>
-                  <p>{principle.text}</p>
-                </article>
-              ))}
+            <div className="ab-who-art">
+              <SolutionIllustration name="identity" />
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="about-sec" id="what" data-nav="light">
-          <div className="wrap">
-            <div className="sec-row rv">
-              <h2 className="h2">What we do</h2>
+      <section className="ab-sec ab-soft" id="what" data-nav="light">
+        <div className="wrap">
+          <h2 className="h2 rv">What we do</h2>
+          <ul className="ab-cap rv">
+            {CAPABILITIES.map((c) => (
+              <li key={c.title}>
+                <div className="ab-art">
+                  <SolutionIllustration name={c.art} />
+                </div>
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="ab-sec" id="ab-how" data-nav="light">
+        <div className="wrap">
+          <h2 className="h2 rv">How we work</h2>
+          <GlassCubes items={STEPS} flow />
+        </div>
+      </section>
+
+      <section className="ab-sec ab-soft" id="ab-why" data-nav="light">
+        <div className="wrap">
+          <h2 className="h2 rv">Why XSignOn</h2>
+          <SecurityEcosystem
+            items={WHY}
+            detail={WHY_DETAIL}
+            viaLabel="Focus:"
+            label="Why XSignOn: four principles that guide our work"
+          />
+        </div>
+      </section>
+
+      <section className="ab-sec" id="products-link" data-nav="light">
+        <div className="wrap">
+          <div className="ab-prod rv">
+            <p>
+              Our products put this approach into practice: one posture view, sign-in without
+              passwords, and evidence for AI systems.
+            </p>
+            <div className="ab-links">
+              <Link href="/products/postureone">PostureOne &rarr;</Link>
+              <Link href="/products/passwordless-keys">Passwordless Authenticators &rarr;</Link>
+              <Link href="/products/evalone">EvalOne &rarr;</Link>
             </div>
-            <AboutWhatWeDo />
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="about-sec" id="how" data-nav="dark">
-          <div className="wrap">
-            <div className="sec-row rv">
-              <h2 className="h2">How we work</h2>
+      <section className="ab-sec ab-career" id="careers" data-nav="dark">
+        <div className="wrap">
+          <div className="ab-banner rv">
+            <div>
+              <h2 className="h2">Build security for what comes next</h2>
+              <p>
+                We bring together people working across identity, cybersecurity, AI governance,
+                product development and enterprise technology. Based in McKinney, Texas.
+              </p>
+              {!hasRoles && (
+                <p className="ab-none">
+                  There are no open positions right now. Follow XSignOn for future opportunities.
+                </p>
+              )}
             </div>
-            <AboutHow />
-          </div>
-        </section>
-
-        <section className="about-sec" id="why" data-nav="dark">
-          <div className="wrap">
-            <div className="sec-row rv">
-              <div>
-                <h2 className="h2">Why XSignOn</h2>
-                <p className="sec-sub">Governance on the inside</p>
-              </div>
-            </div>
-            <WhyXSignOnHub />
-          </div>
-        </section>
-
-        <section className="about-sec" id="a-thinking" data-nav="light">
-          <div className="wrap">
-            <div className="sec-row rv">
-              <div>
-                <h2 className="h2">Our thinking</h2>
-                <p className="sec-sub">Ideas from the team building it</p>
-              </div>
-              <Link className="products-all" href="/thinking">
-                All articles{" "}
-                <span className="arr" aria-hidden="true">
-                  &#8594;
-                </span>
+            <div className="ab-banner-cta">
+              {hasRoles && (
+                <Link className="btn btn-white" href="/careers">
+                  View open roles
+                </Link>
+              )}
+              <Link className={hasRoles ? "link-arrow" : "btn btn-white"} href="/contact">
+                Contact our team
               </Link>
             </div>
-            <ThinkingShowcase />
-            <div className="about-bottom">
-              <Link className="back-pill on-light" href="/">
-                <span className="arr" aria-hidden="true">
-                  &#8592;
-                </span>
-                Back to home
-              </Link>
-            </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      <ContactCta />
+      <PrototypeBehaviors root="view-about" features={["reveal"]} />
     </div>
   );
 }

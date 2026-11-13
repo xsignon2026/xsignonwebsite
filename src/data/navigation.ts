@@ -11,25 +11,25 @@ export const navigationFallback: NavigationData = {
         {
           label: "Who we are",
           link: { linkType: "internal", href: "/about/who-we-are" },
-          description: "Sign-in people can trust, governance an auditor can check.",
+          description: "The company and thinking behind XSignOn.",
         },
         {
           label: "What we do",
           link: { linkType: "internal", href: "/about/what-we-do" },
-          description: "Identity, AI governance and passwordless sign-in.",
+          description: "Identity, AI governance, and passwordless security.",
         },
         {
           label: "How we work",
           link: { linkType: "internal", href: "/about/how-we-work" },
-          description: "Baseline, architecture and continuous governance.",
+          description: "From security baseline to continuous governance.",
         },
         {
           label: "Careers",
           link: { linkType: "internal", href: "/careers" },
-          description: "Open roles in McKinney, Texas and remote.",
+          description: "Explore opportunities at XSignOn.",
         },
       ],
-      footerLink: { label: "About XSignOn", href: "/about" },
+      footerLink: { label: "View the About page", href: "/about" },
     },
     {
       label: "Insights",

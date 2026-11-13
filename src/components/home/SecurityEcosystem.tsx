@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 
 type IconName = "grid" | "database" | "key" | "atom";
 
-const ITEMS: ReadonlyArray<{
+export type EcoItem = {
   n: string;
   title: string;
   lines: [string, string];
@@ -18,7 +18,9 @@ const ITEMS: ReadonlyArray<{
   left: string;
   right: string;
   color: string;
-}> = [
+};
+
+export const ITEMS: ReadonlyArray<EcoItem> = [
   {
     n: "01",
     title: "Contain threats faster",
@@ -80,12 +82,49 @@ const DEPTH = 60 * K;
 // Each block has its own height (base units), which adds depth to the group. The ground level stays the same.
 const HEIGHTS = [78, 96, 56, 68];
 const topOf = (i: number) => CENTRES[i][1] - (HEIGHTS[i] * K - DEPTH);
+export type EcoDetail = { from: string[]; via: string[]; to: string[] };
+
+export const DETAIL: ReadonlyArray<EcoDetail> = [
+  {
+    from: ["Segmentation policies", "Zone and flow maps", "Containment events"],
+    via: ["PostureOne"],
+    to: ["One posture view", "Owners and findings", "Audit-ready evidence"],
+  },
+  {
+    from: ["Data discovery findings", "Classification results", "AI data access"],
+    via: ["PostureOne", "EvalOne"],
+    to: ["PostureOne evidence", "EvalOne evidence", "Reviewer-ready reports"],
+  },
+  {
+    from: ["FIDO2 biometric keys", "Key enrolment", "Hardware supply"],
+    via: ["Passwordless Keys", "XSense"],
+    to: ["The AUTH key range", "Governed sign-in", "Support from XSignOn"],
+  },
+  {
+    from: ["Cryptographic inventory", "Post-quantum methods", "Certificate and key use"],
+    via: ["Quantum-Safe Security"],
+    to: ["Migration plan", "Evidence per system", "Clear owners"],
+  },
+];
+
 const INTERVAL_MS = 2200;
 // The phone view shows just the blocks; this is the part of the drawing that holds them.
 const MX = 245;
 const MW = 430;
 const MIN_Y = topOf(1) - HH - 22;
 const MAX_Y = CENTRES[3][1] + HH + DEPTH + 44;
+
+// Decorative "tech" layer behind the blocks: hexagon outlines and circuit traces ending in node dots.
+const hexPath = (x: number, y: number, r: number) =>
+  Array.from({ length: 6 }, (_, k) => {
+    const a = (Math.PI / 3) * k + Math.PI / 6;
+    return `${k === 0 ? "M" : "L"}${(x + r * Math.cos(a)).toFixed(1)} ${(y + r * Math.sin(a)).toFixed(1)}`;
+  }).join("") + "Z";
+const HEXES: ReadonlyArray<[number, number, number]> = [
+  [30, 30, 40],
+  [930, 500, 44],
+];
+const TRACES: ReadonlyArray<{ d: string; dot: [number, number] }> = [];
 
 function Icon({ name }: { name: IconName }) {
   switch (name) {
@@ -156,7 +195,17 @@ const LABELS = [
   },
 ] as const;
 
-export function SecurityEcosystem() {
+export function SecurityEcosystem({
+  items = ITEMS,
+  detail = DETAIL,
+  viaLabel = "Delivered through",
+  label = "XSignOn Security Ecosystem: four capabilities clients receive through XSignOn",
+}: {
+  items?: ReadonlyArray<EcoItem>;
+  detail?: ReadonlyArray<EcoDetail>;
+  viaLabel?: string;
+  label?: string;
+}) {
   const card = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [active, setActive] = useState(0);
@@ -184,16 +233,28 @@ export function SecurityEcosystem() {
       { threshold: 0.25 },
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    // If the section is already on screen when the page's scripts start (for example after a jump to it),
+    // show it straight away instead of waiting for the observer.
+    const frame = window.requestAnimationFrame(() => {
+      const box = el.getBoundingClientRect();
+      if (box.top < window.innerHeight && box.bottom > 0) {
+        setInView(true);
+        observer.disconnect();
+      }
+    });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
     if (held || reduced || !inView) return;
     const timer = window.setInterval(() => {
-      if (!document.hidden) setActive((i) => (i + 1) % ITEMS.length);
+      if (!document.hidden) setActive((i) => (i + 1) % items.length);
     }, INTERVAL_MS);
     return () => window.clearInterval(timer);
-  }, [held, reduced, inView]);
+  }, [held, reduced, inView, items.length]);
 
   const hold = (index: number) => {
     setActive(index);
@@ -204,18 +265,20 @@ export function SecurityEcosystem() {
   const order = [1, 0, 2, 3];
 
   const shadows = (
-    <g opacity="0.07" fill="#1a1240">
+    <g>
       {CENTRES.map(([cx, cy], i) => (
         <polygon
           key={i}
-          points={`${cx + 50 * K},${cy + DEPTH - HH + 26 * K} ${cx + HW + 50 * K},${cy + DEPTH + 26 * K} ${cx + 50 * K},${cy + DEPTH + HH + 26 * K} ${cx - HW + 50 * K},${cy + DEPTH + 26 * K}`}
+          fill={items[i].color}
+          opacity="0.18"
+          points={`${cx},${cy + HH + DEPTH - 6} ${cx + HW},${cy + DEPTH - 6} ${cx + HW + 120},${cy + DEPTH + 54} ${cx + 120},${cy + HH + DEPTH + 54}`}
         />
       ))}
     </g>
   );
   const blocks = (interactive: boolean) =>
     order.map((i) => {
-      const item = ITEMS[i];
+      const item = items[i];
       const cx = CENTRES[i][0];
       const h = HEIGHTS[i] * K;
       const cy = topOf(i);
@@ -235,23 +298,31 @@ export function SecurityEcosystem() {
             <polygon
               points={`${cx - HW},${cy} ${cx},${cy + HH} ${cx},${cy + HH + h} ${cx - HW},${cy + h}`}
               fill={item.left}
-              stroke={item.left}
-              strokeWidth="5"
-              strokeLinejoin="round"
+              fillOpacity="0.88"
+              stroke="#fff"
+              strokeOpacity="0.4"
+              strokeWidth="1"
             />
             <polygon
               points={`${cx + HW},${cy} ${cx},${cy + HH} ${cx},${cy + HH + h} ${cx + HW},${cy + h}`}
               fill={item.right}
-              stroke={item.right}
-              strokeWidth="5"
-              strokeLinejoin="round"
+              fillOpacity="0.88"
+              stroke="#fff"
+              strokeOpacity="0.4"
+              strokeWidth="1"
             />
             <polygon
               points={`${cx},${cy - HH} ${cx + HW},${cy} ${cx},${cy + HH} ${cx - HW},${cy}`}
               fill={item.top}
-              stroke={item.top}
-              strokeWidth="5"
-              strokeLinejoin="round"
+              fillOpacity="0.88"
+              stroke="#fff"
+              strokeOpacity="0.4"
+              strokeWidth="1"
+            />
+            <polygon
+              points={`${cx},${cy - HH} ${cx + HW},${cy} ${cx},${cy + HH}`}
+              fill="#fff"
+              opacity="0.2"
             />
             <polygon
               className="se-hi"
@@ -275,16 +346,22 @@ export function SecurityEcosystem() {
 
   return (
     <div className="se-card rv" ref={card} data-in={inView || undefined}>
-      <svg
-        className="se-svg"
-        viewBox="-10 -48 920 518"
-        role="group"
-        aria-label="XSignOn Security Ecosystem: four capabilities clients receive through XSignOn"
-      >
+      <svg className="se-svg" viewBox="-10 -48 970 548" role="group" aria-label={label}>
+        <g className="se-tech" aria-hidden="true">
+          {HEXES.map(([x, y, r]) => (
+            <path key={`${x}-${y}`} d={hexPath(x, y, r)} fill="none" strokeWidth="1" />
+          ))}
+          {TRACES.map((t) => (
+            <g key={t.d}>
+              <path className="se-trace" d={t.d} fill="none" strokeWidth="1.2" />
+              <circle className="se-node" cx={t.dot[0]} cy={t.dot[1]} r="3.5" />
+            </g>
+          ))}
+        </g>
         {shadows}
 
         {LABELS.map((label, i) => {
-          const item = ITEMS[i];
+          const item = items[i];
           const on = reduced || active === i;
           return (
             <g
@@ -311,6 +388,10 @@ export function SecurityEcosystem() {
                   {line}
                 </text>
               ))}
+              <text x={label.x} y={label.y + 58} textAnchor={label.anchor} className="se-via-t">
+                <tspan className="se-via-k">{viaLabel} </tspan>
+                <tspan className="se-via-b">{detail[i].via.join(" · ")}</tspan>
+              </text>
             </g>
           );
         })}
@@ -325,12 +406,23 @@ export function SecurityEcosystem() {
           role="img"
           aria-label="Four raised blocks: contain threats, protect data and AI, sign in without passwords, prepare for quantum risk"
         >
+          <g className="se-tech" aria-hidden="true">
+            {HEXES.map(([x, y, r]) => (
+              <path key={`${x}-${y}`} d={hexPath(x, y, r)} fill="none" strokeWidth="1" />
+            ))}
+            {TRACES.map((t) => (
+              <g key={t.d}>
+                <path className="se-trace" d={t.d} fill="none" strokeWidth="1.2" />
+                <circle className="se-node" cx={t.dot[0]} cy={t.dot[1]} r="3.5" />
+              </g>
+            ))}
+          </g>
           {shadows}
           {blocks(false)}
         </svg>
         {reduced ? (
           <ul className="se-static">
-            {ITEMS.map((item) => (
+            {items.map((item) => (
               <li key={item.n}>
                 <strong>
                   {item.n} {item.title}
@@ -343,13 +435,18 @@ export function SecurityEcosystem() {
           <div
             className="se-now"
             key={active}
-            style={{ "--c": ITEMS[active].color } as React.CSSProperties}
+            style={{ "--c": items[active].color } as React.CSSProperties}
           >
-            <span className="se-now-num">{ITEMS[active].n}</span>
-            <strong>{ITEMS[active].title}</strong>
-            <p>{ITEMS[active].lines.join(" ")}</p>
+            <span className="se-now-num">{items[active].n}</span>
+            <strong>{items[active].title}</strong>
+            <p>{items[active].lines.join(" ")}</p>
+            <div className="se-now-pills">
+              {detail[active].via.map((x) => (
+                <span key={x}>{x}</span>
+              ))}
+            </div>
             <div className="se-dots" aria-hidden="true">
-              {ITEMS.map((item, i) => (
+              {items.map((item, i) => (
                 <span key={item.n} data-on={i === active} />
               ))}
             </div>
