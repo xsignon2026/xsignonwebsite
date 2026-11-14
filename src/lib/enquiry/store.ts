@@ -32,7 +32,7 @@ export async function saveEnquiry(record: EnquiryRecord): Promise<void> {
 export async function updateEnquiryStatus(
   id: string,
   status: EnquiryRecord["status"],
-  lastError?: string
+  lastError?: string,
 ): Promise<void> {
   const existing = enquiryRegistry.get(id);
   if (!existing) return;
@@ -51,6 +51,6 @@ export async function getEnquiryById(id: string): Promise<EnquiryRecord | null> 
 
 export async function getPendingEnquiries(): Promise<EnquiryRecord[]> {
   return Array.from(enquiryRegistry.values()).filter(
-    (e) => e.status === "failed_pending_retry" || e.status === "pending"
+    (e) => e.status === "failed_pending_retry" || e.status === "pending",
   );
 }

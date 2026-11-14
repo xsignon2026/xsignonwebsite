@@ -1,9 +1,5 @@
 import { notFound, permanentRedirect } from "next/navigation";
-import {
-  getAllArticles,
-  isValidArticleSlug,
-  resolveArticleCanonicalSlug,
-} from "@/lib/article";
+import { getAllArticles, isValidArticleSlug, resolveArticleCanonicalSlug } from "@/lib/article";
 
 interface PageProps {
   params: Promise<{ slug: string }>;

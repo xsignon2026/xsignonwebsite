@@ -6,7 +6,7 @@ describe("Navigation & Site Settings Fallback Data", () => {
   it("provides valid navigation fallback items", () => {
     expect(navigationFallback.items.length).toBe(3);
     const labels = navigationFallback.items.map((i) => i.label);
-    expect(labels).toEqual(["About", "Products", "Resources"]);
+    expect(labels).toEqual(["About", "Insights", "Products"]);
 
     for (const item of navigationFallback.items) {
       expect(item.children?.length).toBeGreaterThan(0);
@@ -19,7 +19,7 @@ describe("Navigation & Site Settings Fallback Data", () => {
 
   it("provides valid siteSettings fallback data", () => {
     expect(siteSettingsFallback.headerCta).not.toBeNull();
-    expect(siteSettingsFallback.headerCta?.label).toBe("Contact");
+    expect(siteSettingsFallback.headerCta?.label).toBe("Contact Us");
     expect(siteSettingsFallback.headerCta?.link.href).toBe("/contact");
 
     expect(siteSettingsFallback.footerGroups.length).toBe(4);

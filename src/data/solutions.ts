@@ -44,7 +44,8 @@ export const canonicalSolutions: Solution[] = [
         href: "/proof/securing-bank-access-fido2",
       },
       {
-        title: "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
+        title:
+          "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
         slug: "non-human-identities",
         type: "Insight",
         href: "/thinking/non-human-identities",
@@ -206,7 +207,8 @@ export const canonicalSolutions: Solution[] = [
         href: "/proof/biometric-only-authentication-global-it",
       },
       {
-        title: "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
+        title:
+          "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
         slug: "non-human-identities",
         type: "Insight",
         href: "/thinking/non-human-identities",

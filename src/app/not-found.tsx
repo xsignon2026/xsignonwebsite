@@ -11,7 +11,11 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <div id="view-404">
-      <section className="page-hero" data-nav="dark" style={{ paddingBottom: "110px", minHeight: "70vh" }}>
+      <section
+        className="page-hero"
+        data-nav="dark"
+        style={{ paddingBottom: "110px", minHeight: "70vh" }}
+      >
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">
             <Link href="/">Home</Link>
@@ -32,7 +36,10 @@ export default function NotFound() {
             }}
           >
             <Link className="btn btn-white" href="/">
-              Back to home <span className="chev" aria-hidden="true">&#8250;</span>
+              Back to home{" "}
+              <span className="chev" aria-hidden="true">
+                &#8250;
+              </span>
             </Link>
             <Link className="btn btn-ghost-d" href="/products">
               Our products

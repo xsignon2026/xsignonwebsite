@@ -5,7 +5,8 @@ import type { Product } from "@/types/product";
 export const amsProduct: Product = {
   name: "AMS",
   slug: "ams",
-  tagline: "AMS is the platform that delivers, enrolls and manages passwordless keys across the organization.",
+  tagline:
+    "AMS is the platform that delivers, enrolls and manages passwordless keys across the organization.",
   hero: {
     subline:
       "AMS is the platform that delivers, enrolls and manages passwordless keys across the organization. Hardware is only half a passwordless program; the other half is getting keys into hands, arranging replacements with ease, and knowing at any moment which key belongs to whom. AMS carries that half, delivered and supported by XSignOn.",

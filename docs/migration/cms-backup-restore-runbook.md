@@ -1,14 +1,16 @@
 # CMS Backup & Disaster Recovery Runbook (T-154)
+
 **Standard**: Sanity CMS Dataset Protection & Migration  
 **Target RPO (Recovery Point Objective)**: < 1 hour  
 **Target RTO (Recovery Time Objective)**: < 30 minutes  
-**Mode**: Non-destructive, multi-environment replication  
+**Mode**: Non-destructive, multi-environment replication
 
 ---
 
 ## 1. Overview & Dataset Architecture
 
 The XSignOn content repository is structured into two core datasets:
+
 1. `production`: Live dataset powering public visitor traffic and ISR caching.
 2. `staging`: Isolated verification dataset used for editorial staging and pre-release review.
 
@@ -57,6 +59,7 @@ node scripts/sanity-dataset-backup.mjs --validate ./backups/extracted/data.ndjso
 ## 4. Offline Verification & CI Parity
 
 For automated CI environments and developers working offline without provider tokens:
+
 - Use `scripts/sanity-dataset-backup.mjs --offline`.
 - Vitest test suite `src/tests/sanity-export-restore.test.ts` executes complete NDJSON serialization, deserialization, reference tree checking, and broken reference detection in memory with zero network calls.
 
@@ -65,6 +68,7 @@ For automated CI environments and developers working offline without provider to
 ## 5. Rollback Emergency Checklist
 
 If a corrupted batch import or unauthorized modification occurs:
+
 1. Freeze CMS publishing via project management settings.
 2. Locate the most recent valid backup timestamp in `./backups/`.
 3. Import the clean backup archive into production:

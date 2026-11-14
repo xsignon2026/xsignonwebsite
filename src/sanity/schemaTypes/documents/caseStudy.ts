@@ -21,8 +21,7 @@ export const caseStudy = defineType({
       title: "Title",
       type: "string",
       group: "content",
-      validation: (Rule) =>
-        Rule.custom((val) => isNotBlank(val, "Title is required.")),
+      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Title is required.")),
     }),
     defineField({
       name: "slug",
@@ -38,8 +37,7 @@ export const caseStudy = defineType({
       type: "string",
       group: "content",
       description: "e.g. Banking, Healthcare, Electrical, IT",
-      validation: (Rule) =>
-        Rule.custom((val) => isNotBlank(val, "Industry is required.")),
+      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Industry is required.")),
     }),
     defineField({
       name: "location",
@@ -61,8 +59,7 @@ export const caseStudy = defineType({
       type: "string",
       group: "content",
       description: "Executive summary headline for card and hero views",
-      validation: (Rule) =>
-        Rule.custom((val) => isNotBlank(val, "Headline is required.")),
+      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Headline is required.")),
     }),
     defineField({
       name: "summary",
@@ -70,8 +67,7 @@ export const caseStudy = defineType({
       type: "text",
       rows: 3,
       group: "content",
-      validation: (Rule) =>
-        Rule.custom((val) => isNotBlank(val, "Summary is required.")),
+      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Summary is required.")),
     }),
     defineField({
       name: "logo",
@@ -92,9 +88,7 @@ export const caseStudy = defineType({
       rows: 4,
       group: "narrative",
       validation: (Rule) =>
-        Rule.custom((val) =>
-          isNotBlank(val, "Challenge narrative is required.")
-        ),
+        Rule.custom((val) => isNotBlank(val, "Challenge narrative is required.")),
     }),
     defineField({
       name: "challengeParagraph2",
@@ -176,8 +170,7 @@ export const caseStudy = defineType({
       type: "text",
       rows: 3,
       group: "narrative",
-      validation: (Rule) =>
-        Rule.custom((val) => isNotBlank(val, "Outcome narrative is required.")),
+      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Outcome narrative is required.")),
     }),
     defineField({
       name: "outcomeStatus",
@@ -218,9 +211,7 @@ export const caseStudy = defineType({
       group: "governance",
       description: "Full name and role of the stakeholder who signed off",
       validation: (Rule) =>
-        Rule.custom((val) =>
-          isNotBlank(val, "Approval owner must be recorded.")
-        ),
+        Rule.custom((val) => isNotBlank(val, "Approval owner must be recorded.")),
     }),
     defineField({
       name: "approvalStatus",

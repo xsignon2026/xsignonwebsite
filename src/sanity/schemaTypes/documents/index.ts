@@ -1,6 +1,7 @@
 import { article } from "./article";
 import { caseStudy } from "./caseStudy";
 import { jobDocument } from "./job";
+import { linkedInPost } from "./linkedInPost";
 import { pageDocument } from "./page";
 import { product } from "./product";
 import { solutionDocument } from "./solution";
@@ -14,4 +15,5 @@ export const documentTypes = [
   solutionDocument,
   pageDocument,
   jobDocument,
+  linkedInPost,
 ];

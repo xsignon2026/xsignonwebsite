@@ -33,7 +33,9 @@ let passedChecks = 0;
 // 1. Verify Dataset Isolation
 console.log("[CHECK 1/3] Dataset Segregation:");
 if (STAGING_CONFIG.dataset !== PRODUCTION_CONFIG.dataset) {
-  console.log(`  PASS: Staging dataset (${STAGING_CONFIG.dataset}) != Production dataset (${PRODUCTION_CONFIG.dataset})`);
+  console.log(
+    `  PASS: Staging dataset (${STAGING_CONFIG.dataset}) != Production dataset (${PRODUCTION_CONFIG.dataset})`,
+  );
   passedChecks++;
 } else {
   console.error("  FAIL: Datasets are identical!");
@@ -42,7 +44,9 @@ if (STAGING_CONFIG.dataset !== PRODUCTION_CONFIG.dataset) {
 // 2. Verify CRM Webhook Endpoint Isolation
 console.log("\n[CHECK 2/3] CRM Ingestion Isolation:");
 if (STAGING_CONFIG.crmEndpoint !== PRODUCTION_CONFIG.crmEndpoint) {
-  console.log(`  PASS: Staging CRM (${STAGING_CONFIG.crmEndpoint}) != Production CRM (${PRODUCTION_CONFIG.crmEndpoint})`);
+  console.log(
+    `  PASS: Staging CRM (${STAGING_CONFIG.crmEndpoint}) != Production CRM (${PRODUCTION_CONFIG.crmEndpoint})`,
+  );
   passedChecks++;
 } else {
   console.error("  FAIL: CRM endpoints are identical!");
@@ -51,7 +55,9 @@ if (STAGING_CONFIG.crmEndpoint !== PRODUCTION_CONFIG.crmEndpoint) {
 // 3. Verify Email Provider Endpoint Isolation
 console.log("\n[CHECK 3/3] Email Dispatcher Isolation:");
 if (STAGING_CONFIG.emailEndpoint !== PRODUCTION_CONFIG.emailEndpoint) {
-  console.log(`  PASS: Staging Email (${STAGING_CONFIG.emailEndpoint}) != Production Email (${PRODUCTION_CONFIG.emailEndpoint})`);
+  console.log(
+    `  PASS: Staging Email (${STAGING_CONFIG.emailEndpoint}) != Production Email (${PRODUCTION_CONFIG.emailEndpoint})`,
+  );
   passedChecks++;
 } else {
   console.error("  FAIL: Email endpoints are identical!");

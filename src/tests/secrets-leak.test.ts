@@ -17,12 +17,7 @@ describe("T-161: Secrets Leak Prevention Scanner", () => {
     for (const file of files) {
       const fullPath = path.join(dir, file);
       if (fs.statSync(fullPath).isDirectory()) {
-        if (
-          file !== "node_modules" &&
-          file !== ".next" &&
-          file !== ".git" &&
-          file !== ".turbo"
-        ) {
+        if (file !== "node_modules" && file !== ".next" && file !== ".git" && file !== ".turbo") {
           getFiles(fullPath, fileList);
         }
       } else if (/\.(tsx|ts|js|jsx|json)$/.test(file)) {
@@ -39,10 +34,7 @@ describe("T-161: Secrets Leak Prevention Scanner", () => {
     for (const filePath of allSrcFiles) {
       const content = fs.readFileSync(filePath, "utf-8");
       for (const pattern of sensitivePatterns) {
-        expect(
-          pattern.test(content),
-          `Leaked credential pattern found in ${filePath}`
-        ).toBe(false);
+        expect(pattern.test(content), `Leaked credential pattern found in ${filePath}`).toBe(false);
       }
     }
   });
@@ -60,7 +52,7 @@ describe("T-161: Secrets Leak Prevention Scanner", () => {
           const varName = match.replace("process.env.", "");
           expect(
             varName.startsWith("NEXT_PUBLIC_") || varName === "NODE_ENV",
-            `Client component ${file} accesses private environment variable ${varName}`
+            `Client component ${file} accesses private environment variable ${varName}`,
           ).toBe(true);
         }
       }

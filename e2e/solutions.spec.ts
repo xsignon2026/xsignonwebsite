@@ -17,19 +17,17 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
 
     // Verify solution card titles
     await expect(
-      page.getByRole("heading", { name: "Identity Governance", level: 3 })
+      page.getByRole("heading", { name: "Identity Governance", level: 3 }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "AI and Digital Governance", level: 3 })
+      page.getByRole("heading", { name: "AI and Digital Governance", level: 3 }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Quantum-Safe Security", level: 3 })
+      page.getByRole("heading", { name: "Quantum-Safe Security", level: 3 }),
     ).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Business Process", level: 3 })).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Business Process", level: 3 })
-    ).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: "Enterprise Technology", level: 3 })
+      page.getByRole("heading", { name: "Enterprise Technology", level: 3 }),
     ).toBeVisible();
 
     // Verify Enterprise band & deployment models
@@ -48,11 +46,9 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
 
     // Verify CTA section
     await expect(
-      page.getByRole("heading", { name: "Which solution fits your goals?" })
+      page.getByRole("heading", { name: "Which solution fits your goals?" }),
     ).toBeVisible();
-    await expect(
-      page.getByRole("link", { name: /Book a strategy call/i })
-    ).toBeVisible();
+    await expect(page.getByRole("link", { name: /Book a strategy call/i })).toBeVisible();
 
     // Accessibility check
     const axeResults = await new AxeBuilder({ page })
@@ -61,9 +57,7 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
     expect(axeResults.violations).toEqual([]);
   });
 
-  test("T-106: /resources/solutions redirect alias resolves to /solutions", async ({
-    page,
-  }) => {
+  test("T-106: /resources/solutions redirect alias resolves to /solutions", async ({ page }) => {
     await page.goto("/resources/solutions");
     await expect(page).toHaveURL(/\/solutions$/);
   });
@@ -85,25 +79,25 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
       page.getByRole("heading", {
         name: "What teams come to XSignOn to achieve",
         level: 2,
-      })
+      }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {
         name: "How XSignOn supports it",
         level: 2,
-      })
+      }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {
         name: "Products that deliver it",
         level: 2,
-      })
+      }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {
         name: "Proof and reading",
         level: 2,
-      })
+      }),
     ).toBeVisible();
 
     // 4 feature checklist items
@@ -118,7 +112,7 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
 
     // CTA
     await expect(
-      page.getByRole("heading", { name: /Answer "who can reach what" in one view/i })
+      page.getByRole("heading", { name: /Answer "who can reach what" in one view/i }),
     ).toBeVisible();
 
     // Accessibility check
@@ -154,9 +148,7 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
     expect(axeResults.violations).toEqual([]);
   });
 
-  test("T-110: Quantum-Safe Security detail renders and passes WCAG 2.2 AA", async ({
-    page,
-  }) => {
+  test("T-110: Quantum-Safe Security detail renders and passes WCAG 2.2 AA", async ({ page }) => {
     await page.goto("/solutions/quantum-safe-security");
 
     const title = page.getByRole("heading", {
@@ -181,9 +173,7 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
     expect(axeResults.violations).toEqual([]);
   });
 
-  test("T-111: Business Process detail renders and passes WCAG 2.2 AA", async ({
-    page,
-  }) => {
+  test("T-111: Business Process detail renders and passes WCAG 2.2 AA", async ({ page }) => {
     await page.goto("/solutions/business-process");
 
     const title = page.getByRole("heading", {
@@ -203,7 +193,7 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
 
     // CTA
     await expect(
-      page.getByRole("heading", { name: "Turn reviews into a clear, confident process." })
+      page.getByRole("heading", { name: "Turn reviews into a clear, confident process." }),
     ).toBeVisible();
 
     // Accessibility check
@@ -213,9 +203,7 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
     expect(axeResults.violations).toEqual([]);
   });
 
-  test("T-111: Enterprise Technology detail renders and passes WCAG 2.2 AA", async ({
-    page,
-  }) => {
+  test("T-111: Enterprise Technology detail renders and passes WCAG 2.2 AA", async ({ page }) => {
     await page.goto("/solutions/enterprise-technology");
 
     const title = page.getByRole("heading", {
@@ -236,7 +224,7 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
 
     // CTA
     await expect(
-      page.getByRole("heading", { name: "Make your systems work as one layer." })
+      page.getByRole("heading", { name: "Make your systems work as one layer." }),
     ).toBeVisible();
 
     // Accessibility check
@@ -271,18 +259,16 @@ test.describe("Epic E08: Solutions Architecture & Detail Pages (T-106 to T-110)"
     expect(detailScrollWidth).toBeLessThanOrEqual(detailClientWidth);
   });
 
-  test("T-107: /resources/:slug redirect alias resolves to /solutions/:slug", async ({
-    page,
-  }) => {
+  test("T-107: /resources/:slug redirect alias resolves to /solutions/:slug", async ({ page }) => {
     await page.goto("/resources/identity-governance");
     await expect(page).toHaveURL(/\/solutions\/identity-governance$/);
   });
 
-  test("T-107: Rejects non-existent solution slug with 404", async ({
-    page,
-  }) => {
+  test("T-107: Rejects non-existent solution slug with 404", async ({ page }) => {
     await page.goto("/solutions/unknown-solution-404");
-    await expect(page.getByRole("heading", { name: "404", level: 1 })).toBeVisible();
-    await expect(page.getByText("This page could not be found.")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "This page has moved.", level: 1 }),
+    ).toBeVisible();
+    await expect(page.locator(".ptag", { hasText: "404" })).toBeVisible();
   });
 });

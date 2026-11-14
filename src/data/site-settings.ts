@@ -2,7 +2,7 @@ import type { SiteSettingsData } from "@/types/site-settings";
 
 export const siteSettingsFallback: SiteSettingsData = {
   headerCta: {
-    label: "Contact",
+    label: "Contact Us",
     link: { linkType: "internal", href: "/contact" },
   },
   footerGroups: [
@@ -40,26 +40,6 @@ export const siteSettingsFallback: SiteSettingsData = {
       title: "Resources",
       links: [
         { label: "Solutions", link: { linkType: "internal", href: "/solutions" } },
-        {
-          label: "Identity Governance",
-          link: { linkType: "internal", href: "/solutions/identity-governance" },
-        },
-        {
-          label: "AI and Digital Governance",
-          link: { linkType: "internal", href: "/solutions/ai-and-digital-governance" },
-        },
-        {
-          label: "Quantum-Safe Security",
-          link: { linkType: "internal", href: "/solutions/quantum-safe-security" },
-        },
-        {
-          label: "Business Process",
-          link: { linkType: "internal", href: "/solutions/business-process" },
-        },
-        {
-          label: "Enterprise Technology",
-          link: { linkType: "internal", href: "/solutions/enterprise-technology" },
-        },
         { label: "Enterprise", link: { linkType: "internal", href: "/enterprise" } },
         { label: "Our thinking", link: { linkType: "internal", href: "/thinking" } },
         {

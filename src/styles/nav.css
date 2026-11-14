@@ -1,0 +1,463 @@
+/*
+ * The site header: a light bar with wide menu panels ("mega menu") and, on phones, a card with expandable
+ * rows. Modelled on a light, minimal navigation with a rounded panel under the bar.
+ */
+.nav2 {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  color: var(--txt);
+}
+.nav2-bar {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.nav2-logo {
+  display: flex;
+  flex: none;
+}
+.nav2-logo img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+.nav2-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 auto;
+}
+.nav2-item {
+  position: relative;
+}
+.nav2-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+.nav2-trigger:hover,
+.nav2-trigger[data-open] {
+  background: var(--paper);
+}
+.nav2-chev {
+  opacity: 0.6;
+  transition: transform 0.18s ease;
+}
+.nav2-trigger[data-open] .nav2-chev {
+  transform: rotate(180deg);
+}
+.nav2-trigger:focus-visible,
+.nav2-card:focus-visible,
+.nav2-feature:focus-visible,
+.nav2-cta:focus-visible,
+.nav2-burger:focus-visible,
+.nav2-m-head:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.nav2-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 420px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 30px 80px rgba(26, 18, 64, 0.18);
+  padding: 14px;
+  animation: nav2-in 0.16s ease both;
+}
+.nav2-panel.has-feature {
+  width: 760px;
+}
+.nav2-panel[hidden] {
+  display: none;
+}
+@keyframes nav2-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+.nav2-panel-body {
+  display: grid;
+  gap: 14px;
+}
+.nav2-panel.has-feature .nav2-panel-body {
+  grid-template-columns: 1.35fr 1fr;
+}
+.nav2-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+  align-content: start;
+}
+.nav2-panel.has-feature .nav2-list {
+  grid-template-columns: 1fr 1fr;
+}
+.nav2-card {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 14px;
+  transition: background 0.15s ease;
+}
+.nav2-card:hover {
+  background: var(--paper);
+}
+.nav2-card-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--txt);
+}
+.nav2-card-text {
+  display: block;
+  margin-top: 3px;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--gray);
+}
+.nav2-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 16px;
+  background: var(--paper);
+  transition: background 0.15s ease;
+}
+.nav2-feature:hover {
+  background: #ece8f7;
+}
+.nav2-feature img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+.nav2-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.nav2-feature-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--txt);
+}
+.nav2-panel-foot {
+  margin-top: 10px;
+  padding: 12px 14px 4px;
+  border-top: 1px solid var(--line);
+}
+.nav2-panel-foot a {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--acc-ink);
+}
+.nav2-panel-foot a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.nav2-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+.nav2-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--acc);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background 0.18s ease,
+    transform 0.1s ease;
+}
+.nav2-cta:hover {
+  background: var(--acc-hov);
+}
+.nav2-cta:active {
+  transform: scale(0.97);
+}
+.nav2-burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--txt);
+  cursor: pointer;
+}
+
+.nav2-mobile {
+  display: none;
+}
+
+.nav2-mobile,
+.nav2-scrim {
+  display: none;
+}
+@media (max-width: 1080px) {
+  .nav2-links {
+    display: none;
+  }
+  .nav2-actions {
+    margin-left: auto;
+  }
+  .nav2-burger {
+    display: inline-flex;
+  }
+  .nav2 {
+    background: #fff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .nav2-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background: rgba(15, 11, 58, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.25s ease,
+      visibility 0s linear 0.25s;
+  }
+  .nav2-scrim[data-open] {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease;
+  }
+  .nav2-mobile {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    width: min(86vw, 380px);
+    padding: 12px 22px 28px;
+    overflow-y: auto;
+    background: #fff;
+    box-shadow: -24px 0 60px rgba(26, 18, 64, 0.22);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition:
+      transform 0.3s ease,
+      visibility 0s linear 0.3s;
+  }
+  .nav2-mobile[data-open] {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.3s ease;
+  }
+  .nav2-m-top {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 6px;
+  }
+  .nav2-m-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--txt);
+    cursor: pointer;
+  }
+  .nav2-m-close:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav2-scrim,
+    .nav2-mobile {
+      transition: none;
+    }
+  }
+  .nav2-m-group {
+    border-bottom: 1px solid var(--line);
+  }
+  .nav2-m-head {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 2px;
+    border: 0;
+    background: none;
+    color: var(--txt);
+    font: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .nav2-m-head[aria-expanded="true"] .nav2-chev {
+    transform: rotate(180deg);
+  }
+  .nav2-m-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 12px;
+  }
+  .nav2-m-list a {
+    display: block;
+    padding: 10px 2px;
+    font-size: 16.5px;
+    color: var(--gray);
+  }
+  .nav2-m-cta {
+    width: 100%;
+    margin-top: 16px;
+  }
+}
+@media (max-width: 760px) {
+  .nav2-bar {
+    padding: 0 16px;
+    min-height: 64px;
+    gap: 10px;
+  }
+  .nav2-logo img {
+    height: 34px;
+  }
+  .nav2-cta:not(.nav2-m-cta) {
+    min-height: 42px;
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+/* The menu label is a link; the chevron next to it opens the panel. */
+.nav2-trig-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+}
+.nav2-trig-wrap:hover,
+.nav2-trig-wrap[data-open] {
+  background: var(--paper);
+}
+.nav2-trig-wrap > .nav2-trigger {
+  background: none;
+  padding-right: 2px;
+}
+.nav2-chevbtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 12px 10px 4px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.nav2-chevbtn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.nav2-trig-wrap[data-open] .nav2-chev {
+  transform: rotate(180deg);
+}
+.nav2-m-row {
+  display: flex;
+  align-items: stretch;
+}
+.nav2-m-row .nav2-m-head {
+  flex: 1;
+  width: auto;
+}
+.nav2-m-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.nav2-m-toggle[aria-expanded="true"] .nav2-chev {
+  transform: rotate(180deg);
+}
+.nav2-m-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* On phones the header is only the logo and the menu button; Contact is inside the menu. */
+@media (max-width: 760px) {
+  .nav2-actions > .nav2-cta {
+    display: none;
+  }
+}
+
+/* Compact menu entries with a small arrow that appears on hover. */
+.nav2-card {
+  padding: 9px 14px;
+}
+.nav2-card-title::after {
+  content: "92";
+  margin-left: 8px;
+  opacity: 0;
+  transform: translateX(-4px);
+  display: inline-block;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+.nav2-card:hover .nav2-card-title::after,
+.nav2-card:focus-visible .nav2-card-title::after {
+  opacity: 0.7;
+  transform: none;
+}

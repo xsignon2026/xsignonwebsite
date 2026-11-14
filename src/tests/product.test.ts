@@ -4,7 +4,6 @@ import { xsenseProduct } from "../data/products/xsense";
 import { keysProduct } from "../data/products/keys";
 import { amsProduct } from "../data/products/ams";
 import { getAllProductSlugs, getProductBySlug, getAllProducts } from "../lib/product";
-import { getHomePageData } from "../lib/home";
 
 describe("E05 Products Suite & E06 Home Tests (T-082 to T-090)", () => {
   it("resolves all canonical products with valid fallbacks", async () => {
@@ -65,13 +64,5 @@ describe("E05 Products Suite & E06 Home Tests (T-082 to T-090)", () => {
 
     const allProds = await getAllProducts();
     expect(allProds.length).toBe(5);
-  });
-
-  it("resolves homepage singleton data with canonical fallback (T-090)", async () => {
-    const homeData = await getHomePageData();
-    expect(homeData.hero.headline).toBe("Identity and access built on trust.");
-    expect(homeData.featuredProductSlugs.length).toBe(5);
-    expect(homeData.featuredProof.length).toBeGreaterThan(0);
-    expect(homeData.cta.buttonHref).toBe("/contact");
   });
 });

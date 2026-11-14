@@ -54,29 +54,34 @@
 ## 2. Directory Manifest & Purpose
 
 ### 2.1 Operations & Disaster Recovery
-* [`docs/runbook.md`](../runbook.md): Foundational operational runbook covering developer onboarding, environment variable dictionary, build/start lifecycle, and emergency contacts.
-* [`docs/operations/rollback-rehearsal-runbook.md`](rollback-rehearsal-runbook.md): The three-tier rollback procedure (Tier 1: Instant Vercel Edge Rollback; Tier 2: Git SHA Rollback; Tier 3: Sanity CMS Dataset Reversion).
-* [`docs/migration/cms-backup-restore-runbook.md`](../migration/cms-backup-restore-runbook.md): Automated daily ndjson export script, emergency single-document recovery, and dataset clone protocols.
-* [`docs/operations/live-integrations-switchover.md`](live-integrations-switchover.md): Strict separation between production secrets and staging test services.
+
+- [`docs/runbook.md`](../runbook.md): Foundational operational runbook covering developer onboarding, environment variable dictionary, build/start lifecycle, and emergency contacts.
+- [`docs/operations/rollback-rehearsal-runbook.md`](rollback-rehearsal-runbook.md): The three-tier rollback procedure (Tier 1: Instant Vercel Edge Rollback; Tier 2: Git SHA Rollback; Tier 3: Sanity CMS Dataset Reversion).
+- [`docs/migration/cms-backup-restore-runbook.md`](../migration/cms-backup-restore-runbook.md): Automated daily ndjson export script, emergency single-document recovery, and dataset clone protocols.
+- [`docs/operations/live-integrations-switchover.md`](live-integrations-switchover.md): Strict separation between production secrets and staging test services.
 
 ### 2.2 Launch & Cutover Execution
-* [`docs/migration/dns-cutover-plan.md`](../migration/dns-cutover-plan.md): Step-by-step low-traffic window schedule, 300s TTL step-down, and MX/SPF/DKIM/DMARC mail safety rules.
-* [`docs/operations/go-live-smoke-test-runbook.md`](go-live-smoke-test-runbook.md): The 6 critical production routes (Home, PostureOne, Identity First Controls, Contact, Subscribe, and Legacy 308 Redirect) with automated CLI runner `scripts/smoke-test.mjs`.
+
+- [`docs/migration/dns-cutover-plan.md`](../migration/dns-cutover-plan.md): Step-by-step low-traffic window schedule, 300s TTL step-down, and MX/SPF/DKIM/DMARC mail safety rules.
+- [`docs/operations/go-live-smoke-test-runbook.md`](go-live-smoke-test-runbook.md): The 6 critical production routes (Home, PostureOne, Identity First Controls, Contact, Subscribe, and Legacy 308 Redirect) with automated CLI runner `scripts/smoke-test.mjs`.
 
 ### 2.3 Monitoring & Incident Response
-* [`docs/operations/alerting-runbook.md`](alerting-runbook.md): P1, P2, and P3 incident triage protocols, notification routing, and synthetic health checks.
-* [`docs/operations/post-launch-monitoring-protocol.md`](post-launch-monitoring-protocol.md): T+24h, T+48h, and T+7d telemetry cadences, 404 anomaly detection, form DLQ audits, and Core Web Vitals RUM.
+
+- [`docs/operations/alerting-runbook.md`](alerting-runbook.md): P1, P2, and P3 incident triage protocols, notification routing, and synthetic health checks.
+- [`docs/operations/post-launch-monitoring-protocol.md`](post-launch-monitoring-protocol.md): T+24h, T+48h, and T+7d telemetry cadences, 404 anomaly detection, form DLQ audits, and Core Web Vitals RUM.
 
 ### 2.4 CMS Editorial Workflows
-* [`docs/cms/sanity-editor-guide.md`](../cms/sanity-editor-guide.md): Studio login, RBAC privilege matrix, draft mode live preview, gated white papers, navigation controls, and the unaided editor practical exam.
-* [`docs/cms-webhook.md`](../cms-webhook.md): Architecture of the `/api/revalidate` HMAC webhook handler.
+
+- [`docs/cms/sanity-editor-guide.md`](../cms/sanity-editor-guide.md): Studio login, RBAC privilege matrix, draft mode live preview, gated white papers, navigation controls, and the unaided editor practical exam.
+- [`docs/cms-webhook.md`](../cms-webhook.md): Architecture of the `/api/revalidate` HMAC webhook handler.
 
 ### 2.5 Security, Governance & Ownership
-* [`docs/compliance/third-party-security-scan.md`](../compliance/third-party-security-scan.md): Comprehensive security analysis covering OWASP Top 10, A+ CSP headers, and secret scrubbing.
-* [`docs/migration/ownership-transfer-checklist.md`](../migration/ownership-transfer-checklist.md): Formal asset handover matrix for domain, GitHub, Vercel, Sanity, and Sentry accounts.
-* [`docs/compliance/post-launch-support-agreement.md`](../compliance/post-launch-support-agreement.md): Written support agreement, defect vs. change request boundaries, and maintenance SLAs.
-* [`docs/decisions/0003-launch-retrospective.md`](../decisions/0003-launch-retrospective.md): Formal project retrospective and reusable architectural assets.
-* [`docs/HANDOVER_T40_T179.md`](../HANDOVER_T40_T179.md): Master Engineering Handover, Batch Chronicles (T-040 to T-179), and team communication guide.
+
+- [`docs/compliance/third-party-security-scan.md`](../compliance/third-party-security-scan.md): Comprehensive security analysis covering OWASP Top 10, A+ CSP headers, and secret scrubbing.
+- [`docs/migration/ownership-transfer-checklist.md`](../migration/ownership-transfer-checklist.md): Formal asset handover matrix for domain, GitHub, Vercel, Sanity, and Sentry accounts.
+- [`docs/compliance/post-launch-support-agreement.md`](../compliance/post-launch-support-agreement.md): Written support agreement, defect vs. change request boundaries, and maintenance SLAs.
+- [`docs/decisions/0003-launch-retrospective.md`](../decisions/0003-launch-retrospective.md): Formal project retrospective and reusable architectural assets.
+- [`docs/HANDOVER_T40_T179.md`](../HANDOVER_T40_T179.md): Master Engineering Handover, Batch Chronicles (T-040 to T-179), and team communication guide.
 
 ---
 

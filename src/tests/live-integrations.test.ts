@@ -5,11 +5,11 @@ import path from "path";
 describe("T-172: Live Integrations Isolation & Switchover Suite", () => {
   const switchoverDoc = fs.readFileSync(
     path.resolve(process.cwd(), "docs/operations/live-integrations-switchover.md"),
-    "utf-8"
+    "utf-8",
   );
   const scriptContent = fs.readFileSync(
     path.resolve(process.cwd(), "scripts/verify-live-integrations.mjs"),
-    "utf-8"
+    "utf-8",
   );
 
   it("defines strict separation between staging and production datasets in documentation", () => {

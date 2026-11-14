@@ -32,9 +32,12 @@ export default function RoiCalculatorPage() {
             <div className="body-copy" style={{ marginBottom: "40px" }}>
               <p>
                 <b>
-                  This calculator estimates the time your team can save with verified sign-in, from the numbers you enter.
+                  This calculator estimates the time your team can save with verified sign-in, from
+                  the numbers you enter.
                 </b>{" "}
-                Every result is computed live from your inputs and labeled as an estimate. Published figures from XSignOn deployments are being sourced and will be added with their sources.
+                Every result is computed live from your inputs and labeled as an estimate. Published
+                figures from XSignOn deployments are being sourced and will be added with their
+                sources.
               </p>
             </div>
             <RoiCalculatorClient />
@@ -54,10 +57,7 @@ export default function RoiCalculatorPage() {
               <span className="t">All case studies in Proof</span>
               <span className="d">Proof</span>
             </Link>
-            <Link
-              className="rel-row rv"
-              href="/thinking/identity-first-controls"
-            >
+            <Link className="rel-row rv" href="/thinking/identity-first-controls">
               <span className="t">Elevate Enterprise Security with Identity-First Controls</span>
               <span className="d">Insight</span>
             </Link>
@@ -69,7 +69,10 @@ export default function RoiCalculatorPage() {
             <div className="cta-panel plain rv">
               <h2 className="h2">Bring us your estimate. We will bring a plan.</h2>
               <Link className="btn btn-white" href="/contact">
-                Book a strategy call <span className="chev" aria-hidden="true">&#8250;</span>
+                Book a strategy call{" "}
+                <span className="chev" aria-hidden="true">
+                  &#8250;
+                </span>
               </Link>
             </div>
           </div>

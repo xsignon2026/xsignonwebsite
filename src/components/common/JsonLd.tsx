@@ -12,10 +12,5 @@ interface JsonLdProps {
 export function JsonLd({ schema }: JsonLdProps) {
   const jsonString = serializeJsonLd(schema);
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: jsonString }}
-    />
-  );
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonString }} />;
 }

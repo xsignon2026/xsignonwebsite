@@ -5,8 +5,12 @@ import { calculateRoi, DEFAULT_ROI_INPUTS } from "@/lib/roi";
 
 export function RoiCalculatorClient() {
   const [staff, setStaff] = useState<string>(String(DEFAULT_ROI_INPUTS.staff));
-  const [resetsPerYear, setResetsPerYear] = useState<string>(String(DEFAULT_ROI_INPUTS.resetsPerYear));
-  const [minutesPerReset, setMinutesPerReset] = useState<string>(String(DEFAULT_ROI_INPUTS.minutesPerReset));
+  const [resetsPerYear, setResetsPerYear] = useState<string>(
+    String(DEFAULT_ROI_INPUTS.resetsPerYear),
+  );
+  const [minutesPerReset, setMinutesPerReset] = useState<string>(
+    String(DEFAULT_ROI_INPUTS.minutesPerReset),
+  );
   const [hourlyRate, setHourlyRate] = useState<string>(String(DEFAULT_ROI_INPUTS.hourlyRate));
 
   const result = calculateRoi({
@@ -81,7 +85,8 @@ export function RoiCalculatorClient() {
           <b id="roiH">{result.formattedHours}</b>
         </div>
         <div className="co-note">
-          Estimate only. No published XSignOn outcome figures are used here; those are being sourced. This view focuses on reset time saved, so your team can plan with clarity.
+          Estimate only. No published XSignOn outcome figures are used here; those are being
+          sourced. This view focuses on reset time saved, so your team can plan with clarity.
         </div>
       </div>
     </div>

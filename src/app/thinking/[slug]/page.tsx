@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import type { ComponentType } from "react";
+import { ArticleAgenticView } from "@/components/prototype/ArticleAgenticView";
+import { ArticleDataAiView } from "@/components/prototype/ArticleDataAiView";
+import { ArticleIdentityFirstView } from "@/components/prototype/ArticleIdentityFirstView";
+import { ArticleMicrosegView } from "@/components/prototype/ArticleMicrosegView";
+import { ArticleNonhumanView } from "@/components/prototype/ArticleNonhumanView";
+import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import { notFound, permanentRedirect } from "next/navigation";
 import {
   getAllArticles,
@@ -7,11 +13,17 @@ import {
   isValidArticleSlug,
   resolveArticleCanonicalSlug,
 } from "@/lib/article";
-import { HeroBeams } from "@/components/home/HeroBeams";
-import { ReadingProgressBar } from "@/components/thinking/ReadingProgressBar";
-import { NewsletterSubscribe } from "@/components/thinking/NewsletterSubscribe";
 import { JsonLd } from "@/components/common/JsonLd";
 import { createArticleSchema, createBreadcrumbSchema } from "@/lib/schema-org";
+
+// The five articles, as designed in the approved prototype (keyed by canonical address).
+const VIEWS: Record<string, { View: ComponentType; id: string }> = {
+  "identity-first-controls": { View: ArticleIdentityFirstView, id: "view-article-identity-first" },
+  "data-and-ai-security": { View: ArticleDataAiView, id: "view-article-data-ai" },
+  "modern-micro-segmentation": { View: ArticleMicrosegView, id: "view-article-microseg" },
+  "non-human-identities": { View: ArticleNonhumanView, id: "view-article-nonhuman" },
+  "agentic-ai-cybersecurity": { View: ArticleAgenticView, id: "view-article-agentic" },
+};
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -84,126 +96,15 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     { name: article.title, url: `/thinking/${article.slug}` },
   ]);
 
+  const entry = Object.hasOwn(VIEWS, article.slug) ? VIEWS[article.slug] : undefined;
+  if (!entry) notFound();
+  const { View } = entry;
+
   return (
-    <div id={`view-article-${article.slug}`} className="res-view">
-      {/* Unobtrusive reading progress line at top of page */}
-      <ReadingProgressBar />
-
-      {/* JSON-LD Structured Data */}
+    <>
       <JsonLd schema={[articleSchema, breadcrumbsSchema]} />
-
-      {/* Page Hero with Interactive Beams */}
-      <section className="page-hero has-beams" data-nav="dark">
-        <HeroBeams />
-        <div className="page-fade" aria-hidden="true" />
-        <div className="wrap">
-          <nav className="crumbs" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
-            <span className="sep">/</span>
-            <Link href="/thinking">Our thinking</Link>
-            <span className="sep">/</span>
-            <span className="cur">{article.topic}</span>
-          </nav>
-          <h1 className="h-display">{article.title}</h1>
-          <div className="pmeta">
-            <span className="ptag">{article.author}</span>
-            <span className="ptag">{article.date}</span>
-            <span className="ptag">{article.readingTime}</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Light Content Band */}
-      <div data-nav="light">
-        {/* Article Body: Calm Reading Column */}
-        <section className="page-sec">
-          <div className="wrap">
-            <div className="art-body">
-              {article.sections.map((section, idx) => (
-                <div key={idx}>
-                  <h3 className="h3">{section.heading}</h3>
-                  {section.paragraphs.map((p, pIdx) => (
-                    <p key={pIdx}>{p}</p>
-                  ))}
-                  {section.pullQuote && (
-                    <div className="pull">{section.pullQuote}</div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Related Items Section */}
-        {article.relatedLinks.length > 0 && (
-          <section className="page-sec">
-            <div className="wrap">
-              <div className="sec-head rv">
-                <h2 className="h2">Related</h2>
-              </div>
-              {article.relatedLinks.map((link, idx) => (
-                <Link key={idx} className="rel-row rv" href={link.href}>
-                  <span className="t">{link.title}</span>
-                  <span className="d">{link.type}</span>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Optional Related White Paper Slot */}
-        {article.relatedWhitePaper && (
-          <section className="page-sec">
-            <div className="wrap">
-              <div className="sec-head rv">
-                <h2 className="h2">Related White Paper</h2>
-              </div>
-              <div className="bcard rv">
-                <div className="pmeta">
-                  <span className="pill-cat">White Paper</span>
-                </div>
-                <h3 className="h3" style={{ marginTop: "14px" }}>
-                  {article.relatedWhitePaper.title}
-                </h3>
-                {article.relatedWhitePaper.description && (
-                  <p>{article.relatedWhitePaper.description}</p>
-                )}
-                <Link
-                  className="link-arrow"
-                  href={article.relatedWhitePaper.href}
-                >
-                  Download White Paper{" "}
-                  <span className="arr" aria-hidden="true">
-                    &#8594;
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Newsletter Subscription Band */}
-        <section className="page-sec">
-          <div className="wrap">
-            <NewsletterSubscribe sourcePage={`/thinking/${article.slug}`} />
-          </div>
-        </section>
-
-        {/* Closing Strategy CTA */}
-        <section className="cta-sec sm">
-          <div className="wrap">
-            <div className="cta-panel plain rv">
-              <h2 className="h2">{article.ctaHeadline}</h2>
-              <Link className="btn btn-white" href="/contact">
-                Book a strategy call{" "}
-                <span className="chev" aria-hidden="true">
-                  &#8250;
-                </span>
-              </Link>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
+      <View />
+      <PrototypeBehaviors root={entry.id} features={["reveal"]} />
+    </>
   );
 }

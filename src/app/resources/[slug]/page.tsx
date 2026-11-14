@@ -7,19 +7,14 @@ interface ResourcesSlugPageProps {
 }
 
 export async function generateStaticParams() {
-  const [solutions, articles] = await Promise.all([
-    getAllSolutions(),
-    getAllArticles(),
-  ]);
+  const [solutions, articles] = await Promise.all([getAllSolutions(), getAllArticles()]);
   const solutionSlugs = solutions.map((s) => ({ slug: s.slug }));
   const articleSlugs = articles.map((a) => ({ slug: a.slug }));
   return [...solutionSlugs, ...articleSlugs];
 }
 
 // Redirects /resources/:slug to canonical /solutions/:slug or /thinking/:slug
-export default async function ResourcesSlugRedirect({
-  params,
-}: ResourcesSlugPageProps) {
+export default async function ResourcesSlugRedirect({ params }: ResourcesSlugPageProps) {
   const { slug } = await params;
   const solution = await getSolutionBySlug(slug);
 

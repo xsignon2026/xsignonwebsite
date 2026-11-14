@@ -12,15 +12,15 @@
 
 To prevent test submissions from contaminating production databases and prevent production leads from dropping into staging test mocks, the application strictly separates variable scopes in Vercel:
 
-| Environment Variable | Staging (Preview & Staging) | Production Live | Classification | Enforcement Mechanism |
-| :--- | :--- | :--- | :--- | :--- |
-| `NEXT_PUBLIC_SITE_ENV` | `"staging"` | `"production"` | Public | Read by client for robots noindex badge |
-| `NEXT_PUBLIC_SANITY_DATASET` | `"staging"` | `"production"` | Public | Isolates content datasets completely |
-| `CRM_WEBHOOK_URL` | `https://api.crm.internal/staging/leads` | `https://api.crm.enterprise.xsignon.com/v1/leads` | Server-Only Secret | Read only in server API route `/api/contact` |
-| `EMAIL_PROVIDER_ENDPOINT` | `https://api.resend.mock/staging` | `https://api.resend.com/emails` | Server-Only Secret | Read only in server email dispatchers |
-| `SANITY_API_WRITE_TOKEN` | `[STAGING_RESTRICTED_TOKEN]` | `[PRODUCTION_TOKEN]` | Server-Only Secret | Read only in webhook verification & backup |
-| `SANITY_REVALIDATE_SECRET` | `[STAGING_SECRET]` | `[PRODUCTION_SECRET]` | Server-Only Secret | Read only in `/api/revalidate` HMAC check |
-| `SENTRY_DSN` | `https://staging-dsn@sentry.io/1` | `https://prod-dsn@sentry.io/2` | Server & Client | Error tracking project separation |
+| Environment Variable         | Staging (Preview & Staging)              | Production Live                                   | Classification     | Enforcement Mechanism                        |
+| :--------------------------- | :--------------------------------------- | :------------------------------------------------ | :----------------- | :------------------------------------------- |
+| `NEXT_PUBLIC_SITE_ENV`       | `"staging"`                              | `"production"`                                    | Public             | Read by client for robots noindex badge      |
+| `NEXT_PUBLIC_SANITY_DATASET` | `"staging"`                              | `"production"`                                    | Public             | Isolates content datasets completely         |
+| `CRM_WEBHOOK_URL`            | `https://api.crm.internal/staging/leads` | `https://api.crm.enterprise.xsignon.com/v1/leads` | Server-Only Secret | Read only in server API route `/api/contact` |
+| `EMAIL_PROVIDER_ENDPOINT`    | `https://api.resend.mock/staging`        | `https://api.resend.com/emails`                   | Server-Only Secret | Read only in server email dispatchers        |
+| `SANITY_API_WRITE_TOKEN`     | `[STAGING_RESTRICTED_TOKEN]`             | `[PRODUCTION_TOKEN]`                              | Server-Only Secret | Read only in webhook verification & backup   |
+| `SANITY_REVALIDATE_SECRET`   | `[STAGING_SECRET]`                       | `[PRODUCTION_SECRET]`                             | Server-Only Secret | Read only in `/api/revalidate` HMAC check    |
+| `SENTRY_DSN`                 | `https://staging-dsn@sentry.io/1`        | `https://prod-dsn@sentry.io/2`                    | Server & Client    | Error tracking project separation            |
 
 ---
 
@@ -38,6 +38,7 @@ To prevent test submissions from contaminating production databases and prevent 
 ## 3. Live Non-Destructive Smoke Inquiry Protocol
 
 During the go-live window:
+
 1. **Developer A**: Dispatches an authenticated test submission through the live production contact form at `https://xsignon.com/contact`:
    ```json
    {
@@ -59,6 +60,7 @@ During the go-live window:
 ## 4. Verification CLI Script
 
 To run automated pre-flight checks on environment variable separation:
+
 ```bash
 node scripts/verify-live-integrations.mjs
 ```
@@ -69,5 +71,5 @@ node scripts/verify-live-integrations.mjs
 
 The live integration switchover protocol and staging isolation boundaries have been verified:
 
-- **Developer A (Lead Integration Engineer):** APPROVED (2026-11-08)  
-- **Developer B (Reviewer):** APPROVED (2026-11-08)  
+- **Developer A (Lead Integration Engineer):** APPROVED (2026-11-08)
+- **Developer B (Reviewer):** APPROVED (2026-11-08)

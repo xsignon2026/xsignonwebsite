@@ -4,16 +4,20 @@ import { SkipLink } from "@/components/layout/SkipLink";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { QuestionsWidget } from "@/components/layout/QuestionsWidget";
-import { ConsentBanner } from "@/components/common/ConsentBanner";
 import { WebVitals } from "@/components/common/WebVitals";
 import { JsonLd } from "@/components/common/JsonLd";
 import { createOrganizationSchema } from "@/lib/schema-org";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-// S-09: Self-hosted Inter font definition with zero third-party external build dependencies.
-const inter = {
-  variable: "font-sans",
-};
+// S-09: Inter is downloaded at build time and served from our own address (no request to Google when a
+// visitor opens a page), which our security policy requires.
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -25,7 +29,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`}>
+    <html
+      lang="en"
+      data-home="descent"
+      data-palette="violet"
+      data-theme="light"
+      className={`${inter.variable} antialiased`}
+    >
       <body className="min-h-screen">
         <JsonLd schema={createOrganizationSchema()} />
         <SkipLink />
@@ -33,7 +43,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main id="main-content">{children}</main>
         <Footer />
         <QuestionsWidget />
-        <ConsentBanner />
         <WebVitals />
       </body>
     </html>

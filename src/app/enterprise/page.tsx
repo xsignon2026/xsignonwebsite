@@ -40,12 +40,20 @@ export default function EnterprisePage(): React.JSX.Element {
           <div className="wrap">
             <div className="body-copy">
               <p>
-                <b>Enterprise teams run identity across thousands of people, devices, services and AI agents.</b>{" "}
-                XSignOn gives those teams one command view: every identity inventoried, every sign-in verified, and every access carrying an owner and evidence.
+                <b>
+                  Enterprise teams run identity across thousands of people, devices, services and AI
+                  agents.
+                </b>{" "}
+                XSignOn gives those teams one command view: every identity inventoried, every
+                sign-in verified, and every access carrying an owner and evidence.
               </p>
             </div>
 
-            <div className="dash rv" aria-label="Enterprise identity command dashboard preview" style={{ marginTop: "44px" }}>
+            <div
+              className="dash rv"
+              aria-label="Enterprise identity command dashboard preview"
+              style={{ marginTop: "44px" }}
+            >
               <div className="dash-bar">
                 <span className="dot" />
                 <span className="dot" />
@@ -107,19 +115,22 @@ export default function EnterprisePage(): React.JSX.Element {
               <div className="step-card rv">
                 <h4>SaaS</h4>
                 <p>
-                  The platform runs in the cloud, with identity command available from day one and updates handled by XSignOn.
+                  The platform runs in the cloud, with identity command available from day one and
+                  updates handled by XSignOn.
                 </p>
               </div>
               <div className="step-card rv">
                 <h4>On-premises</h4>
                 <p>
-                  The platform runs inside your own data centers, under your operational control, with the same continuous posture scoring.
+                  The platform runs inside your own data centers, under your operational control,
+                  with the same continuous posture scoring.
                 </p>
               </div>
               <div className="step-card rv">
                 <h4>Air-gapped</h4>
                 <p>
-                  For estates separated from public networks, the platform runs fully on site, as proven in critical infrastructure deployments.
+                  For estates separated from public networks, the platform runs fully on site, as
+                  proven in critical infrastructure deployments.
                 </p>
               </div>
             </div>
@@ -140,8 +151,18 @@ export default function EnterprisePage(): React.JSX.Element {
               <span className="fchip">NIST AI-RMF</span>
               <span className="fchip">NIST PQC</span>
             </div>
-            <p className="lede rv" style={{ marginTop: "22px", maxWidth: "760px", color: "var(--gray)", fontSize: "16px", lineHeight: 1.65 }}>
-              Evidence for each standard is produced from the work itself: sign-ins, reviews and evaluations carry the timestamps and cryptographic proofs auditors require.
+            <p
+              className="lede rv"
+              style={{
+                marginTop: "22px",
+                maxWidth: "760px",
+                color: "var(--gray)",
+                fontSize: "16px",
+                lineHeight: 1.65,
+              }}
+            >
+              Evidence for each standard is produced from the work itself: sign-ins, reviews and
+              evaluations carry the timestamps and cryptographic proofs auditors require.
             </p>
           </div>
         </section>
@@ -177,7 +198,10 @@ export default function EnterprisePage(): React.JSX.Element {
             <div className="cta-panel plain rv">
               <h2 className="h2">Bring every identity into one view.</h2>
               <Link className="btn btn-white" href="/contact">
-                Book a strategy call <span className="chev" aria-hidden="true">›</span>
+                Book a strategy call{" "}
+                <span className="chev" aria-hidden="true">
+                  ›
+                </span>
               </Link>
             </div>
           </div>

@@ -61,11 +61,36 @@ export const product = defineType({
           type: "object",
           fields: [
             defineField({ name: "score", title: "Score", type: "number", initialValue: 86 }),
-            defineField({ name: "maxScore", title: "Max score", type: "number", initialValue: 100 }),
-            defineField({ name: "statusChip", title: "Status chip label", type: "string", initialValue: "Evidence ready" }),
-            defineField({ name: "firewallCoverage", title: "Firewall coverage %", type: "number", initialValue: 92 }),
-            defineField({ name: "trafficProtection", title: "Traffic protection %", type: "number", initialValue: 78 }),
-            defineField({ name: "fileIntegrityChecks", title: "File integrity %", type: "number", initialValue: 64 }),
+            defineField({
+              name: "maxScore",
+              title: "Max score",
+              type: "number",
+              initialValue: 100,
+            }),
+            defineField({
+              name: "statusChip",
+              title: "Status chip label",
+              type: "string",
+              initialValue: "Evidence ready",
+            }),
+            defineField({
+              name: "firewallCoverage",
+              title: "Firewall coverage %",
+              type: "number",
+              initialValue: 92,
+            }),
+            defineField({
+              name: "trafficProtection",
+              title: "Traffic protection %",
+              type: "number",
+              initialValue: 78,
+            }),
+            defineField({
+              name: "fileIntegrityChecks",
+              title: "File integrity %",
+              type: "number",
+              initialValue: 64,
+            }),
           ],
         }),
       ],
@@ -84,14 +109,16 @@ export const product = defineType({
               name: "title",
               title: "Title",
               type: "string",
-              validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Card title is required.")),
+              validation: (Rule) =>
+                Rule.custom((val) => isNotBlank(val, "Card title is required.")),
             }),
             defineField({
               name: "description",
               title: "Description",
               type: "text",
               rows: 3,
-              validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Card description is required.")),
+              validation: (Rule) =>
+                Rule.custom((val) => isNotBlank(val, "Card description is required.")),
             }),
           ],
           preview: {
@@ -110,8 +137,19 @@ export const product = defineType({
         defineArrayMember({
           type: "object",
           fields: [
-            defineField({ name: "label", title: "Tab label", type: "string", validation: (Rule) => Rule.required() }),
-            defineField({ name: "content", title: "Panel content", type: "text", rows: 3, validation: (Rule) => Rule.required() }),
+            defineField({
+              name: "label",
+              title: "Tab label",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "content",
+              title: "Panel content",
+              type: "text",
+              rows: 3,
+              validation: (Rule) => Rule.required(),
+            }),
             defineField({ name: "title", title: "Panel title (optional)", type: "string" }),
             defineField({ name: "badge", title: "Status badge (optional)", type: "string" }),
           ],
@@ -132,7 +170,8 @@ export const product = defineType({
           title: "Section title",
           type: "string",
           initialValue: "The PostureOne framework",
-          validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Framework section title is required.")),
+          validation: (Rule) =>
+            Rule.custom((val) => isNotBlank(val, "Framework section title is required.")),
         }),
         defineField({
           name: "steps",
@@ -179,23 +218,35 @@ export const product = defineType({
       title: "Related items",
       type: "array",
       group: "related",
-      description: "References to related products, articles, or white papers (broken references cannot be saved).",
+      description:
+        "References to related products, articles, or white papers (broken references cannot be saved).",
       of: [
         defineArrayMember({
           type: "reference",
-          to: [
-            { type: "product" },
-            { type: "article" },
-            { type: "whitePaper" },
-          ],
+          to: [{ type: "product" }, { type: "article" }, { type: "whitePaper" }],
           validation: (Rule) => Rule.required().error("Referenced document must exist."),
         }),
         defineArrayMember({
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Title", type: "string", validation: (Rule) => Rule.required() }),
-            defineField({ name: "typeLabel", title: "Type label (e.g. Solution, Case study)", type: "string", validation: (Rule) => Rule.required() }),
-            defineField({ name: "link", title: "Link", type: "link", validation: (Rule) => Rule.required() }),
+            defineField({
+              name: "title",
+              title: "Title",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "typeLabel",
+              title: "Type label (e.g. Solution, Case study)",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "link",
+              title: "Link",
+              type: "link",
+              validation: (Rule) => Rule.required(),
+            }),
           ],
           preview: {
             select: { title: "title", subtitle: "typeLabel" },

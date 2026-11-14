@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { NEWSLETTER_CONSENT_TEXT } from "@/lib/consent/wording";
 
 interface NewsletterSubscribeProps {
   sourcePage?: string;
@@ -30,6 +31,8 @@ export function NewsletterSubscribe({ sourcePage = "/thinking" }: NewsletterSubs
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          // Pressing Subscribe, next to the notice below, is the agreement; the confirmation email is the second step.
+          consent: true,
           purpose: "newsletter",
           sourcePage,
           hp_company: hpCompany,
@@ -54,7 +57,9 @@ export function NewsletterSubscribe({ sourcePage = "/thinking" }: NewsletterSubs
   return (
     <div className="news-band rv">
       <h3 className="h3">Stay informed</h3>
-      <p>New thinking on identity, AI governance and verified sign-in, in your inbox as it publishes.</p>
+      <p>
+        New thinking on identity, AI governance and verified sign-in, in your inbox as it publishes.
+      </p>
 
       {status === "success" ? (
         <div className="news-done" role="status">
@@ -84,14 +89,16 @@ export function NewsletterSubscribe({ sourcePage = "/thinking" }: NewsletterSubs
             onChange={(e) => setEmail(e.target.value)}
             disabled={status === "submitting"}
           />
-          <button
-            className="btn btn-white"
-            type="submit"
-            disabled={status === "submitting"}
-          >
+          <button className="btn btn-white" type="submit" disabled={status === "submitting"}>
             {status === "submitting" ? "Subscribing..." : "Subscribe"}
           </button>
         </form>
+      )}
+
+      {status !== "success" && (
+        <p style={{ marginTop: "12px", fontSize: "13px", opacity: 0.8 }}>
+          {NEWSLETTER_CONSENT_TEXT} We will email you a link to confirm.
+        </p>
       )}
 
       {status === "error" && (
