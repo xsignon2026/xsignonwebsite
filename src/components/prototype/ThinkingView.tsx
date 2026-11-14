@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { NewsletterSubscribe } from "@/components/thinking/NewsletterSubscribe";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
+import { LinkedInSection } from "@/components/thinking/LinkedInSection";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
@@ -127,6 +128,7 @@ export function ThinkingView() {
             </div>
           </div>
         </section>
+        <LinkedInSection />
         <section className="page-sec">
           <div className="wrap">
             <NewsletterSubscribe sourcePage="/thinking" />

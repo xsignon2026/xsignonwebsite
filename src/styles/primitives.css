@@ -1622,3 +1622,240 @@ html.js .std-card[data-in] .std-item {
     animation: none;
   }
 }
+
+/* Home hero: free domain check (PhishLens). The field follows the newsletter form (.news-form). */
+.hero-scan {
+  margin-top: 30px;
+  max-width: 560px;
+}
+.hero-scan-lead {
+  margin: 0;
+  color: var(--on-dark-mut);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.hero-scan-form {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.hero-scan-form input {
+  flex: 1 1 240px;
+  min-width: 0;
+  min-height: 48px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--on-dark-ctl);
+  background: var(--d3);
+  color: #fff;
+  font: inherit;
+  font-size: 16px;
+}
+.hero-scan-form input::placeholder {
+  color: var(--on-dark-mut);
+}
+.hero-scan-form input[aria-invalid="true"] {
+  border-color: var(--acc-ink-d);
+}
+.hero-scan-form input:read-only {
+  opacity: 0.7;
+}
+.hero-scan-form .btn {
+  min-height: 48px;
+}
+.hero-scan-form .btn[aria-disabled="true"] {
+  opacity: 0.75;
+  cursor: progress;
+}
+.hero-scan-progress {
+  margin-top: 16px;
+}
+.hero-scan-progress p {
+  margin: 10px 0 0;
+  color: var(--on-dark-mut);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.hero-scan-progress strong {
+  color: #fff;
+  font-weight: 600;
+}
+.hero-scan-bar {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--d-line);
+  overflow: hidden;
+}
+.hero-scan-bar span {
+  display: block;
+  height: 100%;
+  width: 35%;
+  border-radius: inherit;
+  background: var(--acc);
+  animation: hero-scan-slide 1.6s var(--ease, ease-in-out) infinite;
+}
+@keyframes hero-scan-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(290%);
+  }
+}
+.hero-scan-error {
+  margin: 12px 0 0;
+  color: var(--acc-ink-d);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.hero-scan-error a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.hero-scan-result:focus {
+  outline: none;
+}
+.hero-scan-result {
+  margin-top: 14px;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid var(--d-line);
+  background: var(--d3);
+  color: #fff;
+}
+.hsr-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hsr-grade {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  font-size: 26px;
+  font-weight: 700;
+}
+.hsr-grade-good {
+  background: rgba(0, 196, 167, 0.16);
+  color: var(--ok-d);
+}
+.hsr-grade-mid {
+  background: rgba(246, 210, 88, 0.16);
+  color: var(--warn-d);
+}
+.hsr-grade-bad {
+  background: var(--acc-tint-d);
+  color: var(--acc-ink-d);
+}
+.hsr-domain {
+  margin: 0;
+  font-weight: 600;
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+.hsr-score {
+  margin: 2px 0 0;
+  color: var(--on-dark-mut);
+  font-size: 14px;
+}
+.hsr-score strong {
+  color: #fff;
+}
+.hsr-checks {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 18px;
+}
+.hsr-checks li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.hsr-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+.hsr-status {
+  margin-left: auto;
+  font-size: 13px;
+}
+.hsr-pass .hsr-dot {
+  background: var(--ok-d);
+}
+.hsr-pass .hsr-status {
+  color: var(--ok-d);
+}
+.hsr-warn .hsr-dot {
+  background: var(--warn-d);
+}
+.hsr-warn .hsr-status {
+  color: var(--warn-d);
+}
+.hsr-fail .hsr-dot {
+  background: var(--acc-ink-d);
+}
+.hsr-fail .hsr-status {
+  color: var(--acc-ink-d);
+}
+.hsr-risk {
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--d-line);
+  color: var(--on-dark-mut);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.hsr-risk strong {
+  color: #fff;
+}
+.hsr-actions {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px 20px;
+  flex-wrap: wrap;
+}
+.hsr-actions .arr-up {
+  margin-left: 8px;
+  font-weight: 400;
+}
+.hsr-again {
+  background: none;
+  border: 0;
+  padding: 10px 0;
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+.hsr-again:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+@media (max-width: 760px) {
+  .hero-scan-form input,
+  .hero-scan-form .btn {
+    flex: 1 1 100%;
+  }
+  .hsr-checks {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scan-bar span {
+    animation: none;
+    width: 100%;
+    opacity: 0.6;
+  }
+}

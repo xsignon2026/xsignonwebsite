@@ -17,7 +17,7 @@ import { randomUUID } from "node:crypto";
 
 // The same answer for every outcome that is not an error, so the reply never reveals whether an
 // address is already subscribed, blocked, or new.
-export const UNIFORM_SUCCESS_RESPONSE = {
+const UNIFORM_SUCCESS_RESPONSE = {
   success: true,
   message: "If this is a valid email, you will receive a verification link shortly.",
 };

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { HeroArt } from "@/components/home/HeroArt";
 import { ContactCta } from "@/components/common/ContactCta";
+import { HeroDomainScan } from "@/components/home/HeroDomainScan";
 import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 import { Standards } from "@/components/home/Standards";
 import { SecurityEcosystem } from "@/components/home/SecurityEcosystem";
@@ -81,6 +82,7 @@ export function HomeView() {
                   </span>
                 </Link>
               </div>
+              <HeroDomainScan />
             </div>
             <div className="hero-visual">
               <HeroArt />
