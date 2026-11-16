@@ -6,7 +6,6 @@ import { ContactCta } from "@/components/common/ContactCta";
 import { HeroDomainScan } from "@/components/home/HeroDomainScan";
 import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 import { MeshLogo } from "@/components/common/MeshLogo";
-import { Standards } from "@/components/home/Standards";
 import { SecurityEcosystem } from "@/components/home/SecurityEcosystem";
 import { SolutionIllustration } from "@/components/home/SolutionIllustration";
 
@@ -91,6 +90,45 @@ export function HomeView() {
           </div>
         </div>
       </section>
+
+      <div className="strip" data-nav="dark" role="region" aria-label="Standards and frameworks">
+        <div
+          className="marquee"
+          role="group"
+          aria-label="Standards and frameworks: GDPR, FIDO2, SOC 2, ISO 27001, NIST AI-RMF, NIST 800-207"
+        >
+          <div className="mq-track" aria-hidden="true">
+            <div className="mq-set">
+              <span>GDPR</span>
+              <i className="mq-dot"></i>
+              <span>FIDO2</span>
+              <i className="mq-dot"></i>
+              <span>SOC 2</span>
+              <i className="mq-dot"></i>
+              <span>ISO 27001</span>
+              <i className="mq-dot"></i>
+              <span>NIST AI-RMF</span>
+              <i className="mq-dot"></i>
+              <span>NIST 800-207</span>
+              <i className="mq-dot"></i>
+            </div>
+            <div className="mq-set">
+              <span>GDPR</span>
+              <i className="mq-dot"></i>
+              <span>FIDO2</span>
+              <i className="mq-dot"></i>
+              <span>SOC 2</span>
+              <i className="mq-dot"></i>
+              <span>ISO 27001</span>
+              <i className="mq-dot"></i>
+              <span>NIST AI-RMF</span>
+              <i className="mq-dot"></i>
+              <span>NIST 800-207</span>
+              <i className="mq-dot"></i>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <section className="block" id="products" data-nav="light">
         <div className="wrap">
@@ -894,8 +932,6 @@ export function HomeView() {
           </div>
         </div>
       </section>
-
-      <Standards />
 
       <ContactCta />
     </div>
