@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build:css": "node scripts/build-css.mjs",
-    "dev": "node scripts/build-css.mjs && next dev",
-    "build": "node scripts/build-css.mjs && next build",
+    "dev": "node scripts/build-css.mjs && next dev --webpack",
+    "build": "node scripts/build-css.mjs && next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
