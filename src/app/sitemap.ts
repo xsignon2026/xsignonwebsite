@@ -90,7 +90,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Dynamic Product Pages
-  const productSlugs = ["postureone", "evalone", "xsense", "keys", "ams"];
+  const productSlugs = ["postureone", "evalone", "xsense", "keys", "ams", "xsignon-mesh"];
   const productRoutes: MetadataRoute.Sitemap = productSlugs.map((slug) => ({
     url: `${BASE_URL}/products/${slug}`,
     lastModified: now,

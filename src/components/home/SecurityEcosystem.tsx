@@ -87,7 +87,7 @@ export type EcoDetail = { from: string[]; via: string[]; to: string[] };
 export const DETAIL: ReadonlyArray<EcoDetail> = [
   {
     from: ["Segmentation policies", "Zone and flow maps", "Containment events"],
-    via: ["PostureOne"],
+    via: ["PostureOne", "XSignOn Mesh"],
     to: ["One posture view", "Owners and findings", "Audit-ready evidence"],
   },
   {

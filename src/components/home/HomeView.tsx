@@ -4,6 +4,7 @@ import Link from "next/link";
 import { HeroArt } from "@/components/home/HeroArt";
 import { ContactCta } from "@/components/common/ContactCta";
 import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
+import { MeshLogo } from "@/components/common/MeshLogo";
 import { Standards } from "@/components/home/Standards";
 import { SecurityEcosystem } from "@/components/home/SecurityEcosystem";
 import { SolutionIllustration } from "@/components/home/SolutionIllustration";
@@ -460,23 +461,11 @@ export function HomeView() {
                   className="cf-card"
                   data-cf="6"
                   aria-roledescription="slide"
-                  aria-label="7 of 7: XDMACsec"
+                  aria-label="7 of 7: XSignOn Mesh"
                 >
                   <div className="cf-photo">
                     <div className="pcard-icon">
-                      <svg
-                        viewBox="0 0 96 96"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <rect x="10" y="10" width="76" height="76" rx="16" />
-                        <rect x="24" y="32" width="48" height="34" rx="6" />
-                        <path d="M24 38l24 17 24-17" stroke="currentColor" className="acc" />
-                      </svg>
+                      <MeshLogo size={96} />
                     </div>
                     <Image
                       src="/images/home/img-86bd27dc.jpg"
@@ -486,15 +475,18 @@ export function HomeView() {
                     />
                   </div>
                   <div className="cf-body">
-                    <h3>XDMACsec</h3>
-                    <p className="cf-desc">Email security for your organization.</p>
-                    <div className="cf-tags" aria-label="XDMACsec tags">
-                      <span>Email security</span>
+                    <h3>XSignOn Mesh</h3>
+                    <p className="cf-desc">
+                      Micro-segmentation and containment that keeps one failure small.
+                    </p>
+                    <div className="cf-tags" aria-label="XSignOn Mesh tags">
+                      <span>Micro-segmentation</span>
+                      <span>Containment</span>
                     </div>
                     <Link
                       className="btn pcard-btn cf-btn"
-                      href="/products"
-                      aria-label="View more about XDMACsec"
+                      href="/products/xsignon-mesh"
+                      aria-label="View more about XSignOn Mesh"
                     >
                       View more{" "}
                       <span className="arr" aria-hidden="true">
@@ -677,8 +669,6 @@ export function HomeView() {
           </div>
         </div>
       </section>
-
-      <Standards />
 
       <section className="block think-band" id="thinking" data-nav="dark">
         <div className="wrap">
@@ -902,6 +892,8 @@ export function HomeView() {
           </div>
         </div>
       </section>
+
+      <Standards />
 
       <ContactCta />
     </div>

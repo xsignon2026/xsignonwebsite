@@ -23,6 +23,7 @@ export const siteSettingsFallback: SiteSettingsData = {
         { label: "PostureOne", link: { linkType: "internal", href: "/products/postureone" } },
         { label: "EvalOne", link: { linkType: "internal", href: "/products/evalone" } },
         { label: "XSense", link: { linkType: "internal", href: "/products/xsense" } },
+        { label: "XSignOn Mesh", link: { linkType: "internal", href: "/products/xsignon-mesh" } },
         {
           label: "Passwordless Keys",
           link: { linkType: "internal", href: "/products/passwordless-keys" },

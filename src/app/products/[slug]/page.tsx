@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/common/JsonLd";
 import { AmsView } from "@/components/prototype/AmsView";
 import { EvalOneView } from "@/components/prototype/EvalOneView";
 import { KeysView } from "@/components/prototype/KeysView";
+import { MeshView } from "@/components/prototype/MeshView";
 import { PostureOneView } from "@/components/prototype/PostureOneView";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import type { Feature } from "@/components/prototype/prototype-behaviours";
@@ -16,7 +17,7 @@ type ProductPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-// The five product pages, as designed in the approved prototype. "keys" and "passwordless-keys" are the
+// The six product pages, as designed in the approved prototype. "keys" and "passwordless-keys" are the
 // same page (the second is the address used in the menus).
 const VIEWS: Record<
   string,
@@ -31,6 +32,12 @@ const VIEWS: Record<
   evalone: { View: EvalOneView, id: "view-evalone", features: ["reveal"], data: "evalone" },
   xsense: { View: XSenseView, id: "view-xsense", features: ["reveal", "docTabs"], data: "xsense" },
   ams: { View: AmsView, id: "view-ams", features: ["reveal", "docTabs"], data: "ams" },
+  "xsignon-mesh": {
+    View: MeshView,
+    id: "view-xsignon-mesh",
+    features: ["reveal", "docTabs"],
+    data: "xsignon-mesh",
+  },
   keys: { View: KeysView, id: "view-keys", features: ["reveal", "docTabs"], data: "keys" },
   "passwordless-keys": {
     View: KeysView,

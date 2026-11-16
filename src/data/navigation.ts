@@ -77,6 +77,11 @@ export const navigationFallback: NavigationData = {
           description: "Website and cloud security posture in one view.",
         },
         {
+          label: "XSignOn Mesh",
+          link: { linkType: "internal", href: "/products/xsignon-mesh" },
+          description: "Micro-segmentation and containment.",
+        },
+        {
           label: "EvalOne",
           link: { linkType: "internal", href: "/products/evalone" },
           description: "AI systems evaluated against recognized frameworks.",

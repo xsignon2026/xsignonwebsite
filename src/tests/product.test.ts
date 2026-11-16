@@ -61,8 +61,9 @@ describe("E05 Products Suite & E06 Home Tests (T-082 to T-090)", () => {
     expect(allSlugs).toContain("xsense");
     expect(allSlugs).toContain("keys");
     expect(allSlugs).toContain("ams");
+    expect(allSlugs).toContain("xsignon-mesh");
 
     const allProds = await getAllProducts();
-    expect(allProds.length).toBe(5);
+    expect(allProds.length).toBe(6);
   });
 });
