@@ -6,7 +6,7 @@ import { ContactCta } from "@/components/common/ContactCta";
 import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 import { MeshLogo } from "@/components/common/MeshLogo";
 import { SecurityEcosystem } from "@/components/home/SecurityEcosystem";
-import { SolutionIllustration } from "@/components/home/SolutionIllustration";
+import { SolutionVideo } from "@/components/home/SolutionVideo";
 
 // The Home page markup, converted from the approved prototype (view-home) by compare/html2jsx.py.
 // The interactive pieces (hero card, product coverflow, partner hub, journey, thinking rows, scroll
@@ -638,7 +638,7 @@ export function HomeView() {
                       </Link>
                     </div>
                     <figure className="j-art">
-                      <SolutionIllustration name="identity" />
+                      <SolutionVideo name="identity" />
                     </figure>
                   </article>
                   <article className="j-panel">
@@ -656,7 +656,7 @@ export function HomeView() {
                       </Link>
                     </div>
                     <figure className="j-art">
-                      <SolutionIllustration name="ai" />
+                      <SolutionVideo name="ai" />
                     </figure>
                   </article>
                   <article className="j-panel">
@@ -674,7 +674,7 @@ export function HomeView() {
                       </Link>
                     </div>
                     <figure className="j-art">
-                      <SolutionIllustration name="key" />
+                      <SolutionVideo name="key" />
                     </figure>
                   </article>
                   <article className="j-panel">
@@ -692,7 +692,7 @@ export function HomeView() {
                       </Link>
                     </div>
                     <figure className="j-art">
-                      <SolutionIllustration name="atom" />
+                      <SolutionVideo name="atom" />
                     </figure>
                   </article>
                 </div>

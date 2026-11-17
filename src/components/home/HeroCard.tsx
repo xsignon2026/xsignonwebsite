@@ -71,7 +71,7 @@ export function HeroCard() {
               ) : (
                 <>
                   {s.line && <p className="hc-line">{s.line}</p>}
-                  <Link className="btn btn-white" href={s.action.href}>
+                  <Link className="link-arrow" href={s.action.href}>
                     {s.action.label}{" "}
                     <span className="arr" aria-hidden="true">
                       &#8594;

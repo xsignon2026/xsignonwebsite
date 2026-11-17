@@ -1874,13 +1874,23 @@ html.js .std-card[data-in] .std-item {
   width: 100%;
   max-width: 580px;
   margin-left: auto;
-  border: 1px solid #25205c;
-  border-radius: 24px;
+  border: 0;
+  border-radius: 28px;
   overflow: hidden;
   color: #fff;
+  /* A faint glow instead of a solid card, with the edges fading into the hero behind it. */
   background:
-    radial-gradient(420px 260px at 0% 0%, rgba(111, 103, 168, 0.4), transparent 70%),
-    radial-gradient(360px 240px at 100% 100%, rgba(198, 0, 29, 0.22), transparent 70%), #0a0630;
+    radial-gradient(420px 260px at 0% 0%, rgba(111, 103, 168, 0.28), transparent 70%),
+    radial-gradient(360px 240px at 100% 100%, rgba(198, 0, 29, 0.14), transparent 70%),
+    rgba(10, 6, 48, 0.35);
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+    linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+    linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+  mask-composite: intersect;
 }
 .hc-stage {
   padding: 8px 18px 0;
@@ -1901,9 +1911,9 @@ html.js .std-card[data-in] .std-item {
   }
 }
 .hc-foot {
-  padding: 16px 20px 12px;
-  border-top: 1px solid #25205c;
-  background: rgba(6, 1, 41, 0.55);
+  padding: 6px 22px 12px;
+  border-top: 0;
+  background: transparent;
 }
 .hc-line {
   margin: 0 0 12px;
@@ -1979,5 +1989,50 @@ html.js .std-card[data-in] .std-item {
 @media (prefers-reduced-motion: reduce) {
   .hc-stage {
     animation: none;
+  }
+}
+
+/* The solution videos fill their tile in "What XSignOn does". */
+#journey .j-art .sol-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #0a0630;
+}
+
+/* Buttons inside the hero card are text links with an arrow, like "About XSignOn": no fill, no outline. */
+.hc .link-arrow {
+  color: #fff;
+}
+.hc .link-arrow:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.hc .hero-scan-form .btn {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  align-self: center;
+  flex: none;
+}
+.hc .hero-scan-form .btn::after {
+  content: "\2192";
+  margin-left: 12px;
+}
+.hc .hero-scan-form .btn:hover {
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+@media (max-width: 1080px) {
+  .hc .hero-scan-form .btn {
+    flex: none;
   }
 }
