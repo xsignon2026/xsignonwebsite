@@ -489,11 +489,6 @@ section.dark .ptag {
 }
 
 /* On tablets and phones the hero shows just the text and buttons, without the product picture card. */
-@media (max-width: 1080px) {
-  .hero-visual {
-    display: none;
-  }
-}
 
 /* On a wide screen the diagram is centred and kept compact. */
 @media (min-width: 1081px) {
@@ -1867,5 +1862,122 @@ html.js .std-card[data-in] .std-item {
     animation: none;
     width: 100%;
     opacity: 0.6;
+  }
+}
+
+/* The hero card: the glass-slab picture, then a one-liner and a button, rotating through the slides. */
+.hero-visual {
+  padding-left: 0;
+  display: block;
+}
+.hc {
+  width: 100%;
+  max-width: 580px;
+  margin-left: auto;
+  border: 1px solid #25205c;
+  border-radius: 24px;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(420px 260px at 0% 0%, rgba(111, 103, 168, 0.4), transparent 70%),
+    radial-gradient(360px 240px at 100% 100%, rgba(198, 0, 29, 0.22), transparent 70%), #0a0630;
+}
+.hc-stage {
+  padding: 8px 18px 0;
+  animation: hc-fade 0.6s ease both;
+}
+.hc-stage .ha-svg {
+  max-width: none;
+  width: 100%;
+}
+@keyframes hc-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hc-foot {
+  padding: 16px 20px 12px;
+  border-top: 1px solid #25205c;
+  background: rgba(6, 1, 41, 0.55);
+}
+.hc-line {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #c9c6e6;
+}
+.hc-slides {
+  display: grid;
+}
+.hc-slide {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hc-slide:not([data-active]) {
+  visibility: hidden;
+}
+.hc .hero-scan {
+  margin: 0;
+  max-width: none;
+}
+.hc-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+}
+.hc-dot {
+  position: relative;
+  width: 44px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.hc-dot::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 999px;
+  background: #3b3668;
+  transition:
+    width 0.25s ease,
+    margin 0.25s ease,
+    background 0.25s ease;
+}
+.hc-dot[aria-current="true"]::after {
+  width: 22px;
+  margin-left: -11px;
+  background: var(--acc, #c6001d);
+}
+.hc-dot:focus-visible {
+  outline: 2px solid var(--focus, #c6001d);
+  outline-offset: -4px;
+}
+@media (max-width: 1080px) {
+  .hero-visual {
+    margin-top: 24px;
+  }
+  .hc {
+    max-width: none;
+  }
+  .hc-stage {
+    padding: 6px 10px 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-stage {
+    animation: none;
   }
 }
