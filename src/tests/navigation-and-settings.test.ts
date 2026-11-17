@@ -6,7 +6,7 @@ describe("Navigation & Site Settings Fallback Data", () => {
   it("provides valid navigation fallback items", () => {
     expect(navigationFallback.items.length).toBe(3);
     const labels = navigationFallback.items.map((i) => i.label);
-    expect(labels).toEqual(["About", "Insights", "Products"]);
+    expect(labels).toEqual(["About", "Products", "Insights"]);
 
     for (const item of navigationFallback.items) {
       expect(item.children?.length).toBeGreaterThan(0);

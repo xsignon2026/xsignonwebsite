@@ -34,7 +34,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  margin: 0 auto;
+  margin: 0 0 0 auto;
 }
 .nav2-item {
   position: relative;
@@ -460,4 +460,23 @@
 .nav2-card:focus-visible .nav2-card-title::after {
   opacity: 0.7;
   transform: none;
+}
+
+/* The wide Products and Insights menus open lined up with the right edge of their link, so they stay on
+   screen now that the links are on the right. Only their position changes. */
+.nav2-item:nth-child(n + 2) .nav2-panel {
+  left: auto;
+  right: 0;
+  transform: none;
+  animation-name: nav2-in-right;
+}
+@keyframes nav2-in-right {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
