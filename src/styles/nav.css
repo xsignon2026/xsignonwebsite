@@ -480,3 +480,19 @@
     transform: translateY(0);
   }
 }
+
+/* The Contact button in the header bar uses the design system's contact-button look (.btn-contact in
+   prototype.css): an outline until someone points at it or focuses it, then filled red. The button inside
+   the phone menu stays red. */
+.nav2-actions > .nav2-cta {
+  background: transparent;
+  color: inherit;
+  border: 1px solid #6f7c97;
+  padding: 9px 22px;
+}
+.nav2-actions > .nav2-cta:hover,
+.nav2-actions > .nav2-cta:focus-visible {
+  background: var(--acc);
+  border-color: var(--acc);
+  color: #fff;
+}
