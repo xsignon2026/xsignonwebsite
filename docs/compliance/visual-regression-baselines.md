@@ -28,6 +28,7 @@ In conformance with the design tokens (`src/styles/tokens.css`), visual regressi
 ## 2. Core Evaluated Pages
 
 The visual test matrix covers 8 representative launch templates:
+
 1. `homepage` (`/`): Verifies HeroBeams, Solutions Journey, Marquee Strip, Partner Hub, Thinking Band, and CTA Panel.
 2. `products` (`/products`): Verifies Product catalog grid and architecture overview cards.
 3. `postureone` (`/products/postureone`): Verifies product deep-dive template, metrics callouts, and feature tiers.
@@ -42,6 +43,7 @@ The visual test matrix covers 8 representative launch templates:
 ## 3. Flakiness Elimination & Masking Rules
 
 To ensure 100% deterministic visual assertions across CI pipelines:
+
 - **Font Stabilization**: All tests execute `await document.fonts.ready` prior to snapshot capture.
 - **Dynamic Element Masking**:
   - Animated hero beam canvases (`.hero-beam-canvas`, `canvas`) are masked to isolate UI structure from dynamic particle animation cycles.
@@ -53,6 +55,7 @@ To ensure 100% deterministic visual assertions across CI pipelines:
 ## 4. Snapshot Maintenance Runbook
 
 When intentional design modifications are made:
+
 ```bash
 # Update visual regression snapshot baselines
 npx.cmd playwright test e2e/visual-regression.spec.ts --update-snapshots
@@ -64,5 +67,5 @@ npx.cmd playwright test e2e/visual-regression.spec.ts --update-snapshots
 
 The visual baseline configurations and responsive layouts have been reviewed against the Version 2 (Ombre) design specifications.
 
-- **Developer B (Visual & Design Lead):** APPROVED (2026-11-08)  
-- **Developer A (CI & Reviewer):** APPROVED (2026-11-08)  
+- **Developer B (Visual & Design Lead):** APPROVED (2026-11-08)
+- **Developer A (CI & Reviewer):** APPROVED (2026-11-08)

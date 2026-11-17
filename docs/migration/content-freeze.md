@@ -1,8 +1,9 @@
 # Content Freeze Policy & Protocol (T-153)
+
 **Effective Milestone**: Launch Preparation (`Version-1` Release Candidate)  
 **Standard**: Version 2 (Ombre / Palette 3 Violet) Design Handoff  
 **Scope**: All 93 launch pages, copy strings, structured data, and static data files  
-**Status**: **ACTIVE CONTENT FREEZE**  
+**Status**: **ACTIVE CONTENT FREEZE**
 
 ---
 
@@ -11,6 +12,7 @@
 As of the completion of Task T-152, all user-facing content across the XSignOn website is declared **FROZEN**.
 
 ### What is Frozen:
+
 1. **Core Copy**: All headlines, summaries, body paragraphs, and microcopy in:
    - `src/data/home.ts`
    - `src/data/products/`
@@ -30,6 +32,7 @@ As of the completion of Task T-152, all user-facing content across the XSignOn w
 Any post-freeze content change must adhere strictly to the **Emergency Change Request (CR)** protocol. Direct unreviewed edits are strictly prohibited.
 
 ### Change Request Steps:
+
 1. **CR Submission**: The requester submits a documented Change Request specifying:
    - Route URL and target element.
    - Exact current copy vs. proposed replacement.
@@ -47,15 +50,16 @@ Any post-freeze content change must adhere strictly to the **Emergency Change Re
 
 ## 3. Post-Freeze Changelog
 
-| CR # | Date | Route | Target Field | Old Value | New Value | Reason | Approvers |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| *CR-000* | 2026-11-08 | All | Initial Baseline | Baseline V2 Ombre | Frozen Baseline | Initial freeze milestone | Tech Lead / Content Lead |
+| CR #     | Date       | Route | Target Field     | Old Value         | New Value       | Reason                   | Approvers                |
+| :------- | :--------- | :---- | :--------------- | :---------------- | :-------------- | :----------------------- | :----------------------- |
+| _CR-000_ | 2026-11-08 | All   | Initial Baseline | Baseline V2 Ombre | Frozen Baseline | Initial freeze milestone | Tech Lead / Content Lead |
 
 ---
 
 ## 4. Rollback Runbook
 
 If an unapproved content change introduces visual overflow, layout shift, or broken canonical links:
+
 1. Identify the offending commit via `git log -S "offending text"`.
 2. Revert the commit using `git revert <commit-hash>`.
 3. Verify test suite passes (`npm test`).

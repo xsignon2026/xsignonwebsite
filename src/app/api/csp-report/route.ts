@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     // In production, log warning if legitimate anomaly detected
     if (process.env.NODE_ENV === "production") {
       console.warn(
-        `[CSP-VIOLATION] Doc: ${documentUri.slice(0, 100)} | Blocked: ${blockedUri.slice(0, 100)} | Directive: ${violatedDirective.slice(0, 60)}`
+        `[CSP-VIOLATION] Doc: ${documentUri.slice(0, 100)} | Blocked: ${blockedUri.slice(0, 100)} | Directive: ${violatedDirective.slice(0, 60)}`,
       );
     }
 

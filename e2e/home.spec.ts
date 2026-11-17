@@ -6,9 +6,7 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await page.goto("/");
   });
 
-  test("T-091: Hero split renders canvas beams, product slider, and marquee", async ({
-    page,
-  }) => {
+  test("T-091: Hero split renders canvas beams, product slider, and marquee", async ({ page }) => {
     // Check main display headline
     const headline = page.getByRole("heading", {
       name: /Identity and access/i,
@@ -28,12 +26,6 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(slides).toHaveCount(5);
     await expect(slides.first()).toHaveClass(/act/);
 
-    // Verify Pause control on hero slider
-    const pauseBtn = heroCard.locator(".hpause");
-    await expect(pauseBtn).toBeVisible();
-    await pauseBtn.click();
-    await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
-
     // Dot interaction
     const dot2 = heroCard.locator(".hdot").nth(1);
     await dot2.click();
@@ -46,14 +38,12 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(marquee.getByText("SOC 2").first()).toBeVisible();
   });
 
-  test("T-092: Product Coverflow carousel renders and controls active slide", async ({
-    page,
-  }) => {
+  test("T-092: Product Coverflow carousel renders and controls active slide", async ({ page }) => {
     const coverflow = page.locator("#productCoverflow");
     await expect(coverflow).toBeVisible();
 
     const cards = coverflow.locator(".cf-card");
-    await expect(cards).toHaveCount(5);
+    await expect(cards).toHaveCount(7);
     await expect(cards.first()).toHaveClass(/is-active/);
 
     // Check live status polite announcement
@@ -69,34 +59,14 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(status).toHaveText(/Passwordless Keys/);
   });
 
-  test("T-093: Partner Ecosystem hub renders tabs and keeps links accessible", async ({
-    page,
-  }) => {
-    const partnerHub = page.locator("#partnerHub");
-    await expect(partnerHub).toBeVisible();
-
-    const tabs = partnerHub.locator(".hubx-tab");
-    await expect(tabs).toHaveCount(4);
-
-    // Pause button operates
-    const pauseBtn = page.locator("#hubxPause");
-    await expect(pauseBtn).toBeVisible();
-    await expect(pauseBtn).toHaveAttribute("aria-pressed", "false");
-    await pauseBtn.click();
-    await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
-
-    // Click second tab (Data + AI security)
-    await tabs.nth(1).click();
-    await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
-
-    // Live detail text updates
-    const detail = page.locator("#hubxDetail");
-    await expect(detail).toContainText("AI security scanners");
+  test("T-093: Partner ecosystem diagram shows its five areas", async ({ page }) => {
+    const card = page.locator(".pt-card");
+    await expect(card).toBeVisible();
+    await expect(card.locator(".pt-sp")).toHaveCount(5);
+    await expect(card.locator(".pt-sp[data-on='true']")).toHaveCount(1);
   });
 
-  test("T-094: Solutions Journey and Our Thinking bands operate smoothly", async ({
-    page,
-  }) => {
+  test("T-094: Solutions Journey and Our Thinking bands operate smoothly", async ({ page }) => {
     // Solutions rail
     const railButtons = page.locator(".j-rail button");
     await expect(railButtons).toHaveCount(5);
@@ -105,15 +75,12 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await railButtons.nth(1).click();
     await expect(railButtons.nth(1)).toHaveClass(/act/);
 
-    // Our Thinking accordion
+    // Our Thinking rows open into their card on hover or keyboard focus
     const thinkRows = page.locator(".think-row");
-    await expect(thinkRows).toHaveCount(3);
-
-    // Click first accordion item
-    await thinkRows.first().click();
+    await expect(thinkRows).toHaveCount(4);
+    await thinkRows.first().focus();
     await expect(thinkRows.first()).toHaveAttribute("aria-expanded", "true");
-    const openExpand = page.locator(".think-expand.open");
-    await expect(openExpand).toBeVisible();
+    await expect(page.locator(".think-item.open")).toHaveCount(1);
   });
 
   test("T-095: Home Contact CTA band links to contact page", async ({ page }) => {
@@ -123,9 +90,10 @@ test.describe("Epic E06: Home Page (T-091 to T-097)", () => {
     await expect(ctaBtn).toHaveAttribute("href", "/contact");
   });
 
-  test("T-097: Home page meets WCAG 2.2 AA accessibility standards", async ({
-    page,
-  }) => {
+  test("T-097: Home page meets WCAG 2.2 AA accessibility standards", async ({ page }) => {
+    // With motion reduced, nothing is fading in while axe measures colours.
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.reload();
     const axeResults = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
       .analyze();

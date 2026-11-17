@@ -35,7 +35,8 @@ export const whitePaper = defineType({
       type: "text",
       rows: 3,
       group: "content",
-      description: "Brief abstract (up to 300 characters) displayed on cards and verification gates.",
+      description:
+        "Brief abstract (up to 300 characters) displayed on cards and verification gates.",
       validation: (Rule) =>
         Rule.custom((val) => {
           if (!val || val.trim().length === 0) return "Summary is required.";
@@ -66,7 +67,8 @@ export const whitePaper = defineType({
       type: "boolean",
       group: "storage",
       initialValue: true,
-      description: "When true, requires double opt-in email verification to generate a signed download link.",
+      description:
+        "When true, requires double opt-in email verification to generate a signed download link.",
     }),
     defineField({
       name: "version",

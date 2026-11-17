@@ -9,10 +9,7 @@ type WhitePaperCardProps = {
 
 // T-073: White Paper Card for article pages.
 // CRITICAL INVARIANT: Appears ONLY when a white paper is attached (returns null otherwise).
-export function WhitePaperCard({
-  whitePaper,
-  className = "",
-}: WhitePaperCardProps) {
+export function WhitePaperCard({ whitePaper, className = "" }: WhitePaperCardProps) {
   if (!whitePaper || !whitePaper.slug) {
     return null;
   }
@@ -28,13 +25,9 @@ export function WhitePaperCard({
         <span>v{whitePaper.version || "1.0"}</span>
       </div>
 
-      <h3 className="mt-3 text-xl font-bold tracking-tight text-txt">
-        {whitePaper.title}
-      </h3>
+      <h3 className="mt-3 text-xl font-bold tracking-tight text-txt">{whitePaper.title}</h3>
 
-      <p className="mt-2.5 text-sm leading-relaxed text-gray line-clamp-3">
-        {whitePaper.summary}
-      </p>
+      <p className="mt-2.5 text-sm leading-relaxed text-gray line-clamp-3">{whitePaper.summary}</p>
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-line">
         <span className="text-xs text-gray font-medium">Format: Gated PDF</span>

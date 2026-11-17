@@ -19,33 +19,33 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
     await expect(
       page.getByRole("heading", {
         name: "Securing Bank Access With FIDO2 Biometric Keys",
-      })
+      }),
     ).toBeVisible();
 
     // Verify Healthcare card
     await expect(
       page.getByRole("heading", {
         name: "Passwordless Access For A Global Healthcare Enterprise",
-      })
+      }),
     ).toBeVisible();
 
     // Verify Electrical card
     await expect(
       page.getByRole("heading", {
         name: "Biometric FIDO2 Access For Air-Gapped Industrial Systems",
-      })
+      }),
     ).toBeVisible();
 
     // Verify IT card
     await expect(
       page.getByRole("heading", {
         name: "Biometric-Only Authentication For A Global IT Enterprise",
-      })
+      }),
     ).toBeVisible();
 
     // Verify ROI calculator link
     const roiLink = page.getByRole("link", { name: /Open the ROI Calculator/i });
-    await expect(roiLink).toHaveAttribute("href", "/roi");
+    await expect(roiLink).toHaveAttribute("href", "/roi-calculator");
 
     // Accessibility check
     const axeResults = await new AxeBuilder({ page })
@@ -77,21 +77,13 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
     await expect(title).toBeVisible();
 
     // Narrative sections
+    await expect(page.getByRole("heading", { name: "Where they started", level: 2 })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "What was deployed", level: 2 })).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Where they started", level: 2 })
+      page.getByRole("heading", { name: "Rollout", exact: true, level: 2 }),
     ).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: "What was deployed", level: 2 })
-    ).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: "Rollout", exact: true, level: 2 })
-    ).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: "Outcome", level: 2 })
-    ).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: "Related", level: 2 })
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Outcome", level: 2 })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Related", level: 2 })).toBeVisible();
 
     // 3-step grid
     const stepCards = page.locator(".step-card");
@@ -122,9 +114,10 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
     });
     await expect(title).toBeVisible();
 
-    // Verify 3 steps
-    const stepCards = page.locator(".step-card");
-    await expect(stepCards).toHaveCount(3);
+    // The approved design shows the story and marks the unconfirmed details as pending
+    await expect(page.getByRole("heading", { name: "Where they started", level: 2 })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Rollout", level: 2 })).toBeVisible();
+    await expect(page.locator(".status-chip").first()).toBeVisible();
 
     // Verify related product
     await expect(page.getByRole("link", { name: /Passwordless Keys/i }).first()).toBeVisible();
@@ -145,7 +138,7 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
       page.getByRole("heading", {
         name: "Biometric FIDO2 Access For Air-Gapped Industrial Systems",
         level: 1,
-      })
+      }),
     ).toBeVisible();
     await expect(page.getByRole("link", { name: /XSense/i }).first()).toBeVisible();
 
@@ -160,7 +153,7 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
       page.getByRole("heading", {
         name: "Biometric-Only Authentication For A Global IT Enterprise",
         level: 1,
-      })
+      }),
     ).toBeVisible();
     await expect(page.getByRole("link", { name: /XSense/i }).first()).toBeVisible();
 
@@ -170,11 +163,11 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
     expect(axeResults.violations).toEqual([]);
   });
 
-  test("T-100: Rejects non-existent or invalid slug with 404", async ({
-    page,
-  }) => {
+  test("T-100: Rejects non-existent or invalid slug with 404", async ({ page }) => {
     await page.goto("/proof/invalid-slug-12345");
-    await expect(page.getByRole("heading", { name: "404", level: 1 })).toBeVisible();
-    await expect(page.getByText("This page could not be found.")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "This page has moved.", level: 1 }),
+    ).toBeVisible();
+    await expect(page.locator(".ptag", { hasText: "404" })).toBeVisible();
   });
 });

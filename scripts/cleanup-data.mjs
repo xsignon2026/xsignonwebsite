@@ -37,7 +37,8 @@ async function main() {
     }
 
     remainingVerifications = retainedV.length;
-    const vSerialized = retainedV.length > 0 ? retainedV.map((r) => JSON.stringify(r)).join("\n") + "\n" : "";
+    const vSerialized =
+      retainedV.length > 0 ? retainedV.map((r) => JSON.stringify(r)).join("\n") + "\n" : "";
     await fs.writeFile(VERIFICATIONS_FILE, vSerialized, "utf-8");
   } catch (err) {
     console.log(`[Data Cleanup] No verifications file found or error: ${err.message}`);
@@ -55,7 +56,9 @@ async function main() {
       try {
         const record = JSON.parse(line);
         const grantTime = new Date(record.grantedAt).getTime();
-        const lastAccessTime = record.lastDownloadedAt ? new Date(record.lastDownloadedAt).getTime() : grantTime;
+        const lastAccessTime = record.lastDownloadedAt
+          ? new Date(record.lastDownloadedAt).getTime()
+          : grantTime;
         const effectiveAge = now - Math.max(grantTime, lastAccessTime);
 
         if (effectiveAge > NINETY_DAYS_MS) {
@@ -69,7 +72,8 @@ async function main() {
     }
 
     remainingGrants = retainedG.length;
-    const gSerialized = retainedG.length > 0 ? retainedG.map((r) => JSON.stringify(r)).join("\n") + "\n" : "";
+    const gSerialized =
+      retainedG.length > 0 ? retainedG.map((r) => JSON.stringify(r)).join("\n") + "\n" : "";
     await fs.writeFile(GRANTS_FILE, gSerialized, "utf-8");
   } catch (err) {
     console.log(`[Data Cleanup] No grants file found or error: ${err.message}`);

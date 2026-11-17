@@ -15,15 +15,8 @@ export async function getAllSolutions(): Promise<Solution[]> {
  * Retrieves a single solution by slug or recognized alias.
  * Enforces strict input validation: regex check, length bound.
  */
-export async function getSolutionBySlug(
-  rawSlug: string
-): Promise<Solution | null> {
-  if (
-    !rawSlug ||
-    typeof rawSlug !== "string" ||
-    rawSlug.length > 96 ||
-    !SLUG_REGEX.test(rawSlug)
-  ) {
+export async function getSolutionBySlug(rawSlug: string): Promise<Solution | null> {
+  if (!rawSlug || typeof rawSlug !== "string" || rawSlug.length > 96 || !SLUG_REGEX.test(rawSlug)) {
     return null;
   }
 

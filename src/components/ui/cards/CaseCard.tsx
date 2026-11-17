@@ -9,14 +9,7 @@ type CaseCardProps = {
   className?: string;
 };
 
-export function CaseCard({
-  quote,
-  author,
-  role,
-  company,
-  metric,
-  className = "",
-}: CaseCardProps) {
+export function CaseCard({ quote, author, role, company, metric, className = "" }: CaseCardProps) {
   return (
     <article
       tabIndex={0}
@@ -24,9 +17,7 @@ export function CaseCard({
     >
       <div>
         {metric && (
-          <div className="mb-4 text-h3 font-extrabold tracking-tight text-acc">
-            {metric}
-          </div>
+          <div className="mb-4 text-h3 font-extrabold tracking-tight text-acc">{metric}</div>
         )}
         <blockquote className="text-body text-txt italic leading-relaxed">
           &ldquo;{quote}&rdquo;

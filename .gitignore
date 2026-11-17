@@ -97,3 +97,8 @@ next-env.d.ts
 # Local design prototypes and handoff files
 xsignon-home-beams.html
 *.html
+
+# Side-by-side comparison pictures (scripts/compare-page.mjs)
+/compare/
+# The prototype is kept in the repository as the design reference, even though other .html files are ignored
+!/reference/prototype-v5/index.html

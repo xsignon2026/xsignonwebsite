@@ -18,6 +18,7 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 ## 2. OWASP Top 10 (2021) Verification & Mitigation Matrix
 
 ### A01: Broken Access Control
+
 - **Risk Assessment**: Unauthorized access to administrative studio, private drafts, or API mutation endpoints.
 - **Implemented Safeguards**:
   - Embedded Sanity Studio (`/studio`) requires authenticated Sanity organization session credentials; public unauthenticated visitors are prevented from editing documents.
@@ -26,6 +27,7 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 - **Scan Finding**: PASS (0 vulnerabilities).
 
 ### A02: Cryptographic Failures
+
 - **Risk Assessment**: Exposure of sensitive session data, secrets leakage, or transmission over insecure channels.
 - **Implemented Safeguards**:
   - HSTS enabled with `max-age=63072000; includeSubDomains; preload` forcing HTTPS exclusively.
@@ -34,6 +36,7 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 - **Scan Finding**: PASS (0 vulnerabilities).
 
 ### A03: Injection (XSS, SQLi, GROQ injection)
+
 - **Risk Assessment**: Cross-Site Scripting (XSS) via form inputs or structured data, or GROQ query manipulation.
 - **Implemented Safeguards**:
   - React 19 automatic JSX entity escaping eliminates reflected and stored DOM XSS.
@@ -43,6 +46,7 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 - **Scan Finding**: PASS (0 vulnerabilities).
 
 ### A04: Insecure Design
+
 - **Risk Assessment**: Automated bot submission, credential brute-forcing, denial of service on forms.
 - **Implemented Safeguards**:
   - Honeypot anti-spam fields on contact and newsletter forms silently drop automated submissions.
@@ -51,6 +55,7 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 - **Scan Finding**: PASS (0 vulnerabilities).
 
 ### A05: Security Misconfiguration
+
 - **Risk Assessment**: Verbose error messages, missing HTTP security headers, framework version leakage.
 - **Implemented Safeguards**:
   - `poweredByHeader: false` suppresses `X-Powered-By: Next.js`.
@@ -59,6 +64,7 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 - **Scan Finding**: PASS (0 vulnerabilities).
 
 ### A06: Vulnerable and Outdated Components
+
 - **Risk Assessment**: Known vulnerabilities in third-party npm packages.
 - **Implemented Safeguards**:
   - 100% of runtime and dev dependencies pinned to exact versions in `package.json` (T-162).
@@ -66,6 +72,7 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 - **Scan Finding**: PASS (0 vulnerabilities).
 
 ### A07: Identification and Authentication Failures
+
 - **Risk Assessment**: Timing attacks against webhook secrets, session replay.
 - **Implemented Safeguards**:
   - Webhook secret verification uses constant-time comparison via `crypto.timingSafeEqual` preventing side-channel timing analysis.
@@ -73,6 +80,7 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 - **Scan Finding**: PASS (0 vulnerabilities).
 
 ### A08: Software and Data Integrity Failures
+
 - **Risk Assessment**: Insecure deserialization, untrusted code execution from untrusted CDNs.
 - **Implemented Safeguards**:
   - Strict CSP script-src only allows `'self'` on public pages (zero external unvetted scripts).
@@ -80,6 +88,7 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 - **Scan Finding**: PASS (0 vulnerabilities).
 
 ### A09: Security Logging and Monitoring Failures
+
 - **Risk Assessment**: Missing audit trails or leakage of personally identifiable information (PII) in telemetry.
 - **Implemented Safeguards**:
   - Sentry error reporting includes active client-side PII scrubbers removing form inputs and credentials (`src/tests/sentry-scrub.test.ts`).
@@ -88,6 +97,7 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 - **Scan Finding**: PASS (0 vulnerabilities).
 
 ### A10: Server-Side Request Forgery (SSRF)
+
 - **Risk Assessment**: Maliciously formed requests forcing the Next.js server to fetch internal network metadata.
 - **Implemented Safeguards**:
   - Server components and API routes do not fetch arbitrary user-supplied URLs.
@@ -98,11 +108,11 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 
 ## 3. Findings & Remediation Log
 
-| Item ID | Target / Route | Description | Severity | Remediation Action | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **SEC-01** | Global Headers | Potential clickjacking via iframe | Medium | Configured `X-Frame-Options: DENY` on site, `SAMEORIGIN` on Studio. | RESOLVED |
-| **SEC-02** | `/api/csp-report` | Unrestricted reporting could cause log flooding | Low | Added in-memory rate limiting (max 30 req/min per IP). | RESOLVED |
-| **SEC-03** | Server Header | Framework fingerprinting | Low | Set `poweredByHeader: false` in `next.config.ts`. | RESOLVED |
+| Item ID    | Target / Route    | Description                                     | Severity | Remediation Action                                                  | Status   |
+| :--------- | :---------------- | :---------------------------------------------- | :------- | :------------------------------------------------------------------ | :------- |
+| **SEC-01** | Global Headers    | Potential clickjacking via iframe               | Medium   | Configured `X-Frame-Options: DENY` on site, `SAMEORIGIN` on Studio. | RESOLVED |
+| **SEC-02** | `/api/csp-report` | Unrestricted reporting could cause log flooding | Low      | Added in-memory rate limiting (max 30 req/min per IP).              | RESOLVED |
+| **SEC-03** | Server Header     | Framework fingerprinting                        | Low      | Set `poweredByHeader: false` in `next.config.ts`.                   | RESOLVED |
 
 ---
 
@@ -110,5 +120,5 @@ A comprehensive automated dynamic application security testing (DAST) scan and s
 
 The third-party security baseline and OWASP Top 10 controls have been reviewed and accepted. All identified items have been verified as resolved.
 
-- **Developer A (Security Lead):** Approved (2026-11-08)  
-- **Client Security Approver:** Accepted in writing (2026-11-08)  
+- **Developer A (Security Lead):** Approved (2026-11-08)
+- **Client Security Approver:** Accepted in writing (2026-11-08)

@@ -58,9 +58,7 @@ export function WhitePaperDownloadForm({
         setSubmitted(true);
       } else {
         const data = await response.json().catch(() => null);
-        setErrorMessage(
-          data?.message || "Unable to request download. Please try again shortly."
-        );
+        setErrorMessage(data?.message || "Unable to request download. Please try again shortly.");
       }
     } catch {
       setErrorMessage("Network error. Please check your connection.");
@@ -77,13 +75,21 @@ export function WhitePaperDownloadForm({
         aria-live="polite"
       >
         <div className="flex items-center gap-3 text-emerald-400 mb-3">
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
           <h3 className="text-xl font-bold text-white">Check your email</h3>
         </div>
         <p className="text-sm leading-relaxed text-[#b4bfd3]">
-          We have sent a verification link to <strong className="text-white">{email}</strong>. Once verified, your download of <em>{title}</em> will begin immediately.
+          We have sent a verification link to <strong className="text-white">{email}</strong>. Once
+          verified, your download of <em>{title}</em> will begin immediately.
         </p>
       </div>
     );
@@ -91,16 +97,17 @@ export function WhitePaperDownloadForm({
 
   return (
     <div className={`rounded-2xl border border-line bg-card p-6 md:p-8 shadow-sm ${className}`}>
-      <h3 className="text-xl font-bold tracking-tight text-txt">
-        Download this White Paper
-      </h3>
+      <h3 className="text-xl font-bold tracking-tight text-txt">Download this White Paper</h3>
       <p className="mt-2 text-sm leading-relaxed text-gray">
         Enter your work email to receive access to the full technical document.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-5 space-y-4" noValidate>
         <div>
-          <label htmlFor={emailId} className="block text-xs font-semibold uppercase tracking-wider text-txt mb-1.5">
+          <label
+            htmlFor={emailId}
+            className="block text-xs font-semibold uppercase tracking-wider text-txt mb-1.5"
+          >
             Work Email
           </label>
           <input
@@ -139,7 +146,12 @@ export function WhitePaperDownloadForm({
         </div>
 
         {errorMessage && (
-          <div id={errorId} role="status" aria-live="polite" className="text-xs font-medium text-rose-600">
+          <div
+            id={errorId}
+            role="status"
+            aria-live="polite"
+            className="text-xs font-medium text-rose-600"
+          >
             {errorMessage}
           </div>
         )}

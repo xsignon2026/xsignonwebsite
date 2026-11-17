@@ -1,7 +1,7 @@
 /**
  * S-14 / T-130: Pure Mathematical ROI Calculation Engine.
  * Computes estimated time and cost savings from verified sign-in.
- * 
+ *
  * Invariants:
  *  - All inputs are clamped to non-negative numbers (Math.max(0, val)).
  *  - NaN, null, and non-finite inputs fall back safely to 0 or defaults.

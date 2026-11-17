@@ -31,15 +31,8 @@ export async function getApprovedCaseStudies(): Promise<CaseStudy[]> {
  * Retrieves a single case study by its slug or recognized alias.
  * Enforces strict input validation: regex check, length bound, and approval guard.
  */
-export async function getCaseStudyBySlug(
-  rawSlug: string
-): Promise<CaseStudy | null> {
-  if (
-    !rawSlug ||
-    typeof rawSlug !== "string" ||
-    rawSlug.length > 96 ||
-    !SLUG_REGEX.test(rawSlug)
-  ) {
+export async function getCaseStudyBySlug(rawSlug: string): Promise<CaseStudy | null> {
+  if (!rawSlug || typeof rawSlug !== "string" || rawSlug.length > 96 || !SLUG_REGEX.test(rawSlug)) {
     return null;
   }
 

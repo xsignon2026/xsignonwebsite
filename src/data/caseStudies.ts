@@ -26,13 +26,11 @@ export const canonicalCaseStudies: CaseStudy[] = [
       },
       {
         title: "AMS",
-        description:
-          "for delivery, guided enrollment, replacements and exception handling.",
+        description: "for delivery, guided enrollment, replacements and exception handling.",
       },
       {
         title: "Pilot-first rollout",
-        description:
-          ", so enrollment and recovery flows were proven before scale-up.",
+        description: ", so enrollment and recovery flows were proven before scale-up.",
       },
     ],
     rolloutSteps: [
@@ -105,8 +103,7 @@ export const canonicalCaseStudies: CaseStudy[] = [
       },
       {
         title: "Centralized enrollment",
-        description:
-          "allowing fast badge-and-key linking during staff shift onboarding.",
+        description: "allowing fast badge-and-key linking during staff shift onboarding.",
       },
     ],
     rolloutSteps: [
@@ -136,9 +133,7 @@ export const canonicalCaseStudies: CaseStudy[] = [
     approvalOwner: "Healthcare Information Security Officer",
     approvalStatus: "approved",
     evidenceLink: "https://xsignon.com/compliance/evidence/case-health-2020.pdf",
-    relatedProducts: [
-      { name: "Passwordless Keys", slug: "keys", type: "Product" },
-    ],
+    relatedProducts: [{ name: "Passwordless Keys", slug: "keys", type: "Product" }],
     relatedCaseStudies: [
       {
         title: "Securing Bank Access With FIDO2 Biometric Keys",
@@ -181,8 +176,7 @@ export const canonicalCaseStudies: CaseStudy[] = [
       },
       {
         title: "AMS Lifecycle Module",
-        description:
-          "managing hardware key life-cycles, revocation, and re-enrollment offline.",
+        description: "managing hardware key life-cycles, revocation, and re-enrollment offline.",
       },
     ],
     rolloutSteps: [
@@ -211,8 +205,7 @@ export const canonicalCaseStudies: CaseStudy[] = [
       "Case details pending: deployment specifics are confirmed and sourced before this page ships.",
     approvalOwner: "Director of Industrial Cyber Security",
     approvalStatus: "approved",
-    evidenceLink:
-      "https://xsignon.com/compliance/evidence/case-electrical-2023.pdf",
+    evidenceLink: "https://xsignon.com/compliance/evidence/case-electrical-2023.pdf",
     relatedProducts: [
       { name: "XSense", slug: "xsense", type: "Product" },
       { name: "AMS", slug: "ams", type: "Product" },
@@ -243,8 +236,7 @@ export const canonicalCaseStudies: CaseStudy[] = [
     headline: "Biometric-Only Authentication For A Global IT Enterprise",
     summary:
       "Biometric-only authentication for a global IT enterprise, where every sign-in is completed with a verified key.",
-    heroImageAlt:
-      "IT team working at laptops around a table, seen from above",
+    heroImageAlt: "IT team working at laptops around a table, seen from above",
     challenge:
       "A global IT enterprise set out to run biometric-only authentication: every sign-in completed with a verified key, for every team, in every region. This study covers that move, completed in July 2020.",
     approach:
@@ -252,8 +244,7 @@ export const canonicalCaseStudies: CaseStudy[] = [
     deployedFeatures: [
       {
         title: "Mandatory biometric keys",
-        description:
-          "for 100% of internal developers, administrators, and back-office employees.",
+        description: "for 100% of internal developers, administrators, and back-office employees.",
       },
       {
         title: "XSense adaptive policies",

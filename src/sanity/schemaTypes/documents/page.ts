@@ -17,8 +17,7 @@ export const pageDocument = defineType({
       title: "Page Title",
       type: "string",
       group: "content",
-      validation: (Rule) =>
-        Rule.custom((val) => isNotBlank(val, "Page title is required.")),
+      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Page title is required.")),
     }),
     defineField({
       name: "slug",

@@ -14,9 +14,9 @@
 
 The XSignON Content Management System is powered by **Sanity Studio v3**, embedded seamlessly within the application at:
 
-* **Production Studio URL:** `https://xsignon.com/studio`
-* **Staging Studio URL:** `https://staging.xsignon.com/studio`
-* **Local Development:** `http://localhost:3000/studio`
+- **Production Studio URL:** `https://xsignon.com/studio`
+- **Staging Studio URL:** `https://staging.xsignon.com/studio`
+- **Local Development:** `http://localhost:3000/studio`
 
 ### User Roles & Permissions Matrix
 
@@ -44,6 +44,7 @@ Security and structural integrity are preserved via three distinct privilege tie
 ## 2. Document Creation & Authoring Workflows
 
 ### 2.1 Thought Leadership Articles (`article`)
+
 1. In the Studio left-hand sidebar, click **Articles** -> **+ Create**.
 2. **Title**: Enter the article title (concise, high-impact; 40–70 characters).
 3. **Slug**: Click **Generate** next to the slug input. Ensure the slug is lowercase, hyphenated, and contains no special characters.
@@ -51,13 +52,13 @@ Security and structural integrity are preserved via three distinct privilege tie
 5. **Publish Date**: Set to current date/time or scheduled date.
 6. **Excerpt**: Provide a 1-2 sentence executive summary (used in search results and social cards; max 160 characters).
 7. **Body (Portable Text)**:
-   * **Headings**: Use `H2` for primary sections, `H3` for subsections. *Never paste H1 into the body* — the page template reserves `H1` for the document title to satisfy WCAG 2.1 AA accessibility guidelines.
-   * **Callouts & Highlights**: Use the Custom Callout block to highlight key zero-trust insights or customer quotations.
-   * **Code Blocks**: Formats YAML, JSON, or Python code with syntax highlighting.
+   - **Headings**: Use `H2` for primary sections, `H3` for subsections. _Never paste H1 into the body_ — the page template reserves `H1` for the document title to satisfy WCAG 2.1 AA accessibility guidelines.
+   - **Callouts & Highlights**: Use the Custom Callout block to highlight key zero-trust insights or customer quotations.
+   - **Code Blocks**: Formats YAML, JSON, or Python code with syntax highlighting.
 8. **Featured Image**:
-   * Upload high-resolution graphic (recommended 1200x630px).
-   * **Mandatory Alt Text**: Provide descriptive alternative text explaining the image for screen readers (e.g., *"Architectural diagram illustrating XSignON zero-trust posture evaluation between identity provider and target application"*).
-   * Adjust the **Hotspot / Focal Point** tool to ensure the critical subject remains centered across all mobile and desktop viewports.
+   - Upload high-resolution graphic (recommended 1200x630px).
+   - **Mandatory Alt Text**: Provide descriptive alternative text explaining the image for screen readers (e.g., _"Architectural diagram illustrating XSignON zero-trust posture evaluation between identity provider and target application"_).
+   - Adjust the **Hotspot / Focal Point** tool to ensure the critical subject remains centered across all mobile and desktop viewports.
 
 ---
 
@@ -78,6 +79,7 @@ XSignON incorporates Next.js Draft Mode to give editors a pixel-perfect preview 
 ```
 
 ### How to Use Live Preview:
+
 1. Inside any document, look at the top-right header and click the **Split Pane / Preview** icon.
 2. The right pane will instantiate a secure draft session using the cryptographic preview secret.
 3. As you type in the editor, changes reflect instantly in the preview pane with full Version 2 (Ombre / Palette 3 Violet) styling, font rendering, and responsive reflow.
@@ -90,15 +92,16 @@ XSignON incorporates Next.js Draft Mode to give editors a pixel-perfect preview 
 Marketing research papers, technical briefs, and compliance guides often require reader qualification before downloading.
 
 ### Uploading & Gating a White Paper:
+
 1. In the sidebar, navigate to **White Papers** -> **+ Create**.
 2. Complete Title, Abstract, Topics, and Cover Art.
 3. Under **Gating & Access Policy**, select:
-   * `Public`: Direct download button available to all site visitors.
-   * `Gated (Lead Capture)`: Requires visitor to submit corporate email, name, and company size before downloading.
+   - `Public`: Direct download button available to all site visitors.
+   - `Gated (Lead Capture)`: Requires visitor to submit corporate email, name, and company size before downloading.
 4. **Attach PDF File**:
-   * Drag and drop the final reviewed PDF into the **Asset Upload** field.
-   * Sanity verifies the asset checksum and uploads it to the high-performance global CDN (`cdn.sanity.io`).
-   * The website serverless proxy securely validates form submission tokens before serving the download link, preventing search engines from scraping the ungated PDF.
+   - Drag and drop the final reviewed PDF into the **Asset Upload** field.
+   - Sanity verifies the asset checksum and uploads it to the high-performance global CDN (`cdn.sanity.io`).
+   - The website serverless proxy securely validates form submission tokens before serving the download link, preventing search engines from scraping the ungated PDF.
 
 ---
 
@@ -108,15 +111,16 @@ Marketing research papers, technical briefs, and compliance guides often require
 > Navigation changes alter the global site structure and affect SEO indexing across all 96 static routes. Only users with the **Publisher** role have write permissions for Navigation documents.
 
 ### Editing Header or Footer Menus:
+
 1. Navigate to **Site Settings** -> **Global Navigation**.
 2. **Main Navigation Links**:
-   * Add, remove, or drag-and-drop items to reorder the top bar navigation.
-   * Each item contains: `Label` (visible text) and `Destination` (internal route `/products/postureone` or external link).
+   - Add, remove, or drag-and-drop items to reorder the top bar navigation.
+   - Each item contains: `Label` (visible text) and `Destination` (internal route `/products/postureone` or external link).
 3. **Dropdown Columns**:
-   * Organize Products into logical groups (e.g., PostureOne, Identity Fabric, Zero-Trust Bridge).
+   - Organize Products into logical groups (e.g., PostureOne, Identity Fabric, Zero-Trust Bridge).
 4. **Publish Confirmation**:
-   * Click **Review Changes** to review the diff.
-   * Click **Publish**.
+   - Click **Review Changes** to review the diff.
+   - Click **Publish**.
 
 ---
 
@@ -147,12 +151,13 @@ Live site updates globally within < 3 seconds
 To achieve certified Editor status on the production XSignON platform, each content editor must complete this 6-step practical test unaided:
 
 - [ ] **Step 1:** Successfully sign in to `https://xsignon.com/studio` using SSO and MFA.
-- [ ] **Step 2:** Create a new test draft Article entitled *"Continuous Adaptive Trust: The 2026 Paradigm"*.
+- [ ] **Step 2:** Create a new test draft Article entitled _"Continuous Adaptive Trust: The 2026 Paradigm"_.
 - [ ] **Step 3:** Format text with an `H2`, bulleted list, and upload a test cover image with required Alt text.
 - [ ] **Step 4:** Open the Live Draft Preview split-pane and verify that the layout renders cleanly on mobile and desktop.
 - [ ] **Step 5:** Submit the article for publication (or publish if Publisher role).
 - [ ] **Step 6:** Navigate to `https://xsignon.com/thinking/continuous-adaptive-trust-the-2026-paradigm` in an incognito window and verify that the page renders live within 5 seconds.
 
 **Certification Sign-Off:**
-* Candidate Editor: ___________________________ Date: ____________
-* Verifying Lead: _____________________________ Status: [PASS / RETEST]
+
+- Candidate Editor: ___________________________ Date: ____________
+- Verifying Lead: _____________________________ Status: [PASS / RETEST]

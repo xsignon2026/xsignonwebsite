@@ -21,7 +21,9 @@ describe("T-098 to T-104: Case Studies Data & Security Verification", () => {
     expect(banking?.industry).toBe("Banking");
     expect(banking?.location).toBe("Abu Dhabi");
     expect(banking?.approvalOwner).toBe("Chief Information Security Officer, UAE Banking Group");
-    expect(banking?.evidenceLink).toBe("https://xsignon.com/compliance/evidence/case-bank-2026.pdf");
+    expect(banking?.evidenceLink).toBe(
+      "https://xsignon.com/compliance/evidence/case-bank-2026.pdf",
+    );
     expect(banking?.rolloutSteps?.[0].title).toBe("Pilot");
     expect(banking?.rolloutSteps?.[1].title).toBe("Branch rollout");
     expect(banking?.rolloutSteps?.[2].title).toBe("Back office");
@@ -34,7 +36,9 @@ describe("T-098 to T-104: Case Studies Data & Security Verification", () => {
     expect(health?.industry).toBe("Healthcare");
     expect(health?.deploymentDate).toBe("March 2020");
     expect(health?.approvalOwner).toBe("Healthcare Information Security Officer");
-    expect(health?.evidenceLink).toBe("https://xsignon.com/compliance/evidence/case-health-2020.pdf");
+    expect(health?.evidenceLink).toBe(
+      "https://xsignon.com/compliance/evidence/case-health-2020.pdf",
+    );
     expect(health?.rolloutSteps?.[0].title).toBe("Clinical triage pilot");
     expect(health?.relatedProducts?.map((p) => p.slug)).toEqual(["keys"]);
   });
@@ -46,7 +50,9 @@ describe("T-098 to T-104: Case Studies Data & Security Verification", () => {
     expect(electrical?.location).toBe("Asia");
     expect(electrical?.deploymentDate).toBe("December 2023");
     expect(electrical?.approvalOwner).toBe("Director of Industrial Cyber Security");
-    expect(electrical?.evidenceLink).toBe("https://xsignon.com/compliance/evidence/case-electrical-2023.pdf");
+    expect(electrical?.evidenceLink).toBe(
+      "https://xsignon.com/compliance/evidence/case-electrical-2023.pdf",
+    );
     expect(electrical?.relatedProducts?.map((p) => p.slug)).toEqual(["xsense", "ams"]);
 
     const itCase = await getCaseStudyBySlug("biometric-only-authentication-global-it");
@@ -85,7 +91,9 @@ describe("T-098 to T-104: Case Studies Data & Security Verification", () => {
     expect(isCaseStudyApproved({ ...valid, evidenceLink: "" })).toBe(false);
 
     // Insecure non-HTTPS evidence link
-    expect(isCaseStudyApproved({ ...valid, evidenceLink: "http://insecure.com/evidence.pdf" })).toBe(false);
+    expect(
+      isCaseStudyApproved({ ...valid, evidenceLink: "http://insecure.com/evidence.pdf" }),
+    ).toBe(false);
 
     // Unapproved draft status
     expect(isCaseStudyApproved({ ...valid, approvalStatus: "draft" })).toBe(false);

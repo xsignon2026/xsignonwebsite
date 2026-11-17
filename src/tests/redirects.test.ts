@@ -26,7 +26,7 @@ describe("Canonical Redirect Map Validation (T-146, T-147)", () => {
       const cleanDest = r.destination.split("?")[0].split("#")[0].replace("/:slug*", "");
       expect(
         sources.has(cleanDest),
-        `Redirect chain detected: ${r.source} -> ${r.destination} -> ${cleanDest} is also redirected`
+        `Redirect chain detected: ${r.source} -> ${r.destination} -> ${cleanDest} is also redirected`,
       ).toBe(false);
     }
   });

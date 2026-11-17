@@ -5,10 +5,7 @@ describe("Job Listings & JSON-LD (T-128)", () => {
   it("retrieves all active canonical jobs", () => {
     const jobs = getActiveJobs();
     expect(jobs.length).toBe(2);
-    expect(jobs.map((j) => j.slug)).toEqual([
-      "security-engineer",
-      "ai-governance-analyst",
-    ]);
+    expect(jobs.map((j) => j.slug)).toEqual(["security-engineer", "ai-governance-analyst"]);
   });
 
   it("finds job by valid slug", () => {

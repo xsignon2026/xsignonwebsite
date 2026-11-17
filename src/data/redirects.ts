@@ -7,10 +7,10 @@ export interface RedirectEntry {
 export const CANONICAL_REDIRECTS: ReadonlyArray<RedirectEntry> = [
   // Products
   { source: "/product", destination: "/products", permanent: true },
+  { source: "/features", destination: "/products", permanent: true },
   { source: "/products/fido2", destination: "/products/keys", permanent: true },
   { source: "/products/posture", destination: "/products/postureone", permanent: true },
   { source: "/products/eval", destination: "/products/evalone", permanent: true },
-  { source: "/products/compare", destination: "/compare", permanent: true },
   { source: "/products/proof", destination: "/proof", permanent: true },
   { source: "/products/roi", destination: "/roi-calculator", permanent: true },
   { source: "/roi", destination: "/roi-calculator", permanent: true },
@@ -19,9 +19,17 @@ export const CANONICAL_REDIRECTS: ReadonlyArray<RedirectEntry> = [
   { source: "/solution", destination: "/solutions", permanent: true },
   { source: "/solutions/identity", destination: "/solutions/identity-governance", permanent: true },
   { source: "/solutions/ai", destination: "/solutions/ai-and-digital-governance", permanent: true },
-  { source: "/solutions/quantum", destination: "/solutions/quantum-safe-security", permanent: true },
+  {
+    source: "/solutions/quantum",
+    destination: "/solutions/quantum-safe-security",
+    permanent: true,
+  },
   { source: "/solutions/process", destination: "/solutions/business-process", permanent: true },
-  { source: "/solutions/enterprise", destination: "/solutions/enterprise-technology", permanent: true },
+  {
+    source: "/solutions/enterprise",
+    destination: "/solutions/enterprise-technology",
+    permanent: true,
+  },
 
   // Company & About
   { source: "/about-us", destination: "/about", permanent: true },

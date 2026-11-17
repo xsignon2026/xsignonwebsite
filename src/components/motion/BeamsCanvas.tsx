@@ -125,13 +125,7 @@ export function BeamsCanvas({
     }
 
     function loop(now: number) {
-      if (
-        isIntersecting &&
-        isCoordinatorActive &&
-        w &&
-        h &&
-        !document.hidden
-      ) {
+      if (isIntersecting && isCoordinatorActive && w && h && !document.hidden) {
         draw(Math.min((now - last) / 1000, 0.05));
       }
       last = now;
@@ -215,12 +209,5 @@ export function BeamsCanvas({
     };
   }, [canvasId, density]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className={className}
-      id={canvasId}
-      aria-hidden="true"
-    />
-  );
+  return <canvas ref={canvasRef} className={className} id={canvasId} aria-hidden="true" />;
 }

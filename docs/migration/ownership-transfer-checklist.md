@@ -33,14 +33,14 @@ Developers are completely removed from shared root accounts and personal adminis
 
 ## 2. Infrastructure & Account Transfer Audit
 
-| Asset / Service | Current Owner | Target Client Account | Status | Verified By |
-| :--- | :--- | :--- | :--- | :--- |
-| **Apex Domain & DNS** (`xsignon.com`) | Agency Registrar | Enterprise Cloudflare Account (`dns-admin@xsignon.com`) | Transferred & Verified | Client Admin |
-| **GitHub Repository** (`github.com/xsignon2026/xsignonwebsite`) | Dev Team Admin | Client Enterprise Org (`owner@xsignon.com`) | Transferred & Verified | Client Admin |
-| **Vercel Edge Hosting** (Production Team) | Dev Agency Team | Client Vercel Pro/Enterprise Team (`billing@xsignon.com`) | Transferred & Verified | Client Admin |
-| **Sanity.io Studio** (Project Org) | Dev Agency Admin | Client Sanity Enterprise Account (`cms-admin@xsignon.com`) | Transferred & Verified | Client Admin |
-| **Sentry Error Tracking** (Project Workspace) | Dev Agency Org | Client Enterprise Sentry (`security@xsignon.com`) | Transferred & Verified | Client Admin |
-| **Google Search Console** | Agency Lead | Client Webmaster Account (`webmaster@xsignon.com`) | Transferred & Verified | Client Admin |
+| Asset / Service                                                 | Current Owner    | Target Client Account                                      | Status                 | Verified By  |
+| :-------------------------------------------------------------- | :--------------- | :--------------------------------------------------------- | :--------------------- | :----------- |
+| **Apex Domain & DNS** (`xsignon.com`)                           | Agency Registrar | Enterprise Cloudflare Account (`dns-admin@xsignon.com`)    | Transferred & Verified | Client Admin |
+| **GitHub Repository** (`github.com/xsignon2026/xsignonwebsite`) | Dev Team Admin   | Client Enterprise Org (`owner@xsignon.com`)                | Transferred & Verified | Client Admin |
+| **Vercel Edge Hosting** (Production Team)                       | Dev Agency Team  | Client Vercel Pro/Enterprise Team (`billing@xsignon.com`)  | Transferred & Verified | Client Admin |
+| **Sanity.io Studio** (Project Org)                              | Dev Agency Admin | Client Sanity Enterprise Account (`cms-admin@xsignon.com`) | Transferred & Verified | Client Admin |
+| **Sentry Error Tracking** (Project Workspace)                   | Dev Agency Org   | Client Enterprise Sentry (`security@xsignon.com`)          | Transferred & Verified | Client Admin |
+| **Google Search Console**                                       | Agency Lead      | Client Webmaster Account (`webmaster@xsignon.com`)         | Transferred & Verified | Client Admin |
 
 ---
 
@@ -61,6 +61,7 @@ In strict compliance with governance requirement **d16**, all temporary provisio
 ```
 
 ### De-escalation Protocol Execution
+
 1. **Shared Credential Purge**:
    - Master account passwords rotated by Client Admin with enterprise MFA.
    - All shared agency passwords permanently retired.
@@ -76,6 +77,7 @@ In strict compliance with governance requirement **d16**, all temporary provisio
 ## 4. Formal Ownership Sign-Off Record
 
 By executing this document, both parties acknowledge and confirm that:
+
 1. The client maintains complete, exclusive administrative and billing control of all assets listed in Section 2.
 2. The development team has no persistent root or administrative privileges, holding only delegated support access.
 3. The platform is operational, backed up, and functioning under client-owned cloud subscriptions.

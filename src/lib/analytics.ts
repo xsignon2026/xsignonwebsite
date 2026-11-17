@@ -41,9 +41,7 @@ export function setConsentStatus(status: "accepted" | "rejected"): void {
 
   try {
     window.localStorage.setItem(CONSENT_STORAGE_KEY, status);
-    window.dispatchEvent(
-      new CustomEvent(CONSENT_CHANGE_EVENT, { detail: { status } })
-    );
+    window.dispatchEvent(new CustomEvent(CONSENT_CHANGE_EVENT, { detail: { status } }));
   } catch {
     // LocalStorage write error (e.g. storage disabled or quota exceeded)
   }
@@ -60,10 +58,7 @@ export function hasAcceptedAnalytics(): boolean {
  * Emits an analytics event if and only if consent is affirmatively accepted.
  * Returns true if event was dispatched, false if blocked by consent gate.
  */
-export function trackEvent(
-  eventName: string,
-  payload?: Record<string, unknown>
-): boolean {
+export function trackEvent(eventName: string, payload?: Record<string, unknown>): boolean {
   if (!hasAcceptedAnalytics()) {
     return false;
   }

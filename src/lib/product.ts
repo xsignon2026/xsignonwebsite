@@ -7,6 +7,7 @@ import { evalOneProduct } from "@/data/products/evalone";
 import { xsenseProduct } from "@/data/products/xsense";
 import { keysProduct } from "@/data/products/keys";
 import { amsProduct } from "@/data/products/ams";
+import { meshProduct } from "@/data/products/mesh";
 import type { Product } from "@/types/product";
 
 const FALLBACK_PRODUCTS: Record<string, Product> = {
@@ -16,6 +17,7 @@ const FALLBACK_PRODUCTS: Record<string, Product> = {
   keys: keysProduct,
   "passwordless-keys": keysProduct,
   ams: amsProduct,
+  "xsignon-mesh": meshProduct,
 };
 
 // S-14 / T-052 / T-082 / T-083 / T-084 / T-085 / T-086: Product server provider with resilient fallback.
@@ -35,7 +37,15 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 }
 
 export async function getAllProductSlugs(): Promise<string[]> {
-  const staticSlugs = ["postureone", "evalone", "xsense", "keys", "passwordless-keys", "ams"];
+  const staticSlugs = [
+    "postureone",
+    "evalone",
+    "xsense",
+    "keys",
+    "passwordless-keys",
+    "ams",
+    "xsignon-mesh",
+  ];
   if (!isSanityConfigured) return staticSlugs;
   try {
     const cmsSlugs = await sanityFetch<string[]>({
@@ -55,6 +65,7 @@ export async function getAllProducts(): Promise<Product[]> {
     evalOneProduct,
     xsenseProduct,
     amsProduct,
+    meshProduct,
   ];
   return orderedList;
 }

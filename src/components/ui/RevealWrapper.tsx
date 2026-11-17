@@ -9,11 +9,7 @@ type RevealWrapperProps = {
 };
 
 // Handoff 6.2: .rv scroll reveal with progressive enhancement and reduced motion respect.
-export function RevealWrapper({
-  children,
-  className = "",
-  delayMs = 0,
-}: RevealWrapperProps) {
+export function RevealWrapper({ children, className = "", delayMs = 0 }: RevealWrapperProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isClient, setIsClient] = useState(false);
   const [isInView, setIsInView] = useState(false);

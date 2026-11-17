@@ -22,37 +22,41 @@ Covering **15 Epics (E01 through E15)** and **179 discrete tasks (T-001 to T-179
 ## 2. Review of Critical Technical Decisions
 
 ### 2.1 Design Handoff Fidelity: Version 2 (Ombre / Palette 3 Violet)
-* **Context:** The team evaluated multiple visual prototypes (Classic, Ombre, and High-Contrast Grid).
-* **Decision:** Formally locked to **Version 2 (Ombre / Palette 3 Violet)** from `xsignon-home-beams.html`.
-* **Outcome:** Deep violet background tokens (`--d1: #060129; --d2: #0f0a3a; --d-line: #25205c;`) with radial beams and subtle linear mesh gradients delivered a distinctive identity while maintaining strict **WCAG 2.1 AA** contrast ratios across all typography and interactive controls.
+
+- **Context:** The team evaluated multiple visual prototypes (Classic, Ombre, and High-Contrast Grid).
+- **Decision:** Formally locked to **Version 2 (Ombre / Palette 3 Violet)** from `xsignon-home-beams.html`.
+- **Outcome:** Deep violet background tokens (`--d1: #060129; --d2: #0f0a3a; --d-line: #25205c;`) with radial beams and subtle linear mesh gradients delivered a distinctive identity while maintaining strict **WCAG 2.1 AA** contrast ratios across all typography and interactive controls.
 
 ### 2.2 Rendering Architecture & Partial Prerendering (PPR)
-* **Context:** Balancing instantaneous global edge delivery with dynamic on-demand CMS publishing.
-* **Decision:** Adopted Next.js 16 App Router with Partial Prerendering (PPR) and On-Demand Incremental Static Regeneration (ISR).
-* **Outcome:** 96 static routes compile during build with static shell generation, while dynamic segments stream seamlessly. On-demand cache invalidation via `/api/revalidate` HMAC webhook refreshes the edge in < 3 seconds upon Sanity studio publish.
+
+- **Context:** Balancing instantaneous global edge delivery with dynamic on-demand CMS publishing.
+- **Decision:** Adopted Next.js 16 App Router with Partial Prerendering (PPR) and On-Demand Incremental Static Regeneration (ISR).
+- **Outcome:** 96 static routes compile during build with static shell generation, while dynamic segments stream seamlessly. On-demand cache invalidation via `/api/revalidate` HMAC webhook refreshes the edge in < 3 seconds upon Sanity studio publish.
 
 ### 2.3 Static Content Security Policy (CSP) & Security Headers
-* **Context:** Traditional per-request nonce generation breaks edge static caching and PPR.
-* **Decision:** Implemented a robust static CSP policy (`src/lib/csp.ts` & `src/lib/security-headers.ts`) utilizing strict domain allowances and sha256 hashes for inline styling where necessary, paired with a dedicated violation collector (`/api/csp-report`).
-* **Outcome:** Attained an **A+ grade on Mozilla Observatory and SecurityHeaders.com** without sacrificing static edge delivery.
+
+- **Context:** Traditional per-request nonce generation breaks edge static caching and PPR.
+- **Decision:** Implemented a robust static CSP policy (`src/lib/csp.ts` & `src/lib/security-headers.ts`) utilizing strict domain allowances and sha256 hashes for inline styling where necessary, paired with a dedicated violation collector (`/api/csp-report`).
+- **Outcome:** Attained an **A+ grade on Mozilla Observatory and SecurityHeaders.com** without sacrificing static edge delivery.
 
 ### 2.4 Embedded Sanity Studio v3
-* **Context:** Choosing between a separate studio monorepo vs embedded studio route.
-* **Decision:** Embedded Sanity Studio directly into `/studio` using `next-sanity`.
-* **Outcome:** Single repository, single build pipeline, shared TypeScript types, and zero version synchronization lag between frontend schemas and studio definitions.
+
+- **Context:** Choosing between a separate studio monorepo vs embedded studio route.
+- **Decision:** Embedded Sanity Studio directly into `/studio` using `next-sanity`.
+- **Outcome:** Single repository, single build pipeline, shared TypeScript types, and zero version synchronization lag between frontend schemas and studio definitions.
 
 ---
 
 ## 3. Scope Changes & Evolutionary Learnings
 
 1. **Package Manager Consolidation (npm-only)**:
-   - *Challenge:* Monorepo scripts occasionally invoked mixed tools (`pnpm`, `npm`).
-   - *Resolution:* Standardized on `npm` (`npm ci`) with strict engine requirements (`node >= 20.9`, `npm >= 10.9`). Documented in `README.md` and enforced via CI.
+   - _Challenge:_ Monorepo scripts occasionally invoked mixed tools (`pnpm`, `npm`).
+   - _Resolution:_ Standardized on `npm` (`npm ci`) with strict engine requirements (`node >= 20.9`, `npm >= 10.9`). Documented in `README.md` and enforced via CI.
 2. **Deterministic Dependency Pinning (T-162)**:
-   - *Challenge:* Floating version ranges (`^` and `~`) risked unexpected upstream breakages.
-   - *Resolution:* All 41 dependencies pinned to exact semantic versions in `package.json`, audited with Vitest regression tests (`src/tests/dependency-pins.test.ts`).
+   - _Challenge:_ Floating version ranges (`^` and `~`) risked unexpected upstream breakages.
+   - _Resolution:_ All 41 dependencies pinned to exact semantic versions in `package.json`, audited with Vitest regression tests (`src/tests/dependency-pins.test.ts`).
 3. **Roadmap Boundaries & Governance Isolation**:
-   - *Learning:* Detailed inspection of the source roadmap CSV confirmed that discrete numbered build tasks terminate definitively at **T-179**. Recurring operational cadences (`O-01` to `O-22`) were recognized as continuous operational rhythms rather than implementation tasks, preventing artificial scope creep.
+   - _Learning:_ Detailed inspection of the source roadmap CSV confirmed that discrete numbered build tasks terminate definitively at **T-179**. Recurring operational cadences (`O-01` to `O-22`) were recognized as continuous operational rhythms rather than implementation tasks, preventing artificial scope creep.
 
 ---
 
@@ -73,8 +77,8 @@ Covering **15 Epics (E01 through E15)** and **179 discrete tasks (T-001 to T-179
 └─────────────────────────────────┴─────────────────┴─────────────────┴──────────────────────┘
 ```
 
-* **Build Stability:** 0 TypeScript compilation errors (`npm run typecheck`), 0 ESLint warnings (`npm run lint`).
-* **Test Coverage:** Over 180 passing automated unit and integration tests across 37 test suites in Vitest, plus full Playwright end-to-end suites.
+- **Build Stability:** 0 TypeScript compilation errors (`npm run typecheck`), 0 ESLint warnings (`npm run lint`).
+- **Test Coverage:** Over 180 passing automated unit and integration tests across 37 test suites in Vitest, plus full Playwright end-to-end suites.
 
 ---
 
@@ -104,6 +108,6 @@ The following architectural components represent durable enterprise assets creat
 
 ## 7. Signatures & Ratification
 
-* **Lead Systems Architect:** [RATIFIED] — 2026-11-08  
-* **Senior Frontend Engineer:** [RATIFIED] — 2026-11-08  
-* **Client Technical Representative:** [RATIFIED] — 2026-11-08
+- **Lead Systems Architect:** [RATIFIED] — 2026-11-08
+- **Senior Frontend Engineer:** [RATIFIED] — 2026-11-08
+- **Client Technical Representative:** [RATIFIED] — 2026-11-08

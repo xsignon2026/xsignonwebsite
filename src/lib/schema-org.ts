@@ -32,7 +32,8 @@ export function createOrganizationSchema(): OrganizationSchema {
     name: "XSignOn",
     url: SITE_URL,
     logo: DEFAULT_OG_IMAGE,
-    description: "Enterprise identity, credential orchestration, and passwordless authentication platform.",
+    description:
+      "Enterprise identity, credential orchestration, and passwordless authentication platform.",
     sameAs: [
       "https://www.linkedin.com/company/xsignon",
       "https://twitter.com/xsignon",
@@ -59,7 +60,9 @@ export function createBreadcrumbSchema(items: BreadcrumbItem[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: item.url.startsWith("http") ? item.url : `${SITE_URL}${item.url.startsWith("/") ? "" : "/"}${item.url}`,
+      item: item.url.startsWith("http")
+        ? item.url
+        : `${SITE_URL}${item.url.startsWith("/") ? "" : "/"}${item.url}`,
     })),
   };
 }
@@ -153,11 +156,7 @@ export function createSoftwareApplicationSchema(product: {
   };
 }
 
-export function createServiceSchema(solution: {
-  title: string;
-  summary: string;
-  slug: string;
-}) {
+export function createServiceSchema(solution: { title: string; summary: string; slug: string }) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",

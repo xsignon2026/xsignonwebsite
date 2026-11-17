@@ -6,10 +6,7 @@ import { HeaderClient } from "./HeaderClient";
 // Handoff 5.1 / CSV T-041: Server Component Header.
 // Reads navigation and site settings using the zero-lockin fallback provider pattern.
 export async function Header() {
-  const [navData, siteSettings] = await Promise.all([
-    getNavigationData(),
-    getSiteSettingsData(),
-  ]);
+  const [navData, siteSettings] = await Promise.all([getNavigationData(), getSiteSettingsData()]);
 
   const headerCta = siteSettings.headerCta?.link?.href
     ? {

@@ -19,9 +19,10 @@ test("home page makes no third-party requests", async ({ page, baseURL }) => {
   const external: string[] = [];
   page.on("request", (request) => {
     const url = request.url();
-    if (!url.startsWith(baseURL ?? "") && !url.startsWith("data:") && !url.startsWith("blob:")) {
+    if (url.startsWith("data:") || url.startsWith("blob:")) return;
+    // Compared by host: the security policy upgrades our own http address to https, which is not a third party.
+    if (new URL(url).hostname !== new URL(baseURL ?? "http://localhost").hostname)
       external.push(url);
-    }
   });
   await page.goto("/", { waitUntil: "networkidle" });
   expect(external).toEqual([]);
@@ -43,7 +44,12 @@ test.describe("Production Go-Live Smoke Suite (T-173)", () => {
   test("SMK-02: Product detail loads with headline and capabilities", async ({ page }) => {
     await page.goto("/products/postureone");
     await expect(page.locator("h1").first()).toBeVisible();
-    await expect(page.locator("text=/PostureOne/i").first()).toBeVisible();
+    await expect(
+      page
+        .locator("main")
+        .getByText(/PostureOne/i)
+        .first(),
+    ).toBeVisible();
   });
 
   test("SMK-03: Thought leadership article renders body and typography", async ({ page }) => {
@@ -57,7 +63,7 @@ test.describe("Production Go-Live Smoke Suite (T-173)", () => {
     const form = page.locator("form").first();
     await expect(form).toBeVisible();
     await expect(form.locator('input[name="name"]')).toBeVisible();
-    await expect(form.locator('input[name="website_url_hp"]')).toBeAttached();
+    await expect(form.locator('input[name="hp_check"]')).toBeAttached();
   });
 
   test("SMK-05: Newsletter endpoint rejects invalid submission with 400", async ({ request }) => {

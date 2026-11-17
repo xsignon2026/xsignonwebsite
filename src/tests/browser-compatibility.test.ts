@@ -3,14 +3,8 @@ import fs from "fs";
 import path from "path";
 
 describe("T-164: Cross-Browser & Device Compatibility Suite", () => {
-  const tokensCss = fs.readFileSync(
-    path.resolve(process.cwd(), "src/styles/tokens.css"),
-    "utf-8"
-  );
-  const globalsCss = fs.readFileSync(
-    path.resolve(process.cwd(), "src/app/globals.css"),
-    "utf-8"
-  );
+  const tokensCss = fs.readFileSync(path.resolve(process.cwd(), "src/styles/tokens.css"), "utf-8");
+  const globalsCss = fs.readFileSync(path.resolve(process.cwd(), "src/app/globals.css"), "utf-8");
 
   it("verifies anti-aliasing font smoothing rules are configured for WebKit and Firefox", () => {
     expect(globalsCss).toContain("antialiased");
@@ -31,7 +25,7 @@ describe("T-164: Cross-Browser & Device Compatibility Suite", () => {
   it("confirms Playwright multi-project configuration includes desktop and mobile browser targets", () => {
     const playwrightConfig = fs.readFileSync(
       path.resolve(process.cwd(), "playwright.config.ts"),
-      "utf-8"
+      "utf-8",
     );
     expect(playwrightConfig).toContain("Desktop Chrome");
     expect(playwrightConfig).toContain("Desktop Firefox");

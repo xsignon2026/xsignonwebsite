@@ -22,23 +22,15 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   const headingColor = onDark ? "text-on-dark" : "text-txt";
   const subColor = onDark ? "text-on-dark-mut" : "text-gray";
-  const actionColor = onDark
-    ? "text-on-dark-soft hover:text-white"
-    : "text-txt hover:text-acc";
+  const actionColor = onDark ? "text-on-dark-soft hover:text-white" : "text-txt hover:text-acc";
 
   return (
     <div
       className={`sec-row mb-10 flex flex-wrap items-baseline justify-between gap-4 max-md:mb-7 ${className}`}
     >
       <div>
-        <h2 className={`text-h2 font-bold tracking-tight ${headingColor}`}>
-          {title}
-        </h2>
-        {subtitle && (
-          <p className={`sec-sub mt-2 text-sec-sub ${subColor}`}>
-            {subtitle}
-          </p>
-        )}
+        <h2 className={`text-h2 font-bold tracking-tight ${headingColor}`}>{title}</h2>
+        {subtitle && <p className={`sec-sub mt-2 text-sec-sub ${subColor}`}>{subtitle}</p>}
       </div>
 
       {action && (

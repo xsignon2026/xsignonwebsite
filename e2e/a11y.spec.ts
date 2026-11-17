@@ -31,8 +31,6 @@ const pages = [
   "/white-papers/zero-trust-posture-guide",
   "/privacy",
   "/terms",
-  "/login",
-  "/register",
   "/proof",
   "/proof/securing-bank-access-fido2",
   "/proof/passwordless-access-global-healthcare",
@@ -65,8 +63,10 @@ for (const path of pages) {
 
 test("no accessibility violations with cookie consent banner active", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
-  const banner = page.locator("#consent-banner, [role='region'][aria-label*='cookie' i], [aria-label*='consent' i]");
-  if (await banner.count() > 0) {
+  const banner = page.locator(
+    "#consent-banner, [role='region'][aria-label*='cookie' i], [aria-label*='consent' i]",
+  );
+  if ((await banner.count()) > 0) {
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag22aa"])
       .analyze();

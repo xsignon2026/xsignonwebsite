@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
         headers: {
           "X-Content-Type-Options": "nosniff",
         },
-      }
+      },
     );
   } catch {
     return NextResponse.json({ error: "Bad Request" }, { status: 400 });

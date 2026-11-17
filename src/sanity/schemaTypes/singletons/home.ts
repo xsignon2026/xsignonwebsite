@@ -20,7 +20,12 @@ export const home = defineType({
       type: "object",
       group: "hero",
       fields: [
-        defineField({ name: "enabled", title: "Show announcement", type: "boolean", initialValue: false }),
+        defineField({
+          name: "enabled",
+          title: "Show announcement",
+          type: "boolean",
+          initialValue: false,
+        }),
         defineField({ name: "badge", title: "Chip label (e.g. New)", type: "string" }),
         defineField({ name: "text", title: "Announcement copy", type: "string" }),
         defineField({ name: "href", title: "Target link", type: "string" }),
@@ -53,8 +58,18 @@ export const home = defineType({
           title: "Primary button",
           type: "object",
           fields: [
-            defineField({ name: "text", title: "Button text", type: "string", initialValue: "Book a strategy call" }),
-            defineField({ name: "href", title: "Button link", type: "string", initialValue: "/contact" }),
+            defineField({
+              name: "text",
+              title: "Button text",
+              type: "string",
+              initialValue: "Book a strategy call",
+            }),
+            defineField({
+              name: "href",
+              title: "Button link",
+              type: "string",
+              initialValue: "/contact",
+            }),
           ],
         }),
         defineField({
@@ -62,8 +77,18 @@ export const home = defineType({
           title: "Secondary button",
           type: "object",
           fields: [
-            defineField({ name: "text", title: "Button text", type: "string", initialValue: "Explore products" }),
-            defineField({ name: "href", title: "Button link", type: "string", initialValue: "/products" }),
+            defineField({
+              name: "text",
+              title: "Button text",
+              type: "string",
+              initialValue: "Explore products",
+            }),
+            defineField({
+              name: "href",
+              title: "Button link",
+              type: "string",
+              initialValue: "/products",
+            }),
           ],
         }),
       ],
@@ -93,10 +118,29 @@ export const home = defineType({
         defineArrayMember({
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Title", type: "string", validation: (Rule) => Rule.required() }),
-            defineField({ name: "tag", title: "Industry tag", type: "string", validation: (Rule) => Rule.required() }),
-            defineField({ name: "metric", title: "Headline metric (e.g. 100% passwordless)", type: "string" }),
-            defineField({ name: "href", title: "Link to case study", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({
+              name: "title",
+              title: "Title",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "tag",
+              title: "Industry tag",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "metric",
+              title: "Headline metric (e.g. 100% passwordless)",
+              type: "string",
+            }),
+            defineField({
+              name: "href",
+              title: "Link to case study",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
           ],
           preview: {
             select: { title: "title", subtitle: "tag" },
@@ -135,7 +179,8 @@ export const home = defineType({
           title: "CTA Subtitle",
           type: "text",
           rows: 2,
-          initialValue: "Speak with our security architects to evaluate your infrastructure and design a roadmap.",
+          initialValue:
+            "Speak with our security architects to evaluate your infrastructure and design a roadmap.",
         }),
         defineField({
           name: "buttonText",

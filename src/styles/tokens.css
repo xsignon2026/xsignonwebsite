@@ -10,7 +10,7 @@
   --d1: #060129; /* base. Also --footer, --d-brand */
   --d2: #0f0a3a; /* surface */
   --d3: #0f0a3a; /* surface */
-  --footer: #060129;
+  --footer: #1d1659;
   --d-line: #25205c; /* hairlines on dark */
   --acc-ink-d: #ff6a82; /* accent text and strokes on dark */
   --g1: rgba(212, 0, 31, 0.55); /* glow red, top right of dark bands */
@@ -64,7 +64,14 @@
   /* Home background version 2, "ombre": dark at the top (hero into products),
      fades through lilac into paper across partners, and stays pure white through our thinking and cta.
      Exact stops from the prototype (Section 12.1). Closes Q-07. */
-  --bg-products: linear-gradient(180deg, #060129 0%, #1a1240 12%, #3b3668 40%, #6e6a9a 72%, #b3aed0 100%);
+  --bg-products: linear-gradient(
+    180deg,
+    #060129 0%,
+    #1a1240 12%,
+    #3b3668 40%,
+    #6e6a9a 72%,
+    #b3aed0 100%
+  );
   --bg-partners: linear-gradient(180deg, #b3aed0 0%, #d9d4eb 30%, #ece8f7 65%, #f6f4fb 100%);
   --bg-thinking: linear-gradient(180deg, #f6f4fb 0%, #ffffff 100%);
   --bg-cta: #ffffff;
@@ -103,7 +110,6 @@
 
 /* Tailwind utilities that point at the tokens above (bg-d1, text-txt, border-line ...) */
 @theme inline {
-  --color-*: initial;
   --color-white: #ffffff;
   --color-transparent: transparent;
   --color-current: currentColor;
@@ -149,13 +155,14 @@
   --ease-soft: var(--ease-soft);
 
   /* S-09 Inter with fallback stack */
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans:
+    var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
 }
 
 /* 3.1 Type scale */
 @theme {
-  --text-display: clamp(38px, 4.2vw, 56px);
+  --text-display: clamp(38px, 4.8vw, 56px);
   --text-display--line-height: 1.08;
   --text-display--letter-spacing: -0.03em;
   --text-h2: clamp(30px, 3.8vw, 40px);

@@ -20,19 +20,20 @@ Essential cookies necessary for security posture, CSRF defense, and session pers
 
 ## 2. Comprehensive Inventory Register
 
-| Script / Technology | Category | Vendor / Domain | Storage Key / Cookie | Lifetime | Purpose & Justification | Consent Required |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Consent Manager** | Essential | First-party (`xsignon.com`) | `xsignon_consent_status` | LocalStorage (12 months) | Records visitor's affirmative consent or rejection for non-essential cookies. | **No** (Strictly Necessary) |
-| **FIDO2 / WebAuthn Client** | Essential | First-party (`xsignon.com`) | Memory / Session-only | Transient session | Performs browser-native WebAuthn cryptographic challenge-response handshakes. | **No** (Strictly Necessary) |
-| **Content Security Policy (CSP)** | Security | First-party HTTP Header | N/A (Header) | Connection lifetime | Enforces nonce-bound script execution, frame ancestors restrictions, and connect-src boundaries. | **No** (Security Invariant) |
-| **Site Telemetry (Optional)** | Analytics | First-party / Telemetry Gateway (`telemetry.xsignon.com`) | `xsignon_telemetry_id` | LocalStorage (6 months) | Aggregated navigation statistics, performance metrics, and error rates to improve platform reliability. | **Yes** (Strict Opt-In) |
-| **Performance Beacons (Optional)**| Performance | First-party (`xsignon.com`) | Memory-only | Session | Measures First Contentful Paint (FCP) and Largest Contentful Paint (LCP) against Core Web Vitals targets. | **Yes** (Strict Opt-In) |
+| Script / Technology                | Category    | Vendor / Domain                                           | Storage Key / Cookie     | Lifetime                 | Purpose & Justification                                                                                   | Consent Required            |
+| :--------------------------------- | :---------- | :-------------------------------------------------------- | :----------------------- | :----------------------- | :-------------------------------------------------------------------------------------------------------- | :-------------------------- |
+| **Consent Manager**                | Essential   | First-party (`xsignon.com`)                               | `xsignon_consent_status` | LocalStorage (12 months) | Records visitor's affirmative consent or rejection for non-essential cookies.                             | **No** (Strictly Necessary) |
+| **FIDO2 / WebAuthn Client**        | Essential   | First-party (`xsignon.com`)                               | Memory / Session-only    | Transient session        | Performs browser-native WebAuthn cryptographic challenge-response handshakes.                             | **No** (Strictly Necessary) |
+| **Content Security Policy (CSP)**  | Security    | First-party HTTP Header                                   | N/A (Header)             | Connection lifetime      | Enforces nonce-bound script execution, frame ancestors restrictions, and connect-src boundaries.          | **No** (Security Invariant) |
+| **Site Telemetry (Optional)**      | Analytics   | First-party / Telemetry Gateway (`telemetry.xsignon.com`) | `xsignon_telemetry_id`   | LocalStorage (6 months)  | Aggregated navigation statistics, performance metrics, and error rates to improve platform reliability.   | **Yes** (Strict Opt-In)     |
+| **Performance Beacons (Optional)** | Performance | First-party (`xsignon.com`)                               | Memory-only              | Session                  | Measures First Contentful Paint (FCP) and Largest Contentful Paint (LCP) against Core Web Vitals targets. | **Yes** (Strict Opt-In)     |
 
 ---
 
 ## 3. Data Subprocessors & Third-Party Boundaries
 
 XSignOn operates on an identity-first, privacy-by-design architecture:
+
 - **Zero Advertising Trackers**: No Google Ads, Facebook/Meta Pixel, LinkedIn Insight Tag, or third-party ad networks are permitted or loaded in this codebase.
 - **Zero Third-Party CDNs for Critical Scripts**: All JavaScript bundles are compiled, fingerprinted, and served directly from the first-party origin with strict Subresource Integrity (SRI) and Content Security Policy directives.
 - **Subprocessor Review Schedule**: Quarterly auditing of all integrated libraries and automated dependency vulnerability scans via GitHub Dependabot and Snyk.
@@ -42,6 +43,7 @@ XSignOn operates on an identity-first, privacy-by-design architecture:
 ## 4. Verification & Audit Trail
 
 To verify compliance:
+
 1. Clear browser cache and storage.
 2. Open Network inspector before loading `https://xsignon.com`.
 3. Filter by outgoing domain requests: observe 0 third-party telemetry calls.

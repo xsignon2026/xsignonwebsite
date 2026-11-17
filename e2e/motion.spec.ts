@@ -10,50 +10,15 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
       });
     });
 
-    test("HeroSlider on Homepage provides working Pause/Resume control", async ({ page }) => {
+    test("Partner ecosystem spotlight stops while a spoke is pointed at", async ({ page }) => {
       await page.goto("/");
-      const pauseBtn = page.locator(".hpause");
-      await expect(pauseBtn).toBeVisible();
-      await expect(pauseBtn).toHaveText("Pause");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "false");
-
-      await pauseBtn.click();
-      await expect(pauseBtn).toHaveText("Resume");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
-    });
-
-    test("PartnerHub on Homepage provides working Pause/Resume control", async ({ page }) => {
-      await page.goto("/");
-      const pauseBtn = page.locator("#hubxPause");
-      await expect(pauseBtn).toBeVisible();
-      await expect(pauseBtn).toHaveText("Pause");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "false");
-
-      await pauseBtn.click();
-      await expect(pauseBtn).toHaveText("Resume");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
-    });
-
-    test("Standards Marquee provides working Pause/Resume control", async ({ page }) => {
-      await page.goto("/");
-      const pauseBtn = page.locator("#mqPause");
-      await expect(pauseBtn).toBeVisible();
-      await expect(pauseBtn).toHaveText("⏸ Pause");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "false");
-
-      await pauseBtn.click();
-      await expect(pauseBtn).toHaveText("▶ Resume");
-      await expect(pauseBtn).toHaveAttribute("aria-pressed", "true");
-    });
-
-    test("WhyXSignOnHub on About page provides working Pause/Resume control", async ({ page }) => {
-      await page.goto("/about");
-      const pauseBtn = page.locator("#wxPause");
-      await expect(pauseBtn).toBeVisible();
-      await expect(pauseBtn).toContainText("Pause rotation");
-
-      await pauseBtn.click();
-      await expect(pauseBtn).toContainText("Resume rotation");
+      await page.waitForSelector("html.js");
+      const spoke = page.locator(".pt-sp").nth(2);
+      await page.locator(".pt-card").evaluate((el) => el.scrollIntoView({ block: "center" }));
+      await spoke.locator(".pt-dot").hover({ force: true });
+      await expect(spoke).toHaveAttribute("data-on", "true");
+      await page.waitForTimeout(2000);
+      await expect(spoke).toHaveAttribute("data-on", "true");
     });
   });
 
@@ -74,7 +39,9 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
   });
 
   test.describe("Reduced Motion & Zero-JS Fallbacks (T-144)", () => {
-    test("Respects prefers-reduced-motion: reduce across heroes and animations", async ({ page }) => {
+    test("Respects prefers-reduced-motion: reduce across heroes and animations", async ({
+      page,
+    }) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.goto("/");
 
@@ -85,17 +52,21 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
       // Check marquee track animation is paused/none under reduced motion
       const marqueeTrack = page.locator(".mq-track");
       await expect(marqueeTrack).toBeVisible();
-      const animName = await marqueeTrack.evaluate((el) => window.getComputedStyle(el).animationName);
+      const animName = await marqueeTrack.evaluate(
+        (el) => window.getComputedStyle(el).animationName,
+      );
       expect(animName === "none" || animName === "").toBe(true);
     });
 
-    test("Prerendered HTML remains fully readable with JavaScript disabled", async ({ browser }) => {
+    test("Prerendered HTML remains fully readable with JavaScript disabled", async ({
+      browser,
+    }) => {
       const context = await browser.newContext({ javaScriptEnabled: false });
       const noJsPage = await context.newPage();
 
       // 1. Check Homepage
       await noJsPage.goto("/");
-      await expect(noJsPage.locator("h1")).toContainText("One sign-in people can trust");
+      await expect(noJsPage.locator("h1")).toContainText("Identity and access built on trust");
 
       // 2. Check Solutions Hub
       await noJsPage.goto("/solutions");

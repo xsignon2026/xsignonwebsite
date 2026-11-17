@@ -18,17 +18,15 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
       featuredCard.getByRole("heading", {
         name: "Elevate Enterprise Security with Identity-First Controls",
         level: 3,
-      })
+      }),
     ).toBeVisible();
     await expect(featuredCard.getByText("Featured")).toBeVisible();
 
-    // Test toggle preview on featured card
-    const featuredToggle = featuredCard.getByRole("button", { name: /Read summary preview|Show less/i });
-    await expect(featuredToggle).toHaveAttribute("aria-expanded", "false");
-    await featuredToggle.click();
-    await expect(featuredToggle).toHaveAttribute("aria-expanded", "true");
-    await featuredToggle.click();
-    await expect(featuredToggle).toHaveAttribute("aria-expanded", "false");
+    // The featured card links to the full article
+    await expect(featuredCard.getByRole("link", { name: /Read the article/i })).toHaveAttribute(
+      "href",
+      "/thinking/identity-first-controls",
+    );
 
     // Verify 4 grid article cards
     const gridCards = page.locator(".case-grid .case-card");
@@ -38,49 +36,53 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
       page.getByRole("heading", {
         name: "Data + AI Security Built for Visibility, Control, and Trust",
         level: 3,
-      })
+      }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {
         name: "Modern Micro-Segmentation for Zero Trust Security",
         level: 3,
-      })
+      }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {
         name: "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
         level: 3,
-      })
+      }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {
         name: "Building Smarter Cybersecurity with Agentic AI and the AutoGen Framework",
         level: 3,
-      })
+      }),
     ).toBeVisible();
 
     // Industry Thinking link
     await expect(
-      page.getByRole("link", { name: /Industry Thinking: practical thinking/i })
+      page.getByRole("link", { name: /Industry Thinking: practical thinking/i }),
     ).toBeVisible();
 
     // Newsletter section
     const newsBand = page.locator("#view-thinking .news-band");
     await expect(newsBand).toBeVisible();
+    // The server answer is faked: the real route is tested in src/tests/subscription-routes.test.ts.
+    await page.route("**/api/subscribe", (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ success: true, message: "ok" }),
+      }),
+    );
     const emailInput = newsBand.getByLabel("Work email");
     await emailInput.fill("architect@enterprise.org");
     await newsBand.getByRole("button", { name: "Subscribe" }).click();
-    await expect(
-      newsBand.getByText("Thank you. Your subscription is recorded")
-    ).toBeVisible();
+    await expect(newsBand.getByText("Thank you. Your subscription is recorded")).toBeVisible();
 
     // CTA
     await expect(
-      page.getByRole("heading", { name: "Discuss what you are reading." })
+      page.getByRole("heading", { name: "Discuss what you are reading." }),
     ).toBeVisible();
-    await expect(
-      page.getByRole("link", { name: /Book a strategy call/i })
-    ).toBeVisible();
+    await expect(page.getByRole("link", { name: /Book a strategy call/i })).toBeVisible();
 
     // Accessibility check
     const axeResults = await new AxeBuilder({ page })
@@ -89,9 +91,7 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
     expect(axeResults.violations).toEqual([]);
   });
 
-  test("T-114: Alias redirect /resources/thinking resolves to /thinking", async ({
-    page,
-  }) => {
+  test("T-114: Alias redirect /resources/thinking resolves to /thinking", async ({ page }) => {
     await page.goto("/resources/thinking");
     await expect(page).toHaveURL(/\/thinking$/);
   });
@@ -107,28 +107,24 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
     });
     await expect(title).toBeVisible();
 
-    // Progress bar check
-    const progBar = page.locator("#readProg");
-    await expect(progBar).toBeAttached();
-
     // Body content and clamped headings
     await expect(
       page.getByRole("heading", {
         name: "The login screen is the smallest change",
         level: 3,
-      })
+      }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {
         name: "Rollout order matters more than the hardware",
         level: 3,
-      })
+      }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {
         name: "What the help desk actually gets",
         level: 3,
-      })
+      }),
     ).toBeVisible();
 
     // Pull quote
@@ -143,7 +139,7 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
 
     // Strategy CTA
     await expect(
-      page.getByRole("heading", { name: "Plan a rollout in the right order." })
+      page.getByRole("heading", { name: "Plan a rollout in the right order." }),
     ).toBeVisible();
 
     // Accessibility check
@@ -153,9 +149,7 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
     expect(axeResults.violations).toEqual([]);
   });
 
-  test("T-117: Data + AI Security article renders and passes WCAG 2.2 AA", async ({
-    page,
-  }) => {
+  test("T-117: Data + AI Security article renders and passes WCAG 2.2 AA", async ({ page }) => {
     await page.goto("/thinking/data-and-ai-security");
 
     const title = page.getByRole("heading", {
@@ -168,11 +162,13 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
       page.getByRole("heading", {
         name: "The questions arrive before the evidence exists",
         level: 3,
-      })
+      }),
     ).toBeVisible();
 
     const pull = page.locator(".pull");
-    await expect(pull).toContainText("An assessment that begins with a document search is already a finding");
+    await expect(pull).toContainText(
+      "An assessment that begins with a document search is already a finding",
+    );
 
     const axeResults = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
@@ -195,11 +191,11 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
       page.getByRole("heading", {
         name: "Segments shaped around identity",
         level: 3,
-      })
+      }),
     ).toBeVisible();
 
     const pull = page.locator(".pull");
-    await expect(pull).toContainText("Segments drawn around identities stay accurate");
+    await expect(pull).toContainText("A segment drawn around identities stays accurate");
 
     const axeResults = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
@@ -207,9 +203,7 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
     expect(axeResults.violations).toEqual([]);
   });
 
-  test("T-119: Non-Human Identities article renders and passes WCAG 2.2 AA", async ({
-    page,
-  }) => {
+  test("T-119: Non-Human Identities article renders and passes WCAG 2.2 AA", async ({ page }) => {
     await page.goto("/thinking/non-human-identities");
 
     const title = page.getByRole("heading", {
@@ -222,11 +216,13 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
       page.getByRole("heading", {
         name: "The identities doing the work are changing",
         level: 3,
-      })
+      }),
     ).toBeVisible();
 
     const pull = page.locator(".pull");
-    await expect(pull).toContainText("Every identity, human or not, gets an owner, a scope, and a review cycle.");
+    await expect(pull).toContainText(
+      "Every identity, human or not, gets an owner, a scope, and a review cycle.",
+    );
 
     const axeResults = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
@@ -249,7 +245,7 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
       page.getByRole("heading", {
         name: "Agents that work in teams",
         level: 3,
-      })
+      }),
     ).toBeVisible();
 
     const pull = page.locator(".pull");
@@ -261,9 +257,7 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
     expect(axeResults.violations).toEqual([]);
   });
 
-  test("T-115: Legacy and alias redirects resolve to canonical article URLs", async ({
-    page,
-  }) => {
+  test("T-115: Legacy and alias redirects resolve to canonical article URLs", async ({ page }) => {
     await page.goto("/articles/data-ai");
     await expect(page).toHaveURL(/\/thinking\/data-and-ai-security$/);
 
@@ -287,7 +281,7 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
       featuredCard.getByRole("heading", {
         name: "Why AI Governance Is Becoming a Security Priority",
         level: 3,
-      })
+      }),
     ).toBeVisible();
     await expect(featuredCard.locator(".status-chip")).toBeVisible();
 
@@ -315,12 +309,12 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
     await expect(page).toHaveURL(/\/thinking\/industry$/);
   });
 
-  test("T-115: Rejects non-existent article slug with 404", async ({
-    page,
-  }) => {
+  test("T-115: Rejects non-existent article slug with 404", async ({ page }) => {
     await page.goto("/thinking/non-existent-article-slug");
-    await expect(page.getByRole("heading", { name: "404", level: 1 })).toBeVisible();
-    await expect(page.getByText("This page could not be found.")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "This page has moved.", level: 1 }),
+    ).toBeVisible();
+    await expect(page.locator(".ptag", { hasText: "404" })).toBeVisible();
   });
 
   test("T-115: Responsive layout at 320px viewport has zero horizontal scroll", async ({

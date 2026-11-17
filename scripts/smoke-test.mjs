@@ -99,7 +99,9 @@ async function runSmokeTests() {
         console.log(`[PASS] ${route.id}: ${route.name} (${route.path}) -> HTTP ${res.status}`);
         passed++;
       } else {
-        console.error(`[FAIL] ${route.id}: ${route.name} (${route.path}) -> HTTP ${res.status} (Expected: ${route.expectedStatus})`);
+        console.error(
+          `[FAIL] ${route.id}: ${route.name} (${route.path}) -> HTTP ${res.status} (Expected: ${route.expectedStatus})`,
+        );
       }
     } catch (err) {
       console.error(`[ERROR] ${route.id}: ${route.name} (${url}) -> ${err.message}`);

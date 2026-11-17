@@ -15,19 +15,12 @@ test.describe("Company Batch QA (T-129)", () => {
       await page.goto("/about");
     });
 
-    test("renders header, hero, and sticky in-page navigation", async ({ page }) => {
-      const h1 = page.locator("h1");
-      await expect(h1).toContainText("About XSignOn");
-
-      const whoLink = page.getByRole("link", { name: "Who we are" }).first();
-      const whatLink = page.getByRole("link", { name: "What we do" }).first();
-      const howLink = page.getByRole("link", { name: "How we work" }).first();
-      const whyLink = page.getByRole("link", { name: "Why XSignOn" }).first();
-
-      await expect(whoLink).toBeVisible();
-      await expect(whatLink).toBeVisible();
-      await expect(howLink).toBeVisible();
-      await expect(whyLink).toBeVisible();
+    test("renders the hero and the five sections of the approved design", async ({ page }) => {
+      await expect(page.locator("h1")).toContainText("About XSignOn");
+      for (const id of ["who", "what", "how", "why", "a-thinking"]) {
+        await expect(page.locator(`#${id}`)).toBeAttached();
+      }
+      await expect(page.getByRole("heading", { name: "Who we are", level: 2 })).toBeVisible();
     });
 
     test("expanding What We Do cards toggle aria-expanded properly", async ({ page }) => {
@@ -38,19 +31,12 @@ test.describe("Company Batch QA (T-129)", () => {
       await firstCardBtn.click();
       await expect(firstCardBtn).toHaveAttribute("aria-expanded", "true");
 
-      const panel = page.locator("#wc-sol-identity");
+      const panel = page.locator("#wc-0");
       await expect(panel).toBeVisible();
-      await expect(panel.getByRole("link", { name: /Explore Identity Governance/i })).toBeVisible();
+      await expect(panel.getByRole("link", { name: /View more/i })).toBeVisible();
     });
 
-    test("Why XSignOn hub rotates and responds to pause controls", async ({ page }) => {
-      const pauseBtn = page.locator("#wxPause");
-      await expect(pauseBtn).toBeVisible();
-      await expect(pauseBtn).toContainText("Pause rotation");
-
-      await pauseBtn.click();
-      await expect(pauseBtn).toContainText("Resume rotation");
-
+    test("Why XSignOn hub rotates and switches tabs", async ({ page }) => {
       // Verify tabs switch active selection
       const tab2 = page.getByRole("tab", { name: /Autonomy within authority/i });
       await tab2.click();
@@ -58,6 +44,9 @@ test.describe("Company Batch QA (T-129)", () => {
     });
 
     test("satisfies WCAG 2.2 AA accessibility requirements", async ({ page }) => {
+      // With motion reduced, nothing is mid-animation while axe measures colours.
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.reload();
       const results = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
         .analyze();
@@ -70,7 +59,9 @@ test.describe("Company Batch QA (T-129)", () => {
       await page.goto("/enterprise");
     });
 
-    test("renders enterprise headline, dashboard preview, and deployment models", async ({ page }) => {
+    test("renders enterprise headline, dashboard preview, and deployment models", async ({
+      page,
+    }) => {
       await expect(page.locator("h1")).toContainText("Every identity. Fully in control.");
       await expect(page.getByText("command.xsignon.app")).toBeVisible();
       await expect(page.getByRole("heading", { name: "Deployment models" })).toBeVisible();
@@ -97,7 +88,7 @@ test.describe("Company Batch QA (T-129)", () => {
 
       const generalApp = page.getByRole("link", { name: "Contact us about careers" });
       await expect(generalApp).toBeVisible();
-      await expect(generalApp).toHaveAttribute("href", "/contact?reason=Careers");
+      await expect(generalApp).toHaveAttribute("href", "/contact?reason=careers");
     });
 
     test("embeds valid JobPosting JSON-LD for search engine indexing", async ({ page }) => {
@@ -109,7 +100,10 @@ test.describe("Company Batch QA (T-129)", () => {
       for (let i = 0; i < count; i++) {
         const text = await jsonLdScripts.nth(i).textContent();
         if (text && text.includes("Security Engineer")) {
-          const parsed = JSON.parse(text);
+          // A page may carry one posting or a list of them.
+          const parsed = [JSON.parse(text)]
+            .flat()
+            .find((item: { title?: string }) => item.title === "Security Engineer");
           expect(parsed["@type"]).toBe("JobPosting");
           expect(parsed.title).toBe("Security Engineer");
           expect(parsed.hiringOrganization.name).toBe("XSignOn");

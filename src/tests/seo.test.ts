@@ -10,7 +10,9 @@ describe("SEO Metadata Engine (T-150)", () => {
     });
 
     expect(meta.title).toBe("Enterprise Identity Command | XSignOn");
-    expect(meta.description).toBe("One unified command view across people, devices, and AI agents.");
+    expect(meta.description).toBe(
+      "One unified command view across people, devices, and AI agents.",
+    );
     expect(meta.alternates?.canonical).toBe(`${SITE_URL}/enterprise`);
 
     // OpenGraph

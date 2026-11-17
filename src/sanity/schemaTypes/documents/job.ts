@@ -11,8 +11,7 @@ export const jobDocument = defineType({
       name: "title",
       title: "Job Title",
       type: "string",
-      validation: (Rule) =>
-        Rule.custom((val) => isNotBlank(val, "Job title is required.")),
+      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Job title is required.")),
     }),
     defineField({
       name: "slug",
@@ -51,8 +50,7 @@ export const jobDocument = defineType({
       title: "Summary Description",
       type: "text",
       rows: 3,
-      validation: (Rule) =>
-        Rule.custom((val) => isNotBlank(val, "Job description is required.")),
+      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Job description is required.")),
     }),
     defineField({
       name: "active",

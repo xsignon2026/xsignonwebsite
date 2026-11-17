@@ -17,7 +17,11 @@ export default function ErrorBoundary({
 
   return (
     <div id="view-error">
-      <section className="page-hero" data-nav="dark" style={{ paddingBottom: "110px", minHeight: "70vh" }}>
+      <section
+        className="page-hero"
+        data-nav="dark"
+        style={{ paddingBottom: "110px", minHeight: "70vh" }}
+      >
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">
             <Link href="/">Home</Link>
@@ -38,7 +42,10 @@ export default function ErrorBoundary({
             }}
           >
             <button className="btn btn-white" onClick={() => reset()} type="button">
-              Try again <span className="chev" aria-hidden="true">&#8250;</span>
+              Try again{" "}
+              <span className="chev" aria-hidden="true">
+                &#8250;
+              </span>
             </button>
             <Link className="btn btn-ghost-d" href="/">
               Back to home

@@ -57,7 +57,8 @@ export const postureOneProduct: Product = {
       {
         stepNumber: "01",
         title: "See everything",
-        description: "Websites, cloud services, data stores and segments are inventoried into one view.",
+        description:
+          "Websites, cloud services, data stores and segments are inventoried into one view.",
       },
       {
         stepNumber: "02",
@@ -67,7 +68,8 @@ export const postureOneProduct: Product = {
       {
         stepNumber: "03",
         title: "Stay audit-ready",
-        description: "Evidence stays mapped to the frameworks your auditors use, ready at any moment.",
+        description:
+          "Evidence stays mapped to the frameworks your auditors use, ready at any moment.",
       },
       {
         stepNumber: "04",
@@ -77,7 +79,8 @@ export const postureOneProduct: Product = {
       {
         stepNumber: "05",
         title: "Keep exposure low",
-        description: "Segmentation and policy coverage keep every public service at its best posture.",
+        description:
+          "Segmentation and policy coverage keep every public service at its best posture.",
       },
       {
         stepNumber: "06",

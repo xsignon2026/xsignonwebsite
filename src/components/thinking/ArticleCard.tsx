@@ -40,7 +40,10 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
             href={`/thinking/${article.slug}`}
             aria-label={`Read the article: ${article.title}`}
           >
-            Read the article <span className="arr" aria-hidden="true">&#8594;</span>
+            Read the article{" "}
+            <span className="arr" aria-hidden="true">
+              &#8594;
+            </span>
           </Link>
           <button
             type="button"
@@ -90,7 +93,10 @@ export function ArticleCard({ article, featured = false }: ArticleCardProps) {
           href={`/thinking/${article.slug}`}
           aria-label={`Read the article: ${article.title}`}
         >
-          Read the article <span className="arr" aria-hidden="true">&#8594;</span>
+          Read the article{" "}
+          <span className="arr" aria-hidden="true">
+            &#8594;
+          </span>
         </Link>
         <button
           type="button"

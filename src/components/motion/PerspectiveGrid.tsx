@@ -46,9 +46,7 @@ export function PerspectiveGrid({
           .trim()
           .replace("#", "");
         if (hVal.length !== 6) return "8,7,13";
-        return [0, 2, 4]
-          .map((i) => parseInt(hVal.substring(i, i + 2), 16))
-          .join(",");
+        return [0, 2, 4].map((i) => parseInt(hVal.substring(i, i + 2), 16)).join(",");
       } catch {
         return "8,7,13";
       }
@@ -101,13 +99,7 @@ export function PerspectiveGrid({
     }
 
     function loop(now: number) {
-      if (
-        isIntersecting &&
-        isCoordinatorActive &&
-        w &&
-        h &&
-        !document.hidden
-      ) {
+      if (isIntersecting && isCoordinatorActive && w && h && !document.hidden) {
         t += Math.min((now - last) / 1000, 0.05);
         draw();
       }
@@ -191,12 +183,5 @@ export function PerspectiveGrid({
     };
   }, [canvasId, horizon, alpha]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className={className}
-      id={canvasId}
-      aria-hidden="true"
-    />
-  );
+  return <canvas ref={canvasRef} className={className} id={canvasId} aria-hidden="true" />;
 }

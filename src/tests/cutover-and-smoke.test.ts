@@ -5,7 +5,7 @@ import path from "path";
 describe("T-171 & T-173: DNS Cutover and Smoke Test Suite", () => {
   const cutoverPlan = fs.readFileSync(
     path.resolve(process.cwd(), "docs/migration/dns-cutover-plan.md"),
-    "utf-8"
+    "utf-8",
   );
 
   it("enforces low-traffic maintenance window (Tuesday 02:00-04:00 UTC)", () => {

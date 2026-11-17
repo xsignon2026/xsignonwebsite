@@ -8,11 +8,13 @@ test.describe("E2E: Newsletter Subscribe Flow", () => {
     if (await emailInput.isVisible()) {
       await emailInput.fill("invalid-email");
 
-      const submitBtn = page.locator('button:has-text("Subscribe"), button:has-text("Sign up")').first();
+      const submitBtn = page
+        .locator('button:has-text("Subscribe"), button:has-text("Sign up")')
+        .first();
       if (await submitBtn.isVisible()) {
         await submitBtn.click();
         const errorMessage = page.locator('[role="alert"], .text-error, .error');
-        if (await errorMessage.count() > 0) {
+        if ((await errorMessage.count()) > 0) {
           await expect(errorMessage.first()).toBeVisible();
         }
       }
