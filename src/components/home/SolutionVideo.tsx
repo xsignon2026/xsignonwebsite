@@ -1,10 +1,7 @@
-"use client";
+import Image from "next/image";
 
-import { useEffect, useRef, useState } from "react";
-
-// The animation for one solution in "What XSignOn does": the supplied video, looped and silent. The file is
-// only downloaded when the panel is on screen (and not at all for visitors who ask for reduced motion, who
-// see the still first frame instead), so the four videos do not weigh on the page.
+// The picture for one solution in "What XSignOn does": a still from the supplied animation. (The animation
+// files are kept in public/videos/solutions for when they are switched back on.)
 
 type Name = "identity" | "ai" | "key" | "atom";
 
@@ -31,45 +28,15 @@ const FILES: Record<Name, { file: string; label: string }> = {
 };
 
 export function SolutionVideo({ name }: { name: Name }) {
-  const ref = useRef<HTMLVideoElement>(null);
-  const [reduced, setReduced] = useState(false);
   const { file, label } = FILES[name];
-
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(query.matches);
-    update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
-  }, []);
-
-  useEffect(() => {
-    const video = ref.current;
-    if (!video || reduced) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) void video.play().catch(() => undefined);
-          else video.pause();
-        }
-      },
-      { threshold: 0.35 },
-    );
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, [reduced]);
-
   return (
-    <video
-      ref={ref}
+    <Image
       className="sol-video"
-      src={`/videos/solutions/${file}.mp4`}
-      poster={`/videos/solutions/${file}.jpg`}
-      muted
-      loop
-      playsInline
-      preload="none"
-      aria-label={label}
+      src={`/videos/solutions/${file}.jpg`}
+      alt={label}
+      width={1280}
+      height={720}
+      sizes="(max-width: 899px) 100vw, 520px"
     />
   );
 }
