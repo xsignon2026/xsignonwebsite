@@ -35,9 +35,9 @@ Also in the CMS: the "About page" document (same steps; seed it with `node scrip
 
 Also in the CMS: the "Products page" document (title, three new launches, five cards, contact block; seed with `--only=productsPage`), and the six product pages (PostureOne, Passwordless Keys, EvalOne, XSense, AMS, XSignOn Mesh), each a "Product" document. Anything left empty keeps the built-in text. Seed with `node scripts/seed-sanity.mjs --write --only=product`.
 
-Also in the CMS: the "Our thinking page" document (hub title, featured article, article cards, contact block; seed with `--only=insightsPage`). The article pages themselves are still in the code.
+Also in the CMS: the "Our thinking page" document (hub title, featured article, article cards, contact block; seed with `--only=insightsPage`). The five article pages are "Article" documents too (heading, sections with pull quotes, related strip, closing heading); edits there change the article page but not the hub cards above.
 
-Not yet in the CMS (next passes): the five article bodies, the Products page and product pages, solutions, articles, careers, legal pages.
+Not yet in the CMS (next passes): new articles (only the five existing ones can be edited for now), the Products page and product pages, solutions, articles, careers, legal pages.
 
 ## If something is empty or wrong
 

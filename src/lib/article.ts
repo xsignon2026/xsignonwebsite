@@ -1,4 +1,9 @@
+import "server-only";
 import { canonicalArticles, articleSlugAliases } from "@/data/articles";
+import { mergeArticle } from "@/lib/article-merge";
+import { isSanityConfigured } from "@/sanity/env";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { ARTICLE_BY_SLUG_QUERY } from "@/sanity/queries/article";
 import type { Article } from "@/types/article";
 
 // S-14 / T-113: Strict slug validation regex
@@ -54,5 +59,16 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
 
   const canonicalSlug = articleSlugAliases[slug] || slug;
   const article = canonicalArticles.find((a) => a.slug === canonicalSlug);
-  return article || null;
+  if (!article) return null;
+  if (!isSanityConfigured) return article;
+  try {
+    const data = await sanityFetch<Partial<Article> | null>({
+      query: ARTICLE_BY_SLUG_QUERY,
+      params: { slug: canonicalSlug },
+      tags: [`slug:article:${canonicalSlug}`, "type:article"],
+    });
+    return mergeArticle(article, data);
+  } catch {
+    return article;
+  }
 }

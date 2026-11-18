@@ -1,8 +1,8 @@
-// Loads the default page content into Sanity: the "home" and "about" documents and the six products.
+// Loads the default page content into Sanity: the "home" and "about" documents and the six products and the five articles.
 //
 //   node scripts/seed-sanity.mjs            shows what would be written (nothing is changed)
 //   node scripts/seed-sanity.mjs --write    writes it
-//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage or product)
+//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, product or article)
 //
 // Needs, in the environment or .env.local: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
 // SANITY_API_WRITE_TOKEN (an Editor token from sanity.io/manage, API, Tokens). The token is a secret: keep it in
@@ -36,6 +36,7 @@ const content = load("src/data/home-content.ts", "homeContentFallback");
 const aboutContent = load("src/data/about-content.ts", "aboutContentFallback");
 const productsPageContent = load("src/data/products-page-content.ts", "productsPageFallback");
 const insightsContent = load("src/data/insights-page-content.ts", "insightsPageFallback");
+const articlesData = load("src/data/articles.ts", "canonicalArticles");
 
 let n = 0;
 const key = (prefix) => `${prefix}-${(n++).toString(36)}`;
@@ -125,9 +126,30 @@ const insightsPageDoc = {
   cards: addKeys(insightsContent.cards),
   cta: insightsContent.cta,
 };
-const docs = [homeDoc, aboutDoc, productsPageDoc, insightsPageDoc, ...productDocs].filter(
-  (d) => !only || d._id === only || d._type === only,
-);
+const articleDocs = articlesData.map((a) => ({
+  _id: `article-${a.slug}`,
+  _type: "article",
+  slug: { _type: "slug", current: a.slug },
+  title: a.title,
+  crumb: a.crumb,
+  excerpt: a.excerpt,
+  author: a.author,
+  date: a.date,
+  topic: a.topic,
+  readingTime: a.readingTime,
+  featured: !!a.featured,
+  sections: addKeys(a.sections),
+  relatedLinks: addKeys(a.relatedLinks),
+  ctaHeadline: a.ctaHeadline,
+}));
+const docs = [
+  homeDoc,
+  aboutDoc,
+  productsPageDoc,
+  insightsPageDoc,
+  ...productDocs,
+  ...articleDocs,
+].filter((d) => !only || d._id === only || d._type === only);
 
 const write = process.argv.includes("--write");
 if (!write) {

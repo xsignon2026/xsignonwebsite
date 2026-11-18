@@ -5,6 +5,7 @@ import type { Article } from "@/types/article";
 export const canonicalArticles: Article[] = [
   {
     slug: "identity-first-controls",
+    crumb: "Identity-first controls",
     title: "Elevate Enterprise Security with Identity-First Controls",
     excerpt:
       "Removing passwords changes more than the login screen. Enrollment, recovery and support all shift, and the rollout order matters more than the hardware.",
@@ -41,7 +42,7 @@ export const canonicalArticles: Article[] = [
       },
     ],
     relatedLinks: [
-      { title: "Passwordless Keys", type: "Product", href: "/products/keys" },
+      { title: "Passwordless Keys", type: "Product", href: "/products/passwordless-keys" },
       {
         title: "Enterprise Technology",
         type: "Solution",
@@ -60,6 +61,7 @@ export const canonicalArticles: Article[] = [
   },
   {
     slug: "data-and-ai-security",
+    crumb: "Data + AI security",
     title: "Data + AI Security Built for Visibility, Control, and Trust",
     excerpt:
       "The questions that show up in AI assessments, and the evidence that answers each one.",
@@ -114,6 +116,7 @@ export const canonicalArticles: Article[] = [
   },
   {
     slug: "modern-micro-segmentation",
+    crumb: "Micro-segmentation",
     title: "Modern Micro-Segmentation for Zero Trust Security",
     excerpt:
       "Segments drawn around identities stay accurate, because they follow the thing that actually requests access.",
@@ -128,18 +131,18 @@ export const canonicalArticles: Article[] = [
       {
         heading: "Segments shaped around identity",
         paragraphs: [
-          "Micro-segmentation divides an estate into small, governed zones, so each workload and service reaches only what it needs to do its job. The traditional approach draws those boundaries around network addresses, which change whenever workloads scale or move.",
-          "Identity-based segmentation anchors the boundary to the workload itself: who or what is asking, with what credentials, under what posture. The segment moves with the workload, so rules stay simple and enforcement stays current.",
+          "Micro-segmentation divides an estate into small, governed zones, so each workload and service reaches only what it genuinely needs. The modern version starts with identity: who and what is asking, with what assurance, before any connection is allowed.",
+          "That ordering matters. A segment drawn around network addresses alone drifts as services move. A segment drawn around identities and their verified sign-in stays accurate, because it follows the thing that actually requests access.",
         ],
       },
       {
-        heading: "Segments that follow the workload",
+        heading: "Start with the services people rely on",
         paragraphs: [
-          "When workloads carry their own identity, policy does not depend on subnet maps or firewall rules that degrade over time. A workload deployed in a new cluster joins its segment automatically, evaluated on posture and credentials from its first connection.",
-          "That model simplifies change. Teams add, retire or move workloads without re-architecting the network, and the security posture remains continuous.",
+          "The practical first step is an inventory: which services exist, which identities use them, and which connections happen every day. With that map in place, segments are drawn around real work, and every boundary has an owner.",
+          "Rollout follows the same pattern as any good identity program: priority services first, evidence as you go, and a posture view where the segments and their coverage stay visible.",
         ],
         pullQuote:
-          "Segments drawn around identities stay accurate, because they follow the thing that actually requests access.",
+          "A segment drawn around identities stays accurate, because it follows the thing that actually requests access.",
       },
       {
         heading: "Evidence is part of the design",
@@ -167,6 +170,7 @@ export const canonicalArticles: Article[] = [
   },
   {
     slug: "non-human-identities",
+    crumb: "Non-human identities",
     title: "Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic Security Model",
     excerpt:
       "Service accounts, automations and AI agents hold access too. Each one gets an owner, a scope, and a review cycle.",
@@ -220,6 +224,7 @@ export const canonicalArticles: Article[] = [
   },
   {
     slug: "agentic-ai-cybersecurity",
+    crumb: "Agentic AI",
     title: "Building Smarter Cybersecurity with Agentic AI and the AutoGen Framework",
     excerpt:
       "Agents that plan, act and check each other's work, governed with owners and evidence from the first deployment.",

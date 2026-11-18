@@ -24,6 +24,8 @@ export interface Article {
   author: string;
   date: string;
   topic: string;
+  /** Short name for the breadcrumb; the title is used when this is empty. */
+  crumb?: string;
   readingTime: string;
   featured?: boolean;
   pullQuote?: string;
