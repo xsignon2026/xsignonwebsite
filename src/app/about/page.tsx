@@ -13,7 +13,7 @@ import {
 } from "@/components/home/SecurityEcosystem";
 import { SolutionIllustration } from "@/components/home/SolutionIllustration";
 import { getAboutContent } from "@/lib/about-content";
-import { getActiveJobs } from "@/lib/job";
+import { getOpenJobs } from "@/lib/careers";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -67,7 +67,7 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
     via: [p.via],
     to: [],
   }));
-  const hasRoles = getActiveJobs().length > 0;
+  const hasRoles = (await getOpenJobs()).length > 0;
   return (
     <div id="view-about">
       <script

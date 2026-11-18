@@ -2,7 +2,7 @@
 //
 //   node scripts/seed-sanity.mjs            shows what would be written (nothing is changed)
 //   node scripts/seed-sanity.mjs --write    writes it
-//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, solutionsPage, product, article, solution or caseStudy)
+//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, solutionsPage, careersPage, product, article, solution, caseStudy or job)
 //
 // Needs, in the environment or .env.local: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
 // SANITY_API_WRITE_TOKEN (an Editor token from sanity.io/manage, API, Tokens). The token is a secret: keep it in
@@ -39,6 +39,8 @@ const insightsContent = load("src/data/insights-page-content.ts", "insightsPageF
 const articlesData = load("src/data/articles.ts", "canonicalArticles");
 const solutionsData = load("src/data/solutions.ts", "canonicalSolutions");
 const solutionsPageContent = load("src/data/solutions-page-content.ts", "solutionsPageFallback");
+const careersContent = load("src/data/careers-page-content.ts", "careersPageFallback");
+const jobsData = load("src/data/jobs.ts", "CANONICAL_JOBS");
 const casePages = load("src/data/case-study-pages.ts", "caseStudyPages");
 const caseRecords = load("src/data/caseStudies.ts", "canonicalCaseStudies");
 
@@ -185,16 +187,39 @@ const solutionsPageDoc = {
   thinking: solutionsPageContent.thinking,
   cta: solutionsPageContent.cta,
 };
+const careersPageDoc = {
+  _id: "careersPage",
+  _type: "careersPage",
+  hero: careersContent.hero,
+  working: { ...careersContent.working, values: addKeys(careersContent.working.values) },
+  roles: careersContent.roles,
+  cta: careersContent.cta,
+};
+const jobDocs = jobsData.map((j) => ({
+  _id: j.id,
+  _type: "job",
+  slug: { _type: "slug", current: j.slug },
+  title: j.title,
+  department: j.department,
+  location: j.location,
+  locationType: j.locationType,
+  employmentType: j.employmentType,
+  description: j.description,
+  active: j.active,
+  postedAt: j.postedAt,
+}));
 const docs = [
   homeDoc,
   aboutDoc,
   productsPageDoc,
   insightsPageDoc,
   solutionsPageDoc,
+  careersPageDoc,
   ...productDocs,
   ...articleDocs,
   ...solutionDocs,
   ...caseDocs,
+  ...jobDocs,
 ].filter((d) => !only || d._id === only || d._type === only);
 
 const write = process.argv.includes("--write");

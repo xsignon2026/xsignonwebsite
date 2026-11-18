@@ -36,6 +36,21 @@ export const jobDocument = defineType({
       validation: (Rule) => Rule.required().error("Location is required."),
     }),
     defineField({
+      name: "locationType",
+      title: "Work arrangement",
+      type: "string",
+      options: {
+        list: [
+          { title: "Hybrid", value: "hybrid" },
+          { title: "Remote", value: "remote" },
+          { title: "On site", value: "onsite" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "onsite",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "employmentType",
       title: "Employment Type",
       type: "string",
@@ -54,7 +69,7 @@ export const jobDocument = defineType({
     }),
     defineField({
       name: "active",
-      title: "Currently Active / Open",
+      title: "Currently active (switch off to close the role)",
       type: "boolean",
       initialValue: true,
     }),

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/common/JsonLd";
 import { CareersView } from "@/components/prototype/CareersView";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
-import { generateJobPostingJsonLd, getActiveJobs } from "@/lib/job";
+import { getCareersPageContent, getOpenJobs } from "@/lib/careers";
+import { generateJobPostingJsonLd } from "@/lib/job";
 import { createBreadcrumbSchema } from "@/lib/schema-org";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -13,9 +14,10 @@ export const metadata: Metadata = createPageMetadata({
   path: "/careers",
 });
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const [content, jobs] = await Promise.all([getCareersPageContent(), getOpenJobs()]);
   // Search engines read the open roles from this data (Google for Jobs).
-  const jobSchemas = getActiveJobs().map((job) => generateJobPostingJsonLd(job));
+  const jobSchemas = jobs.map((job) => generateJobPostingJsonLd(job));
   const breadcrumbSchema = createBreadcrumbSchema([
     { name: "Home", url: "/" },
     { name: "About", url: "/about" },
@@ -25,7 +27,7 @@ export default function CareersPage() {
   return (
     <>
       <JsonLd schema={[...jobSchemas, breadcrumbSchema]} />
-      <CareersView />
+      <CareersView content={content} jobs={jobs} />
       <PrototypeBehaviors root="view-careers" features={["reveal"]} />
     </>
   );
