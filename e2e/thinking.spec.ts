@@ -57,10 +57,10 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
       }),
     ).toBeVisible();
 
-    // Industry Thinking link
+    // The Industry Thinking link was removed from the hub on request
     await expect(
       page.getByRole("link", { name: /Industry Thinking: practical thinking/i }),
-    ).toBeVisible();
+    ).toHaveCount(0);
 
     // Newsletter section
     const newsBand = page.locator("#view-thinking .news-band");

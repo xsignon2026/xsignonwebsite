@@ -4,9 +4,9 @@ import { siteSettingsFallback } from "../data/site-settings";
 
 describe("Navigation & Site Settings Fallback Data", () => {
   it("provides valid navigation fallback items", () => {
-    expect(navigationFallback.items.length).toBe(3);
+    expect(navigationFallback.items.length).toBe(4);
     const labels = navigationFallback.items.map((i) => i.label);
-    expect(labels).toEqual(["About", "Products", "Insights"]);
+    expect(labels).toEqual(["About", "Products", "Solutions", "Insights"]);
 
     for (const item of navigationFallback.items) {
       expect(item.children?.length).toBeGreaterThan(0);

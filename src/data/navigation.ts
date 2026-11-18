@@ -90,14 +90,41 @@ export const navigationFallback: NavigationData = {
       footerLink: { label: "All products", href: "/products" },
     },
     {
+      label: "Solutions",
+      link: { linkType: "internal", href: "/solutions" },
+      children: [
+        {
+          label: "Identity Governance",
+          link: { linkType: "internal", href: "/solutions/identity-governance" },
+          description: "Govern who and what gets access, and prove it.",
+        },
+        {
+          label: "AI and Digital Governance",
+          link: { linkType: "internal", href: "/solutions/ai-and-digital-governance" },
+          description: "Map AI use to frameworks and keep evidence ready.",
+        },
+        {
+          label: "Quantum-Safe Security",
+          link: { linkType: "internal", href: "/solutions/quantum-safe-security" },
+          description: "Inventory your cryptography and plan the move.",
+        },
+        {
+          label: "Business Process",
+          link: { linkType: "internal", href: "/solutions/business-process" },
+          description: "Access reviews and approvals in one repeatable flow.",
+        },
+        {
+          label: "Enterprise Technology",
+          link: { linkType: "internal", href: "/solutions/enterprise-technology" },
+          description: "Connect your platforms into one access layer.",
+        },
+      ],
+      footerLink: { label: "All solutions", href: "/solutions" },
+    },
+    {
       label: "Insights",
       link: { linkType: "internal", href: "/thinking" },
       children: [
-        {
-          label: "Solutions",
-          link: { linkType: "internal", href: "/solutions" },
-          description: "Start from the problem you are solving.",
-        },
         {
           label: "Enterprise",
           link: { linkType: "internal", href: "/enterprise" },
