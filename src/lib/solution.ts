@@ -1,4 +1,9 @@
+import "server-only";
 import { canonicalSolutions, solutionSlugAliases } from "@/data/solutions";
+import { mergeSolution } from "@/lib/solution-merge";
+import { isSanityConfigured } from "@/sanity/env";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { SOLUTION_BY_SLUG_QUERY } from "@/sanity/queries/solution";
 import type { Solution } from "@/types/solution";
 
 const SLUG_REGEX = /^[a-z0-9-]+$/;
@@ -26,6 +31,16 @@ export async function getSolutionBySlug(rawSlug: string): Promise<Solution | nul
   if (!solution) {
     return null;
   }
+  if (!isSanityConfigured) return solution;
 
-  return solution;
+  try {
+    const data = await sanityFetch<Partial<Solution> | null>({
+      query: SOLUTION_BY_SLUG_QUERY,
+      params: { slug: solution.slug },
+      tags: [`slug:solution:${solution.slug}`, "type:solution"],
+    });
+    return mergeSolution(solution, data);
+  } catch {
+    return solution;
+  }
 }

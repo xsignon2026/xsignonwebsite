@@ -19,10 +19,12 @@ export const canonicalSolutions: Solution[] = [
       {
         lead: "Findings prioritized by impact",
         body: "so governance effort goes to the improvements that matter first.",
+        joiner: ",",
       },
       {
         lead: "Reviews that run on a cycle",
         body: "with approvers, expiry and evidence attached, inside the platform.",
+        joiner: ",",
       },
       {
         lead: "Passwordless sign-in",
@@ -34,7 +36,12 @@ export const canonicalSolutions: Solution[] = [
     products: [
       { title: "PostureOne", slug: "postureone", type: "Product", href: "/products/postureone" },
       { title: "AMS", slug: "ams", type: "Product", href: "/products/ams" },
-      { title: "Passwordless Keys", slug: "keys", type: "Product", href: "/products/keys" },
+      {
+        title: "Passwordless Keys",
+        slug: "keys",
+        type: "Product",
+        href: "/products/passwordless-keys",
+      },
     ],
     proofAndReading: [
       {
@@ -50,12 +57,7 @@ export const canonicalSolutions: Solution[] = [
         type: "Insight",
         href: "/thinking/non-human-identities",
       },
-      {
-        title: "Back to Solutions",
-        slug: "solutions",
-        type: "Solutions",
-        href: "/solutions",
-      },
+      { title: "Back to Solutions", slug: "solutions", type: "Solutions", href: "/solutions" },
     ],
     order: 1,
   },
@@ -71,6 +73,7 @@ export const canonicalSolutions: Solution[] = [
       {
         lead: "AI use inventoried with owners",
         body: "including the deployments that never went through procurement.",
+        joiner: ",",
       },
       {
         lead: "Evaluations mapped to frameworks",
@@ -92,24 +95,14 @@ export const canonicalSolutions: Solution[] = [
       { title: "PostureOne", slug: "postureone", type: "Product", href: "/products/postureone" },
     ],
     proofAndReading: [
-      {
-        title: "All case studies in Proof",
-        slug: "proof",
-        type: "Case study",
-        href: "/proof",
-      },
+      { title: "All case studies in Proof", slug: "proof", type: "Proof", href: "/proof" },
       {
         title: "Data + AI Security Built for Visibility, Control, and Trust",
         slug: "data-ai-security",
         type: "Insight",
-        href: "/thinking/data-ai-security",
+        href: "/thinking/data-and-ai-security",
       },
-      {
-        title: "Back to Solutions",
-        slug: "solutions",
-        type: "Solutions",
-        href: "/solutions",
-      },
+      { title: "Back to Solutions", slug: "solutions", type: "Solutions", href: "/solutions" },
     ],
     order: 2,
   },
@@ -125,14 +118,17 @@ export const canonicalSolutions: Solution[] = [
       {
         lead: "Inventory of cryptographic reliance",
         body: "which systems, keys and protocols depend on what you have today.",
+        joiner: ":",
       },
       {
         lead: "Prioritized migration order",
         body: "starting with identity and sign-in, where verified access creates the most value.",
+        joiner: ",",
       },
       {
         lead: "Verified sign-in now",
         body: "so teams build on a strong foundation today while planning for the quantum timeline.",
+        joiner: ",",
       },
       {
         lead: "Evidence of readiness",
@@ -143,27 +139,22 @@ export const canonicalSolutions: Solution[] = [
     deliveredBy: ["PostureOne", "Passwordless Keys"],
     products: [
       { title: "PostureOne", slug: "postureone", type: "Product", href: "/products/postureone" },
-      { title: "Passwordless Keys", slug: "keys", type: "Product", href: "/products/keys" },
+      {
+        title: "Passwordless Keys",
+        slug: "keys",
+        type: "Product",
+        href: "/products/passwordless-keys",
+      },
     ],
     proofAndReading: [
-      {
-        title: "All case studies in Proof",
-        slug: "proof",
-        type: "Case study",
-        href: "/proof",
-      },
+      { title: "All case studies in Proof", slug: "proof", type: "Proof", href: "/proof" },
       {
         title: "Modern Micro-Segmentation for Zero Trust Security",
         slug: "modern-micro-segmentation",
         type: "Insight",
         href: "/thinking/modern-micro-segmentation",
       },
-      {
-        title: "Back to Solutions",
-        slug: "solutions",
-        type: "Solutions",
-        href: "/solutions",
-      },
+      { title: "Back to Solutions", slug: "solutions", type: "Solutions", href: "/solutions" },
     ],
     order: 3,
   },
@@ -183,14 +174,17 @@ export const canonicalSolutions: Solution[] = [
       {
         lead: "Approvals that leave a trail",
         body: "who approved what, when, and on what evidence.",
+        joiner: ":",
       },
       {
         lead: "Exceptions with clear review dates",
         body: "so temporary access stays temporary by design and every item stays visible.",
+        joiner: ",",
       },
       {
         lead: "Evidence collected in the flow of work",
         body: "so the audit record writes itself as the process runs.",
+        joiner: ",",
       },
     ],
     diagramKey: "process",
@@ -213,12 +207,7 @@ export const canonicalSolutions: Solution[] = [
         type: "Insight",
         href: "/thinking/non-human-identities",
       },
-      {
-        title: "Back to Solutions",
-        slug: "solutions",
-        type: "Solutions",
-        href: "/solutions",
-      },
+      { title: "Back to Solutions", slug: "solutions", type: "Solutions", href: "/solutions" },
     ],
     order: 4,
   },
@@ -252,7 +241,12 @@ export const canonicalSolutions: Solution[] = [
     deliveredBy: ["PostureOne", "Passwordless Keys", "AMS"],
     products: [
       { title: "PostureOne", slug: "postureone", type: "Product", href: "/products/postureone" },
-      { title: "Passwordless Keys", slug: "keys", type: "Product", href: "/products/keys" },
+      {
+        title: "Passwordless Keys",
+        slug: "keys",
+        type: "Product",
+        href: "/products/passwordless-keys",
+      },
       { title: "AMS", slug: "ams", type: "Product", href: "/products/ams" },
     ],
     proofAndReading: [
@@ -268,12 +262,7 @@ export const canonicalSolutions: Solution[] = [
         type: "Insight",
         href: "/thinking/identity-first-controls",
       },
-      {
-        title: "Back to Solutions",
-        slug: "solutions",
-        type: "Solutions",
-        href: "/solutions",
-      },
+      { title: "Back to Solutions", slug: "solutions", type: "Solutions", href: "/solutions" },
     ],
     order: 5,
   },

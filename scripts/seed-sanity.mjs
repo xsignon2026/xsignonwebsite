@@ -1,8 +1,8 @@
-// Loads the default page content into Sanity: the "home" and "about" documents and the six products and the five articles.
+// Loads the default page content into Sanity: the "home" and "about" documents and the six products the five articles and the five solutions.
 //
 //   node scripts/seed-sanity.mjs            shows what would be written (nothing is changed)
 //   node scripts/seed-sanity.mjs --write    writes it
-//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, product or article)
+//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, product, article or solution)
 //
 // Needs, in the environment or .env.local: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
 // SANITY_API_WRITE_TOKEN (an Editor token from sanity.io/manage, API, Tokens). The token is a secret: keep it in
@@ -37,6 +37,7 @@ const aboutContent = load("src/data/about-content.ts", "aboutContentFallback");
 const productsPageContent = load("src/data/products-page-content.ts", "productsPageFallback");
 const insightsContent = load("src/data/insights-page-content.ts", "insightsPageFallback");
 const articlesData = load("src/data/articles.ts", "canonicalArticles");
+const solutionsData = load("src/data/solutions.ts", "canonicalSolutions");
 
 let n = 0;
 const key = (prefix) => `${prefix}-${(n++).toString(36)}`;
@@ -142,6 +143,19 @@ const articleDocs = articlesData.map((a) => ({
   relatedLinks: addKeys(a.relatedLinks),
   ctaHeadline: a.ctaHeadline,
 }));
+const solutionDocs = solutionsData.map((x) => {
+  const { slug, products, proofAndReading, features, ...rest } = x;
+  const link = ({ title, type, href }) => ({ title, type, href });
+  return {
+    ...addKeys(rest),
+    _id: `solution-${slug}`,
+    _type: "solution",
+    slug: { _type: "slug", current: slug },
+    features: addKeys(features),
+    products: addKeys(products.map(link)),
+    proofAndReading: addKeys(proofAndReading.map(link)),
+  };
+});
 const docs = [
   homeDoc,
   aboutDoc,
@@ -149,6 +163,7 @@ const docs = [
   insightsPageDoc,
   ...productDocs,
   ...articleDocs,
+  ...solutionDocs,
 ].filter((d) => !only || d._id === only || d._type === only);
 
 const write = process.argv.includes("--write");

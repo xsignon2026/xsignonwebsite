@@ -3,12 +3,14 @@
 export interface SolutionFeature {
   lead: string;
   body: string;
+  /** What joins the bold lead to the body: nothing (a space), a comma or a colon. */
+  joiner?: "," | ":";
 }
 
 export interface RelatedSolutionLink {
   title: string;
   slug: string;
-  type: "Product" | "Case study" | "Insight" | "Solutions";
+  type: "Product" | "Case study" | "Insight" | "Solutions" | "Proof";
   href: string;
 }
 
