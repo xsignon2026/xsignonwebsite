@@ -8,6 +8,7 @@ export const product = defineType({
   type: "document",
   groups: [
     { name: "content", title: "Content", default: true },
+    { name: "more", title: "More sections" },
     { name: "framework", title: "Framework & Mappings" },
     { name: "related", title: "Related & CTA" },
     { name: "seo", title: "Search & Social" },
@@ -215,17 +216,10 @@ export const product = defineType({
     }),
     defineField({
       name: "relatedItems",
-      title: "Related items",
+      title: "Related items (the Related strip at the bottom)",
       type: "array",
       group: "related",
-      description:
-        "References to related products, articles, or white papers (broken references cannot be saved).",
       of: [
-        defineArrayMember({
-          type: "reference",
-          to: [{ type: "product" }, { type: "article" }, { type: "whitePaper" }],
-          validation: (Rule) => Rule.required().error("Referenced document must exist."),
-        }),
         defineArrayMember({
           type: "object",
           fields: [
@@ -237,42 +231,190 @@ export const product = defineType({
             }),
             defineField({
               name: "typeLabel",
-              title: "Type label (e.g. Solution, Case study)",
+              title: "Type label (for example Product, Solution)",
               type: "string",
               validation: (Rule) => Rule.required(),
             }),
             defineField({
-              name: "link",
-              title: "Link",
-              type: "link",
+              name: "href",
+              title: "Link (for example /products/evalone)",
+              type: "string",
               validation: (Rule) => Rule.required(),
             }),
           ],
-          preview: {
-            select: { title: "title", subtitle: "typeLabel" },
-          },
+          preview: { select: { title: "title", subtitle: "typeLabel" } },
         }),
       ],
     }),
     defineField({
       name: "cta",
-      title: "Bottom CTA panel",
+      title: "Bottom call to action",
       type: "object",
       group: "related",
       fields: [
+        defineField({ name: "title", title: "Heading", type: "string" }),
+        defineField({ name: "buttonText", title: "Button text", type: "string" }),
         defineField({
-          name: "title",
-          title: "CTA Title",
+          name: "buttonHref",
+          title: "Button link (for example /contact)",
           type: "string",
-          initialValue: "See your posture in one view.",
-        }),
-        defineField({
-          name: "button",
-          title: "CTA Button",
-          type: "cta",
         }),
       ],
     }),
+
+    defineField({
+      name: "extraNarrative",
+      title: "Extra paragraphs under the hero",
+      type: "array",
+      group: "more",
+      of: [defineArrayMember({ type: "text", rows: 3 })],
+    }),
+    defineField({
+      name: "keyViz",
+      title: "Key picture caption",
+      type: "object",
+      group: "more",
+      fields: [
+        defineField({ name: "badge", title: "Badge (two letters)", type: "string" }),
+        defineField({ name: "description", title: "Caption", type: "text", rows: 2 }),
+      ],
+    }),
+    defineField({
+      name: "checklist",
+      title: "Checklist card",
+      type: "object",
+      group: "more",
+      fields: [
+        defineField({ name: "meta", title: "Card label", type: "string" }),
+        defineField({
+          name: "items",
+          title: "Items",
+          type: "array",
+          of: [
+            defineArrayMember({
+              type: "object",
+              fields: [
+                defineField({ name: "label", title: "Text", type: "string" }),
+                defineField({ name: "done", title: "Shown as done", type: "boolean" }),
+              ],
+              preview: { select: { title: "label" } },
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: "snapshot",
+      title: "Snapshot card (bars)",
+      type: "object",
+      group: "more",
+      fields: [
+        defineField({ name: "meta", title: "Card label", type: "string" }),
+        defineField({
+          name: "rows",
+          title: "Rows",
+          type: "array",
+          of: [
+            defineArrayMember({
+              type: "object",
+              fields: [
+                defineField({ name: "label", title: "Label", type: "string" }),
+                defineField({ name: "value", title: "Value text", type: "string" }),
+                defineField({ name: "percentage", title: "Bar length (0 to 100)", type: "number" }),
+                defineField({
+                  name: "color",
+                  title: "Colour",
+                  type: "string",
+                  options: {
+                    list: [
+                      { title: "Default", value: "default" },
+                      { title: "Green", value: "green" },
+                    ],
+                  },
+                }),
+              ],
+              preview: { select: { title: "label", subtitle: "value" } },
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: "caseCards",
+      title: "Use case cards",
+      type: "array",
+      group: "more",
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({ name: "title", title: "Title", type: "string" }),
+            defineField({ name: "tag", title: "Tag", type: "string" }),
+            defineField({ name: "description", title: "Description", type: "text", rows: 3 }),
+            defineField({ name: "statusNotice", title: "Status note (optional)", type: "string" }),
+            defineField({ name: "linkText", title: "Link text", type: "string" }),
+            defineField({ name: "linkHref", title: "Link", type: "string" }),
+          ],
+          preview: { select: { title: "title", subtitle: "tag" } },
+        }),
+      ],
+    }),
+    defineField({
+      name: "specTable",
+      title: "Specification table",
+      type: "object",
+      group: "more",
+      description: "Only enter specifications that the product team has confirmed.",
+      fields: [
+        defineField({ name: "title", title: "Title", type: "string" }),
+        defineField({ name: "subtitle", title: "Subtitle", type: "string" }),
+        defineField({
+          name: "columns",
+          title: "Column headings",
+          type: "array",
+          of: [defineArrayMember({ type: "string" })],
+        }),
+        defineField({
+          name: "rows",
+          title: "Rows",
+          type: "array",
+          of: [
+            defineArrayMember({
+              type: "object",
+              fields: [
+                defineField({ name: "header", title: "Row name", type: "string" }),
+                defineField({
+                  name: "values",
+                  title: "Values (one per column)",
+                  type: "array",
+                  of: [defineArrayMember({ type: "string" })],
+                }),
+              ],
+              preview: { select: { title: "header" } },
+            }),
+          ],
+        }),
+        defineField({ name: "footnote", title: "Footnote", type: "string" }),
+      ],
+    }),
+    defineField({
+      name: "worksWith",
+      title: "Works with section",
+      type: "object",
+      group: "more",
+      fields: [
+        defineField({ name: "title", title: "Heading", type: "string" }),
+        defineField({
+          name: "paragraphs",
+          title: "Paragraphs",
+          type: "array",
+          of: [defineArrayMember({ type: "text", rows: 3 })],
+        }),
+        defineField({ name: "linkText", title: "Link text", type: "string" }),
+        defineField({ name: "linkHref", title: "Link", type: "string" }),
+      ],
+    }),
+
     defineField({
       name: "seo",
       title: "Search and social",

@@ -8,6 +8,7 @@ import { xsenseProduct } from "@/data/products/xsense";
 import { keysProduct } from "@/data/products/keys";
 import { amsProduct } from "@/data/products/ams";
 import { meshProduct } from "@/data/products/mesh";
+import { mergeProduct } from "@/lib/product-merge";
 import type { Product } from "@/types/product";
 
 const FALLBACK_PRODUCTS: Record<string, Product> = {
@@ -30,7 +31,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
       params: { slug },
       tags: [`slug:product:${slug}`, "type:product"],
     });
-    return data ?? fallback;
+    return mergeProduct(fallback, data);
   } catch {
     return fallback;
   }

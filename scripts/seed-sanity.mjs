@@ -1,8 +1,8 @@
-// Loads the default page content into Sanity: the "home" and "about" documents.
+// Loads the default page content into Sanity: the "home" and "about" documents and the six products.
 //
 //   node scripts/seed-sanity.mjs            shows what would be written (nothing is changed)
 //   node scripts/seed-sanity.mjs --write    writes it
-//   node scripts/seed-sanity.mjs --write --only=about    writes just one document
+//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about or product)
 //
 // Needs, in the environment or .env.local: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
 // SANITY_API_WRITE_TOKEN (an Editor token from sanity.io/manage, API, Tokens). The token is a secret: keep it in
@@ -75,7 +75,40 @@ const aboutDoc = {
 };
 // --only=about writes just that document, so Studio edits to the others are kept.
 const only = process.argv.find((a) => a.startsWith("--only="))?.slice(7);
-const docs = [homeDoc, aboutDoc].filter((d) => !only || d._id === only);
+
+// Every object inside a list needs a _key in Sanity. Add them all the way down.
+const addKeys = (value) => {
+  if (Array.isArray(value)) {
+    return value.map((item) =>
+      item && typeof item === "object" ? { _key: key("k"), ...addKeys(item) } : item,
+    );
+  }
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, addKeys(v)]));
+  }
+  return value;
+};
+const productFiles = [
+  ["postureone", "postureOneProduct"],
+  ["keys", "keysProduct"],
+  ["evalone", "evalOneProduct"],
+  ["xsense", "xsenseProduct"],
+  ["ams", "amsProduct"],
+  ["mesh", "meshProduct"],
+];
+const productDocs = productFiles.map(([file, name]) => {
+  const product = load(`src/data/products/${file}.ts`, name);
+  const { slug, ...rest } = product;
+  return {
+    ...addKeys(rest),
+    _id: `product-${slug}`,
+    _type: "product",
+    slug: { _type: "slug", current: slug },
+  };
+});
+const docs = [homeDoc, aboutDoc, ...productDocs].filter(
+  (d) => !only || d._id === only || d._type === only,
+);
 
 const write = process.argv.includes("--write");
 if (!write) {

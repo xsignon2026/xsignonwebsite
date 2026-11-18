@@ -19,40 +19,19 @@ export const PRODUCT_BY_SLUG_QUERY = groq`
         fileIntegrityChecks
       }
     },
-    capabilityCards[] {
-      title,
-      description
-    },
-    framework {
-      title,
-      steps[] {
-        stepNumber,
-        title,
-        description
-      }
-    },
-    mappedFrameworks {
-      chips,
-      note
-    },
-    relatedItems[] {
-      title,
-      typeLabel,
-      "href": select(
-        link.linkType == "internal" => "/" + coalesce(link.internal->slug.current, ""),
-        link.linkType == "external" => coalesce(link.external, "#"),
-        "#"
-      )
-    },
-    cta {
-      title,
-      "buttonText": coalesce(button.label, "Book a strategy call"),
-      "buttonHref": select(
-        button.link.linkType == "internal" => "/" + coalesce(button.link.internal->slug.current, ""),
-        button.link.linkType == "external" => coalesce(button.link.external, "#"),
-        "/contact"
-      )
-    },
+    capabilityCards[] { title, description },
+    docTabs[] { label, content, title, badge },
+    extraNarrative,
+    keyViz { badge, description },
+    checklist { meta, items[] { label, done } },
+    snapshot { meta, rows[] { label, value, percentage, color } },
+    caseCards[] { title, tag, description, statusNotice, linkText, linkHref },
+    specTable { title, subtitle, columns, rows[] { header, values }, footnote },
+    worksWith { title, paragraphs, linkText, linkHref },
+    framework { title, steps[] { stepNumber, title, description } },
+    mappedFrameworks { chips, note },
+    relatedItems[] { title, typeLabel, href },
+    cta { title, buttonText, buttonHref },
     seo {
       title,
       description,
