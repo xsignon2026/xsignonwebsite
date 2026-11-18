@@ -47,6 +47,18 @@ export const structure: StructureResolver = (S) =>
         .id("legal-terms")
         .child(S.document().schemaType("legalPage").documentId("legal-terms")),
       S.listItem()
+        .title("Industry Thinking page")
+        .id("industryPage")
+        .child(S.document().schemaType("industryPage").documentId("industryPage")),
+      S.listItem()
+        .title("Compare page")
+        .id("comparePage")
+        .child(S.document().schemaType("comparePage").documentId("comparePage")),
+      S.listItem()
+        .title("Enterprise page")
+        .id("enterprisePage")
+        .child(S.document().schemaType("enterprisePage").documentId("enterprisePage")),
+      S.listItem()
         .title("Site settings")
         .id("siteSettings")
         .child(S.document().schemaType("siteSettings").documentId("siteSettings")),

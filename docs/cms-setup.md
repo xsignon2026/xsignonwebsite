@@ -77,7 +77,9 @@ Also in the CMS: the four case study pages ("Case Study" documents). They only s
 
 Also in the CMS: the Proof page, the Contact page, the Privacy Policy and Terms (legal pages: switch off the placeholder tag once legal review is done), and the white paper text (the private file and the gating stay in the code on purpose).
 
-Not yet in the CMS (next passes): new articles (only the five existing ones can be edited for now), the Products page and product pages, solutions, articles, careers, legal pages.
+Also in the CMS: the Industry Thinking page, the Compare page (the whole table: columns, rows and values) and the Enterprise page (the dashboard picture stays in the code, and its sample figures are not editable).
+
+Not yet in the CMS: new articles (only the five existing ones can be edited for now), the ROI calculator pages, the Passwordless Keys model pages, the style guide, and the newsletter and contact form wording.
 
 ## If something is empty or wrong
 

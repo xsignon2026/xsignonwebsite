@@ -3,6 +3,7 @@ import { careersPage } from "./careersPage";
 import { contactPage, proofPage } from "./contactAndProof";
 import { home } from "./home";
 import { insightsPage } from "./insightsPage";
+import { enterprisePage, comparePage, industryPage } from "./lastPages";
 import { navigation } from "./navigation";
 import { productsPage } from "./productsPage";
 import { solutionsPage } from "./solutionsPage";
@@ -18,6 +19,9 @@ export const singletonTypes = [
   careersPage,
   contactPage,
   proofPage,
+  industryPage,
+  comparePage,
+  enterprisePage,
   siteSettings,
   navigation,
 ];

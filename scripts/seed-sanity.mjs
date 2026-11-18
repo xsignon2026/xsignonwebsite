@@ -2,7 +2,7 @@
 //
 //   node scripts/seed-sanity.mjs            shows what would be written (nothing is changed)
 //   node scripts/seed-sanity.mjs --write    writes it
-//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, solutionsPage, careersPage, product, article, solution, caseStudy, job, contactPage, proofPage legalPage or whitePaper)
+//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, solutionsPage, careersPage, product, article, solution, caseStudy, job, contactPage, proofPage legalPage, whitePaper, industryPage, comparePage or enterprisePage)
 //
 // Needs, in the environment or .env.local: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
 // SANITY_API_WRITE_TOKEN (an Editor token from sanity.io/manage, API, Tokens). The token is a secret: keep it in
@@ -45,6 +45,9 @@ const contactContent = load("src/data/contact-page-content.ts", "contactPageFall
 const proofContent = load("src/data/proof-page-content.ts", "proofPageFallback");
 const legalData = load("src/data/legal-pages.ts", "legalPages");
 const whitePapers = load("src/data/white-papers.ts", "FALLBACK_WHITE_PAPERS");
+const industryContent = load("src/data/industry-page-content.ts", "industryPageFallback");
+const compareContent = load("src/data/compare-page-content.ts", "comparePageFallback");
+const enterpriseContent = load("src/data/enterprise-page-content.ts", "enterprisePageFallback");
 const casePages = load("src/data/case-study-pages.ts", "caseStudyPages");
 const caseRecords = load("src/data/caseStudies.ts", "canonicalCaseStudies");
 
@@ -251,6 +254,21 @@ const whitePaperDocs = Object.values(whitePapers).map((w) => ({
   publishedAt: w.publishedAt,
   seo: w.seo,
 }));
+const industryPageDoc = {
+  _id: "industryPage",
+  _type: "industryPage",
+  ...addKeys(industryContent),
+};
+const comparePageDoc = {
+  _id: "comparePage",
+  _type: "comparePage",
+  ...addKeys(compareContent),
+};
+const enterprisePageDoc = {
+  _id: "enterprisePage",
+  _type: "enterprisePage",
+  ...addKeys(enterpriseContent),
+};
 const docs = [
   homeDoc,
   aboutDoc,
@@ -260,6 +278,9 @@ const docs = [
   careersPageDoc,
   contactPageDoc,
   proofPageDoc,
+  industryPageDoc,
+  comparePageDoc,
+  enterprisePageDoc,
   ...productDocs,
   ...articleDocs,
   ...solutionDocs,

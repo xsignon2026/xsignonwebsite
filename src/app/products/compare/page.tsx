@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getComparePageContent } from "@/lib/last-pages";
 import { CompareView } from "@/components/prototype/CompareView";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 
@@ -11,10 +12,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ComparePage() {
+export default async function ComparePage() {
+  const content = await getComparePageContent();
   return (
     <>
-      <CompareView />
+      <CompareView content={content} />
       <PrototypeBehaviors root="view-compare" features={["reveal"]} />
     </>
   );
