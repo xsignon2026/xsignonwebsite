@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { TermsView } from "@/components/prototype/TermsView";
+import { LegalView } from "@/components/prototype/LegalView";
+import { getLegalPage } from "@/lib/more-pages";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -10,10 +11,11 @@ export const metadata: Metadata = createPageMetadata({
   path: "/terms",
 });
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const page = await getLegalPage("terms");
   return (
     <>
-      <TermsView />
+      <LegalView page={page} />
       <PrototypeBehaviors root="view-terms" features={["reveal"]} />
     </>
   );

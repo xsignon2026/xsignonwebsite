@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { PrivacyView } from "@/components/prototype/PrivacyView";
+import { LegalView } from "@/components/prototype/LegalView";
+import { getLegalPage } from "@/lib/more-pages";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -10,10 +11,11 @@ export const metadata: Metadata = createPageMetadata({
   path: "/privacy",
 });
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const page = await getLegalPage("privacy");
   return (
     <>
-      <PrivacyView />
+      <LegalView page={page} />
       <PrototypeBehaviors root="view-privacy" features={["reveal"]} />
     </>
   );

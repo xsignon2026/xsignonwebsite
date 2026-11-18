@@ -49,7 +49,6 @@ export const whitePaper = defineType({
       title: "Cover image",
       type: "imageWithAlt",
       group: "content",
-      validation: (Rule) => Rule.required().error("Cover image is required."),
     }),
     defineField({
       name: "storageKey",

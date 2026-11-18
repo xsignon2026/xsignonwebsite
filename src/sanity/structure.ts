@@ -31,6 +31,22 @@ export const structure: StructureResolver = (S) =>
         .id("careersPage")
         .child(S.document().schemaType("careersPage").documentId("careersPage")),
       S.listItem()
+        .title("Proof page")
+        .id("proofPage")
+        .child(S.document().schemaType("proofPage").documentId("proofPage")),
+      S.listItem()
+        .title("Contact page")
+        .id("contactPage")
+        .child(S.document().schemaType("contactPage").documentId("contactPage")),
+      S.listItem()
+        .title("Privacy Policy")
+        .id("legal-privacy")
+        .child(S.document().schemaType("legalPage").documentId("legal-privacy")),
+      S.listItem()
+        .title("Terms")
+        .id("legal-terms")
+        .child(S.document().schemaType("legalPage").documentId("legal-terms")),
+      S.listItem()
         .title("Site settings")
         .id("siteSettings")
         .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
@@ -39,7 +55,9 @@ export const structure: StructureResolver = (S) =>
         .id("navigation")
         .child(S.document().schemaType("navigation").documentId("navigation")),
       S.divider(),
-      ...S.documentTypeListItems().filter((item) => !singletonNames.includes(item.getId() ?? "")),
+      ...S.documentTypeListItems().filter(
+        (item) => !singletonNames.includes(item.getId() ?? "") && item.getId() !== "legalPage",
+      ),
     ]);
 
 // Singletons cannot be duplicated, deleted or unpublished from the studio.

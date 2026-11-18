@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
+import { getProofPageContent } from "@/lib/more-pages";
 import { ProofView } from "@/components/prototype/ProofView";
 
 export const metadata: Metadata = {
@@ -18,10 +19,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProofPage() {
+export default async function ProofPage() {
+  const content = await getProofPageContent();
   return (
     <>
-      <ProofView />
+      <ProofView content={content} />
       <PrototypeBehaviors root="view-proof" features={["reveal"]} />
     </>
   );

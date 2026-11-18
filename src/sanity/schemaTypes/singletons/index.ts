@@ -1,5 +1,6 @@
 import { about } from "./about";
 import { careersPage } from "./careersPage";
+import { contactPage, proofPage } from "./contactAndProof";
 import { home } from "./home";
 import { insightsPage } from "./insightsPage";
 import { navigation } from "./navigation";
@@ -15,6 +16,8 @@ export const singletonTypes = [
   insightsPage,
   solutionsPage,
   careersPage,
+  contactPage,
+  proofPage,
   siteSettings,
   navigation,
 ];

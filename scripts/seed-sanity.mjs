@@ -2,7 +2,7 @@
 //
 //   node scripts/seed-sanity.mjs            shows what would be written (nothing is changed)
 //   node scripts/seed-sanity.mjs --write    writes it
-//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, solutionsPage, careersPage, product, article, solution, caseStudy or job)
+//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, solutionsPage, careersPage, product, article, solution, caseStudy, job, contactPage, proofPage legalPage or whitePaper)
 //
 // Needs, in the environment or .env.local: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
 // SANITY_API_WRITE_TOKEN (an Editor token from sanity.io/manage, API, Tokens). The token is a secret: keep it in
@@ -41,6 +41,10 @@ const solutionsData = load("src/data/solutions.ts", "canonicalSolutions");
 const solutionsPageContent = load("src/data/solutions-page-content.ts", "solutionsPageFallback");
 const careersContent = load("src/data/careers-page-content.ts", "careersPageFallback");
 const jobsData = load("src/data/jobs.ts", "CANONICAL_JOBS");
+const contactContent = load("src/data/contact-page-content.ts", "contactPageFallback");
+const proofContent = load("src/data/proof-page-content.ts", "proofPageFallback");
+const legalData = load("src/data/legal-pages.ts", "legalPages");
+const whitePapers = load("src/data/white-papers.ts", "FALLBACK_WHITE_PAPERS");
 const casePages = load("src/data/case-study-pages.ts", "caseStudyPages");
 const caseRecords = load("src/data/caseStudies.ts", "canonicalCaseStudies");
 
@@ -208,6 +212,45 @@ const jobDocs = jobsData.map((j) => ({
   active: j.active,
   postedAt: j.postedAt,
 }));
+const contactPageDoc = {
+  _id: "contactPage",
+  _type: "contactPage",
+  hero: contactContent.hero,
+  details: addKeys(contactContent.details),
+  closing: contactContent.closing,
+  cta: contactContent.cta,
+};
+const proofPageDoc = {
+  _id: "proofPage",
+  _type: "proofPage",
+  hero: proofContent.hero,
+  intro: proofContent.intro,
+  cards: addKeys(proofContent.cards),
+  roi: proofContent.roi,
+  cta: proofContent.cta,
+};
+const legalDocs = legalData.map((p) => {
+  const { slug, ...rest } = p;
+  return {
+    ...addKeys(rest),
+    _id: `legal-${slug}`,
+    _type: "legalPage",
+    slug: { _type: "slug", current: slug },
+    showNotice: true,
+  };
+});
+const whitePaperDocs = Object.values(whitePapers).map((w) => ({
+  _id: `whitePaper-${w.slug}`,
+  _type: "whitePaper",
+  title: w.title,
+  slug: { _type: "slug", current: w.slug },
+  summary: w.summary,
+  storageKey: w.storageKey,
+  gated: w.gated,
+  version: w.version,
+  publishedAt: w.publishedAt,
+  seo: w.seo,
+}));
 const docs = [
   homeDoc,
   aboutDoc,
@@ -215,11 +258,15 @@ const docs = [
   insightsPageDoc,
   solutionsPageDoc,
   careersPageDoc,
+  contactPageDoc,
+  proofPageDoc,
   ...productDocs,
   ...articleDocs,
   ...solutionDocs,
   ...caseDocs,
   ...jobDocs,
+  ...legalDocs,
+  ...whitePaperDocs,
 ].filter((d) => !only || d._id === only || d._type === only);
 
 const write = process.argv.includes("--write");

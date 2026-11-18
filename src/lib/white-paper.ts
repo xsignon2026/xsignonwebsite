@@ -1,24 +1,27 @@
+import "server-only";
+import { FALLBACK_WHITE_PAPERS } from "@/data/white-papers";
+import { mergeWhitePaper } from "@/lib/white-paper-merge";
+import { isSanityConfigured } from "@/sanity/env";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { WHITE_PAPER_BY_SLUG_QUERY } from "@/sanity/queries/whitePaper";
 import type { WhitePaper } from "@/types/white-paper";
 
-export const FALLBACK_WHITE_PAPERS: Record<string, WhitePaper> = {
-  "zero-trust-posture-guide": {
-    title: "Zero-Trust Device & Cloud Security Posture Guide",
-    slug: "zero-trust-posture-guide",
-    summary:
-      "A pragmatic framework for enterprise security leaders on integrating continuous endpoint health, FIDO2 authentication, and automated audit evidence.",
-    storageKey: "zero-trust-posture-guide-v1.pdf",
-    gated: true,
-    version: "1.0",
-    publishedAt: "2026-04-01T00:00:00Z",
-    seo: {
-      title: "Zero-Trust Device & Cloud Security Posture Guide | XSignOn",
-      description:
-        "Download the XSignOn technical white paper on continuous endpoint posture and zero-trust verification.",
-    },
-  },
-};
+export { FALLBACK_WHITE_PAPERS };
 
 export async function getWhitePaperBySlug(slug: string): Promise<WhitePaper | null> {
   const normalized = slug.toLowerCase().trim();
-  return FALLBACK_WHITE_PAPERS[normalized] ?? null;
+  const fallback = Object.hasOwn(FALLBACK_WHITE_PAPERS, normalized)
+    ? FALLBACK_WHITE_PAPERS[normalized]
+    : null;
+  if (!fallback || !isSanityConfigured) return fallback;
+  try {
+    const data = await sanityFetch<Partial<WhitePaper> | null>({
+      query: WHITE_PAPER_BY_SLUG_QUERY,
+      params: { slug: normalized },
+      tags: [`slug:whitePaper:${normalized}`, "type:whitePaper"],
+    });
+    return mergeWhitePaper(fallback, data);
+  } catch {
+    return fallback;
+  }
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactView } from "@/components/prototype/ContactView";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
+import { getContactPageContent } from "@/lib/more-pages";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -10,10 +11,11 @@ export const metadata: Metadata = createPageMetadata({
   path: "/contact",
 });
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const content = await getContactPageContent();
   return (
     <>
-      <ContactView />
+      <ContactView content={content} />
       <PrototypeBehaviors root="view-contact" features={["reveal"]} />
     </>
   );
