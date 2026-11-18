@@ -37,7 +37,7 @@ Also in the CMS: the "Products page" document (title, three new launches, five c
 
 Also in the CMS: the "Our thinking page" document (hub title, featured article, article cards, contact block; seed with `--only=insightsPage`). The five article pages are "Article" documents too (heading, sections with pull quotes, related strip, closing heading); edits there change the article page but not the hub cards above.
 
-Also in the CMS: the five solution pages ("Solution" documents: challenge, checklist, related rows, closing heading; the Solutions hub cards are still in the code).
+Also in the CMS: the "Solutions page" document (title, Enterprise band, standards named, contact block; seed with `--only=solutionsPage`), and the five solution pages ("Solution" documents: challenge, checklist, related rows, closing heading; the Solutions hub cards are built from them).
 
 Also in the CMS: the four case study pages ("Case Study" documents). They only show the edited version once Approval status is Approved; the Proof hub list is still in the code.
 

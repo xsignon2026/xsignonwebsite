@@ -2,7 +2,7 @@
 //
 //   node scripts/seed-sanity.mjs            shows what would be written (nothing is changed)
 //   node scripts/seed-sanity.mjs --write    writes it
-//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, product, article, solution or caseStudy)
+//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, solutionsPage, product, article, solution or caseStudy)
 //
 // Needs, in the environment or .env.local: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
 // SANITY_API_WRITE_TOKEN (an Editor token from sanity.io/manage, API, Tokens). The token is a secret: keep it in
@@ -38,6 +38,7 @@ const productsPageContent = load("src/data/products-page-content.ts", "productsP
 const insightsContent = load("src/data/insights-page-content.ts", "insightsPageFallback");
 const articlesData = load("src/data/articles.ts", "canonicalArticles");
 const solutionsData = load("src/data/solutions.ts", "canonicalSolutions");
+const solutionsPageContent = load("src/data/solutions-page-content.ts", "solutionsPageFallback");
 const casePages = load("src/data/case-study-pages.ts", "caseStudyPages");
 const caseRecords = load("src/data/caseStudies.ts", "canonicalCaseStudies");
 
@@ -172,11 +173,24 @@ const caseDocs = casePages.map((page) => {
     evidenceLink: record.evidenceLink,
   };
 });
+const solutionsPageDoc = {
+  _id: "solutionsPage",
+  _type: "solutionsPage",
+  hero: solutionsPageContent.hero,
+  list: solutionsPageContent.list,
+  enterprise: {
+    ...solutionsPageContent.enterprise,
+    models: addKeys(solutionsPageContent.enterprise.models),
+  },
+  thinking: solutionsPageContent.thinking,
+  cta: solutionsPageContent.cta,
+};
 const docs = [
   homeDoc,
   aboutDoc,
   productsPageDoc,
   insightsPageDoc,
+  solutionsPageDoc,
   ...productDocs,
   ...articleDocs,
   ...solutionDocs,

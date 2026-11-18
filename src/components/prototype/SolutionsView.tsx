@@ -1,12 +1,28 @@
 import Link from "next/link";
-import { SolutionArt } from "@/components/prototype/SolutionArt";
+import { SolutionArt, type SolutionArtName } from "@/components/prototype/SolutionArt";
 import { ThinkingShowcase } from "@/components/about/ThinkingShowcase";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
+import type { Solution } from "@/types/solution";
+import type { SolutionsPageContent } from "@/types/solutions-page-content";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // NOTE: the article block inside #solThinkHost is added by hand (the prototype copies it from About).
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
-export function SolutionsView() {
+const ART: Record<Solution["diagramKey"], SolutionArtName> = {
+  identity: "sol-identity",
+  ai: "sol-ai",
+  quantum: "sol-quantum",
+  process: "sol-process",
+  enterprise: "sol-enterprise",
+};
+
+export function SolutionsView({
+  content,
+  solutions,
+}: {
+  content: SolutionsPageContent;
+  solutions: Solution[];
+}) {
   return (
     <div id="view-solutions" className="res-view">
       <section className="page-hero has-beams" data-nav="dark">
@@ -18,7 +34,7 @@ export function SolutionsView() {
             <span className="sep">/</span>
             <span className="cur">Solutions</span>
           </nav>
-          <h1 className="h-display">Solutions</h1>
+          <h1 className="h-display">{content.hero.title}</h1>
         </div>
       </section>
       <div>
@@ -26,101 +42,32 @@ export function SolutionsView() {
           <div className="wrap">
             <div className="sec-row rv">
               <div>
-                <h2 className="h2">Solutions</h2>
-                <p className="sec-sub">Start from the problem you are solving</p>
+                <h2 className="h2">{content.list.title}</h2>
+                <p className="sec-sub">{content.list.subtitle}</p>
               </div>
             </div>
             <div className="sol-grid">
-              <article className="sol-card rv" data-sol="sol-identity">
-                <div className="sol-art">
-                  <SolutionArt name="sol-identity" />
-                </div>
-                <div className="sol-body">
-                  <h3>Identity Governance</h3>
-                  <p>
-                    Teams want one accountable sign-in for every person and agent. Govern who and
-                    what gets access, and prove it with confidence.
-                  </p>
-                  <Link className="link-arrow" href="/solutions/identity-governance">
-                    View solution{" "}
-                    <span className="arr" aria-hidden="true">
-                      &#8594;
-                    </span>
-                  </Link>
-                </div>
-              </article>
-              <article className="sol-card rv" data-sol="sol-ai">
-                <div className="sol-art">
-                  <SolutionArt name="sol-ai" />
-                </div>
-                <div className="sol-body">
-                  <h3>AI and Digital Governance</h3>
-                  <p>
-                    Teams want AI evidence ready with confidence. Map AI use to frameworks and keep
-                    evidence ready.
-                  </p>
-                  <Link className="link-arrow" href="/solutions/ai-and-digital-governance">
-                    View solution{" "}
-                    <span className="arr" aria-hidden="true">
-                      &#8594;
-                    </span>
-                  </Link>
-                </div>
-              </article>
-              <article className="sol-card rv" data-sol="sol-quantum">
-                <div className="sol-art">
-                  <SolutionArt name="sol-quantum" />
-                </div>
-                <div className="sol-body">
-                  <h3>Quantum-Safe Security</h3>
-                  <p>
-                    Teams are preparing early for post-quantum methods. Inventory what you rely on
-                    and plan the move with clarity and confidence.
-                  </p>
-                  <Link className="link-arrow" href="/solutions/quantum-safe-security">
-                    View solution{" "}
-                    <span className="arr" aria-hidden="true">
-                      &#8594;
-                    </span>
-                  </Link>
-                </div>
-              </article>
-              <article className="sol-card rv" data-sol="sol-process">
-                <div className="sol-art">
-                  <SolutionArt name="sol-process" />
-                </div>
-                <div className="sol-body">
-                  <h3>Business Process</h3>
-                  <p>
-                    Teams want access reviews, approvals and evidence in one governed, repeatable
-                    flow, with clarity at every step.
-                  </p>
-                  <Link className="link-arrow" href="/solutions/business-process">
-                    View solution{" "}
-                    <span className="arr" aria-hidden="true">
-                      &#8594;
-                    </span>
-                  </Link>
-                </div>
-              </article>
-              <article className="sol-card rv" data-sol="sol-enterprise">
-                <div className="sol-art">
-                  <SolutionArt name="sol-enterprise" />
-                </div>
-                <div className="sol-body">
-                  <h3>Enterprise Technology</h3>
-                  <p>
-                    Identity sits across every system you run. Connect the platforms you already
-                    have into one governed sign-in and access layer.
-                  </p>
-                  <Link className="link-arrow" href="/solutions/enterprise-technology">
-                    View solution{" "}
-                    <span className="arr" aria-hidden="true">
-                      &#8594;
-                    </span>
-                  </Link>
-                </div>
-              </article>
+              {solutions.map((solution) => (
+                <article
+                  className="sol-card rv"
+                  data-sol={ART[solution.diagramKey]}
+                  key={solution.slug}
+                >
+                  <div className="sol-art">
+                    <SolutionArt name={ART[solution.diagramKey]} />
+                  </div>
+                  <div className="sol-body">
+                    <h3>{solution.title}</h3>
+                    <p>{solution.summary}</p>
+                    <Link className="link-arrow" href={`/solutions/${solution.slug}`}>
+                      View solution{" "}
+                      <span className="arr" aria-hidden="true">
+                        &#8594;
+                      </span>
+                    </Link>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -134,13 +81,10 @@ export function SolutionsView() {
             <div className="ent-band rv">
               <div className="eb-top">
                 <div className="eb-copy">
-                  <h3>Enterprise</h3>
-                  <p>
-                    Every identity, fully in control: identity command, three deployment models, and
-                    a standards posture for enterprise estates.
-                  </p>
-                  <Link className="btn btn-white" href="/enterprise">
-                    View the Enterprise page{" "}
+                  <h3>{content.enterprise.title}</h3>
+                  <p>{content.enterprise.text}</p>
+                  <Link className="btn btn-white" href={content.enterprise.button.href}>
+                    {content.enterprise.button.label}{" "}
                     <span className="chev" aria-hidden="true">
                       &#8250;
                     </span>
@@ -163,8 +107,8 @@ export function SolutionsView() {
                         <path d="M7 18a4 4 0 0 1-.6-7.96A5.5 5.5 0 0 1 17 9.5a4.2 4.2 0 0 1 0 8.5z" />
                       </svg>
                     </span>
-                    <b>SaaS</b>
-                    <p>Runs in the cloud, with identity command from day one.</p>
+                    <b>{content.enterprise.models[0].title}</b>
+                    <p>{content.enterprise.models[0].text}</p>
                   </div>
                   <div className="eb-m">
                     <span className="ic">
@@ -182,8 +126,8 @@ export function SolutionsView() {
                         <path d="M6 21V4h12v17M4 21h16M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2" />
                       </svg>
                     </span>
-                    <b>On-premises</b>
-                    <p>Runs in your own data centers, under your control.</p>
+                    <b>{content.enterprise.models[1].title}</b>
+                    <p>{content.enterprise.models[1].text}</p>
                   </div>
                   <div className="eb-m">
                     <span className="ic">
@@ -202,29 +146,23 @@ export function SolutionsView() {
                         <path d="M8 11V8a4 4 0 0 1 8 0v3" />
                       </svg>
                     </span>
-                    <b>Air-gapped</b>
-                    <p>Runs fully on site, apart from public networks.</p>
+                    <b>{content.enterprise.models[2].title}</b>
+                    <p>{content.enterprise.models[2].text}</p>
                   </div>
                 </div>
               </div>
               <div className="eb-std">
-                <span className="eb-lbl">Standards posture</span>
-                <span>FIDO2</span>
-                <span>SOC 2</span>
-                <span>ISO 27001</span>
-                <span>HIPAA</span>
-                <span>GDPR</span>
-                <span>PCI DSS</span>
-                <span>NIST AI RMF</span>
-                <span>NIST 800-207</span>
-                <span>NIST PQC</span>
+                <span className="eb-lbl">{content.enterprise.standardsLabel}</span>
+                {content.enterprise.standards.map((name) => (
+                  <span key={name}>{name}</span>
+                ))}
               </div>
             </div>
 
             <div className="sec-row sol-think-head rv">
-              <h3 className="h3">Our thinking</h3>
-              <Link className="products-all" href="/thinking">
-                All articles{" "}
+              <h3 className="h3">{content.thinking.title}</h3>
+              <Link className="products-all" href={content.thinking.allLink.href}>
+                {content.thinking.allLink.label}{" "}
                 <span className="arr" aria-hidden="true">
                   &#8594;
                 </span>
@@ -238,9 +176,9 @@ export function SolutionsView() {
         <section className="cta-sec sm" data-nav="light">
           <div className="wrap">
             <div className="cta-panel plain rv">
-              <h2 className="h2">Which solution fits your goals?</h2>
-              <Link className="btn btn-white" href="/contact">
-                Book a strategy call{" "}
+              <h2 className="h2">{content.cta.title}</h2>
+              <Link className="btn btn-white" href={content.cta.button.href}>
+                {content.cta.button.label}{" "}
                 <span className="chev" aria-hidden="true">
                   &#8250;
                 </span>

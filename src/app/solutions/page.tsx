@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
+import { getAllSolutions } from "@/lib/solution";
+import { getSolutionsPageContent } from "@/lib/solutions-page-content";
 import { SolutionsView } from "@/components/prototype/SolutionsView";
 
 export const metadata: Metadata = {
@@ -18,10 +20,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SolutionsPage() {
+export default async function SolutionsPage() {
+  const [content, solutions] = await Promise.all([getSolutionsPageContent(), getAllSolutions()]);
   return (
     <>
-      <SolutionsView />
+      <SolutionsView content={content} solutions={solutions} />
       <PrototypeBehaviors root="view-solutions" features={["reveal"]} />
     </>
   );

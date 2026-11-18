@@ -12,8 +12,9 @@ const SLUG_REGEX = /^[a-z0-9-]+$/;
  * Returns all solutions ordered by display order.
  */
 export async function getAllSolutions(): Promise<Solution[]> {
-  // In production with Sanity, we query: *[_type == "solution"] | order(order asc)
-  return [...canonicalSolutions].sort((a, b) => a.order - b.order);
+  // The editors' version of each solution laid over the built-in one (see getSolutionBySlug).
+  const all = await Promise.all(canonicalSolutions.map((s) => getSolutionBySlug(s.slug)));
+  return all.filter((s): s is Solution => s !== null).sort((a, b) => a.order - b.order);
 }
 
 /**
