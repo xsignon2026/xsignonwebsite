@@ -12,6 +12,7 @@ import {
   type EcoItem,
 } from "@/components/home/SecurityEcosystem";
 import { SolutionIllustration } from "@/components/home/SolutionIllustration";
+import { getAboutContent } from "@/lib/about-content";
 import { getActiveJobs } from "@/lib/job";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -39,107 +40,33 @@ const organizationJsonLd = {
   sameAs: ["https://www.linkedin.com/company/xsignon"],
 };
 
-const CAPABILITIES = [
-  {
-    title: "Identity governance",
-    text: "Understand identities, access, permissions and control gaps across your environment.",
-    art: "identity",
-  },
-  {
-    title: "AI and digital governance",
-    text: "Evaluate AI systems and digital risk against defined security and governance requirements.",
-    art: "ai",
-  },
-  {
-    title: "Passwordless authentication",
-    text: "Reduce credential exposure with biometric, phishing-resistant sign-in.",
-    art: "key",
-  },
-  {
-    title: "Quantum-safe security",
-    text: "Understand and prepare for emerging cryptographic risk.",
-    art: "atom",
-  },
+const WHY_COLOURS = [
+  { top: "#b3aed0", left: "#8f89b8", right: "#6f67a8", color: "#8f89b8", icon: "grid" },
+  { top: "#6f67a8", left: "#554d90", right: "#3b3668", color: "#6f67a8", icon: "key" },
+  { top: "#3b3668", left: "#2c2757", right: "#1f1b45", color: "#3b3668", icon: "database" },
+  { top: "#d4163a", left: "#a60019", right: "#7a0012", color: "#c6001d", icon: "atom" },
 ] as const;
 
-const STEPS: ReadonlyArray<GlassItem> = [
-  {
-    label: "01",
-    title: "Understand the environment",
-    kind: "Baseline report",
-    text: "Establish the identity, technology, data and risk baseline.",
-  },
-  {
-    label: "02",
-    title: "Define the architecture",
-    kind: "Architecture plan",
-    text: "Identify control gaps and design the right security approach.",
-  },
-  {
-    label: "03",
-    title: "Implement the solution",
-    kind: "Working controls",
-    text: "Introduce products, controls and workflows without unnecessary disruption.",
-  },
-  {
-    label: "04",
-    title: "Govern continuously",
-    kind: "Ongoing evidence",
-    text: "Monitor change, evaluate risk and maintain evidence over time.",
-  },
-].map((item, i) => ({ ...item, ...GLASS_COLOURS[i] }));
-
-const WHY: ReadonlyArray<EcoItem> = [
-  {
-    n: "01",
-    title: "Security must work in practice",
-    lines: ["A control is valuable only when it", "works in the real environment."],
-    icon: "grid",
-    top: "#b3aed0",
-    left: "#8f89b8",
-    right: "#6f67a8",
-    color: "#8f89b8",
-  },
-  {
-    n: "02",
-    title: "Identity is foundational",
-    lines: ["Access, governance and accountability", "begin with who or what is acting."],
-    icon: "key",
-    top: "#6f67a8",
-    left: "#554d90",
-    right: "#3b3668",
-    color: "#6f67a8",
-  },
-  {
-    n: "03",
-    title: "Evidence over assumption",
-    lines: ["Decisions rest on observable risk,", "controls and outcomes."],
-    icon: "database",
-    top: "#3b3668",
-    left: "#2c2757",
-    right: "#1f1b45",
-    color: "#3b3668",
-  },
-  {
-    n: "04",
-    title: "Prepare without disruption",
-    lines: ["Address emerging risk without", "abandoning systems that still serve you."],
-    icon: "atom",
-    top: "#d4163a",
-    left: "#a60019",
-    right: "#7a0012",
-    color: "#c6001d",
-  },
-];
-
-const WHY_DETAIL: ReadonlyArray<EcoDetail> = [
-  { from: [], via: ["Real environments"], to: [] },
-  { from: [], via: ["Who or what is acting"], to: [] },
-  { from: [], via: ["Observable outcomes"], to: [] },
-  { from: [], via: ["Systems still in use"], to: [] },
-];
-
-export default function AboutPage(): React.JSX.Element {
+export default async function AboutPage(): Promise<React.JSX.Element> {
+  const content = await getAboutContent();
+  const steps: ReadonlyArray<GlassItem> = content.how.steps.map((step, i) => ({
+    label: String(i + 1).padStart(2, "0"),
+    title: step.title,
+    kind: step.kind,
+    text: step.text,
+    ...GLASS_COLOURS[i],
+  }));
+  const why: ReadonlyArray<EcoItem> = content.why.principles.map((p, i) => ({
+    n: String(i + 1).padStart(2, "0"),
+    title: p.title,
+    lines: [p.lines[0] ?? "", p.lines[1] ?? ""],
+    ...WHY_COLOURS[i],
+  }));
+  const whyDetail: ReadonlyArray<EcoDetail> = content.why.principles.map((p) => ({
+    from: [],
+    via: [p.via],
+    to: [],
+  }));
   const hasRoles = getActiveJobs().length > 0;
   return (
     <div id="view-about">
@@ -148,27 +75,18 @@ export default function AboutPage(): React.JSX.Element {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
 
-      <AboutHero />
+      <AboutHero content={content.hero} />
 
       <section className="ab-sec" id="who" data-nav="light">
         <div className="wrap">
-          <h2 className="h2 rv">Who we are</h2>
+          <h2 className="h2 rv">{content.who.title}</h2>
           <div className="ab-who rv">
             <div>
-              <p className="ab-statement">
-                XSignOn is a cybersecurity and identity company developing products across security
-                posture, passwordless authentication, and AI evaluation.
-              </p>
+              <p className="ab-statement">{content.who.statement}</p>
               <div className="ab-copy">
-                <p>
-                  Our work connects identity, governance, data and emerging technology risk. We help
-                  organizations understand exposure, strengthen access, and build controls that can
-                  evolve with their operating environment.
-                </p>
-                <p>
-                  We combine product development, security architecture and continuous governance
-                  into one connected approach.
-                </p>
+                {content.who.paragraphs.map((para) => (
+                  <p key={para}>{para}</p>
+                ))}
               </div>
             </div>
             <div className="ab-who-art">
@@ -180,9 +98,9 @@ export default function AboutPage(): React.JSX.Element {
 
       <section className="ab-sec ab-soft" id="what" data-nav="light">
         <div className="wrap">
-          <h2 className="h2 rv">What we do</h2>
+          <h2 className="h2 rv">{content.whatWeDo.title}</h2>
           <ul className="ab-cap rv">
-            {CAPABILITIES.map((c) => (
+            {content.whatWeDo.items.map((c) => (
               <li key={c.title}>
                 <div className="ab-art">
                   <SolutionIllustration name={c.art} />
@@ -197,17 +115,17 @@ export default function AboutPage(): React.JSX.Element {
 
       <section className="ab-sec" id="ab-how" data-nav="light">
         <div className="wrap">
-          <h2 className="h2 rv">How we work</h2>
-          <GlassCubes items={STEPS} flow />
+          <h2 className="h2 rv">{content.how.title}</h2>
+          <GlassCubes items={steps} flow />
         </div>
       </section>
 
       <section className="ab-sec ab-soft" id="ab-why" data-nav="light">
         <div className="wrap">
-          <h2 className="h2 rv">Why XSignOn</h2>
+          <h2 className="h2 rv">{content.why.title}</h2>
           <SecurityEcosystem
-            items={WHY}
-            detail={WHY_DETAIL}
+            items={why}
+            detail={whyDetail}
             viaLabel="Focus:"
             label="Why XSignOn: four principles that guide our work"
           />
@@ -217,14 +135,13 @@ export default function AboutPage(): React.JSX.Element {
       <section className="ab-sec" id="products-link" data-nav="light">
         <div className="wrap">
           <div className="ab-prod rv">
-            <p>
-              Our products put this approach into practice: one posture view, sign-in without
-              passwords, and evidence for AI systems.
-            </p>
+            <p>{content.productsLine.text}</p>
             <div className="ab-links">
-              <Link href="/products/postureone">PostureOne &rarr;</Link>
-              <Link href="/products/passwordless-keys">Passwordless Authenticators &rarr;</Link>
-              <Link href="/products/evalone">EvalOne &rarr;</Link>
+              {content.productsLine.links.map((l) => (
+                <Link key={l.href} href={l.href}>
+                  {l.label} &rarr;
+                </Link>
+              ))}
             </div>
           </div>
         </div>
@@ -234,16 +151,9 @@ export default function AboutPage(): React.JSX.Element {
         <div className="wrap">
           <div className="ab-banner rv">
             <div>
-              <h2 className="h2">Build security for what comes next</h2>
-              <p>
-                We bring together people working across identity, cybersecurity, AI governance,
-                product development and enterprise technology. Based in McKinney, Texas.
-              </p>
-              {!hasRoles && (
-                <p className="ab-none">
-                  There are no open positions right now. Follow XSignOn for future opportunities.
-                </p>
-              )}
+              <h2 className="h2">{content.careers.title}</h2>
+              <p>{content.careers.text}</p>
+              {!hasRoles && <p className="ab-none">{content.careers.emptyNote}</p>}
             </div>
             <div className="ab-banner-cta">
               {hasRoles && (

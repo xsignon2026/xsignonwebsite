@@ -1,12 +1,13 @@
-// Loads the default home page content into Sanity, as the "home" document.
+// Loads the default page content into Sanity: the "home" and "about" documents.
 //
 //   node scripts/seed-sanity.mjs            shows what would be written (nothing is changed)
 //   node scripts/seed-sanity.mjs --write    writes it
+//   node scripts/seed-sanity.mjs --write --only=about    writes just one document
 //
 // Needs, in the environment or .env.local: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
 // SANITY_API_WRITE_TOKEN (an Editor token from sanity.io/manage, API, Tokens). The token is a secret: keep it in
-// .env.local, never in the code. It replaces the home document each time, so edits made in the Studio to that
-// document are overwritten: run it once, to start.
+// .env.local, never in the code. It replaces each document each time, so edits made in the Studio to them
+// are overwritten: run it once, to start.
 import { createRequire } from "node:module";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -22,17 +23,22 @@ for (const file of [".env.local", ".env"]) {
   }
 }
 
-const source = readFileSync(resolve("src/data/home-content.ts"), "utf8");
-const js = ts.transpileModule(source, {
-  compilerOptions: { module: ts.ModuleKind.CommonJS },
-}).outputText;
-const mod = { exports: {} };
-new Function("module", "exports", "require", js)(mod, mod.exports, require);
-const content = mod.exports.homeContentFallback;
+const load = (file, name) => {
+  const source = readFileSync(resolve(file), "utf8");
+  const js = ts.transpileModule(source, {
+    compilerOptions: { module: ts.ModuleKind.CommonJS },
+  }).outputText;
+  const mod = { exports: {} };
+  new Function("module", "exports", "require", js)(mod, mod.exports, require);
+  return mod.exports[name];
+};
+const content = load("src/data/home-content.ts", "homeContentFallback");
+const aboutContent = load("src/data/about-content.ts", "aboutContentFallback");
 
 let n = 0;
 const key = (prefix) => `${prefix}-${(n++).toString(36)}`;
-const doc = {
+const withKeys = (items, prefix) => items.map((item) => ({ _key: key(prefix), ...item }));
+const homeDoc = {
   _id: "home",
   _type: "home",
   hero: content.hero,
@@ -53,10 +59,27 @@ const doc = {
   },
   cta: content.cta,
 };
+const aboutDoc = {
+  _id: "about",
+  _type: "about",
+  hero: aboutContent.hero,
+  who: aboutContent.who,
+  whatWeDo: { ...aboutContent.whatWeDo, items: withKeys(aboutContent.whatWeDo.items, "cap") },
+  how: { ...aboutContent.how, steps: withKeys(aboutContent.how.steps, "step") },
+  why: { ...aboutContent.why, principles: withKeys(aboutContent.why.principles, "why") },
+  productsLine: {
+    ...aboutContent.productsLine,
+    links: withKeys(aboutContent.productsLine.links, "link"),
+  },
+  careers: aboutContent.careers,
+};
+// --only=about writes just that document, so Studio edits to the others are kept.
+const only = process.argv.find((a) => a.startsWith("--only="))?.slice(7);
+const docs = [homeDoc, aboutDoc].filter((d) => !only || d._id === only);
 
 const write = process.argv.includes("--write");
 if (!write) {
-  console.log(JSON.stringify(doc, null, 2));
+  console.log(JSON.stringify(docs, null, 2));
   console.log("\nNothing was written. Run with --write to save this to Sanity.");
   process.exit(0);
 }
@@ -72,5 +95,7 @@ if (!projectId || !token) {
 }
 const { createClient } = require("@sanity/client");
 const client = createClient({ projectId, dataset, token, apiVersion: "2026-11-01", useCdn: false });
-const result = await client.createOrReplace(doc);
-console.log(`Saved the home document (${result._id}) to ${projectId}/${dataset}.`);
+for (const doc of docs) {
+  const result = await client.createOrReplace(doc);
+  console.log(`Saved the ${result._id} document to ${projectId}/${dataset}.`);
+}

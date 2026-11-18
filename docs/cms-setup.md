@@ -31,7 +31,9 @@ Never send tokens in chat or commit them. If one is shared by accident, delete i
 | 5. What XSignOn does | Heading, link and the four panels |
 | 6. Contact block | Heading and button |
 
-Not yet in the CMS (next passes): the product carousel, the Insights section, the About page, the Products page and product pages, solutions, articles, careers, legal pages.
+Also in the CMS: the "About page" document (same steps; seed it with `node scripts/seed-sanity.mjs --write --only=about`).
+
+Not yet in the CMS (next passes): the product carousel, the Insights section, the Products page and product pages, solutions, articles, careers, legal pages.
 
 ## If something is empty or wrong
 
