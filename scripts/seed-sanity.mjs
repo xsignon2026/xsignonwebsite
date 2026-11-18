@@ -2,7 +2,7 @@
 //
 //   node scripts/seed-sanity.mjs            shows what would be written (nothing is changed)
 //   node scripts/seed-sanity.mjs --write    writes it
-//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about or product)
+//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage or product)
 //
 // Needs, in the environment or .env.local: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
 // SANITY_API_WRITE_TOKEN (an Editor token from sanity.io/manage, API, Tokens). The token is a secret: keep it in
@@ -34,6 +34,7 @@ const load = (file, name) => {
 };
 const content = load("src/data/home-content.ts", "homeContentFallback");
 const aboutContent = load("src/data/about-content.ts", "aboutContentFallback");
+const productsPageContent = load("src/data/products-page-content.ts", "productsPageFallback");
 
 let n = 0;
 const key = (prefix) => `${prefix}-${(n++).toString(36)}`;
@@ -106,7 +107,16 @@ const productDocs = productFiles.map(([file, name]) => {
     slug: { _type: "slug", current: slug },
   };
 });
-const docs = [homeDoc, aboutDoc, ...productDocs].filter(
+const productsPageDoc = {
+  _id: "productsPage",
+  _type: "productsPage",
+  hero: productsPageContent.hero,
+  newLaunches: addKeys(productsPageContent.newLaunches),
+  cards: addKeys(productsPageContent.cards),
+  thinking: productsPageContent.thinking,
+  cta: productsPageContent.cta,
+};
+const docs = [homeDoc, aboutDoc, productsPageDoc, ...productDocs].filter(
   (d) => !only || d._id === only || d._type === only,
 );
 

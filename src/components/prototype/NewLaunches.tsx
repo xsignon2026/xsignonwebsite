@@ -1,54 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NewLaunchesFx } from "@/components/prototype/NewLaunchesFx";
+import { PRODUCT_PICTURES } from "@/components/prototype/product-pictures";
+import type { ProductsPageContent } from "@/types/products-page-content";
 
 // "New launches" on the Products page: the three newest products as large cards, the picture on one side and
-// the text on the other, alternating. For now this list is edited here; later it can come from the CMS. The
-// pictures are the ones the existing product cards already use.
+// the text on the other, alternating. The list comes from the CMS (default in
+// src/data/products-page-content.ts). The pictures are the ones the existing product cards already use.
 
-export type Launch = {
-  name: string;
-  tag: string;
-  text: string;
-  href: string;
-  cta: string;
-  image: { src: string; alt: string };
-};
+export type Launch = ProductsPageContent["newLaunches"]["items"][number];
 
-export const launches: ReadonlyArray<Launch> = [
-  {
-    name: "XSignOn Mesh",
-    tag: "Micro-segmentation",
-    text: "Micro-segmentation and containment that keeps one failure small, with zone and flow maps that feed your posture view.",
-    href: "/products/xsignon-mesh",
-    cta: "Explore XSignOn Mesh",
-    image: { src: "/images/products/img-86bd27dc.jpg", alt: "An analytics dashboard on a screen" },
-  },
-  {
-    name: "Passwordless Keys",
-    tag: "Passwordless",
-    text: "Passkeys, biometrics and hardware keys in one calm sign-in flow, so people prove who they are without a password.",
-    href: "/products/passwordless-keys",
-    cta: "Explore the keys",
-    image: {
-      src: "/images/products/img-80a343ae.jpg",
-      alt: "A person signing in with a fingerprint on a phone",
-    },
-  },
-  {
-    name: "EvalOne",
-    tag: "AI evaluation",
-    text: "Agents evaluated with structured checks, evidence and a named reviewer, ready for the people who sign off.",
-    href: "/products/evalone",
-    cta: "Explore EvalOne",
-    image: {
-      src: "/images/products/img-b5d58838.jpg",
-      alt: "A team reviewing work together in a workshop",
-    },
-  },
-];
-
-export function NewLaunches() {
+export function NewLaunches({ title, items }: { title: string; items: ReadonlyArray<Launch> }) {
   return (
     <section
       className="page-sec"
@@ -57,10 +19,10 @@ export function NewLaunches() {
     >
       <div className="wrap">
         <div className="sec-row rv">
-          <h2 className="h2">New launches</h2>
+          <h2 className="h2">{title}</h2>
         </div>
         <ul className="nl-list" id="nlList">
-          {launches.map((p, i) => (
+          {items.map((p, i) => (
             <li
               key={p.name}
               className="nl-card"
@@ -69,8 +31,8 @@ export function NewLaunches() {
             >
               <div className="nl-img">
                 <Image
-                  src={p.image.src}
-                  alt={p.image.alt}
+                  src={PRODUCT_PICTURES[p.picture].src}
+                  alt={PRODUCT_PICTURES[p.picture].alt}
                   width={1600}
                   height={1067}
                   sizes="(max-width: 900px) 100vw, 640px"

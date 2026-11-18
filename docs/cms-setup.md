@@ -33,9 +33,9 @@ Never send tokens in chat or commit them. If one is shared by accident, delete i
 
 Also in the CMS: the "About page" document (same steps; seed it with `node scripts/seed-sanity.mjs --write --only=about`).
 
-Also in the CMS: the six product pages (PostureOne, Passwordless Keys, EvalOne, XSense, AMS, XSignOn Mesh), each a "Product" document. Anything left empty keeps the built-in text. Seed with `node scripts/seed-sanity.mjs --write --only=product`.
+Also in the CMS: the "Products page" document (title, three new launches, five cards, contact block; seed with `--only=productsPage`), and the six product pages (PostureOne, Passwordless Keys, EvalOne, XSense, AMS, XSignOn Mesh), each a "Product" document. Anything left empty keeps the built-in text. Seed with `node scripts/seed-sanity.mjs --write --only=product`.
 
-Not yet in the CMS (next passes): the Products listing page (hero, new launches, cards), the Insights section, the Products page and product pages, solutions, articles, careers, legal pages.
+Not yet in the CMS (next passes): the Insights section, the Products page and product pages, solutions, articles, careers, legal pages.
 
 ## If something is empty or wrong
 

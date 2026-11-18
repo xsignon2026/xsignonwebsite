@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import { ProductsView } from "@/components/prototype/ProductsView";
+import { getProductsPageContent } from "@/lib/products-page-content";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -10,10 +11,11 @@ export const metadata: Metadata = createPageMetadata({
   path: "/products",
 });
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const content = await getProductsPageContent();
   return (
     <>
-      <ProductsView />
+      <ProductsView content={content} />
       <PrototypeBehaviors
         root="view-products"
         features={["reveal", "productTabs", "overview", "thinkCarousel"]}

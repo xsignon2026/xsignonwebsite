@@ -1,4 +1,6 @@
 import { NewLaunches } from "@/components/prototype/NewLaunches";
+import { PRODUCT_PICTURES } from "@/components/prototype/product-pictures";
+import type { ProductsPageContent } from "@/types/products-page-content";
 import Image from "next/image";
 import Link from "next/link";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
@@ -6,7 +8,7 @@ import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
-export function ProductsView() {
+export function ProductsView({ content }: { content: ProductsPageContent }) {
   return (
     <div id="view-products">
       <section className="page-hero has-beams" data-nav="dark">
@@ -17,11 +19,11 @@ export function ProductsView() {
             <span className="sep">/</span>
             <span className="cur">Products</span>
           </nav>
-          <h1 className="h-display">Our products</h1>
+          <h1 className="h-display">{content.hero.title}</h1>
         </div>
       </section>
       <div data-nav="light">
-        <NewLaunches />
+        <NewLaunches title={content.newLaunches.title} items={content.newLaunches.items} />
         <section
           className="page-sec"
           id="platform"
@@ -35,271 +37,68 @@ export function ProductsView() {
               aria-label="Products"
               id="prodxTabs"
             >
-              <button
-                className="prodx-tab"
-                role="tab"
-                id="ptab-0"
-                aria-controls="ppanel-0"
-                aria-selected="true"
-              >
-                PostureOne
-              </button>
-              <button
-                className="prodx-tab"
-                role="tab"
-                id="ptab-1"
-                aria-controls="ppanel-1"
-                aria-selected="false"
-                tabIndex={-1}
-              >
-                Passwordless Keys
-              </button>
-              <button
-                className="prodx-tab"
-                role="tab"
-                id="ptab-2"
-                aria-controls="ppanel-2"
-                aria-selected="false"
-                tabIndex={-1}
-              >
-                EvalOne
-              </button>
-              <button
-                className="prodx-tab"
-                role="tab"
-                id="ptab-3"
-                aria-controls="ppanel-3"
-                aria-selected="false"
-                tabIndex={-1}
-              >
-                XSense
-              </button>
-              <button
-                className="prodx-tab"
-                role="tab"
-                id="ptab-4"
-                aria-controls="ppanel-4"
-                aria-selected="false"
-                tabIndex={-1}
-              >
-                AMS
-              </button>
+              {content.cards.items.map((card, i) => (
+                <button
+                  className="prodx-tab"
+                  role="tab"
+                  id={`ptab-${i}`}
+                  aria-controls={`ppanel-${i}`}
+                  aria-selected={i === 0 ? "true" : "false"}
+                  tabIndex={i === 0 ? undefined : -1}
+                  key={card.name}
+                >
+                  {card.name}
+                </button>
+              ))}
             </div>
-            <article
-              className="prodx-panel on"
-              id="ppanel-0"
-              role="tabpanel"
-              aria-labelledby="ptab-0"
-            >
-              <div className="prodx-img">
-                <Image
-                  src="/images/products/img-48a7fb34.jpg"
-                  alt="Rows of servers in a data centre"
-                  width={1600}
-                  height={898}
-                />
-              </div>
-              <div>
-                <h3>PostureOne</h3>
-                <div className="prodx-tags">
-                  <span className="prodx-tag">Identity inventory</span>
-                  <span className="prodx-tag">Posture scoring</span>
-                  <span className="prodx-tag">Continuous review</span>
-                </div>
-                <p>
-                  A living inventory of every person, device and agent, with posture scored
-                  continuously so reviews start from evidence instead of spreadsheets.
-                </p>
-                <Link className="prodx-more" href="/contact">
-                  View more{" "}
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M4 12h16m-6-6 6 6-6 6" />
-                  </svg>
-                </Link>
-              </div>
-            </article>
-            <article
-              className="prodx-panel"
-              id="ppanel-1"
-              role="tabpanel"
-              aria-labelledby="ptab-1"
-              hidden
-            >
-              <div className="prodx-img">
-                <Image
-                  src="/images/products/img-80a343ae.jpg"
-                  alt="A person signing in with a fingerprint on a phone"
-                  width={1600}
-                  height={1067}
-                />
-              </div>
-              <div>
-                <h3>Passwordless Keys</h3>
-                <div className="prodx-tags">
-                  <span className="prodx-tag">Passkeys</span>
-                  <span className="prodx-tag">Biometrics</span>
-                  <span className="prodx-tag">Hardware keys</span>
-                  <span className="prodx-tag">4 AUTH models</span>
-                </div>
-                <p>
-                  Sign-in your team will love: passkeys, biometrics and hardware keys in one calm
-                  flow, with recovery paths people can actually follow.
-                </p>
-                <Link className="prodx-more" href="/contact">
-                  View more{" "}
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M4 12h16m-6-6 6 6-6 6" />
-                  </svg>
-                </Link>
-              </div>
-            </article>
-            <article
-              className="prodx-panel"
-              id="ppanel-2"
-              role="tabpanel"
-              aria-labelledby="ptab-2"
-              hidden
-            >
-              <div className="prodx-img">
-                <Image
-                  src="/images/products/img-b5d58838.jpg"
-                  alt="A team reviewing work together in a workshop"
-                  width={1600}
-                  height={1067}
-                />
-              </div>
-              <div>
-                <h3>EvalOne</h3>
-                <div className="prodx-tags">
-                  <span className="prodx-tag">Agent evaluation</span>
-                  <span className="prodx-tag">Evidence packs</span>
-                  <span className="prodx-tag">Sign-off flows</span>
-                </div>
-                <p>
-                  Agents are evaluated the way great teams review code: structured checks, attached
-                  evidence and a named reviewer before authority grows.
-                </p>
-                <Link className="prodx-more" href="/contact">
-                  View more{" "}
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M4 12h16m-6-6 6 6-6 6" />
-                  </svg>
-                </Link>
-              </div>
-            </article>
-            <article
-              className="prodx-panel"
-              id="ppanel-3"
-              role="tabpanel"
-              aria-labelledby="ptab-3"
-              hidden
-            >
-              <div className="prodx-img">
-                <Image
-                  src="/images/products/img-86bd27dc.jpg"
-                  alt="An analytics dashboard on a screen"
-                  width={1600}
-                  height={1067}
-                />
-              </div>
-              <div>
-                <h3>XSense</h3>
-                <div className="prodx-tags">
-                  <span className="prodx-tag">Live signals</span>
-                  <span className="prodx-tag">Behaviour context</span>
-                  <span className="prodx-tag">Adaptive decisions</span>
-                </div>
-                <p>
-                  Behavioural and contextual signals stream into every access decision, so the
-                  platform responds to the moment rather than a static rule.
-                </p>
-                <Link className="prodx-more" href="/contact">
-                  View more{" "}
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M4 12h16m-6-6 6 6-6 6" />
-                  </svg>
-                </Link>
-              </div>
-            </article>
-            <article
-              className="prodx-panel"
-              id="ppanel-4"
-              role="tabpanel"
-              aria-labelledby="ptab-4"
-              hidden
-            >
-              <div className="prodx-img">
-                <Image
-                  src="/images/products/img-02a71707.jpg"
-                  alt="Organised warehouse shelves representing managed access operations"
-                  width={1600}
-                  height={1067}
-                />
-              </div>
-              <div>
-                <h3>AMS</h3>
-                <div className="prodx-tags">
-                  <span className="prodx-tag">Access requests</span>
-                  <span className="prodx-tag">Approvals</span>
-                  <span className="prodx-tag">Periodic reviews</span>
-                </div>
-                <p>
-                  The day-to-day home of access operations: requests, approvals and periodic reviews
-                  with clear owners and a complete trail.
-                </p>
-                <Link className="prodx-more" href="/contact">
-                  View more{" "}
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M4 12h16m-6-6 6 6-6 6" />
-                  </svg>
-                </Link>
-              </div>
-            </article>
+            {content.cards.items.map((card, i) => {
+              const picture = PRODUCT_PICTURES[card.picture];
+              return (
+                <article
+                  className={i === 0 ? "prodx-panel on" : "prodx-panel"}
+                  id={`ppanel-${i}`}
+                  role="tabpanel"
+                  aria-labelledby={`ptab-${i}`}
+                  hidden={i === 0 ? undefined : true}
+                  key={card.name}
+                >
+                  <div className="prodx-img">
+                    <Image
+                      src={picture.src}
+                      alt={picture.alt}
+                      width={1600}
+                      height={picture.height}
+                    />
+                  </div>
+                  <div>
+                    <h3>{card.name}</h3>
+                    <div className="prodx-tags">
+                      {card.tags.map((tag) => (
+                        <span className="prodx-tag" key={tag}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <p>{card.text}</p>
+                    <Link className="prodx-more" href={card.href}>
+                      View more{" "}
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M4 12h16m-6-6 6 6-6 6" />
+                      </svg>
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
         <section
@@ -532,9 +331,9 @@ export function ProductsView() {
         >
           <div className="wrap">
             <div className="sec-row rv">
-              <h2 className="h2">Our thinking</h2>
-              <Link className="products-all" href="/thinking">
-                All articles{" "}
+              <h2 className="h2">{content.thinking.title}</h2>
+              <Link className="products-all" href={content.thinking.allLink.href}>
+                {content.thinking.allLink.label}{" "}
                 <span className="arr" aria-hidden="true">
                   &#8594;
                 </span>
@@ -695,9 +494,9 @@ export function ProductsView() {
           <div className="wrap">
             <div className="cta-panel rv has-persp">
               <PerspectiveGrid className="bg-persp" horizon={0.28} alpha={1.6} />
-              <h2 className="h2">Talk to us about sign-in your team will love.</h2>
-              <Link className="btn btn-white" href="/contact">
-                Book a strategy call{" "}
+              <h2 className="h2">{content.cta.title}</h2>
+              <Link className="btn btn-white" href={content.cta.button.href}>
+                {content.cta.button.label}{" "}
                 <span className="chev" aria-hidden="true">
                   &#8250;
                 </span>
