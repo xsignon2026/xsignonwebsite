@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import { ThinkingView } from "@/components/prototype/ThinkingView";
+import { getInsightsPageContent } from "@/lib/insights-page-content";
 
 export const metadata: Metadata = {
   title: "Our thinking | XSignOn",
@@ -8,10 +9,11 @@ export const metadata: Metadata = {
     "Practical perspectives on identity governance, AI security, micro-segmentation, and zero-trust engineering.",
 };
 
-export default function ThinkingHubPage() {
+export default async function ThinkingHubPage() {
+  const content = await getInsightsPageContent();
   return (
     <>
-      <ThinkingView />
+      <ThinkingView content={content} />
       <PrototypeBehaviors root="view-thinking" features={["reveal"]} />
     </>
   );
