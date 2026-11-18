@@ -1,19 +1,20 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 import { isAllowedExternalUrl, isNotBlank } from "../../lib/validation";
 
-// S-14 / T-098: Case Study document schema with mandatory approval governance.
-// Requirement: A case study cannot be published without an 'approved' status,
-// a named approval owner, and a verifiable evidence link.
+// A case study page, with mandatory approval governance. Rules that apply to every word here:
+// - Name a customer, a number or a result only when it is confirmed in writing and can be sourced.
+// - A section whose details are not confirmed stays as a "pending" note rather than a guess.
+// The page only shows the edited version once Approval status is "Approved", with an owner and evidence link.
+
 export const caseStudy = defineType({
   name: "caseStudy",
   title: "Case Study",
   type: "document",
   groups: [
     { name: "content", title: "Content", default: true },
-    { name: "narrative", title: "Narrative & Rollout" },
-    { name: "governance", title: "Governance & Sign-off" },
-    { name: "related", title: "Related Items" },
-    { name: "seo", title: "Search & Social" },
+    { name: "sections", title: "Sections" },
+    { name: "related", title: "Related and ending" },
+    { name: "governance", title: "Governance and sign-off" },
   ],
   fields: [
     defineField({
@@ -21,268 +22,239 @@ export const caseStudy = defineType({
       title: "Title",
       type: "string",
       group: "content",
-      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Title is required.")),
+      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Title is required.")).max(120),
     }),
     defineField({
       name: "slug",
-      title: "Slug",
+      title: "Address (slug)",
       type: "slug",
       group: "content",
+      description: "Do not change it after the case study is published.",
       options: { source: "title", maxLength: 96 },
-      validation: (Rule) => Rule.required().error("Slug is required."),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "industry",
-      title: "Industry",
+      name: "crumb",
+      title: "Short name for the breadcrumb (for example Banking)",
       type: "string",
       group: "content",
-      description: "e.g. Banking, Healthcare, Electrical, IT",
-      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Industry is required.")),
+      validation: (Rule) => Rule.required().max(30),
     }),
     defineField({
-      name: "location",
-      title: "Location / Region",
-      type: "string",
-      group: "content",
-      description: "e.g. Abu Dhabi, Asia, Global",
-    }),
-    defineField({
-      name: "deploymentDate",
-      title: "Deployment Date",
-      type: "string",
-      group: "content",
-      description: "e.g. March 2020, December 2023, July 2020",
-    }),
-    defineField({
-      name: "headline",
-      title: "Headline",
-      type: "string",
-      group: "content",
-      description: "Executive summary headline for card and hero views",
-      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Headline is required.")),
-    }),
-    defineField({
-      name: "summary",
-      title: "Summary Description",
-      type: "text",
-      rows: 3,
-      group: "content",
-      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Summary is required.")),
-    }),
-    defineField({
-      name: "logo",
-      title: "Client Logo",
-      type: "imageWithAlt",
-      group: "content",
-    }),
-    defineField({
-      name: "heroImage",
-      title: "Hero / Card Photo",
-      type: "imageWithAlt",
-      group: "content",
-    }),
-    defineField({
-      name: "challenge",
-      title: "Challenge (Where they started)",
-      type: "text",
-      rows: 4,
-      group: "narrative",
-      validation: (Rule) =>
-        Rule.custom((val) => isNotBlank(val, "Challenge narrative is required.")),
-    }),
-    defineField({
-      name: "challengeParagraph2",
-      title: "Challenge Detail (Second Paragraph)",
-      type: "text",
-      rows: 3,
-      group: "narrative",
-    }),
-    defineField({
-      name: "approach",
-      title: "Approach (What was deployed)",
-      type: "text",
-      rows: 4,
-      group: "narrative",
-      validation: (Rule) =>
-        Rule.custom((val) => isNotBlank(val, "Approach narrative is required.")),
-    }),
-    defineField({
-      name: "deployedFeatures",
-      title: "Deployed Features",
+      name: "tags",
+      title: "Small tags under the title (industry, date, products)",
       type: "array",
-      group: "narrative",
+      group: "content",
+      of: [defineArrayMember({ type: "string" })],
+      validation: (Rule) => Rule.min(1).max(5),
+    }),
+
+    defineField({
+      name: "sections",
+      title: "Sections (usually: Where they started, What was deployed, Rollout, Outcome)",
+      type: "array",
+      group: "sections",
+      validation: (Rule) => Rule.required().min(1),
       of: [
-        {
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "heading",
+              title: "Heading",
+              type: "string",
+              validation: (Rule) => Rule.required().max(60),
+            }),
+            defineField({
+              name: "paragraphs",
+              title: "Paragraphs",
+              type: "array",
+              of: [defineArrayMember({ type: "text", rows: 5 })],
+            }),
+            defineField({
+              name: "features",
+              title: "Checklist",
+              type: "array",
+              of: [
+                defineArrayMember({
+                  type: "object",
+                  fields: [
+                    defineField({
+                      name: "lead",
+                      title: "Bold words at the start",
+                      type: "string",
+                      validation: (Rule) => Rule.required(),
+                    }),
+                    defineField({
+                      name: "joiner",
+                      title: "What follows the bold words",
+                      type: "string",
+                      options: {
+                        list: [
+                          { title: "Just a space", value: "" },
+                          { title: "A comma", value: "," },
+                          { title: "A colon", value: ":" },
+                        ],
+                      },
+                      initialValue: "",
+                    }),
+                    defineField({
+                      name: "body",
+                      title: "Rest of the sentence",
+                      type: "text",
+                      rows: 2,
+                      validation: (Rule) => Rule.required(),
+                    }),
+                  ],
+                  preview: { select: { title: "lead", subtitle: "body" } },
+                }),
+              ],
+            }),
+            defineField({
+              name: "steps",
+              title: "Rollout steps",
+              type: "array",
+              of: [
+                defineArrayMember({
+                  type: "object",
+                  fields: [
+                    defineField({
+                      name: "number",
+                      title: "Number (for example 01)",
+                      type: "string",
+                      validation: (Rule) => Rule.required(),
+                    }),
+                    defineField({
+                      name: "title",
+                      title: "Step name",
+                      type: "string",
+                      validation: (Rule) => Rule.required(),
+                    }),
+                    defineField({
+                      name: "text",
+                      title: "Description",
+                      type: "text",
+                      rows: 3,
+                      validation: (Rule) => Rule.required(),
+                    }),
+                  ],
+                  preview: { select: { title: "title", subtitle: "number" } },
+                }),
+              ],
+            }),
+            defineField({
+              name: "notes",
+              title: "Highlighted notes (for example 'Case details pending')",
+              type: "array",
+              of: [
+                defineArrayMember({
+                  type: "object",
+                  fields: [
+                    defineField({
+                      name: "label",
+                      title: "Bold label (without the colon)",
+                      type: "string",
+                      validation: (Rule) => Rule.required(),
+                    }),
+                    defineField({
+                      name: "text",
+                      title: "Text",
+                      type: "text",
+                      rows: 2,
+                      validation: (Rule) => Rule.required(),
+                    }),
+                  ],
+                  preview: { select: { title: "label", subtitle: "text" } },
+                }),
+              ],
+            }),
+          ],
+          preview: { select: { title: "heading" } },
+        }),
+      ],
+    }),
+
+    defineField({
+      name: "related",
+      title: "Related strip",
+      type: "array",
+      group: "related",
+      of: [
+        defineArrayMember({
           type: "object",
           fields: [
             defineField({
               name: "title",
-              title: "Feature Title",
+              title: "Title",
               type: "string",
               validation: (Rule) => Rule.required(),
             }),
             defineField({
-              name: "description",
-              title: "Feature Description",
-              type: "text",
-              rows: 2,
+              name: "type",
+              title: "Label on the right (Product, Solution, Case study, Proof)",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "href",
+              title: "Link (for example /products/ams)",
+              type: "string",
               validation: (Rule) => Rule.required(),
             }),
           ],
-        },
+          preview: { select: { title: "title", subtitle: "type" } },
+        }),
       ],
     }),
     defineField({
-      name: "rolloutSteps",
-      title: "Rollout Phases (3-Step Grid)",
-      type: "array",
-      group: "narrative",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({
-              name: "stepNumber",
-              title: "Step Number (e.g. 01, 02, 03)",
-              type: "string",
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: "title",
-              title: "Phase Title",
-              type: "string",
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: "description",
-              title: "Phase Description",
-              type: "text",
-              rows: 2,
-              validation: (Rule) => Rule.required(),
-            }),
-          ],
-        },
-      ],
-    }),
-    defineField({
-      name: "outcome",
-      title: "Outcome (In Words)",
-      type: "text",
-      rows: 3,
-      group: "narrative",
-      validation: (Rule) => Rule.custom((val) => isNotBlank(val, "Outcome narrative is required.")),
-    }),
-    defineField({
-      name: "outcomeStatus",
-      title: "Outcome Status Note / Notice Chip",
+      name: "ctaHeadline",
+      title: "Heading of the contact block at the end",
       type: "string",
-      group: "narrative",
-      description:
-        "e.g. Sourced outcome needed: one verifiable result, with its source and date, is added here before this page ships.",
+      group: "related",
+      validation: (Rule) => Rule.required().max(80),
     }),
-    defineField({
-      name: "quote",
-      title: "Client Quote",
-      type: "object",
-      group: "narrative",
-      fields: [
-        defineField({
-          name: "quoteText",
-          title: "Quote Text",
-          type: "text",
-          rows: 3,
-        }),
-        defineField({
-          name: "quoteAuthor",
-          title: "Quote Author",
-          type: "string",
-        }),
-        defineField({
-          name: "quoteRole",
-          title: "Author Role & Company",
-          type: "string",
-        }),
-      ],
-    }),
+
     defineField({
       name: "approvalOwner",
-      title: "Approval Owner",
+      title: "Approval owner",
       type: "string",
       group: "governance",
-      description: "Full name and role of the stakeholder who signed off",
+      description: "Full name and role of the person who signed off.",
       validation: (Rule) =>
         Rule.custom((val) => isNotBlank(val, "Approval owner must be recorded.")),
     }),
     defineField({
       name: "approvalStatus",
-      title: "Approval Status",
+      title: "Approval status",
       type: "string",
       group: "governance",
       options: {
         list: [
           { title: "Draft", value: "draft" },
-          { title: "Pending Approval", value: "pending_approval" },
-          { title: "Approved (Ready for Publish)", value: "approved" },
+          { title: "Pending approval", value: "pending_approval" },
+          { title: "Approved (ready to publish)", value: "approved" },
         ],
         layout: "radio",
       },
       initialValue: "draft",
       validation: (Rule) =>
-        Rule.custom((val) => {
-          // If the document is not in approved state, block publishing
-          if (val !== "approved") {
-            return "A case study cannot be published without an approved status. Switch to 'Approved' once sign-off is confirmed.";
-          }
-          return true;
-        }),
+        Rule.custom((val) =>
+          val === "approved"
+            ? true
+            : "A case study cannot be published without an approved status. Switch to 'Approved' once sign-off is confirmed.",
+        ),
     }),
     defineField({
       name: "evidenceLink",
-      title: "Evidence Link",
+      title: "Evidence link",
       type: "url",
       group: "governance",
-      description:
-        "Auditable proof link (internal artifact, sign-off sheet, or compliance document)",
+      description: "Auditable proof (a sign-off sheet or compliance document). It must open.",
       validation: (Rule) =>
-        Rule.custom((val) => {
-          if (!val) return "A verifiable https:// evidence link is required for publishing.";
-          return isAllowedExternalUrl(val);
-        }),
-    }),
-    defineField({
-      name: "relatedProducts",
-      title: "Related Products",
-      type: "array",
-      group: "related",
-      of: [{ type: "reference", to: [{ type: "product" }] }],
-    }),
-    defineField({
-      name: "relatedCaseStudies",
-      title: "Related Case Studies",
-      type: "array",
-      group: "related",
-      of: [{ type: "reference", to: [{ type: "caseStudy" }] }],
-    }),
-    defineField({
-      name: "seo",
-      title: "Search & Social",
-      type: "seo",
-      group: "seo",
+        Rule.custom((val) =>
+          val ? isAllowedExternalUrl(val) : "A verifiable https:// evidence link is required.",
+        ),
     }),
   ],
-  preview: {
-    select: {
-      title: "title",
-      industry: "industry",
-      status: "approvalStatus",
-      media: "heroImage",
-    },
-    prepare({ title, industry, status, media }) {
-      return {
-        title: title || "Untitled Case Study",
-        subtitle: `${industry || "General"} · Status: ${status || "draft"}`,
-        media,
-      };
-    },
-  },
+  preview: { select: { title: "title", subtitle: "approvalStatus" } },
 });

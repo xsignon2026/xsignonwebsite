@@ -39,6 +39,8 @@ Also in the CMS: the "Our thinking page" document (hub title, featured article, 
 
 Also in the CMS: the five solution pages ("Solution" documents: challenge, checklist, related rows, closing heading; the Solutions hub cards are still in the code).
 
+Also in the CMS: the four case study pages ("Case Study" documents). They only show the edited version once Approval status is Approved; the Proof hub list is still in the code.
+
 Not yet in the CMS (next passes): new articles (only the five existing ones can be edited for now), the Products page and product pages, solutions, articles, careers, legal pages.
 
 ## If something is empty or wrong

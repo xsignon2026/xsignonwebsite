@@ -1,8 +1,8 @@
-// Loads the default page content into Sanity: the "home" and "about" documents and the six products the five articles and the five solutions.
+// Loads the default page content into Sanity: the "home" and "about" documents and the six products the five articles the five solutions and the four case studies.
 //
 //   node scripts/seed-sanity.mjs            shows what would be written (nothing is changed)
 //   node scripts/seed-sanity.mjs --write    writes it
-//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, product, article or solution)
+//   node scripts/seed-sanity.mjs --write --only=about    writes just one document (home, about, productsPage, insightsPage, product, article, solution or caseStudy)
 //
 // Needs, in the environment or .env.local: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET and
 // SANITY_API_WRITE_TOKEN (an Editor token from sanity.io/manage, API, Tokens). The token is a secret: keep it in
@@ -38,6 +38,8 @@ const productsPageContent = load("src/data/products-page-content.ts", "productsP
 const insightsContent = load("src/data/insights-page-content.ts", "insightsPageFallback");
 const articlesData = load("src/data/articles.ts", "canonicalArticles");
 const solutionsData = load("src/data/solutions.ts", "canonicalSolutions");
+const casePages = load("src/data/case-study-pages.ts", "caseStudyPages");
+const caseRecords = load("src/data/caseStudies.ts", "canonicalCaseStudies");
 
 let n = 0;
 const key = (prefix) => `${prefix}-${(n++).toString(36)}`;
@@ -156,6 +158,20 @@ const solutionDocs = solutionsData.map((x) => {
     proofAndReading: addKeys(proofAndReading.map(link)),
   };
 });
+// The sign-off fields come from the existing case study records. They are copied as they are, not checked.
+const caseDocs = casePages.map((page) => {
+  const record = caseRecords.find((r) => r.slug === page.slug);
+  const { slug, ...rest } = page;
+  return {
+    ...addKeys(rest),
+    _id: `caseStudy-${slug}`,
+    _type: "caseStudy",
+    slug: { _type: "slug", current: slug },
+    approvalOwner: record.approvalOwner,
+    approvalStatus: record.approvalStatus,
+    evidenceLink: record.evidenceLink,
+  };
+});
 const docs = [
   homeDoc,
   aboutDoc,
@@ -164,6 +180,7 @@ const docs = [
   ...productDocs,
   ...articleDocs,
   ...solutionDocs,
+  ...caseDocs,
 ].filter((d) => !only || d._id === only || d._type === only);
 
 const write = process.argv.includes("--write");
