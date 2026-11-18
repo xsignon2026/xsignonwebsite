@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { EcosystemItemContent } from "@/types/home-content";
 
 // The XSignOn Security Ecosystem: four raised blocks, each with an icon, joined by numbered callouts.
 // The blocks drop into place when the section scrolls into view, then a highlight moves from block to
@@ -196,16 +197,30 @@ const LABELS = [
 ] as const;
 
 export function SecurityEcosystem({
-  items = ITEMS,
-  detail = DETAIL,
+  entries,
+  items: itemsProp,
+  detail: detailProp,
   viaLabel = "Delivered through",
   label = "XSignOn Security Ecosystem: four capabilities clients receive through XSignOn",
 }: {
+  /** Content from the CMS: the four blocks, without colours. */
+  entries?: ReadonlyArray<EcosystemItemContent>;
   items?: ReadonlyArray<EcoItem>;
   detail?: ReadonlyArray<EcoDetail>;
   viaLabel?: string;
   label?: string;
 }) {
+  // The colours stay in the design; the CMS supplies the words.
+  const items: ReadonlyArray<EcoItem> = entries
+    ? entries.map((e, i) => ({
+        ...ITEMS[i % ITEMS.length],
+        ...e,
+        n: String(i + 1).padStart(2, "0"),
+      }))
+    : (itemsProp ?? ITEMS);
+  const detail: ReadonlyArray<EcoDetail> = entries
+    ? entries.map((e) => ({ from: [], via: e.via, to: e.to }))
+    : (detailProp ?? DETAIL);
   const card = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [active, setActive] = useState(0);

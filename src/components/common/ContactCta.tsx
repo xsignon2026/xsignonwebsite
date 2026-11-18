@@ -3,17 +3,21 @@ import Link from "next/link";
 import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 
 // The closing call to action, shared by Home and About so every page ends the same way.
-export function ContactCta() {
+export function ContactCta({
+  title = "Let's talk about your organization's security priorities.",
+  button = { label: "Contact us", href: "/contact" },
+}: {
+  title?: string;
+  button?: { label: string; href: string };
+}) {
   return (
     <section className="cta-sec" id="contact" data-nav="dark">
       <div className="wrap">
         <div className="cta-panel rv has-persp">
           <PerspectiveGrid className="bg-persp" horizon={0.28} alpha={1.6} />
-          <h2 className="h2">
-            Let&apos;s talk about your organization&apos;s security priorities.
-          </h2>
-          <Link className="btn btn-white" href="/contact">
-            Contact us{" "}
+          <h2 className="h2">{title}</h2>
+          <Link className="btn btn-white" href={button.href}>
+            {button.label}{" "}
             <span className="chev" aria-hidden="true">
               &#8250;
             </span>

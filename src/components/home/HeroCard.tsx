@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HeroArt } from "@/components/home/HeroArt";
 import { HeroDomainScan } from "@/components/home/HeroDomainScan";
-import { heroSlides } from "@/data/hero-slides";
+import type { HeroSlideContent } from "@/types/home-content";
 
 // The home hero card: the glass-slab picture on top, then a one-liner and a button for the current slide.
 // It moves to the next slide every few seconds and stops while a visitor points at it, uses it with the
@@ -14,7 +14,7 @@ import { heroSlides } from "@/data/hero-slides";
 
 const INTERVAL_MS = 7000;
 
-export function HeroCard() {
+export function HeroCard({ slides: heroSlides }: { slides: HeroSlideContent[] }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);

@@ -1,13 +1,21 @@
 import { groq } from "next-sanity";
 
-// S-13 / T-090: GROQ query to retrieve the homepage singleton data.
+// The homepage document (id "home"). Slide ids are slugs in the CMS, so they are flattened to plain strings.
 export const HOME_QUERY = groq`
   *[_type == "home" && _id == "home"][0] {
-    announcement,
     hero,
-    "featuredProductSlugs": featuredProducts[]->slug.current,
-    featuredProof,
-    "selectedInsightSlugs": selectedInsights[]->slug.current,
+    "heroSlides": heroSlides[] {
+      "id": id.current,
+      variant,
+      tag,
+      heading,
+      sub,
+      line,
+      action
+    },
+    standards,
+    ecosystem,
+    whatWeDo,
     cta,
     seo
   }

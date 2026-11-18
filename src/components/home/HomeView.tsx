@@ -1,4 +1,5 @@
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HeroCard } from "@/components/home/HeroCard";
@@ -7,11 +8,12 @@ import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 import { MeshLogo } from "@/components/common/MeshLogo";
 import { SecurityEcosystem } from "@/components/home/SecurityEcosystem";
 import { SolutionVideo } from "@/components/home/SolutionVideo";
+import type { HomeContent } from "@/types/home-content";
 
 // The Home page markup, converted from the approved prototype (view-home) by compare/html2jsx.py.
 // The interactive pieces (hero card, product coverflow, partner hub, journey, thinking rows, scroll
 // reveals) are switched on by HomeBehaviors, which is a port of the prototype's scripts.
-export function HomeView() {
+export function HomeView({ content }: { content: HomeContent }) {
   return (
     <div id="view-home">
       <section className="hero-split" data-nav="dark">
@@ -58,24 +60,21 @@ export function HomeView() {
         <div className="wrap">
           <div className="hero-grid">
             <div className="hero-copy">
-              <p className="hero-eyebrow">Identity, governance and security</p>
+              <p className="hero-eyebrow">{content.hero.eyebrow}</p>
               <h1 className="h-display">
-                Protect identity. Govern risk.{" "}
-                <span className="h1-acc">Prepare for what&apos;s next.</span>
+                {content.hero.headlineLead}{" "}
+                <span className="h1-acc">{content.hero.headlineAccent}</span>
               </h1>
-              <p className="hero-sub">
-                XSignOn develops security products across identity governance, passwordless
-                authentication, AI evaluation, and emerging digital risk.
-              </p>
+              <p className="hero-sub">{content.hero.description}</p>
               <div className="hero-actions">
-                <Link className="btn btn-navy" href="/products">
-                  Explore our products{" "}
+                <Link className="btn btn-navy" href={content.hero.primaryButton.href}>
+                  {content.hero.primaryButton.label}{" "}
                   <span className="arr-up" aria-hidden="true">
                     &#8599;
                   </span>
                 </Link>
-                <Link className="link-arrow" href="/about">
-                  About XSignOn{" "}
+                <Link className="link-arrow" href={content.hero.secondaryLink.href}>
+                  {content.hero.secondaryLink.label}{" "}
                   <span className="arr" aria-hidden="true">
                     &#8594;
                   </span>
@@ -83,7 +82,7 @@ export function HomeView() {
               </div>
             </div>
             <div className="hero-visual">
-              <HeroCard />
+              <HeroCard slides={content.heroSlides} />
             </div>
           </div>
         </div>
@@ -93,37 +92,19 @@ export function HomeView() {
         <div
           className="marquee"
           role="group"
-          aria-label="Standards and frameworks: GDPR, FIDO2, SOC 2, ISO 27001, NIST AI-RMF, NIST 800-207"
+          aria-label={`Standards and frameworks: ${content.standards.join(", ")}`}
         >
           <div className="mq-track" aria-hidden="true">
-            <div className="mq-set">
-              <span>GDPR</span>
-              <i className="mq-dot"></i>
-              <span>FIDO2</span>
-              <i className="mq-dot"></i>
-              <span>SOC 2</span>
-              <i className="mq-dot"></i>
-              <span>ISO 27001</span>
-              <i className="mq-dot"></i>
-              <span>NIST AI-RMF</span>
-              <i className="mq-dot"></i>
-              <span>NIST 800-207</span>
-              <i className="mq-dot"></i>
-            </div>
-            <div className="mq-set">
-              <span>GDPR</span>
-              <i className="mq-dot"></i>
-              <span>FIDO2</span>
-              <i className="mq-dot"></i>
-              <span>SOC 2</span>
-              <i className="mq-dot"></i>
-              <span>ISO 27001</span>
-              <i className="mq-dot"></i>
-              <span>NIST AI-RMF</span>
-              <i className="mq-dot"></i>
-              <span>NIST 800-207</span>
-              <i className="mq-dot"></i>
-            </div>
+            {[0, 1].map((copy) => (
+              <div className="mq-set" key={copy}>
+                {content.standards.map((name) => (
+                  <Fragment key={name}>
+                    <span>{name}</span>
+                    <i className="mq-dot"></i>
+                  </Fragment>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -584,11 +565,11 @@ export function HomeView() {
         <div className="wrap">
           <div className="sec-row rv">
             <div>
-              <h2 className="h2">XSignOn Security Ecosystem</h2>
+              <h2 className="h2">{content.ecosystem.title}</h2>
             </div>
           </div>
 
-          <SecurityEcosystem />
+          <SecurityEcosystem entries={content.ecosystem.items} />
         </div>
       </section>
 
@@ -596,9 +577,9 @@ export function HomeView() {
         <PerspectiveGrid className="bg-persp" horizon={0.38} alpha={1.7} />
         <div className="wrap">
           <div className="sec-row rv">
-            <h2 className="h2">What XSignOn does</h2>
-            <Link className="products-all" href="/solutions">
-              View all solutions{" "}
+            <h2 className="h2">{content.whatWeDo.title}</h2>
+            <Link className="products-all" href={content.whatWeDo.allLink.href}>
+              {content.whatWeDo.allLink.label}{" "}
               <span className="arr" aria-hidden="true">
                 &#8594;
               </span>
@@ -609,99 +590,41 @@ export function HomeView() {
             <div className="journey" id="journey">
               <div className="j-stage">
                 <div className="j-rail">
-                  <button type="button" data-j="0" className="act">
-                    Identity Governance
-                  </button>
-                  <button type="button" data-j="1">
-                    AI and Digital Governance
-                  </button>
-                  <button type="button" data-j="2">
-                    Passwordless Security
-                  </button>
-                  <button type="button" data-j="3">
-                    Quantum-Safe Security
-                  </button>
+                  {content.whatWeDo.panels.map((panel, i) => (
+                    <button
+                      type="button"
+                      data-j={i}
+                      className={i === 0 ? "act" : undefined}
+                      key={panel.title}
+                    >
+                      {panel.title}
+                    </button>
+                  ))}
                 </div>
                 <div className="j-panels">
-                  <article className="j-panel act">
-                    <div className="j-txt">
-                      <h4 className="h4">Identity Governance</h4>
-                      <p>
-                        Teams want one accountable sign-in for every person and agent. Govern who
-                        and what gets access, and prove it with confidence.
-                      </p>
-                      <Link className="link-arrow" href="/solutions/identity-governance">
-                        View solution{" "}
-                        <span className="arr" aria-hidden="true">
-                          &#8594;
-                        </span>
-                      </Link>
-                    </div>
-                    <figure className="j-art">
-                      <SolutionVideo name="identity" />
-                    </figure>
-                  </article>
-                  <article className="j-panel">
-                    <div className="j-txt">
-                      <h4 className="h4">AI and Digital Governance</h4>
-                      <p>
-                        Teams want AI evidence ready with confidence. Map AI use to frameworks and
-                        keep evidence ready.
-                      </p>
-                      <Link className="link-arrow" href="/solutions/ai-and-digital-governance">
-                        View solution{" "}
-                        <span className="arr" aria-hidden="true">
-                          &#8594;
-                        </span>
-                      </Link>
-                    </div>
-                    <figure className="j-art">
-                      <SolutionVideo name="ai" />
-                    </figure>
-                  </article>
-                  <article className="j-panel">
-                    <div className="j-txt">
-                      <h4 className="h4">Passwordless Security</h4>
-                      <p>
-                        Phishing-resistant sign-in with hardware biometric keys, so people prove who
-                        they are without a password.
-                      </p>
-                      <Link className="link-arrow" href="/products/passwordless-keys">
-                        View solution{" "}
-                        <span className="arr" aria-hidden="true">
-                          &#8594;
-                        </span>
-                      </Link>
-                    </div>
-                    <figure className="j-art">
-                      <SolutionVideo name="key" />
-                    </figure>
-                  </article>
-                  <article className="j-panel">
-                    <div className="j-txt">
-                      <h4 className="h4">Quantum-Safe Security</h4>
-                      <p>
-                        Teams are preparing early for post-quantum methods. Inventory what you rely
-                        on and plan the move with clarity and confidence.
-                      </p>
-                      <Link className="link-arrow" href="/solutions/quantum-safe-security">
-                        View solution{" "}
-                        <span className="arr" aria-hidden="true">
-                          &#8594;
-                        </span>
-                      </Link>
-                    </div>
-                    <figure className="j-art">
-                      <SolutionVideo name="atom" />
-                    </figure>
-                  </article>
+                  {content.whatWeDo.panels.map((panel, i) => (
+                    <article className={i === 0 ? "j-panel act" : "j-panel"} key={panel.title}>
+                      <div className="j-txt">
+                        <h4 className="h4">{panel.title}</h4>
+                        <p>{panel.text}</p>
+                        <Link className="link-arrow" href={panel.href}>
+                          {panel.cta}{" "}
+                          <span className="arr" aria-hidden="true">
+                            &#8594;
+                          </span>
+                        </Link>
+                      </div>
+                      <figure className="j-art">
+                        <SolutionVideo name={panel.art} />
+                      </figure>
+                    </article>
+                  ))}
                 </div>
               </div>
               <div className="j-scroll" aria-hidden="true">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                {content.whatWeDo.panels.map((panel) => (
+                  <div key={panel.title}></div>
+                ))}
               </div>
             </div>
           </div>
@@ -931,7 +854,7 @@ export function HomeView() {
         </div>
       </section>
 
-      <ContactCta />
+      <ContactCta title={content.cta.title} button={content.cta.button} />
     </div>
   );
 }

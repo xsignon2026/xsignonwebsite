@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HomeBehaviors } from "@/components/home/HomeBehaviors";
 import { HomeView } from "@/components/home/HomeView";
+import { getHomeContent } from "@/lib/home-content";
 
 export const metadata: Metadata = {
   title: "XSignOn · Identity and access built on trust",
@@ -23,7 +24,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const content = await getHomeContent();
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -44,7 +46,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
-      <HomeView />
+      <HomeView content={content} />
       <HomeBehaviors />
     </>
   );
