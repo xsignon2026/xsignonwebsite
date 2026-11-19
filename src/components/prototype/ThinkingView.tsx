@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { NewsletterSubscribe } from "@/components/thinking/NewsletterSubscribe";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
+import { CASE_STUDY_PICTURES } from "@/components/prototype/case-study-pictures";
 import { THINKING_PICTURES } from "@/components/prototype/thinking-pictures";
 import type { CaseStudyPage } from "@/types/case-study-page";
 import type { InsightsPageContent } from "@/types/insights-page-content";
@@ -41,25 +42,40 @@ export function ThinkingView({
                 <h2 className="h2">Case studies</h2>
               </div>
               <div className="case-grid cs-two">
-                {caseStudies.map((study) => (
-                  <article key={study.slug} className="case-card rv">
-                    <div className="pmeta">
-                      {study.tags.slice(0, 2).map((tag) => (
-                        <span className="pill-cat" key={tag}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <h3 className="h4">{study.title}</h3>
-                    <p>{study.sections[0]?.paragraphs[0]}</p>
-                    <Link className="link-arrow" href={`/proof/${study.slug}`}>
-                      Read the case study{" "}
-                      <span className="arr" aria-hidden="true">
-                        &#8594;
-                      </span>
-                    </Link>
-                  </article>
-                ))}
+                {caseStudies.map((study) => {
+                  const picture = CASE_STUDY_PICTURES[study.slug]?.hero;
+                  return (
+                    <article key={study.slug} className="case-card th-card rv">
+                      {picture && (
+                        <div className="th-img th-card-img">
+                          <Image
+                            src={picture.src}
+                            alt={picture.alt}
+                            fill
+                            sizes="(max-width: 760px) 100vw, 560px"
+                          />
+                        </div>
+                      )}
+                      <div className="th-card-body">
+                        <div className="pmeta">
+                          {study.tags.slice(0, 2).map((tag) => (
+                            <span className="pill-cat" key={tag}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <h3 className="h4">{study.title}</h3>
+                        <p>{study.sections[0]?.paragraphs[0]}</p>
+                        <Link className="link-arrow" href={`/proof/${study.slug}`}>
+                          Read the case study{" "}
+                          <span className="arr" aria-hidden="true">
+                            &#8594;
+                          </span>
+                        </Link>
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
             </div>
           </section>
@@ -132,7 +148,7 @@ export function ThinkingView({
             <div className="sec-head rv">
               <h2 className="h2">Newsletter</h2>
             </div>
-            <NewsletterSubscribe sourcePage="/thinking" />
+            <NewsletterSubscribe popup sourcePage="/thinking" />
           </div>
         </section>
         <section className="cta-sec sm">

@@ -1683,6 +1683,130 @@ html.js .std-card[data-in] .std-item {
   }
 }
 
+/* Newsletter: a "Stay informed" band with a Subscribe button on the side, and a small card that opens on click. */
+.news-band.news-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+.news-band.news-row .btn {
+  flex: none;
+}
+.news-consent {
+  margin: 12px 0 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+.news-error {
+  margin: 12px 0 0;
+  font-size: 14px;
+  color: #f87171;
+}
+.btn-acc {
+  background: var(--acc, #c6001d);
+  color: #fff;
+}
+.btn-acc:hover {
+  background: #a60019;
+}
+.btn-acc:disabled {
+  opacity: 0.7;
+}
+.news-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
+  width: min(440px, calc(100vw - 32px));
+  max-width: none;
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--txt);
+  overflow: visible;
+}
+.news-dialog::backdrop {
+  background: rgba(6, 1, 41, 0.62);
+  backdrop-filter: blur(3px);
+}
+.news-dialog[open] {
+  animation: newsPop 0.22s ease both;
+}
+@keyframes newsPop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.news-dialog-card {
+  position: relative;
+  padding: 32px 28px 26px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 30px 80px rgba(6, 1, 41, 0.35);
+}
+.news-dialog-card .h3 {
+  margin: 0;
+  color: var(--txt);
+}
+.news-dialog-x {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--gray);
+  cursor: pointer;
+}
+.news-dialog-x:hover,
+.news-dialog-x:focus-visible {
+  background: #f1effa;
+  color: var(--txt);
+}
+.news-dialog .news-form {
+  flex-direction: column;
+  margin-top: 18px;
+}
+.news-dialog .news-form input {
+  flex: none;
+  width: 100%;
+  border-color: var(--line);
+  background: #fff;
+  color: var(--txt);
+}
+.news-dialog .news-form input::placeholder {
+  color: #8a86a6;
+}
+.news-dialog .news-form .btn {
+  width: 100%;
+}
+.news-dialog .news-done {
+  background: #f4f3fa;
+  border-color: var(--line);
+  color: var(--txt);
+}
+.news-dialog .news-consent {
+  color: var(--gray);
+  opacity: 1;
+}
+@media (max-width: 700px) {
+  .news-band.news-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /* Start-of-visit intro: the sign-in animation plays full screen once, then fades away. */
 .intro {
   position: fixed;

@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import Link from "next/link";
+import { NewsletterSubscribe } from "@/components/thinking/NewsletterSubscribe";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import type { Article } from "@/types/article";
 
@@ -39,6 +40,11 @@ export function ArticleView({ article }: { article: Article }) {
                 </Fragment>
               ))}
             </div>
+          </div>
+        </section>
+        <section className="page-sec">
+          <div className="wrap">
+            <NewsletterSubscribe popup sourcePage={`/thinking/${article.slug}`} />
           </div>
         </section>
         <section className="page-sec">

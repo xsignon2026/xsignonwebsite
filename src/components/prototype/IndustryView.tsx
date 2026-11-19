@@ -55,7 +55,7 @@ export function IndustryView({ content }: { content: IndustryPageContent }) {
         </section>
         <section className="page-sec">
           <div className="wrap">
-            <NewsletterSubscribe sourcePage="/thinking/industry" />
+            <NewsletterSubscribe popup sourcePage="/thinking/industry" />
           </div>
         </section>
         <section className="cta-sec sm">

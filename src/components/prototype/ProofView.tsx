@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CASE_STUDY_PICTURES } from "@/components/prototype/case-study-pictures";
 import { PROOF_PICTURES } from "@/components/prototype/proof-pictures";
 import type { ProofPageContent } from "@/types/proof-page-content";
 
@@ -29,36 +30,36 @@ export function ProofView({ content }: { content: ProofPageContent }) {
               </p>
             </div>
             <div className="case-grid" style={{ marginTop: "44px" }}>
-              {content.cards.map((card) => (
-                <article className="case-card rv" key={card.href}>
-                  <div className="case-photo">
-                    <Image
-                      src={PROOF_PICTURES[card.picture].src}
-                      alt={PROOF_PICTURES[card.picture].alt}
-                      width={1200}
-                      height={800}
-                    />
-                  </div>
-                  <div className="pmeta">
-                    {card.tags.map((tag) => (
-                      <span className="ptag" key={tag}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <h3 className="h3">{card.title}</h3>
-                  <p>{card.summary}</p>
-                  <span className="status-chip">
-                    <b>{card.noteLabel}:</b> {card.noteText}
-                  </span>
-                  <Link className="link-arrow" href={card.href}>
-                    Read the case study{" "}
-                    <span className="arr" aria-hidden="true">
-                      &#8594;
+              {content.cards.map((card) => {
+                // The real case study picture when there is one, otherwise the picture chosen for the card.
+                const real = CASE_STUDY_PICTURES[card.href.replace("/proof/", "")]?.hero;
+                const picture = real ?? PROOF_PICTURES[card.picture];
+                return (
+                  <article className="case-card rv" key={card.href}>
+                    <div className="case-photo">
+                      <Image src={picture.src} alt={picture.alt} width={1200} height={800} />
+                    </div>
+                    <div className="pmeta">
+                      {card.tags.map((tag) => (
+                        <span className="ptag" key={tag}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="h3">{card.title}</h3>
+                    <p>{card.summary}</p>
+                    <span className="status-chip">
+                      <b>{card.noteLabel}:</b> {card.noteText}
                     </span>
-                  </Link>
-                </article>
-              ))}
+                    <Link className="link-arrow" href={card.href}>
+                      Read the case study{" "}
+                      <span className="arr" aria-hidden="true">
+                        &#8594;
+                      </span>
+                    </Link>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
