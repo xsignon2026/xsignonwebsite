@@ -10,4 +10,8 @@ export type AboutContent = {
   why: { title: string; principles: { title: string; lines: string[]; via: string }[] };
   productsLine: { text: string; links: { label: string; href: string }[] };
   careers: { title: string; text: string; emptyNote: string };
+  /** The "Meet our team" section. With no members it shows the heading only. */
+  team: { title: string; members: TeamMember[] };
 };
+
+export type TeamMember = { name: string; role: string; bio: string; photo?: string };

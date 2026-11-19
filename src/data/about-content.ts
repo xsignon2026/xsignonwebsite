@@ -105,4 +105,6 @@ export const aboutContentFallback: AboutContent = {
     text: "We bring together people working across identity, cybersecurity, AI governance, product development and enterprise technology. Based in McKinney, Texas.",
     emptyNote: "There are no open positions right now. Follow XSignOn for future opportunities.",
   },
+  // Members are added in the CMS once the names, roles and photos are confirmed.
+  team: { title: "Meet our team", members: [] },
 };

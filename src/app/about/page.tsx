@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { AboutHero } from "@/components/about/AboutHero";
+import { AboutTeam } from "@/components/about/AboutTeam";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import { ContactCta } from "@/components/common/ContactCta";
 import { GlassCubes } from "@/components/common/GlassCubes";
@@ -146,6 +147,8 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
           </div>
         </div>
       </section>
+
+      <AboutTeam team={content.team} />
 
       <section className="ab-sec ab-career" id="careers" data-nav="dark">
         <div className="wrap">

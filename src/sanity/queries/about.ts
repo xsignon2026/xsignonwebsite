@@ -9,6 +9,10 @@ export const ABOUT_QUERY = groq`
     how,
     why,
     productsLine,
-    careers
+    careers,
+    team {
+      title,
+      members[] { name, role, bio, "photo": photo.asset->url }
+    }
   }
 `;

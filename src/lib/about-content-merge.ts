@@ -70,5 +70,17 @@ export function mergeAboutContent(
       text: pick(data.careers?.text, fallback.careers.text),
       emptyNote: pick(data.careers?.emptyNote, fallback.careers.emptyNote),
     },
+    team: {
+      title: pick(data.team?.title, fallback.team.title),
+      // A member needs a name and a role; a photo is used only if it is an https address.
+      members: (Array.isArray(data.team?.members) ? data.team.members : [])
+        .filter((m) => m && hasText(m.name) && hasText(m.role))
+        .map((m) => ({
+          name: m.name.trim(),
+          role: m.role.trim(),
+          bio: hasText(m.bio) ? m.bio.trim() : "",
+          photo: hasText(m.photo) && m.photo.startsWith("https://") ? m.photo : undefined,
+        })),
+    },
   };
 }

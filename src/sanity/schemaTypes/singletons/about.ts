@@ -34,6 +34,7 @@ export const about = defineType({
     { name: "why", title: "5. Why XSignOn" },
     { name: "products", title: "6. Products line" },
     { name: "careers", title: "7. Careers" },
+    { name: "team", title: "8. Meet our team" },
   ],
   fields: [
     defineField({
@@ -234,6 +235,47 @@ export const about = defineType({
           title: "Note shown when there are no open roles",
           type: "string",
           validation: (Rule) => Rule.max(140),
+        }),
+      ],
+    }),
+
+    defineField({
+      name: "team",
+      title: "Meet our team",
+      description:
+        "Only people who have agreed to be shown. Add real names, roles and photos only.",
+      type: "object",
+      group: "team",
+      fields: [
+        text("title", "Section heading", 40),
+        defineField({
+          name: "members",
+          title: "People (shown as cards, in this order)",
+          type: "array",
+          validation: (Rule) => Rule.max(12),
+          of: [
+            defineArrayMember({
+              type: "object",
+              fields: [
+                text("name", "Name", 60),
+                text("role", "Role", 60),
+                defineField({
+                  name: "bio",
+                  title: "Short bio (one or two sentences, optional)",
+                  type: "text",
+                  rows: 3,
+                  validation: (Rule) => Rule.max(200),
+                }),
+                defineField({
+                  name: "photo",
+                  title: "Photo (square works best)",
+                  type: "image",
+                  options: { hotspot: true },
+                }),
+              ],
+              preview: { select: { title: "name", subtitle: "role", media: "photo" } },
+            }),
+          ],
         }),
       ],
     }),

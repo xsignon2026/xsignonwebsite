@@ -23,6 +23,27 @@ describe("about content", () => {
     expect(merged.hero.description).toBe(aboutContentFallback.hero.description);
   });
 
+  it("shows the team heading with no people until members are added", () => {
+    expect(aboutContentFallback.team).toEqual({ title: "Meet our team", members: [] });
+    expect(mergeAboutContent(aboutContentFallback, {}).team.members).toEqual([]);
+  });
+
+  it("keeps team members that have a name and role, and drops unsafe photo links", () => {
+    const merged = mergeAboutContent(aboutContentFallback, {
+      team: {
+        title: "Meet our team",
+        members: [
+          { name: "A Person", role: "Engineer", bio: "", photo: "https://cdn.sanity.io/a.jpg" },
+          { name: "B Person", role: "Analyst", bio: "Short bio.", photo: "javascript:alert(1)" },
+          { name: "No Role", role: " ", bio: "" },
+        ],
+      },
+    });
+    expect(merged.team.members).toHaveLength(2);
+    expect(merged.team.members[0].photo).toBe("https://cdn.sanity.io/a.jpg");
+    expect(merged.team.members[1].photo).toBeUndefined();
+  });
+
   it("ignores a list with the wrong number of entries", () => {
     const merged = mergeAboutContent(aboutContentFallback, {
       how: { title: "How", steps: aboutContentFallback.how.steps.slice(0, 2) },
