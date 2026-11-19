@@ -34,8 +34,41 @@ export function ThinkingView({
         </div>
       </section>
       <div data-nav="light">
-        <section className="page-sec">
+        {caseStudies.length > 0 && (
+          <section className="page-sec" id="case-studies">
+            <div className="wrap">
+              <div className="sec-head rv">
+                <h2 className="h2">Case studies</h2>
+              </div>
+              <div className="case-grid cs-two">
+                {caseStudies.map((study) => (
+                  <article key={study.slug} className="case-card rv">
+                    <div className="pmeta">
+                      {study.tags.slice(0, 2).map((tag) => (
+                        <span className="pill-cat" key={tag}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="h4">{study.title}</h3>
+                    <p>{study.sections[0]?.paragraphs[0]}</p>
+                    <Link className="link-arrow" href={`/proof/${study.slug}`}>
+                      Read the case study{" "}
+                      <span className="arr" aria-hidden="true">
+                        &#8594;
+                      </span>
+                    </Link>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+        <section className="page-sec" id="articles">
           <div className="wrap">
+            <div className="sec-head rv">
+              <h2 className="h2">Articles</h2>
+            </div>
             <article className="bcard th-feat rv" style={{ marginBottom: "34px" }}>
               <div className="th-feat-body">
                 <div className="pmeta">
@@ -94,38 +127,11 @@ export function ThinkingView({
             </div>
           </div>
         </section>
-        {caseStudies.length > 0 && (
-          <section className="page-sec" id="case-studies">
-            <div className="wrap">
-              <div className="sec-head rv">
-                <h2 className="h2">Case studies</h2>
-              </div>
-              <div className="case-grid">
-                {caseStudies.map((study) => (
-                  <article key={study.slug} className="case-card rv">
-                    <div className="pmeta">
-                      {study.tags.slice(0, 2).map((tag) => (
-                        <span className="pill-cat" key={tag}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <h3 className="h4">{study.title}</h3>
-                    <p>{study.sections[0]?.paragraphs[0]}</p>
-                    <Link className="link-arrow" href={`/proof/${study.slug}`}>
-                      Read the case study{" "}
-                      <span className="arr" aria-hidden="true">
-                        &#8594;
-                      </span>
-                    </Link>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-        <section className="page-sec">
+        <section className="page-sec" id="newsletter">
           <div className="wrap">
+            <div className="sec-head rv">
+              <h2 className="h2">Newsletter</h2>
+            </div>
             <NewsletterSubscribe sourcePage="/thinking" />
           </div>
         </section>

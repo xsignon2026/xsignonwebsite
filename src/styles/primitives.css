@@ -1915,6 +1915,14 @@ html.js .cta-panel:not(.in) .cta-logo img {
   font-weight: 600;
   color: var(--txt);
 }
+.case-grid.cs-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 760px) {
+  .case-grid.cs-two {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 .cs-fig-sec {
   padding-top: 0;
 }
