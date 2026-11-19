@@ -16,6 +16,27 @@ function sameSize<T>(data: T[] | null | undefined, fallback: T[], complete: (ite
     : fallback;
 }
 
+const safePhoto = (value: unknown): string | undefined =>
+  hasText(value) &&
+  ((value.startsWith("/") && !value.startsWith("//")) || value.startsWith("https://"))
+    ? value
+    : undefined;
+
+function pickMembers(
+  data: AboutContent["team"]["members"] | null | undefined,
+  fallback: AboutContent["team"]["members"],
+): AboutContent["team"]["members"] {
+  const members = (Array.isArray(data) ? data : [])
+    .filter((m) => m && hasText(m.name) && hasText(m.role))
+    .map((m) => ({
+      name: m.name.trim(),
+      role: m.role.trim(),
+      bio: hasText(m.bio) ? m.bio.trim() : "",
+      photo: safePhoto(m.photo),
+    }));
+  return members.length > 0 ? members : fallback;
+}
+
 /** Takes the editors' content and fills any missing or empty part from the defaults. */
 export function mergeAboutContent(
   fallback: AboutContent,
@@ -65,15 +86,9 @@ export function mergeAboutContent(
     team: {
       title: pick(data.team?.title, fallback.team.title),
       emptyNote: pick(data.team?.emptyNote, fallback.team.emptyNote),
-      // A member needs a name and a role; a photo is used only if it is an https address.
-      members: (Array.isArray(data.team?.members) ? data.team.members : [])
-        .filter((m) => m && hasText(m.name) && hasText(m.role))
-        .map((m) => ({
-          name: m.name.trim(),
-          role: m.role.trim(),
-          bio: hasText(m.bio) ? m.bio.trim() : "",
-          photo: hasText(m.photo) && m.photo.startsWith("https://") ? m.photo : undefined,
-        })),
+      // A member needs a name and a role; a photo is used only if it is a page path or an https address.
+      // With no complete people in Sanity, the built-in list is shown.
+      members: pickMembers(data.team?.members, fallback.team.members),
     },
   };
 }

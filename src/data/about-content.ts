@@ -97,10 +97,23 @@ export const aboutContentFallback: AboutContent = {
     text: "We bring together people working across identity, cybersecurity, AI governance, product development and enterprise technology. Based in McKinney, Texas.",
     emptyNote: "There are no open positions right now. Follow XSignOn for future opportunities.",
   },
-  // Members are added in the CMS once the names, roles and photos are confirmed.
+  // The founders, from their own profiles. Once people are added in Studio, that list is used instead.
   team: {
     title: "Meet our team",
     emptyNote: "Profiles of the people behind XSignOn are coming soon.",
-    members: [],
+    members: [
+      {
+        name: "Rameshwar Balanagu",
+        role: "Founder",
+        bio: "Leads XSignOn, with hardware-bound biometric identity as the anchor of trust for people and AI agents. Previously led enterprise technology and cybersecurity at UNFI and architecture at Avaya.",
+        photo: "/images/team/rameshwar-balanagu.webp",
+      },
+      {
+        name: "Nagaraj Dandeboyina",
+        role: "Founder and Director of Cyber Security",
+        bio: "Leads cybersecurity, quantum and AI strategy at XSignOn, helping small and mid-size businesses stay secure and compliant. Previously at Adobe, Microsoft, Capgemini and IBM.",
+        photo: "/images/team/nagaraj-dandeboyina.webp",
+      },
+    ],
   },
 };

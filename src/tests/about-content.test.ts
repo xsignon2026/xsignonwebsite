@@ -23,11 +23,18 @@ describe("about content", () => {
     expect(merged.hero.description).toBe(aboutContentFallback.hero.description);
   });
 
-  it("shows the team heading with no people until members are added", () => {
+  it("shows the two founders until people are added in Studio", () => {
     expect(aboutContentFallback.team.title).toBe("Meet our team");
-    expect(aboutContentFallback.team.members).toEqual([]);
+    expect(aboutContentFallback.team.members.map((m) => m.name)).toEqual([
+      "Rameshwar Balanagu",
+      "Nagaraj Dandeboyina",
+    ]);
     expect(aboutContentFallback.team.emptyNote).toBeTruthy();
-    expect(mergeAboutContent(aboutContentFallback, {}).team.members).toEqual([]);
+    // Nothing complete in Sanity: the built-in people stay.
+    expect(
+      mergeAboutContent(aboutContentFallback, { team: { title: "", emptyNote: "", members: [] } })
+        .team.members,
+    ).toBe(aboutContentFallback.team.members);
   });
 
   it("keeps team members that have a name and role, and drops unsafe photo links", () => {
@@ -39,12 +46,16 @@ describe("about content", () => {
           { name: "A Person", role: "Engineer", bio: "", photo: "https://cdn.sanity.io/a.jpg" },
           { name: "B Person", role: "Analyst", bio: "Short bio.", photo: "javascript:alert(1)" },
           { name: "No Role", role: " ", bio: "" },
+          { name: "C Person", role: "Lead", bio: "", photo: "/images/team/c.webp" },
+          { name: "D Person", role: "Lead", bio: "", photo: "//evil.com/x.jpg" },
         ],
       },
     });
-    expect(merged.team.members).toHaveLength(2);
+    expect(merged.team.members).toHaveLength(4);
     expect(merged.team.members[0].photo).toBe("https://cdn.sanity.io/a.jpg");
     expect(merged.team.members[1].photo).toBeUndefined();
+    expect(merged.team.members[2].photo).toBe("/images/team/c.webp");
+    expect(merged.team.members[3].photo).toBeUndefined();
   });
 
   it("ignores a list with the wrong number of entries", () => {
