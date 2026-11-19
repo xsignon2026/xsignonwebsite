@@ -1,8 +1,24 @@
-import type { CaseStudyPage } from "@/types/case-study-page";
+import type { CaseStudyPage, CaseStudyPageSection } from "@/types/case-study-page";
 
-// The four case study pages as they are today (taken from the live pages). Used when Sanity is not connected,
-// and for any part the editors leave empty. Parts marked pending stay visible to visitors until real, sourced
-// details replace them: see the claims rules in the XSignOn content skill.
+// The four case study pages, written from the case studies on the current xsignon.com (use-cases). Used when
+// Sanity is not connected, and for any part the editors leave empty. Only facts from the live pages are used:
+// no result or number appears here unless the live page states it (see the claims rules in the content skill).
+
+const section = (
+  heading: string,
+  parts: Partial<Omit<CaseStudyPageSection, "heading">>,
+): CaseStudyPageSection => ({
+  heading,
+  paragraphs: [],
+  features: [],
+  steps: [],
+  notes: [],
+  ...parts,
+});
+
+const feat = (lead: string, body: string) => ({ lead, joiner: ":" as const, body });
+const step = (number: string, title: string, text: string) => ({ number, title, text });
+
 export const caseStudyPages: CaseStudyPage[] = [
   {
     slug: "securing-bank-access-fido2",
@@ -10,76 +26,71 @@ export const caseStudyPages: CaseStudyPage[] = [
     crumb: "Banking",
     tags: ["Banking · Abu Dhabi", "Passwordless Keys", "AMS"],
     sections: [
-      {
-        heading: "Where they started",
+      section("The challenge", {
         paragraphs: [
-          "A bank in Abu Dhabi used password sign-in for branch and back-office staff. Teams spent time each week on password resets and sign-in support, and the bank wanted a smoother, verified experience that matched the high standards of the rest of its operations.",
-          "The bank set out to give every team member sign-in that works at the speed of branch operations and meets the audit standards the rest of the business already upholds.",
-        ],
-        features: [],
-        steps: [],
-        notes: [],
-      },
-      {
-        heading: "What was deployed",
-        paragraphs: [
-          "FIDO2 keys supplied and supported by XSignOn replaced password sign-in for branch and back-office staff. Enrollment, replacements and exceptions ran through AMS, so the bank's help desk stayed focused on supporting staff.",
+          "A leading bank in Abu Dhabi ran a hybrid Active Directory with several local directories behind a firewall. It wanted to end single-factor sign-in and tie every sign-in to one named person.",
         ],
         features: [
-          {
-            lead: "FIDO2 keys",
-            joiner: "",
-            body: "for branch and back-office staff, compatible with the bank's existing identity provider.",
-          },
-          {
-            lead: "AMS",
-            joiner: "",
-            body: "for delivery, guided enrollment, replacements and exception handling.",
-          },
-          {
-            lead: "Pilot-first rollout",
-            joiner: ",",
-            body: "so enrollment and recovery flows were proven before scale-up.",
-          },
+          feat(
+            "Attributable sign-in",
+            "security keys instead of soft authenticators, each locked to the user's Azure AD account.",
+          ),
+          feat("No shared credentials", "no password or key sharing."),
+          feat(
+            "Controlled enrolment",
+            "fingerprints enrolled in a secure place, with limits on resets and self-enrolment.",
+          ),
+          feat(
+            "Central control",
+            "reassign, reactivate and lock keys from one place, across locations.",
+          ),
         ],
-        steps: [],
-        notes: [],
-      },
-      {
-        heading: "Rollout",
-        paragraphs: [],
-        features: [],
+      }),
+      section("What was deployed", {
+        features: [
+          feat(
+            "ThinC-AUTH biometric keys",
+            "single sign-on through the bank's hybrid AD, with no conventional password.",
+          ),
+          feat(
+            "Life cycle management software",
+            "runs in the bank's data centre with no external access. It syncs users from Azure AD and signs in with Azure AD MFA.",
+          ),
+          feat(
+            "Custom key functions",
+            "FIDO2 and WebAuthn on Windows 10 1903 or later, a PIN generated per key at enrolment, PIN fallback off, one Microsoft account per key.",
+          ),
+        ],
+      }),
+      section("How keys are managed", {
         steps: [
-          {
-            number: "01",
-            title: "Pilot",
-            text: "A pilot group enrolled first. Enrollment and recovery flows were tested with real staff, and the order of the wider rollout was set from what the pilot taught.",
-          },
-          {
-            number: "02",
-            title: "Branch rollout",
-            text: "Branch staff enrolled in phases, so every branch kept continuous sign-in during the move. Replacements and exceptions ran through AMS.",
-          },
-          {
-            number: "03",
-            title: "Back office",
-            text: "Back-office teams followed, with help desk time freed as staff moved to verified keys. Coverage stayed visible in AMS throughout.",
-          },
+          step(
+            "01",
+            "Enrol",
+            "Staff register one to five fingerprints in a controlled environment.",
+          ),
+          step(
+            "02",
+            "Assign",
+            "Automated emails assign keys. Administrators, service users and generic users each have their own role.",
+          ),
+          step(
+            "03",
+            "Reset",
+            "Administrators clear a returned key's fingerprints remotely, so it can be reassigned.",
+          ),
         ],
-        notes: [],
-      },
-      {
-        heading: "Outcome",
-        paragraphs: [],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Sourced outcome needed",
-            text: "one verifiable result, with its source and date, is added here before this page ships. No number is shown until it is sourced.",
-          },
+      }),
+      section("Outcome", {
+        paragraphs: [
+          "The bank manages the full key life cycle centrally, and staff reach business applications without passwords.",
         ],
-      },
+        features: [
+          feat("Lower risk", "less exposure to phishing and credential sharing."),
+          feat("Central management", "one view of keys across locations."),
+          feat("Secure handover", "controlled enrolment, reassignment and reset."),
+        ],
+      }),
     ],
     related: [
       { title: "Passwordless Keys", type: "Product", href: "/products/passwordless-keys" },
@@ -114,56 +125,56 @@ export const caseStudyPages: CaseStudyPage[] = [
     crumb: "Healthcare",
     tags: ["Healthcare", "March 2020", "Passwordless Keys"],
     sections: [
-      {
-        heading: "Where they started",
+      section("The challenge", {
         paragraphs: [
-          "A global healthcare enterprise set out to give clinical and administrative staff passwordless access. Staff sign in across shared workstations and shift changes, where fast, verified sign-in helps care teams keep moving smoothly. This study covers the FIDO2 key rollout for that environment, completed in March 2020.",
+          "A multibillion-dollar global healthcare company runs development, support and regional centres on the Microsoft cloud, with local domain controllers and several Azure AD environments.",
         ],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Case details pending",
-            text: "deployment specifics are confirmed and sourced before this page ships.",
-          },
+        features: [
+          feat(
+            "Passwordless DevOps",
+            "sign-in to Microsoft DevOps applications without passwords.",
+          ),
+          feat(
+            "Biometric keys",
+            "replace soft authenticators and stop password and authenticator sharing.",
+          ),
+          feat(
+            "Any hybrid-joined PC",
+            "staff sign in to any hybrid-joined PC and reach their enterprise apps.",
+          ),
+          feat("Global teams", "secure FIDO2 sign-in across locations."),
         ],
-      },
-      {
-        heading: "What was deployed",
-        paragraphs: [],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Case details pending",
-            text: "deployment scope is confirmed before this section ships.",
-          },
+      }),
+      section("What was deployed", {
+        paragraphs: [
+          "XSignOn ran a rapid proof of concept, then rolled out FIDO2 biometric sign-in across the environment.",
         ],
-      },
-      {
-        heading: "Rollout",
-        paragraphs: [],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Case details pending",
-            text: "rollout phases are confirmed before this section ships.",
-          },
+        steps: [
+          step(
+            "01",
+            "ThinC-AUTH keys",
+            "FIDO2-certified keys, with administrators supported on setup, fingerprint registration and PIN fallback.",
+          ),
+          step("02", "Windows 10", "Devices set up for FIDO2 across the Microsoft environment."),
+          step("03", "Intune", "Windows 10 devices managed centrally through Microsoft Intune."),
+          step(
+            "04",
+            "Hybrid AD",
+            "Hybrid AD set up for biometric, passwordless sign-in on hybrid-joined devices.",
+          ),
         ],
-      },
-      {
-        heading: "Outcome",
-        paragraphs: [],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Sourced outcome needed",
-            text: "no result is shown until it is verifiable, with its source and date.",
-          },
+      }),
+      section("What it supports", {
+        features: [
+          feat("Fingerprint sign-in", "with a PIN fallback option."),
+          feat("Sign-in across hybrid-joined PCs", "with access to assigned enterprise apps."),
+          feat("Central device management", "through Microsoft Intune."),
+          feat(
+            "Existing directories",
+            "local domain controllers and multiple Azure AD environments.",
+          ),
         ],
-      },
+      }),
     ],
     related: [
       { title: "Passwordless Keys", type: "Product", href: "/products/passwordless-keys" },
@@ -195,59 +206,53 @@ export const caseStudyPages: CaseStudyPage[] = [
     slug: "biometric-fido2-air-gapped-industrial",
     title: "Biometric FIDO2 Access For Air-Gapped Industrial Systems",
     crumb: "Electrical",
-    tags: ["Electrical", "December 2023", "XSense", "AMS"],
+    tags: ["Electrical", "Asia · December 2023", "XSense", "AMS"],
     sections: [
-      {
-        heading: "Where they started",
+      section("The challenge", {
         paragraphs: [
-          "An electrical operator in Asia runs industrial systems that are air-gapped by design, separated from public networks. Sign-in for those systems has to work fully on site, with the same assurance as any connected system. This study covers biometric FIDO2 access for that environment, completed in December 2023.",
-          "The deployment runs on the XSense identity platform, with XSenseCPP at the systems and the AMS module managing the keys.",
+          "A global electrical automation company runs air-gapped Windows PCs and servers joined to a local Active Directory. Staff signed in with usernames and passwords.",
         ],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Case details pending",
-            text: "deployment specifics are confirmed and sourced before this page ships.",
-          },
+        features: [
+          feat("FIDO2 sign-in", "on AD-joined PCs and servers, with no external connection."),
+          feat("Biometric-only access", "and no password sharing."),
+          feat("Any work-area PC", "staff sign in to any PC in their work area."),
         ],
-      },
-      {
-        heading: "What was deployed",
-        paragraphs: [],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Case details pending",
-            text: "deployment scope is confirmed before this section ships.",
-          },
+      }),
+      section("What was deployed", {
+        paragraphs: [
+          "XSense IdP runs in the customer's own data centre, with ThinC-AUTH keys, XSenseCPP and the AMS module.",
         ],
-      },
-      {
-        heading: "Rollout",
-        paragraphs: [],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Case details pending",
-            text: "rollout phases are confirmed before this section ships.",
-          },
+        steps: [
+          step("01", "On-premises XSense IdP", "Runs fully inside the air gap."),
+          step(
+            "02",
+            "Key life cycle in AMS",
+            "One inventory of keys, managed on site with no external access.",
+          ),
+          step(
+            "03",
+            "Licensed keys",
+            "Keys work only with XSense IdP and XSenseCPP, and need a registered fingerprint.",
+          ),
         ],
-      },
-      {
-        heading: "Outcome",
-        paragraphs: [],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Sourced outcome needed",
-            text: "no result is shown until it is verifiable, with its source and date.",
-          },
+      }),
+      section("How sign-in works", {
+        features: [
+          feat(
+            "Biometric-only",
+            "every sign-in belongs to one person, so passwords and authenticators cannot be shared.",
+          ),
+          feat("XSenseCPP", "brings FIDO2 sign-in to air-gapped, locally joined Windows machines."),
+          feat(
+            "One-time enrolment",
+            "a tool for Windows, macOS and Linux saves settings on the key.",
+          ),
+          feat(
+            "Shared work areas",
+            "staff sign in to different PCs and reach their assigned apps.",
+          ),
         ],
-      },
+      }),
     ],
     related: [
       { title: "XSense", type: "Product", href: "/products/xsense" },
@@ -280,62 +285,49 @@ export const caseStudyPages: CaseStudyPage[] = [
     slug: "biometric-only-authentication-global-it",
     title: "Biometric-Only Authentication For A Global IT Enterprise",
     crumb: "IT",
-    tags: ["IT", "July 2020", "Passwordless Keys", "XSense"],
+    tags: ["IT", "July 2020", "Passwordless Keys"],
     sections: [
-      {
-        heading: "Where they started",
+      section("The challenge", {
         paragraphs: [
-          "A global IT enterprise set out to run biometric-only authentication: every sign-in completed with a verified key, for every team, in every region. This study covers that move, completed in July 2020.",
+          "A leading multinational IT company runs Windows systems on Azure AD across several locations, with shared PCs in work areas.",
         ],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Case details pending",
-            text: "deployment specifics are confirmed and sourced before this page ships.",
-          },
+        features: [
+          feat("FIDO2 for enterprise apps", "staff use FIDO2 keys across applications."),
+          feat("No sharing", "no password or authenticator sharing."),
+          feat("No PIN shortcut", "a PIN is not an alternative to biometrics."),
+          feat("Any work-area PC", "staff sign in to any PC in their work area."),
         ],
-      },
-      {
-        heading: "What was deployed",
-        paragraphs: [],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Case details pending",
-            text: "deployment scope is confirmed before this section ships.",
-          },
+      }),
+      section("What was deployed", {
+        paragraphs: [
+          "ThinC-AUTH keys and the enrolment software were customised for biometric-only sign-in.",
         ],
-      },
-      {
-        heading: "Rollout",
-        paragraphs: [],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Case details pending",
-            text: "rollout phases are confirmed before this section ships.",
-          },
+        steps: [
+          step("01", "Biometric-only keys", "Users sign in with a registered fingerprint."),
+          step(
+            "02",
+            "PIN fallback off",
+            "A failed fingerprint does not fall back to a PIN, so only enrolled biometrics work.",
+          ),
+          step(
+            "03",
+            "Enrolment tool",
+            "One tool for Windows, macOS and Linux enrols fingerprints. Settings stay on the key.",
+          ),
         ],
-      },
-      {
-        heading: "Outcome",
-        paragraphs: [],
-        features: [],
-        steps: [],
-        notes: [
-          {
-            label: "Sourced outcome needed",
-            text: "no result is shown until it is verifiable, with its source and date.",
-          },
+      }),
+      section("Outcome", {
+        paragraphs: [
+          "Staff sign in to Windows with a key and a fingerprint, with no password. With PIN fallback off, only enrolled biometrics get in.",
         ],
-      },
+        features: [
+          feat("Passwordless Windows sign-in", "completed by the enrolled fingerprint."),
+          feat("Work-area PCs", "staff use different PCs with their assigned keys."),
+        ],
+      }),
     ],
     related: [
       { title: "Passwordless Keys", type: "Product", href: "/products/passwordless-keys" },
-      { title: "XSense", type: "Product", href: "/products/xsense" },
       {
         title: "Enterprise Technology",
         type: "Solution",

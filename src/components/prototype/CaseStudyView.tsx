@@ -1,5 +1,7 @@
 import { Fragment } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { CASE_STUDY_PICTURES } from "@/components/prototype/case-study-pictures";
 import type { CaseStudyPage, CaseStudyPageSection } from "@/types/case-study-page";
 
 function Section({ section }: { section: CaseStudyPageSection }) {
@@ -55,6 +57,7 @@ function Section({ section }: { section: CaseStudyPageSection }) {
 
 // One case study page, from its content (the built-in text, or the editors' version from Sanity).
 export function CaseStudyView({ page }: { page: CaseStudyPage }) {
+  const pictures = CASE_STUDY_PICTURES[page.slug];
   return (
     <div id={`view-case-${page.slug}`}>
       <section className="page-hero" data-nav="dark">
@@ -68,20 +71,54 @@ export function CaseStudyView({ page }: { page: CaseStudyPage }) {
             <span className="sep">/</span>
             <span className="cur">{page.crumb}</span>
           </nav>
-          <h1 className="h-display">{page.title}</h1>
-          <div className="pmeta">
-            {page.tags.map((tag) => (
-              <span className="ptag" key={tag}>
-                {tag}
-              </span>
-            ))}
+          <div className={pictures ? "ph-split" : undefined}>
+            <div className="ph-text">
+              <h1 className="h-display">{page.title}</h1>
+              <div className="pmeta">
+                {page.tags.map((tag) => (
+                  <span className="ptag" key={tag}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            {pictures && (
+              <div className="ph-image">
+                <Image
+                  src={pictures.hero.src}
+                  alt={pictures.hero.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 900px) 100vw, 520px"
+                />
+              </div>
+            )}
           </div>
         </div>
       </section>
       <div data-nav="light">
-        {page.sections.map((section) => (
-          <Section section={section} key={section.heading} />
-        ))}
+        {page.sections.map((section, index) => {
+          const extra = pictures?.extras[index - 1];
+          return (
+            <Fragment key={section.heading}>
+              <Section section={section} />
+              {extra && (
+                <section className="page-sec cs-fig-sec">
+                  <div className="wrap">
+                    <figure className="cs-fig rv">
+                      <Image
+                        src={extra.src}
+                        alt={extra.alt}
+                        fill
+                        sizes="(max-width: 1200px) 100vw, 1100px"
+                      />
+                    </figure>
+                  </div>
+                </section>
+              )}
+            </Fragment>
+          );
+        })}
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">

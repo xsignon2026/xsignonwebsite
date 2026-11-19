@@ -3,13 +3,20 @@ import Link from "next/link";
 import { NewsletterSubscribe } from "@/components/thinking/NewsletterSubscribe";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import { THINKING_PICTURES } from "@/components/prototype/thinking-pictures";
+import type { CaseStudyPage } from "@/types/case-study-page";
 import type { InsightsPageContent } from "@/types/insights-page-content";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
 // Article photos live in /public/images/thinking; the card layout is styled under #view-thinking in primitives.css.
 
-export function ThinkingView({ content }: { content: InsightsPageContent }) {
+export function ThinkingView({
+  content,
+  caseStudies = [],
+}: {
+  content: InsightsPageContent;
+  caseStudies?: CaseStudyPage[];
+}) {
   const featured = content.featured;
   const featuredPicture = THINKING_PICTURES[featured.picture];
   return (
@@ -87,6 +94,36 @@ export function ThinkingView({ content }: { content: InsightsPageContent }) {
             </div>
           </div>
         </section>
+        {caseStudies.length > 0 && (
+          <section className="page-sec" id="case-studies">
+            <div className="wrap">
+              <div className="sec-head rv">
+                <h2 className="h2">Case studies</h2>
+              </div>
+              <div className="case-grid">
+                {caseStudies.map((study) => (
+                  <article key={study.slug} className="case-card rv">
+                    <div className="pmeta">
+                      {study.tags.slice(0, 2).map((tag) => (
+                        <span className="pill-cat" key={tag}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="h4">{study.title}</h3>
+                    <p>{study.sections[0]?.paragraphs[0]}</p>
+                    <Link className="link-arrow" href={`/proof/${study.slug}`}>
+                      Read the case study{" "}
+                      <span className="arr" aria-hidden="true">
+                        &#8594;
+                      </span>
+                    </Link>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
         <section className="page-sec">
           <div className="wrap">
             <NewsletterSubscribe sourcePage="/thinking" />

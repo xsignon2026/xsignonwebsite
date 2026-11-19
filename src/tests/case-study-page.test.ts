@@ -5,15 +5,12 @@ import { mergeCaseStudyPage } from "@/lib/case-study-page-merge";
 const base = caseStudyPages[0];
 
 describe("case study pages", () => {
-  it("has the four pages with their sections", () => {
+  it("has the four pages, each starting with the challenge and with no placeholder notes", () => {
     expect(caseStudyPages).toHaveLength(4);
     for (const page of caseStudyPages) {
-      expect(page.sections.map((s) => s.heading)).toEqual([
-        "Where they started",
-        "What was deployed",
-        "Rollout",
-        "Outcome",
-      ]);
+      expect(page.sections.length).toBeGreaterThanOrEqual(3);
+      expect(page.sections[0].heading).toBe("The challenge");
+      expect(page.sections.flatMap((s) => s.notes)).toEqual([]);
     }
   });
 });
