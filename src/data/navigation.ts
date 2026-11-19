@@ -14,7 +14,6 @@ export const navigationFallback: NavigationData = {
         {
           heading: "Company",
           columns: 2,
-          wide: true,
           items: [
             { label: "Who we are", link: link("/about/who-we-are") },
             { label: "What we do", link: link("/about/what-we-do") },
@@ -24,7 +23,15 @@ export const navigationFallback: NavigationData = {
           ],
         },
       ],
-      footerLink: { label: "View the About page", href: "/about" },
+      featured: {
+        eyebrow: "Meet the team",
+        title: "Rameshwar Balanagu and Nagaraj Dandeboyina, our founders",
+        href: "/about/meet-the-team",
+        image: {
+          src: "/images/team/founders.webp",
+          alt: "Rameshwar Balanagu and Nagaraj Dandeboyina",
+        },
+      },
     },
     {
       label: "Products",
@@ -61,7 +68,15 @@ export const navigationFallback: NavigationData = {
           ],
         },
       ],
-      footerLink: { label: "All products", href: "/products" },
+      featured: {
+        eyebrow: "New launch",
+        title: "XSignOn Mesh: micro-segmentation that keeps one failure small",
+        href: "/products/xsignon-mesh",
+        image: {
+          src: "/images/home/img-d10eb158.jpg",
+          alt: "A person with a laptop beside a lit row of server racks",
+        },
+      },
     },
     {
       label: "Solutions",
@@ -86,7 +101,15 @@ export const navigationFallback: NavigationData = {
           ],
         },
       ],
-      footerLink: { label: "All solutions", href: "/solutions" },
+      featured: {
+        eyebrow: "Featured solution",
+        title: "Identity Governance: govern who and what gets access, and prove it",
+        href: "/solutions/identity-governance",
+        image: {
+          src: "/images/home/img-86bd27dc.jpg",
+          alt: "An analytics dashboard with charts on a laptop screen",
+        },
+      },
     },
     {
       label: "Insights",
@@ -113,7 +136,6 @@ export const navigationFallback: NavigationData = {
           alt: "Glass office towers photographed from below",
         },
       },
-      footerLink: { label: "All insights", href: "/thinking" },
     },
   ],
 };

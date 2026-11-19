@@ -82,7 +82,7 @@
   top: calc(100% + 8px);
   right: 32px;
   left: auto;
-  width: min(760px, calc(100vw - 64px));
+  width: min(800px, calc(100vw - 64px));
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 22px;
@@ -144,8 +144,17 @@
   letter-spacing: 0.08em;
   line-height: 1.4;
 }
-.nav2-panel.has-feature .nav2-panel-body {
-  grid-template-columns: 1.35fr 1fr;
+.nav2-main {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.nav2-panel:not(.has-feature) .nav2-main {
+  grid-template-columns: 1fr;
+}
+.nav2-section:only-child {
+  grid-column: 1 / -1;
 }
 .nav2-list {
   list-style: none;

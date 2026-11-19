@@ -114,6 +114,7 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
           {navItems.map((item, i) => {
             const panelId = `${baseId}-panel-${i}`;
             const isOpen = open === i;
+            const sections = navSections(item);
             return (
               <div className="nav2-item" key={item.label} onPointerEnter={hoverOpen(i)}>
                 <div className="nav2-trig-wrap" data-open={isOpen || undefined}>
@@ -149,12 +150,50 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
                   onPointerEnter={cancelClose}
                 >
                   <div className="nav2-panel-body">
-                    <div className="nav2-sections">
-                      {navSections(item).map((section, si) => (
-                        <div
-                          className={section.wide ? "nav2-section is-wide" : "nav2-section"}
-                          key={section.heading ?? si}
-                        >
+                    <div className="nav2-main">
+                      <div className="nav2-sections">
+                        {sections
+                          .filter((section) => !section.wide)
+                          .map((section, si) => (
+                            <div className="nav2-section" key={section.heading ?? si}>
+                              {section.heading && <p className="nav2-heading">{section.heading}</p>}
+                              <ul
+                                className="nav2-list"
+                                style={{ "--cols": section.columns ?? 1 } as React.CSSProperties}
+                              >
+                                {section.items.map((child) => (
+                                  <li key={child.label}>
+                                    <Link className="nav2-card" href={child.link.href ?? "/"}>
+                                      <span className="nav2-card-title">{child.label}</span>
+                                      {child.badge && (
+                                        <span className="nav2-badge">{child.badge}</span>
+                                      )}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                      </div>
+                      {item.featured && (
+                        <Link className="nav2-feature" href={item.featured.href}>
+                          <Image
+                            src={item.featured.image.src}
+                            alt={item.featured.image.alt}
+                            width={600}
+                            height={380}
+                            sizes="320px"
+                            loading="eager"
+                          />
+                          <span className="nav2-eyebrow">{item.featured.eyebrow}</span>
+                          <span className="nav2-feature-title">{item.featured.title}</span>
+                        </Link>
+                      )}
+                    </div>
+                    {sections
+                      .filter((section) => section.wide)
+                      .map((section, si) => (
+                        <div className="nav2-section is-wide" key={section.heading ?? si}>
                           {section.heading && <p className="nav2-heading">{section.heading}</p>}
                           <ul
                             className="nav2-list"
@@ -171,21 +210,6 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
                           </ul>
                         </div>
                       ))}
-                    </div>
-                    {item.featured && (
-                      <Link className="nav2-feature" href={item.featured.href}>
-                        <Image
-                          src={item.featured.image.src}
-                          alt={item.featured.image.alt}
-                          width={600}
-                          height={380}
-                          sizes="320px"
-                          loading="eager"
-                        />
-                        <span className="nav2-eyebrow">{item.featured.eyebrow}</span>
-                        <span className="nav2-feature-title">{item.featured.title}</span>
-                      </Link>
-                    )}
                   </div>
                   {item.footerLink && (
                     <div className="nav2-panel-foot">

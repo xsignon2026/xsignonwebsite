@@ -12,7 +12,11 @@ describe("Navigation & Site Settings Fallback Data", () => {
     for (const item of navigationFallback.items) {
       const sections = navSections(item);
       expect(sections.length).toBeGreaterThan(0);
-      expect(item.footerLink?.href).toBeTruthy();
+      // No bottom link row: every menu ends with its last group.
+      expect(item.footerLink).toBeUndefined();
+      // Every menu carries a picture card on the right.
+      expect(item.featured?.image.src.startsWith("/images/")).toBe(true);
+      expect(item.featured?.href.startsWith("/")).toBe(true);
       for (const section of sections) {
         expect(section.heading).toBeTruthy();
         for (const child of section.items) {
@@ -54,10 +58,14 @@ describe("Navigation & Site Settings Fallback Data", () => {
       Thinking: ["Case Study", "Articles"],
       Enterprise: ["Enterprise"],
     });
-    const insights = navigationFallback.items.find((i) => i.label === "Insights");
-    expect(insights?.featured?.title).toBe(
+    const card = (name: string) => navigationFallback.items.find((i) => i.label === name)?.featured;
+    expect(card("Insights")?.eyebrow).toBe("Latest Thinking");
+    expect(card("Insights")?.title).toBe(
       "Elevate Enterprise Security with Identity-First Controls",
     );
+    expect(card("Products")?.eyebrow).toBe("New launch");
+    expect(card("About")?.eyebrow).toBe("Meet the team");
+    expect(card("Solutions")?.eyebrow).toBe("Featured solution");
   });
 
   it("tags Mesh as new and the domain check as free", () => {
