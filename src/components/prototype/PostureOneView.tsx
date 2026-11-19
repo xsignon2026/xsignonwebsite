@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ProductBand, ProductHeroImage, ProductIcon } from "@/components/prototype/ProductVisuals";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
@@ -14,11 +15,17 @@ export function PostureOneView() {
             <span className="sep">/</span>
             <span className="cur">PostureOne</span>
           </nav>
-          <h1 className="h-display">PostureOne</h1>
-          <div className="pmeta">
-            <span className="ptag">Website security</span>
-            <span className="ptag">Cloud security</span>
-            <span className="ptag">Evidence</span>
+          <div className="ph-split">
+            <div className="ph-text">
+              <ProductIcon slug="postureone" />
+              <h1 className="h-display">PostureOne</h1>
+              <div className="pmeta">
+                <span className="ptag">Website security</span>
+                <span className="ptag">Cloud security</span>
+                <span className="ptag">Evidence</span>
+              </div>
+            </div>
+            <ProductHeroImage slug="postureone" />
           </div>
         </div>
       </section>
@@ -89,6 +96,7 @@ export function PostureOneView() {
             </div>
           </div>
         </section>
+        <ProductBand slug="postureone" />
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">

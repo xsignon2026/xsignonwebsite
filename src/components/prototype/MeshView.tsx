@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ProductBand, ProductHeroImage } from "@/components/prototype/ProductVisuals";
 import { MeshLogo } from "@/components/common/MeshLogo";
 
 // The XSignOn Mesh product page, in the same layout as the other product pages.
@@ -14,16 +15,21 @@ export function MeshView() {
             <span className="sep">/</span>
             <span className="cur">XSignOn Mesh</span>
           </nav>
-          <div className="mesh-title">
-            <span className="mesh-logo" style={{ color: "#fff" }}>
-              <MeshLogo size={64} title="XSignOn Mesh logo" />
-            </span>
-            <h1 className="h-display">XSignOn Mesh</h1>
-          </div>
-          <div className="pmeta">
-            <span className="ptag">Micro-segmentation</span>
-            <span className="ptag">Containment</span>
-            <span className="ptag">Zero trust</span>
+          <div className="ph-split">
+            <div className="ph-text">
+              <div className="mesh-title">
+                <span className="mesh-logo" style={{ color: "#fff" }}>
+                  <MeshLogo size={64} title="XSignOn Mesh logo" />
+                </span>
+                <h1 className="h-display">XSignOn Mesh</h1>
+              </div>
+              <div className="pmeta">
+                <span className="ptag">Micro-segmentation</span>
+                <span className="ptag">Containment</span>
+                <span className="ptag">Zero trust</span>
+              </div>
+            </div>
+            <ProductHeroImage slug="mesh" />
           </div>
         </div>
       </section>
@@ -51,6 +57,7 @@ export function MeshView() {
             </div>
           </div>
         </section>
+        <ProductBand slug="mesh" />
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">

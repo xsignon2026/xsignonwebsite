@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ProductBand, ProductHeroImage, ProductIcon } from "@/components/prototype/ProductVisuals";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
@@ -14,11 +15,17 @@ export function XSenseView() {
             <span className="sep">/</span>
             <span className="cur">XSense</span>
           </nav>
-          <h1 className="h-display">XSense</h1>
-          <div className="pmeta">
-            <span className="ptag">Identity analytics</span>
-            <span className="ptag">MFA platform</span>
-            <span className="ptag">Identity provider</span>
+          <div className="ph-split">
+            <div className="ph-text">
+              <ProductIcon slug="xsense" />
+              <h1 className="h-display">XSense</h1>
+              <div className="pmeta">
+                <span className="ptag">Identity analytics</span>
+                <span className="ptag">MFA platform</span>
+                <span className="ptag">Identity provider</span>
+              </div>
+            </div>
+            <ProductHeroImage slug="xsense" />
           </div>
         </div>
       </section>
@@ -46,6 +53,7 @@ export function XSenseView() {
             </div>
           </div>
         </section>
+        <ProductBand slug="xsense" />
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">

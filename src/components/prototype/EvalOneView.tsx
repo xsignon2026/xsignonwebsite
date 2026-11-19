@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ProductBand, ProductHeroImage, ProductIcon } from "@/components/prototype/ProductVisuals";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
@@ -14,11 +15,17 @@ export function EvalOneView() {
             <span className="sep">/</span>
             <span className="cur">EvalOne</span>
           </nav>
-          <h1 className="h-display">EvalOne</h1>
-          <div className="pmeta">
-            <span className="ptag">AI governance</span>
-            <span className="ptag">Evaluation</span>
-            <span className="ptag">Evidence</span>
+          <div className="ph-split">
+            <div className="ph-text">
+              <ProductIcon slug="evalone" />
+              <h1 className="h-display">EvalOne</h1>
+              <div className="pmeta">
+                <span className="ptag">AI governance</span>
+                <span className="ptag">Evaluation</span>
+                <span className="ptag">Evidence</span>
+              </div>
+            </div>
+            <ProductHeroImage slug="evalone" />
           </div>
         </div>
       </section>
@@ -58,6 +65,7 @@ export function EvalOneView() {
             </div>
           </div>
         </section>
+        <ProductBand slug="evalone" />
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">
