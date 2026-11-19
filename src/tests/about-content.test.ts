@@ -24,7 +24,9 @@ describe("about content", () => {
   });
 
   it("shows the team heading with no people until members are added", () => {
-    expect(aboutContentFallback.team).toEqual({ title: "Meet our team", members: [] });
+    expect(aboutContentFallback.team.title).toBe("Meet our team");
+    expect(aboutContentFallback.team.members).toEqual([]);
+    expect(aboutContentFallback.team.emptyNote).toBeTruthy();
     expect(mergeAboutContent(aboutContentFallback, {}).team.members).toEqual([]);
   });
 
@@ -32,6 +34,7 @@ describe("about content", () => {
     const merged = mergeAboutContent(aboutContentFallback, {
       team: {
         title: "Meet our team",
+        emptyNote: "",
         members: [
           { name: "A Person", role: "Engineer", bio: "", photo: "https://cdn.sanity.io/a.jpg" },
           { name: "B Person", role: "Analyst", bio: "Short bio.", photo: "javascript:alert(1)" },

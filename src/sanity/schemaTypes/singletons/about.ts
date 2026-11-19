@@ -248,6 +248,7 @@ export const about = defineType({
       group: "team",
       fields: [
         text("title", "Section heading", 40),
+        text("emptyNote", "Line shown while no people are added", 100, false),
         defineField({
           name: "members",
           title: "People (shown as cards, in this order)",

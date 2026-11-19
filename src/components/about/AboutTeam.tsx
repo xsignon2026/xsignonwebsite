@@ -15,6 +15,7 @@ export function AboutTeam({ team }: { team: AboutContent["team"] }) {
     <section className="ab-sec ab-soft" id="ab-team" data-nav="light">
       <div className="wrap">
         <h2 className="h2 rv">{team.title}</h2>
+        {team.members.length === 0 && <p className="ab-team-empty">{team.emptyNote}</p>}
         {team.members.length > 0 && (
           <ul className="ab-team rv">
             {team.members.map((member) => (

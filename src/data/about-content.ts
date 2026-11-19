@@ -106,5 +106,9 @@ export const aboutContentFallback: AboutContent = {
     emptyNote: "There are no open positions right now. Follow XSignOn for future opportunities.",
   },
   // Members are added in the CMS once the names, roles and photos are confirmed.
-  team: { title: "Meet our team", members: [] },
+  team: {
+    title: "Meet our team",
+    emptyNote: "Profiles of the people behind XSignOn are coming soon.",
+    members: [],
+  },
 };

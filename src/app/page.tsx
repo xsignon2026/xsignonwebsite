@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { IntroOverlay } from "@/components/common/IntroOverlay";
 import { HomeBehaviors } from "@/components/home/HomeBehaviors";
 import { HomeView } from "@/components/home/HomeView";
 import { getHomeContent } from "@/lib/home-content";
@@ -42,6 +43,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <IntroOverlay />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}

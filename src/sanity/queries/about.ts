@@ -12,6 +12,7 @@ export const ABOUT_QUERY = groq`
     careers,
     team {
       title,
+      emptyNote,
       members[] { name, role, bio, "photo": photo.asset->url }
     }
   }

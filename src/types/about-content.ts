@@ -11,7 +11,7 @@ export type AboutContent = {
   productsLine: { text: string; links: { label: string; href: string }[] };
   careers: { title: string; text: string; emptyNote: string };
   /** The "Meet our team" section. With no members it shows the heading only. */
-  team: { title: string; members: TeamMember[] };
+  team: { title: string; emptyNote: string; members: TeamMember[] };
 };
 
 export type TeamMember = { name: string; role: string; bio: string; photo?: string };

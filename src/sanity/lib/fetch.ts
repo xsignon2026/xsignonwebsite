@@ -2,6 +2,7 @@ import "server-only";
 import { draftMode } from "next/headers";
 import type { QueryParams } from "next-sanity";
 import { client } from "./client";
+import { scrubLinks } from "./safe-links";
 
 // S-15: the one way pages read from Sanity.
 // Visitors get published content from the CDN. A signed-in editor with draft mode switched on gets
@@ -21,12 +22,14 @@ export async function sanityFetch<T>({
 
   if (isDraft) {
     if (!readToken) throw new Error("SANITY_API_READ_TOKEN is not set, so drafts cannot be read.");
-    return client
+    const draft = await client
       .withConfig({ token: readToken, useCdn: false, perspective: "drafts" })
       .fetch<T>(query, params, { cache: "no-store" });
+    return scrubLinks(draft);
   }
 
-  return client.withConfig({ perspective: "published" }).fetch<T>(query, params, {
+  const published = await client.withConfig({ perspective: "published" }).fetch<T>(query, params, {
     next: { tags },
   });
+  return scrubLinks(published);
 }

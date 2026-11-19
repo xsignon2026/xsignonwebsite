@@ -72,6 +72,7 @@ export function mergeAboutContent(
     },
     team: {
       title: pick(data.team?.title, fallback.team.title),
+      emptyNote: pick(data.team?.emptyNote, fallback.team.emptyNote),
       // A member needs a name and a role; a photo is used only if it is an https address.
       members: (Array.isArray(data.team?.members) ? data.team.members : [])
         .filter((m) => m && hasText(m.name) && hasText(m.role))
