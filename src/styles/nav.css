@@ -442,24 +442,9 @@
   }
 }
 
-/* Compact menu entries with a small arrow that appears on hover. */
+/* Compact menu entries. */
 .nav2-card {
   padding: 9px 14px;
-}
-.nav2-card-title::after {
-  content: "92";
-  margin-left: 8px;
-  opacity: 0;
-  transform: translateX(-4px);
-  display: inline-block;
-  transition:
-    opacity 0.15s ease,
-    transform 0.15s ease;
-}
-.nav2-card:hover .nav2-card-title::after,
-.nav2-card:focus-visible .nav2-card-title::after {
-  opacity: 0.7;
-  transform: none;
 }
 
 /* The wide Products and Insights menus open lined up with the right edge of their link, so they stay on
