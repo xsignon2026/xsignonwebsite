@@ -40,12 +40,6 @@ export function SolutionsView({
       <div>
         <section className="page-sec" id="solList" data-nav="dark">
           <div className="wrap">
-            <div className="sec-row rv">
-              <div>
-                <h2 className="h2">{content.list.title}</h2>
-                <p className="sec-sub">{content.list.subtitle}</p>
-              </div>
-            </div>
             <div className="sol-grid">
               {solutions.map((solution) => (
                 <article

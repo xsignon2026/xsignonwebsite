@@ -92,14 +92,6 @@ export const aboutContentFallback: AboutContent = {
       },
     ],
   },
-  productsLine: {
-    text: "Our products put this approach into practice: one posture view, sign-in without passwords, and evidence for AI systems.",
-    links: [
-      { label: "PostureOne", href: "/products/postureone" },
-      { label: "Passwordless Authenticators", href: "/products/passwordless-keys" },
-      { label: "EvalOne", href: "/products/evalone" },
-    ],
-  },
   careers: {
     title: "Build security for what comes next",
     text: "We bring together people working across identity, cybersecurity, AI governance, product development and enterprise technology. Based in McKinney, Texas.",

@@ -12,7 +12,7 @@ const initials = (name: string) =>
 // With no people yet it shows the heading only.
 export function AboutTeam({ team }: { team: AboutContent["team"] }) {
   return (
-    <section className="ab-sec ab-soft" id="ab-team" data-nav="light">
+    <section className="ab-sec" id="ab-team" data-nav="light">
       <div className="wrap">
         <h2 className="h2 rv">{team.title}</h2>
         {team.members.length === 0 && <p className="ab-team-empty">{team.emptyNote}</p>}

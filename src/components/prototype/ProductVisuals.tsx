@@ -185,3 +185,53 @@ export function ProductBand({ slug }: { slug: ProductVisualSlug }) {
     </section>
   );
 }
+
+const GALLERY: Partial<
+  Record<ProductVisualSlug, { src: string; alt: string; caption: string; w: number; h: number }[]>
+> = {
+  keys: [
+    {
+      src: "/images/products-old/auth-bio.webp",
+      alt: "The AUTH Bio biometric security key",
+      caption: "AUTH Bio",
+      w: 486,
+      h: 1100,
+    },
+    {
+      src: "/images/products-old/auth-bio-pro.webp",
+      alt: "The AUTH Bio Pro biometric security key",
+      caption: "AUTH Bio Pro",
+      w: 495,
+      h: 1100,
+    },
+  ],
+  ams: [
+    {
+      src: "/images/products-old/ams.webp",
+      alt: "Diagram of AMS around the AUTH Bio, Bio Pro, Desktop and Touch keys: life cycle management, key assignment, controlled enrolment, PIN policy, audit log reports and directory integration",
+      caption: "AMS covers the key life cycle across the AUTH key models",
+      w: 500,
+      h: 495,
+    },
+  ],
+};
+
+/** Product photos taken from the current xsignon.com, shown under the picture band. */
+export function ProductGallery({ slug }: { slug: ProductVisualSlug }) {
+  const items = GALLERY[slug];
+  if (!items) return null;
+  return (
+    <section className="page-sec ph-gallery-sec">
+      <div className="wrap">
+        <div className="ph-gallery rv">
+          {items.map((item) => (
+            <figure key={item.src}>
+              <Image src={item.src} alt={item.alt} width={item.w} height={item.h} />
+              <figcaption>{item.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

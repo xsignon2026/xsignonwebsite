@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { ProductBand, ProductHeroImage, ProductIcon } from "@/components/prototype/ProductVisuals";
+import {
+  ProductBand,
+  ProductGallery,
+  ProductHeroImage,
+  ProductIcon,
+} from "@/components/prototype/ProductVisuals";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
@@ -74,6 +79,7 @@ export function AmsView() {
           </div>
         </section>
         <ProductBand slug="ams" />
+        <ProductGallery slug="ams" />
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">

@@ -24,10 +24,6 @@ export function mergeSolutionsPage(
 
   return {
     hero: { title: pick(data.hero?.title, fallback.hero.title) },
-    list: {
-      title: pick(data.list?.title, fallback.list.title),
-      subtitle: pick(data.list?.subtitle, fallback.list.subtitle),
-    },
     enterprise: {
       title: pick(e?.title, fallback.enterprise.title),
       text: pick(e?.text, fallback.enterprise.text),

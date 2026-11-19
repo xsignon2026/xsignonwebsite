@@ -165,10 +165,10 @@ export function HomeView({ content }: { content: HomeContent }) {
                       </svg>
                     </div>
                     <Image
-                      src="/images/home/img-48a7fb34.jpg"
-                      alt="Server racks with network cabling in a data centre"
-                      width={1600}
-                      height={898}
+                      src="/images/products-old/postureone-card.webp"
+                      alt="Two colleagues reviewing a security dashboard on a large screen"
+                      width={393}
+                      height={323}
                     />
                   </div>
                   <div className="cf-body">
@@ -221,10 +221,10 @@ export function HomeView({ content }: { content: HomeContent }) {
                       </svg>
                     </div>
                     <Image
-                      src="/images/home/img-80a343ae.jpg"
-                      alt="Person holding a phone in one hand while signing in on a laptop"
-                      width={1600}
-                      height={1067}
+                      src="/images/products-old/passwordless-card.webp"
+                      alt="A woman signing in on a laptop with a face check on her phone"
+                      width={393}
+                      height={323}
                     />
                   </div>
                   <div className="cf-body">

@@ -32,9 +32,8 @@ export const about = defineType({
     { name: "what", title: "3. What we do" },
     { name: "how", title: "4. How we work" },
     { name: "why", title: "5. Why XSignOn" },
-    { name: "products", title: "6. Products line" },
-    { name: "careers", title: "7. Careers" },
-    { name: "team", title: "8. Meet our team" },
+    { name: "careers", title: "6. Careers" },
+    { name: "team", title: "7. Meet our team" },
   ],
   fields: [
     defineField({
@@ -178,38 +177,6 @@ export const about = defineType({
                 text("via", "Focus (a few words)", 30),
               ],
               preview: { select: { title: "title" } },
-            }),
-          ],
-        }),
-      ],
-    }),
-
-    defineField({
-      name: "productsLine",
-      title: "Products line",
-      type: "object",
-      group: "products",
-      fields: [
-        defineField({
-          name: "text",
-          title: "Sentence",
-          type: "text",
-          rows: 3,
-          validation: (Rule) => Rule.required().max(220),
-        }),
-        defineField({
-          name: "links",
-          title: "Links",
-          type: "array",
-          validation: (Rule) => Rule.min(1).max(4),
-          of: [
-            defineArrayMember({
-              type: "object",
-              fields: [
-                text("label", "Label", 40),
-                text("href", "Link (for example /products/evalone)"),
-              ],
-              preview: { select: { title: "label", subtitle: "href" } },
             }),
           ],
         }),

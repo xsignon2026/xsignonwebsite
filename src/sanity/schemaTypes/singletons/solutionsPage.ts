@@ -25,7 +25,7 @@ export const solutionsPage = defineType({
   title: "Solutions page",
   type: "document",
   groups: [
-    { name: "hero", title: "1. Hero and list", default: true },
+    { name: "hero", title: "1. Hero", default: true },
     { name: "enterprise", title: "2. Enterprise band" },
     { name: "thinking", title: "3. Our thinking" },
     { name: "cta", title: "4. Contact block" },
@@ -37,13 +37,6 @@ export const solutionsPage = defineType({
       type: "object",
       group: "hero",
       fields: [str("title", "Page title", 40)],
-    }),
-    defineField({
-      name: "list",
-      title: "Solutions list heading",
-      type: "object",
-      group: "hero",
-      fields: [str("title", "Heading", 40), str("subtitle", "Line under the heading", 80)],
     }),
     defineField({
       name: "enterprise",

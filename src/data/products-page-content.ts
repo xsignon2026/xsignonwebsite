@@ -20,7 +20,7 @@ export const productsPageFallback: ProductsPageContent = {
         text: "Passkeys, biometrics and hardware keys in one calm sign-in flow, so people prove who they are without a password.",
         href: "/products/passwordless-keys",
         cta: "Explore the keys",
-        picture: "fingerprint",
+        picture: "passwordless",
       },
       {
         name: "EvalOne",
@@ -39,14 +39,14 @@ export const productsPageFallback: ProductsPageContent = {
         tags: ["Identity inventory", "Posture scoring", "Continuous review"],
         text: "A living inventory of every person, device and agent, with posture scored continuously so reviews start from evidence instead of spreadsheets.",
         href: "/products/postureone",
-        picture: "servers",
+        picture: "postureone",
       },
       {
         name: "Passwordless Keys",
         tags: ["Passkeys", "Biometrics", "Hardware keys", "4 AUTH models"],
         text: "Sign-in your team will love: passkeys, biometrics and hardware keys in one calm flow, with recovery paths people can actually follow.",
         href: "/products/passwordless-keys",
-        picture: "fingerprint",
+        picture: "passwordless",
       },
       {
         name: "EvalOne",

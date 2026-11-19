@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { ProductBand, ProductHeroImage, ProductIcon } from "@/components/prototype/ProductVisuals";
+import {
+  ProductBand,
+  ProductGallery,
+  ProductHeroImage,
+  ProductIcon,
+} from "@/components/prototype/ProductVisuals";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
@@ -113,6 +118,7 @@ export function KeysView() {
           </div>
         </section>
         <ProductBand slug="keys" />
+        <ProductGallery slug="keys" />
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">

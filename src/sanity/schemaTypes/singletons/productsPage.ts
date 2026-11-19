@@ -22,6 +22,8 @@ const pictureField = defineField({
       { title: "Team workshop", value: "workshop" },
       { title: "Data centre servers", value: "servers" },
       { title: "Warehouse shelves", value: "warehouse" },
+      { title: "Security dashboard review (PostureOne)", value: "postureone" },
+      { title: "Face check sign-in (Passwordless)", value: "passwordless" },
     ],
   },
   validation: (Rule) => Rule.required(),

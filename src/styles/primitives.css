@@ -1736,6 +1736,82 @@ html.intro-lock {
   }
 }
 
+/* Contact card logo (Home and About): the logo wipes in when the card scrolls into view, a light sweeps across
+   it once, and the rings breathe. Off for visitors who prefer reduced motion. */
+html.js .cta-panel:not(.in) .cta-logo img {
+  opacity: 0;
+}
+.cta-logo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 62%
+  );
+  transform: translateX(-130%);
+}
+@keyframes clWipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes clGlint {
+  from {
+    transform: translateX(-130%);
+  }
+  to {
+    transform: translateX(130%);
+  }
+}
+@keyframes clRing {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+  }
+}
+.cta-panel.in .cta-logo img {
+  animation: clWipe 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both;
+}
+.cta-panel.in .cta-logo::after {
+  animation: clGlint 1.3s ease 1.25s both;
+}
+.cta-panel.in .cl-ring.r1 {
+  animation: clRing 5s ease-in-out 0.4s infinite;
+}
+.cta-panel.in .cl-ring.r2 {
+  animation: clRing 5s ease-in-out 2.2s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .cta-panel:not(.in) .cta-logo img {
+    opacity: 1;
+  }
+  .cta-panel.in .cta-logo img,
+  .cta-panel.in .cta-logo::after,
+  .cta-panel.in .cl-ring {
+    animation: none;
+  }
+}
+
 /* Product pages: logo + picture in the hero, and a wide picture band under the opening. */
 .ph-split {
   display: grid;
@@ -1784,6 +1860,37 @@ html.intro-lock {
   inset: 0;
   background: linear-gradient(180deg, rgba(6, 1, 41, 0) 55%, rgba(6, 1, 41, 0.5));
   pointer-events: none;
+}
+.ph-gallery-sec {
+  padding-top: 0;
+}
+.ph-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 24px;
+}
+.ph-gallery figure {
+  margin: 0;
+  padding: 24px 24px 18px;
+  text-align: center;
+  background: #f4f3fa;
+  border-radius: 20px;
+}
+.ph-gallery img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 360px;
+  margin: 0 auto;
+}
+.ph-gallery figcaption {
+  margin-top: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--txt);
 }
 .cs-fig-sec {
   padding-top: 0;

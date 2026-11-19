@@ -83,10 +83,6 @@ const aboutDoc = {
   whatWeDo: { ...aboutContent.whatWeDo, items: withKeys(aboutContent.whatWeDo.items, "cap") },
   how: { ...aboutContent.how, steps: withKeys(aboutContent.how.steps, "step") },
   why: { ...aboutContent.why, principles: withKeys(aboutContent.why.principles, "why") },
-  productsLine: {
-    ...aboutContent.productsLine,
-    links: withKeys(aboutContent.productsLine.links, "link"),
-  },
   careers: aboutContent.careers,
 };
 // --only=about writes just that document, so Studio edits to the others are kept.
@@ -186,7 +182,6 @@ const solutionsPageDoc = {
   _id: "solutionsPage",
   _type: "solutionsPage",
   hero: solutionsPageContent.hero,
-  list: solutionsPageContent.list,
   enterprise: {
     ...solutionsPageContent.enterprise,
     models: addKeys(solutionsPageContent.enterprise.models),

@@ -5,7 +5,6 @@ import type { SolutionsPageContent } from "@/types/solutions-page-content";
 // (see the claims rules in the XSignOn content skill).
 export const solutionsPageFallback: SolutionsPageContent = {
   hero: { title: "Solutions" },
-  list: { title: "Solutions", subtitle: "Start from the problem you are solving" },
   enterprise: {
     title: "Enterprise",
     text: "Every identity, fully in control: identity command, three deployment models, and a standards posture for enterprise estates.",

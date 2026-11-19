@@ -8,7 +8,6 @@ export const ABOUT_QUERY = groq`
     whatWeDo,
     how,
     why,
-    productsLine,
     careers,
     team {
       title,

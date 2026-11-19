@@ -3,7 +3,6 @@
 
 export type SolutionsPageContent = {
   hero: { title: string };
-  list: { title: string; subtitle: string };
   enterprise: {
     title: string;
     text: string;

@@ -25,10 +25,6 @@ export function mergeAboutContent(
   const pick = (value: unknown, def: string) => (hasText(value) ? value : def);
 
   const paragraphs = (data.who?.paragraphs ?? []).filter(hasText);
-  const links = (data.productsLine?.links ?? []).filter(
-    (l) => l && hasText(l.label) && hasText(l.href),
-  );
-
   return {
     hero: {
       eyebrow: pick(data.hero?.eyebrow, fallback.hero.eyebrow),
@@ -60,10 +56,6 @@ export function mergeAboutContent(
         (p) =>
           hasText(p.title) && Array.isArray(p.lines) && p.lines.length === 2 && allText(p.lines),
       ),
-    },
-    productsLine: {
-      text: pick(data.productsLine?.text, fallback.productsLine.text),
-      links: links.length > 0 ? links : fallback.productsLine.links,
     },
     careers: {
       title: pick(data.careers?.title, fallback.careers.title),

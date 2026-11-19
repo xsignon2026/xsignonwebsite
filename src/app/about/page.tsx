@@ -133,21 +133,6 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
         </div>
       </section>
 
-      <section className="ab-sec" id="products-link" data-nav="light">
-        <div className="wrap">
-          <div className="ab-prod rv">
-            <p>{content.productsLine.text}</p>
-            <div className="ab-links">
-              {content.productsLine.links.map((l) => (
-                <Link key={l.href} href={l.href}>
-                  {l.label} &rarr;
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       <AboutTeam team={content.team} />
 
       <section className="ab-sec ab-career" id="careers" data-nav="dark">
