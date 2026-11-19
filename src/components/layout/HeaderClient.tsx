@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
+import { navSections } from "@/lib/nav-sections";
 import type { NavItem } from "@/types/navigation";
 
 type HeaderClientProps = {
@@ -148,17 +149,29 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
                   onPointerEnter={cancelClose}
                 >
                   <div className="nav2-panel-body">
-                    <ul className="nav2-list">
-                      {(item.children ?? []).map((child) =>
-                        child.link.href ? (
-                          <li key={child.label}>
-                            <Link className="nav2-card" href={child.link.href}>
-                              <span className="nav2-card-title">{child.label}</span>
-                            </Link>
-                          </li>
-                        ) : null,
-                      )}
-                    </ul>
+                    <div className="nav2-sections">
+                      {navSections(item).map((section, si) => (
+                        <div
+                          className={section.wide ? "nav2-section is-wide" : "nav2-section"}
+                          key={section.heading ?? si}
+                        >
+                          {section.heading && <p className="nav2-heading">{section.heading}</p>}
+                          <ul
+                            className="nav2-list"
+                            style={{ "--cols": section.columns ?? 1 } as React.CSSProperties}
+                          >
+                            {section.items.map((child) => (
+                              <li key={child.label}>
+                                <Link className="nav2-card" href={child.link.href ?? "/"}>
+                                  <span className="nav2-card-title">{child.label}</span>
+                                  {child.badge && <span className="nav2-badge">{child.badge}</span>}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
                     {item.featured && (
                       <Link className="nav2-feature" href={item.featured.href}>
                         <Image
@@ -274,20 +287,32 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
                 </button>
               </div>
               {isOpen && (
-                <ul className="nav2-m-list">
-                  {(item.children ?? []).map((child) =>
-                    child.link.href ? (
-                      <li key={child.label}>
-                        <Link href={child.link.href}>{child.label}</Link>
-                      </li>
-                    ) : null,
-                  )}
+                <div className="nav2-m-panel">
+                  {navSections(item).map((section, si) => (
+                    <div key={section.heading ?? si}>
+                      {section.heading && <p className="nav2-m-heading">{section.heading}</p>}
+                      <ul className="nav2-m-list">
+                        {section.items.map((child) => (
+                          <li key={child.label}>
+                            <Link href={child.link.href ?? "/"}>
+                              {child.label}
+                              {child.badge && <span className="nav2-badge">{child.badge}</span>}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                   {item.footerLink && (
-                    <li>
-                      <Link href={item.footerLink.href}>{item.footerLink.label}</Link>
-                    </li>
+                    <ul className="nav2-m-list">
+                      <li>
+                        <Link className="nav2-m-foot" href={item.footerLink.href}>
+                          {item.footerLink.label}
+                        </Link>
+                      </li>
+                    </ul>
                   )}
-                </ul>
+                </div>
               )}
             </div>
           );

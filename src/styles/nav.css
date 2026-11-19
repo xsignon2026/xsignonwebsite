@@ -13,6 +13,7 @@
   color: var(--txt);
 }
 .nav2-bar {
+  position: relative;
   max-width: 1180px;
   margin: 0 auto;
   padding: 0 32px;
@@ -37,7 +38,7 @@
   margin: 0 0 0 auto;
 }
 .nav2-item {
-  position: relative;
+  position: static;
 }
 .nav2-trigger {
   position: relative;
@@ -78,10 +79,10 @@
 
 .nav2-panel {
   position: absolute;
-  top: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 420px;
+  top: calc(100% + 8px);
+  right: 32px;
+  left: auto;
+  width: min(760px, calc(100vw - 64px));
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 22px;
@@ -89,25 +90,59 @@
   padding: 14px;
   animation: nav2-in 0.16s ease both;
 }
-.nav2-panel.has-feature {
-  width: 760px;
-}
 .nav2-panel[hidden] {
   display: none;
 }
 @keyframes nav2-in {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(6px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
 .nav2-panel-body {
   display: grid;
-  gap: 14px;
+  gap: 16px;
+}
+.nav2-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 18px;
+  align-content: start;
+}
+.nav2-section {
+  min-width: 0;
+}
+.nav2-section.is-wide {
+  grid-column: 1 / -1;
+}
+.nav2-section.is-wide:not(:first-child) {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.nav2-heading {
+  margin: 4px 14px 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.nav2-badge {
+  margin-left: 8px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #fdeaee;
+  color: var(--acc-ink);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
 }
 .nav2-panel.has-feature .nav2-panel-body {
   grid-template-columns: 1.35fr 1fr;
@@ -117,14 +152,13 @@
   margin: 0;
   padding: 0;
   display: grid;
+  grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr));
   gap: 2px;
   align-content: start;
 }
-.nav2-panel.has-feature .nav2-list {
-  grid-template-columns: 1fr 1fr;
-}
 .nav2-card {
-  display: block;
+  display: flex;
+  align-items: center;
   padding: 12px 14px;
   border-radius: 14px;
   transition: background 0.15s ease;
@@ -447,25 +481,6 @@
   padding: 9px 14px;
 }
 
-/* The wide Products and Insights menus open lined up with the right edge of their link, so they stay on
-   screen now that the links are on the right. Only their position changes. */
-.nav2-item:nth-child(n + 2) .nav2-panel {
-  left: auto;
-  right: 0;
-  transform: none;
-  animation-name: nav2-in-right;
-}
-@keyframes nav2-in-right {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* The Contact button in the header bar uses the design system's contact-button look (.btn-contact in
    prototype.css): an outline until someone points at it or focuses it, then filled red. The button inside
    the phone menu stays red. */
@@ -480,4 +495,24 @@
   background: var(--acc);
   border-color: var(--acc);
   color: #fff;
+}
+
+/* Phone menu: group headings and the footer link. */
+.nav2-m-panel {
+  padding-bottom: 6px;
+}
+.nav2-m-heading {
+  margin: 10px 2px 0;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.nav2-m-list a .nav2-badge {
+  margin-left: 8px;
+}
+.nav2-m-list a.nav2-m-foot {
+  color: var(--acc-ink);
+  font-weight: 600;
 }
