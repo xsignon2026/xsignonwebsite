@@ -1724,7 +1724,7 @@ html.js .std-card[data-in] .std-item {
   outline: 2px solid #ff4d5e;
   outline-offset: 3px;
 }
-html.intro-skip .intro {
+html.intro-hide .intro {
   display: none;
 }
 html.intro-lock {
@@ -1734,6 +1734,21 @@ html.intro-lock {
   .intro {
     display: none;
   }
+}
+
+/* Product carousel: the cards behind the front card sit under a dark overlay (set per card by the script). */
+.cf-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: #060129;
+  opacity: var(--shade, 0);
+  transition: opacity 0.55s ease;
+  pointer-events: none;
+}
+.cf-card:not(.is-active) .cf-body {
+  z-index: 4;
 }
 
 /* Contact card logo (Home and About): the logo wipes in when the card scrolls into view, a light sweeps across

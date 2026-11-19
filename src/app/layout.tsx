@@ -35,6 +35,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-palette="violet"
       data-theme="light"
       className={`${inter.variable} antialiased`}
+      // The Home intro adds a class to this element before React loads (see IntroOverlay).
+      suppressHydrationWarning
     >
       <body className="min-h-screen">
         <JsonLd schema={createOrganizationSchema()} />

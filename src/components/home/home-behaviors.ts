@@ -123,7 +123,12 @@ function coverflow(root: HTMLElement, reduced: boolean, cleanups: Cleanup[]) {
         card.style.transform = fan
           ? `translateX(-50%) translateX(${off * spread}px) translateZ(${-a * 110}px) rotateY(${off === 0 ? 0 : -off * 38}deg) scale(${1 - a * 0.05})`
           : `translateX(-50%) translateX(${off * 62}%) translateZ(${-a * 130}px) rotateY(${off === 0 ? 0 : -off * 36}deg) scale(${1 - a * 0.07})`;
-        card.style.opacity = String(1 - a * 0.16);
+        // Cards behind the front one stay fully opaque and get a dark overlay instead of fading to white.
+        card.style.opacity = "1";
+        card.style.setProperty(
+          "--shade",
+          off === 0 ? "0" : String(Math.min(0.72, 0.4 + (a - 1) * 0.12)),
+        );
         card.style.zIndex = String(20 - a);
       }
     });
