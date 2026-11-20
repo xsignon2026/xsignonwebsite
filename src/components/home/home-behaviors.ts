@@ -354,9 +354,55 @@ function journey(root: HTMLElement, cleanups: Cleanup[]) {
       tab.tabIndex = i === index ? 0 : -1;
     });
   };
+  // On wide screens the section stays in place while the visitor scrolls, and the solution changes as
+  // they go. On narrow screens, or with "reduce motion", only the cards switch it.
+  const host = el.parentElement;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const STEP = 0.4; // viewport heights of scrolling per solution
+  const TOP = 96; // gap under the fixed header while pinned
+  let pinned = false;
+  const layout = () => {
+    pinned = !!host && window.innerWidth >= 900 && !reduced.matches;
+    el.classList.toggle("pin-scroll", pinned);
+    if (host) {
+      host.style.height = pinned
+        ? `${el.offsetHeight + (tabs.length - 1) * window.innerHeight * STEP}px`
+        : "";
+    }
+  };
+  const goTo = (index: number) => {
+    if (!pinned || !host) {
+      set(index);
+      return;
+    }
+    const top = host.getBoundingClientRect().top + window.scrollY - TOP;
+    window.scrollTo({ top: top + index * window.innerHeight * STEP + 4, behavior: "smooth" });
+  };
+  const onScroll = () => {
+    if (!pinned || !host) return;
+    const travelled = TOP - host.getBoundingClientRect().top;
+    const index = Math.floor(travelled / (window.innerHeight * STEP));
+    set(Math.max(0, Math.min(tabs.length - 1, index)));
+  };
+  layout();
+  listen(
+    window,
+    "resize",
+    () => {
+      layout();
+      onScroll();
+    },
+    cleanups,
+  );
+  listen(window, "scroll", onScroll, cleanups, { passive: true });
+  cleanups.push(() => {
+    if (host) host.style.height = "";
+    el.classList.remove("pin-scroll");
+  });
+
   tabs.forEach((tab, i) => {
     tab.tabIndex = i === 0 ? 0 : -1;
-    listen(tab, "click", () => set(i), cleanups);
+    listen(tab, "click", () => goTo(i), cleanups);
     listen(
       tab,
       "keydown",
@@ -365,7 +411,7 @@ function journey(root: HTMLElement, cleanups: Cleanup[]) {
         if (!step) return;
         e.preventDefault();
         const next = (i + step + tabs.length) % tabs.length;
-        set(next);
+        goTo(next);
         tabs[next].focus();
       },
       cleanups,

@@ -228,3 +228,11 @@
   align-self: center;
   min-width: 70%;
 }
+
+/* While the visitor scrolls past, the section stays in place and the solution changes. */
+@media (min-width: 900px) {
+  #journey.journey.pin-scroll {
+    position: sticky;
+    top: 96px;
+  }
+}
