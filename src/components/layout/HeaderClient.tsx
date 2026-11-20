@@ -102,7 +102,7 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
       <div className="nav2-bar">
         <Link className="nav2-logo" href="/" aria-label="XSignOn home">
           <Image
-            src="/images/logo-light.png"
+            src="/images/logo-dark.png"
             alt="XSignOn - Simplifying cybersecurity"
             width={760}
             height={198}
