@@ -1807,6 +1807,82 @@ html.js .std-card[data-in] .std-item {
   }
 }
 
+/* "What XSignOn does": four cards act as tabs, and the chosen one opens in the wide card below. */
+#journey .j-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+#journey .j-cards button {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  color: #c9c5e3;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  cursor: pointer;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+#journey .j-cards button:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+#journey .j-cards button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+#journey .j-cards button.act {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--acc);
+  box-shadow: 0 0 0 1px var(--acc);
+}
+#journey .j-thumb {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  line-height: 0;
+  background: #0a0630;
+}
+#journey .j-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.7;
+  transition: opacity 0.25s ease;
+}
+#journey .j-cards button.act .j-thumb img,
+#journey .j-cards button:hover .j-thumb img {
+  opacity: 1;
+}
+#journey .j-name {
+  padding: 12px 14px 14px;
+  font-family: var(--disp);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+#journey .j-panels {
+  display: block;
+  margin-top: 20px;
+}
+#journey .j-panel:not(.act) {
+  display: none;
+}
+@media (max-width: 900px) {
+  #journey .j-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* Start-of-visit intro: the sign-in animation plays full screen once, then fades away. */
 .intro {
   position: fixed;

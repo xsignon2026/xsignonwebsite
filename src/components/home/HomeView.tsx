@@ -588,42 +588,48 @@ export function HomeView({ content }: { content: HomeContent }) {
 
           <div id="solutions">
             <div className="journey" id="journey">
-              <div className="j-stage">
-                <div className="j-rail">
-                  {content.whatWeDo.panels.map((panel, i) => (
-                    <button
-                      type="button"
-                      data-j={i}
-                      className={i === 0 ? "act" : undefined}
-                      key={panel.title}
-                    >
-                      {panel.title}
-                    </button>
-                  ))}
-                </div>
-                <div className="j-panels">
-                  {content.whatWeDo.panels.map((panel, i) => (
-                    <article className={i === 0 ? "j-panel act" : "j-panel"} key={panel.title}>
-                      <div className="j-txt">
-                        <h4 className="h4">{panel.title}</h4>
-                        <p>{panel.text}</p>
-                        <Link className="link-arrow" href={panel.href}>
-                          {panel.cta}{" "}
-                          <span className="arr" aria-hidden="true">
-                            &#8594;
-                          </span>
-                        </Link>
-                      </div>
-                      <figure className="j-art">
-                        <SolutionVideo name={panel.art} />
-                      </figure>
-                    </article>
-                  ))}
-                </div>
+              <div className="j-cards" role="tablist" aria-label={content.whatWeDo.title}>
+                {content.whatWeDo.panels.map((panel, i) => (
+                  <button
+                    type="button"
+                    role="tab"
+                    id={`j-tab-${i}`}
+                    aria-selected={i === 0}
+                    aria-controls={`j-panel-${i}`}
+                    data-j={i}
+                    className={i === 0 ? "act" : undefined}
+                    key={panel.title}
+                  >
+                    <span className="j-thumb">
+                      <SolutionVideo name={panel.art} />
+                    </span>
+                    <span className="j-name">{panel.title}</span>
+                  </button>
+                ))}
               </div>
-              <div className="j-scroll" aria-hidden="true">
-                {content.whatWeDo.panels.map((panel) => (
-                  <div key={panel.title}></div>
+              <div className="j-panels">
+                {content.whatWeDo.panels.map((panel, i) => (
+                  <article
+                    className={i === 0 ? "j-panel act" : "j-panel"}
+                    id={`j-panel-${i}`}
+                    role="tabpanel"
+                    aria-labelledby={`j-tab-${i}`}
+                    key={panel.title}
+                  >
+                    <div className="j-txt">
+                      <h4 className="h4">{panel.title}</h4>
+                      <p>{panel.text}</p>
+                      <Link className="link-arrow" href={panel.href}>
+                        {panel.cta}{" "}
+                        <span className="arr" aria-hidden="true">
+                          &#8594;
+                        </span>
+                      </Link>
+                    </div>
+                    <figure className="j-art">
+                      <SolutionVideo name={panel.art} />
+                    </figure>
+                  </article>
                 ))}
               </div>
             </div>

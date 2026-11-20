@@ -339,42 +339,38 @@ function proofWords(root: HTMLElement, reduced: boolean, cleanups: Cleanup[]) {
   update();
 }
 
-// Solutions journey: the stage stays in place on wide screens while the visitor scrolls through steps.
-function journey(root: HTMLElement, reduced: boolean, cleanups: Cleanup[]) {
+// "What XSignOn does": four cards act as tabs, and the one that is chosen opens in the wide card below.
+// Pressing a card, or moving between them with the arrow keys, switches the card.
+function journey(root: HTMLElement, cleanups: Cleanup[]) {
   const el = q<HTMLElement>(root, "#journey");
   if (!el) return;
   const panels = qa<HTMLElement>(el, ".j-panel");
-  const rail = qa<HTMLElement>(el, ".j-rail button");
-  const step = () => window.innerHeight * 0.46;
+  const tabs = qa<HTMLElement>(el, ".j-cards button");
   const set = (index: number) => {
     panels.forEach((panel, i) => panel.classList.toggle("act", i === index));
-    rail.forEach((button, i) => button.classList.toggle("act", i === index));
+    tabs.forEach((tab, i) => {
+      tab.classList.toggle("act", i === index);
+      tab.setAttribute("aria-selected", i === index ? "true" : "false");
+      tab.tabIndex = i === index ? 0 : -1;
+    });
   };
-  const mode = () => el.classList.toggle("pin-on", window.innerWidth >= 900 && !reduced);
-  const onScroll = () => {
-    if (!el.classList.contains("pin-on")) return;
-    const rect = el.getBoundingClientRect();
-    if (rect.height === 0) return;
-    set(Math.max(0, Math.min(panels.length - 1, Math.floor(-rect.top / step()))));
-  };
-  rail.forEach((button, i) =>
+  tabs.forEach((tab, i) => {
+    tab.tabIndex = i === 0 ? 0 : -1;
+    listen(tab, "click", () => set(i), cleanups);
     listen(
-      button,
-      "click",
-      () => {
-        const top = el.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: top + i * step() + 4, behavior: reduced ? "auto" : "smooth" });
+      tab,
+      "keydown",
+      (e: KeyboardEvent) => {
+        const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        const next = (i + step + tabs.length) % tabs.length;
+        set(next);
+        tabs[next].focus();
       },
       cleanups,
-    ),
-  );
-  const both = () => {
-    mode();
-    onScroll();
-  };
-  listen(window, "resize", both, cleanups);
-  listen(window, "scroll", onScroll, cleanups, { passive: true });
-  both();
+    );
+  });
 }
 
 // "Our thinking": each heading row opens into its full card on hover, keyboard focus or tap.
@@ -630,7 +626,7 @@ export function initHome(root: HTMLElement): Cleanup {
   coverflow(root, reduced, cleanups);
   reveal(root, reduced, cleanups);
   proofWords(root, reduced, cleanups);
-  journey(root, reduced, cleanups);
+  journey(root, cleanups);
   thinkingRows(root, cleanups);
   partnerHub(root, reduced, cleanups);
   return () => cleanups.forEach((fn) => fn());
