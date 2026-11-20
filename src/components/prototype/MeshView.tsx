@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ProductBand, ProductHeroImage } from "@/components/prototype/ProductVisuals";
+import { ProductHeroImage } from "@/components/prototype/ProductVisuals";
 import { MeshLogo } from "@/components/common/MeshLogo";
 
 // The XSignOn Mesh product page, in the same layout as the other product pages.
@@ -57,7 +57,6 @@ export function MeshView() {
             </div>
           </div>
         </section>
-        <ProductBand slug="mesh" />
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">

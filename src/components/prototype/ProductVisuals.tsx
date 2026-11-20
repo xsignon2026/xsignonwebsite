@@ -6,15 +6,6 @@ import { MeshLogo } from "@/components/common/MeshLogo";
 
 export type ProductVisualSlug = "postureone" | "keys" | "evalone" | "xsense" | "ams" | "mesh";
 
-const NAMES: Record<ProductVisualSlug, string> = {
-  postureone: "PostureOne",
-  keys: "Passwordless Keys",
-  evalone: "EvalOne",
-  xsense: "XSense",
-  ams: "AMS",
-  mesh: "XSignOn Mesh",
-};
-
 type Picture = { src: string; alt: string };
 
 const HERO: Record<ProductVisualSlug, Picture> = {
@@ -41,33 +32,6 @@ const HERO: Record<ProductVisualSlug, Picture> = {
   mesh: {
     src: "/images/home/img-d10eb158.jpg",
     alt: "A person with a laptop beside a lit row of server racks",
-  },
-};
-
-const BAND: Record<ProductVisualSlug, Picture> = {
-  postureone: {
-    src: "/images/home/img-bedb86b4.jpg",
-    alt: "Glass office towers seen from street level",
-  },
-  keys: {
-    src: "/images/products/img-2c6f4413.jpg",
-    alt: "A brass combination padlock resting on a keyboard beside bank cards",
-  },
-  evalone: {
-    src: "/images/home/img-1a9a6905.jpg",
-    alt: "An engineer working on a laptop among equipment and cabling",
-  },
-  xsense: {
-    src: "/images/home/img-74215995.jpg",
-    alt: "A glowing circuit diagram on a glass panel",
-  },
-  ams: {
-    src: "/images/home/img-ccd69738.jpg",
-    alt: "The back of a server unit with fans and cabling",
-  },
-  mesh: {
-    src: "/images/home/img-bedb86b4.jpg",
-    alt: "Glass office towers seen from street level",
   },
 };
 
@@ -165,23 +129,5 @@ export function ProductHeroImage({ slug }: { slug: ProductVisualSlug }) {
     <div className="ph-image">
       <Image src={pic.src} alt={pic.alt} fill priority sizes="(max-width: 900px) 100vw, 520px" />
     </div>
-  );
-}
-
-/** A wide picture with the product mark and name over it, between the opening and the detail. */
-export function ProductBand({ slug }: { slug: ProductVisualSlug }) {
-  const pic = BAND[slug];
-  return (
-    <section className="page-sec ph-band-sec">
-      <div className="wrap">
-        <figure className="ph-band rv">
-          <Image src={pic.src} alt={pic.alt} fill sizes="(max-width: 1200px) 100vw, 1200px" />
-          <figcaption>
-            <ProductIcon slug={slug} size={52} />
-            <span>{NAMES[slug]}</span>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
   );
 }
