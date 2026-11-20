@@ -42,14 +42,14 @@ export function KeysView() {
                 hardware from order to replacement.
               </p>
             </div>
-            <div className="case-grid" style={{ marginTop: "44px" }}>
-              <article className="case-card rv">
+            <div className="key-feature-grid">
+              <article className="case-card key-main rv">
                 <div className="key-photo">
                   <Image
                     src="/images/products-old/auth-bio.webp"
                     alt="The AUTH Bio biometric security key"
                     fill
-                    sizes="(max-width: 760px) 100vw, 540px"
+                    sizes="(max-width: 900px) 100vw, 600px"
                   />
                 </div>
                 <div className="pmeta">
@@ -57,10 +57,6 @@ export function KeysView() {
                 </div>
                 <h3 className="h3">AUTH Bio</h3>
                 <p>Fingerprint-based sign-in for everyday staff roles.</p>
-                <span className="status-chip">
-                  <b>Spec confirmation pending:</b> full specifications are confirmed before
-                  ordering.
-                </span>
                 <Link className="link-arrow" href="/products/passwordless-keys/bio">
                   View the AUTH Bio page{" "}
                   <span className="arr" aria-hidden="true">
@@ -68,81 +64,51 @@ export function KeysView() {
                   </span>
                 </Link>
               </article>
-              <article className="case-card rv">
-                <div className="key-photo">
-                  <Image
-                    src="/images/products-old/auth-bio-pro.webp"
-                    alt="The AUTH Bio Pro biometric security key"
-                    fill
-                    sizes="(max-width: 760px) 100vw, 540px"
-                  />
-                </div>
-                <div className="pmeta">
-                  <span className="ptag">Biometric</span>
-                </div>
-                <h3 className="h3">AUTH Bio Pro</h3>
-                <p>Biometric sign-in for roles that need extended management options.</p>
-                <span className="status-chip">
-                  <b>Spec confirmation pending:</b> full specifications are confirmed before
-                  ordering.
-                </span>
-                <Link className="link-arrow" href="/products/passwordless-keys/pro">
-                  View the AUTH Bio Pro page{" "}
-                  <span className="arr" aria-hidden="true">
-                    &#8594;
-                  </span>
-                </Link>
-              </article>
-              <article className="case-card rv">
-                <div className="key-photo">
-                  <Image
-                    src="/images/products-old/auth-bio-touch.webp"
-                    alt="The AUTH Bio Touch security key with a touch button"
-                    fill
-                    sizes="(max-width: 760px) 100vw, 540px"
-                  />
-                </div>
-                <div className="pmeta">
-                  <span className="ptag">Touch-activated</span>
-                </div>
-                <h3 className="h3">AUTH Bio Touch</h3>
-                <p>Touch-activated sign-in where a tap confirms the attempt.</p>
-                <span className="status-chip">
-                  <b>Spec confirmation pending:</b> full specifications are confirmed before
-                  ordering.
-                </span>
-                <Link className="link-arrow" href="/products/passwordless-keys/touch">
-                  View the AUTH Bio Touch page{" "}
-                  <span className="arr" aria-hidden="true">
-                    &#8594;
-                  </span>
-                </Link>
-              </article>
-              <article className="case-card rv">
-                <div className="key-photo">
-                  <Image
-                    src="/images/products-old/auth-bio-desktop.webp"
-                    alt="The AUTH Bio Desktop fingerprint reader"
-                    fill
-                    sizes="(max-width: 760px) 100vw, 540px"
-                  />
-                </div>
-                <div className="pmeta">
-                  <span className="ptag">Desktop</span>
-                </div>
-                <h3 className="h3">AUTH Bio Desktop</h3>
-                <p>Desktop-based sign-in for fixed workstations and shared terminals.</p>
-                <span className="status-chip">
-                  <b>Spec confirmation pending:</b> full specifications are confirmed before
-                  ordering.
-                </span>
-                <Link className="link-arrow" href="/products/passwordless-keys/desktop">
-                  View the AUTH Bio Desktop page{" "}
-                  <span className="arr" aria-hidden="true">
-                    &#8594;
-                  </span>
-                </Link>
-              </article>
+              <div className="key-side">
+                {[
+                  {
+                    name: "AUTH Bio Pro",
+                    tag: "Biometric",
+                    text: "Biometric sign-in for roles that need extended management options.",
+                    href: "/products/passwordless-keys/pro",
+                    src: "/images/products-old/auth-bio-pro.webp",
+                    alt: "The AUTH Bio Pro biometric security key",
+                  },
+                  {
+                    name: "AUTH Bio Touch",
+                    tag: "Touch-activated",
+                    text: "Touch-activated sign-in where a tap confirms the attempt.",
+                    href: "/products/passwordless-keys/touch",
+                    src: "/images/products-old/auth-bio-touch.webp",
+                    alt: "The AUTH Bio Touch security key with a touch button",
+                  },
+                  {
+                    name: "AUTH Bio Desktop",
+                    tag: "Desktop",
+                    text: "Desktop-based sign-in for fixed workstations and shared terminals.",
+                    href: "/products/passwordless-keys/desktop",
+                    src: "/images/products-old/auth-bio-desktop.webp",
+                    alt: "The AUTH Bio Desktop fingerprint reader",
+                  },
+                ].map((key) => (
+                  <article className="case-card key-mini rv" key={key.name}>
+                    <div className="key-mini-photo">
+                      <Image src={key.src} alt={key.alt} fill sizes="140px" />
+                    </div>
+                    <div className="key-mini-body">
+                      <span className="ptag">{key.tag}</span>
+                      <h3 className="h4">{key.name}</h3>
+                      <p>{key.text}</p>
+                      <Link className="link-arrow" href={key.href}>
+                        View the {key.name} page{" "}
+                        <span className="arr" aria-hidden="true">
+                          &#8594;
+                        </span>
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
