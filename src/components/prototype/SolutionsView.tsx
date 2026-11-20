@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SolutionVideo } from "@/components/home/SolutionVideo";
+import { SolutionPicture } from "@/components/common/SolutionPicture";
 import { ThinkingShowcase } from "@/components/about/ThinkingShowcase";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import type { Solution } from "@/types/solution";
@@ -46,7 +46,10 @@ export function SolutionsView({
               {solutions.map((solution) => (
                 <article className="sol-card rv" key={solution.slug}>
                   <div className="sol-photo">
-                    <SolutionVideo name={PHOTO[solution.diagramKey]} />
+                    <SolutionPicture
+                      name={PHOTO[solution.diagramKey]}
+                      sizes="(max-width: 899px) 100vw, 400px"
+                    />
                   </div>
                   <div className="sol-body">
                     <h3>{solution.title}</h3>

@@ -115,6 +115,18 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
             const panelId = `${baseId}-panel-${i}`;
             const isOpen = open === i;
             const sections = navSections(item);
+            // A link with no dropdown, such as ROI, is a plain link with no arrow.
+            if (sections.length === 0 && !item.featured && item.link?.href) {
+              return (
+                <div className="nav2-item" key={item.label}>
+                  <div className="nav2-trig-wrap">
+                    <Link className="nav2-trigger nav2-plain" href={item.link.href}>
+                      {item.label}
+                    </Link>
+                  </div>
+                </div>
+              );
+            }
             return (
               <div className="nav2-item" key={item.label} onPointerEnter={hoverOpen(i)}>
                 <div className="nav2-trig-wrap" data-open={isOpen || undefined}>
@@ -290,6 +302,17 @@ export function HeaderClient({ navItems, headerCta }: HeaderClientProps) {
         </div>
         {navItems.map((item, i) => {
           const isOpen = section === i;
+          if (navSections(item).length === 0 && !item.featured && item.link?.href) {
+            return (
+              <div className="nav2-m-group" key={item.label}>
+                <div className="nav2-m-row">
+                  <Link className="nav2-m-head nav2-m-link" href={item.link.href}>
+                    {item.label}
+                  </Link>
+                </div>
+              </div>
+            );
+          }
           return (
             <div className="nav2-m-group" key={item.label}>
               <div className="nav2-m-row">

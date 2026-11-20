@@ -41,41 +41,69 @@ export function ThinkingView({
               <div className="sec-head rv">
                 <h2 className="h2">Case studies</h2>
               </div>
-              <div className="case-grid cs-two">
-                {caseStudies.map((study) => {
-                  const picture = CASE_STUDY_PICTURES[study.slug]?.hero;
+              <div className="cs-feature-grid">
+                {(() => {
+                  const [first, ...rest] = caseStudies;
+                  const pic = (slug: string) => CASE_STUDY_PICTURES[slug]?.hero;
+                  const main = pic(first.slug);
                   return (
-                    <article key={study.slug} className="case-card th-card rv">
-                      {picture && (
-                        <div className="th-img th-card-img">
-                          <Image
-                            src={picture.src}
-                            alt={picture.alt}
-                            fill
-                            sizes="(max-width: 760px) 100vw, 560px"
-                          />
-                        </div>
-                      )}
-                      <div className="th-card-body">
-                        <div className="pmeta">
-                          {study.tags.slice(0, 2).map((tag) => (
-                            <span className="pill-cat" key={tag}>
-                              {tag}
+                    <>
+                      <article className="case-card th-card cs-main rv">
+                        {main && (
+                          <div className="th-img th-card-img">
+                            <Image
+                              src={main.src}
+                              alt={main.alt}
+                              fill
+                              sizes="(max-width: 900px) 100vw, 620px"
+                            />
+                          </div>
+                        )}
+                        <div className="th-card-body">
+                          <div className="pmeta">
+                            {first.tags.slice(0, 2).map((tag) => (
+                              <span className="pill-cat" key={tag}>
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                          <h3 className="h3">{first.title}</h3>
+                          <p>{first.sections[0]?.paragraphs[0]}</p>
+                          <Link className="link-arrow" href={`/proof/${first.slug}`}>
+                            Read the case study{" "}
+                            <span className="arr" aria-hidden="true">
+                              &#8594;
                             </span>
-                          ))}
+                          </Link>
                         </div>
-                        <h3 className="h4">{study.title}</h3>
-                        <p>{study.sections[0]?.paragraphs[0]}</p>
-                        <Link className="link-arrow" href={`/proof/${study.slug}`}>
-                          Read the case study{" "}
-                          <span className="arr" aria-hidden="true">
-                            &#8594;
-                          </span>
-                        </Link>
+                      </article>
+                      <div className="cs-side">
+                        {rest.map((study) => {
+                          const picture = pic(study.slug);
+                          return (
+                            <article className="case-card cs-mini rv" key={study.slug}>
+                              {picture && (
+                                <div className="cs-mini-img">
+                                  <Image src={picture.src} alt={picture.alt} fill sizes="150px" />
+                                </div>
+                              )}
+                              <div className="cs-mini-body">
+                                <span className="pill-cat">{study.tags[0]}</span>
+                                <h3 className="h4">{study.title}</h3>
+                                <Link className="link-arrow" href={`/proof/${study.slug}`}>
+                                  Read the case study{" "}
+                                  <span className="arr" aria-hidden="true">
+                                    &#8594;
+                                  </span>
+                                </Link>
+                              </div>
+                            </article>
+                          );
+                        })}
                       </div>
-                    </article>
+                    </>
                   );
-                })}
+                })()}
               </div>
             </div>
           </section>

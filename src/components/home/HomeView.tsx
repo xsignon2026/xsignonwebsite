@@ -8,6 +8,7 @@ import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 import { MeshLogo } from "@/components/common/MeshLogo";
 import { SecurityEcosystem } from "@/components/home/SecurityEcosystem";
 import { SolutionVideo } from "@/components/home/SolutionVideo";
+import { SolutionPicture } from "@/components/common/SolutionPicture";
 import type { HomeContent } from "@/types/home-content";
 
 // The Home page markup, converted from the approved prototype (view-home) by compare/html2jsx.py.
@@ -627,7 +628,7 @@ export function HomeView({ content }: { content: HomeContent }) {
                       </Link>
                     </div>
                     <figure className="j-art">
-                      <SolutionVideo name={panel.art} />
+                      <SolutionPicture name={panel.art} />
                     </figure>
                   </article>
                 ))}

@@ -1,0 +1,129 @@
+/* A labelled, animated solution illustration (see SolutionPicture.tsx). It fills the box it is put in. */
+.sp {
+  container: sp / inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  line-height: 0;
+  background: #0a0630;
+}
+.sp-still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* The travelling light. */
+.sp-signal {
+  position: absolute;
+  left: 6%;
+  z-index: 1;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: #ff4d5e;
+  box-shadow:
+    0 0 10px 3px rgba(255, 77, 94, 0.75),
+    -26px 0 14px -2px rgba(255, 77, 94, 0.35);
+  opacity: 0;
+  animation: spMove var(--cycle, 6s) ease-in-out infinite;
+}
+@keyframes spMove {
+  0% {
+    left: 6%;
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    left: 94%;
+    opacity: 0;
+  }
+}
+@keyframes spChip {
+  0% {
+    background: #a60019;
+    border-color: #ff8a96;
+  }
+  14% {
+    background: #a60019;
+    border-color: #ff8a96;
+  }
+  30%,
+  100% {
+    background: rgba(6, 1, 41, 0.72);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sp-signal {
+    display: none;
+  }
+}
+.sp-labels {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6%;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+.sp-labels li {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  padding: 3px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(6, 1, 41, 0.72);
+  color: #ffffff;
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  white-space: nowrap;
+  animation: spChip var(--cycle, 6s) ease-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sp-labels li {
+    animation: none;
+  }
+}
+/* In a narrow picture the labels become a short row along the bottom, so none of them collide or are cut off. */
+@container sp (max-width: 479px) {
+  .sp-labels {
+    left: 8px;
+    right: 8px;
+    bottom: 7px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+  .sp-labels li {
+    position: static;
+    transform: none;
+    padding: 2px 7px;
+    font-size: 10px;
+  }
+}
+/* Inside tiles that set their own size, the picture fills the tile. */
+.j-art .sp {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+  height: 100%;
+}

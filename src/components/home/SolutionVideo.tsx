@@ -32,7 +32,7 @@ export function SolutionVideo({ name }: { name: Name }) {
   return (
     <Image
       className="sol-video"
-      src={`/videos/solutions/${file}.jpg`}
+      src={`/videos/solutions/${file}-clean.jpg`}
       alt={label}
       width={1280}
       height={720}

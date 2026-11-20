@@ -1,0 +1,244 @@
+/* About page: "How we work" (AboutSteps) and "Why XSignOn" (AboutPrinciples). */
+.ab-flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+.ab-flow li {
+  position: relative;
+  padding-top: 62px;
+}
+.ab-flow-n {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #3b3668;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  animation: abLight 8s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 2s);
+}
+/* The line from this number to the next one, and the red that fills it. */
+.ab-flow li:not(:last-child)::before,
+.ab-flow li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 54px;
+  right: -30px;
+  height: 2px;
+  border-radius: 2px;
+}
+.ab-flow li:not(:last-child)::before {
+  background: #d9d4eb;
+}
+.ab-flow li:not(:last-child)::after {
+  background: #c6001d;
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: abFill 8s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 2s);
+}
+.ab-flow-card {
+  height: 100%;
+  padding: 22px 22px 24px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.ab-flow-card h3 {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.25;
+  color: var(--txt);
+}
+.ab-flow-kind {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #f4f3fa;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #55517a;
+}
+.ab-flow-card p {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--gray);
+}
+@keyframes abLight {
+  0%,
+  22% {
+    background: #c6001d;
+    transform: scale(1.1);
+  }
+  30%,
+  100% {
+    background: #3b3668;
+    transform: scale(1);
+  }
+}
+@keyframes abFill {
+  0% {
+    transform: scaleX(0);
+  }
+  25% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.ab-why {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.ab-why li {
+  padding: 26px 28px 28px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-left: 4px solid #3b3668;
+  border-radius: 14px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-left-color 0.3s ease;
+}
+.ab-why li:hover {
+  transform: translateY(-3px);
+  border-left-color: #c6001d;
+  box-shadow: 0 18px 40px -18px rgba(26, 18, 64, 0.3);
+}
+.ab-why-n {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #c6001d;
+}
+.ab-why h3 {
+  margin: 8px 0 8px;
+  font-size: 21px;
+  line-height: 1.25;
+  color: var(--txt);
+}
+.ab-why p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--gray);
+}
+.ab-why-focus {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 4px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #f4f3fa;
+  font-size: 13px;
+  color: var(--txt);
+}
+.ab-why-focus b {
+  font-weight: 700;
+}
+
+@media (max-width: 1000px) {
+  .ab-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 28px;
+  }
+  .ab-flow li:nth-child(2)::before,
+  .ab-flow li:nth-child(2)::after {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .ab-flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ab-flow li:not(:last-child)::before,
+  .ab-flow li:not(:last-child)::after {
+    display: none;
+  }
+  .ab-why {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ab-flow-n,
+  .ab-flow li:not(:last-child)::after {
+    animation: none;
+  }
+  .ab-flow li:not(:last-child)::after {
+    transform: scaleX(1);
+  }
+}
+
+/* "What we do": two cards across, so each labelled picture has room. */
+.ab-cap {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.ab-cap li {
+  padding: 0;
+  overflow: hidden;
+}
+.ab-cap .ab-art {
+  margin: 0;
+}
+.ab-cap h3 {
+  margin: 18px 22px 6px;
+}
+.ab-cap p {
+  margin: 0 22px 22px;
+}
+@media (max-width: 640px) {
+  .ab-cap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* About hero: no picture, so the text is centred. */
+.ab-hero-grid {
+  display: block;
+}
+.ab-hero-copy {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+.ab-hero-copy .ab-title,
+.ab-hero-copy .ab-sub {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* About sections: headings sit on the centre line, like the hero. */
+.ab-sec > .wrap > .h2 {
+  text-align: center;
+}
+.ab-sec .ab-who {
+  margin-top: 8px;
+}

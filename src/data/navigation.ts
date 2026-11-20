@@ -137,5 +137,7 @@ export const navigationFallback: NavigationData = {
         },
       },
     },
+    // A plain link: no dropdown.
+    { label: "ROI", link: link("/roi-calculator") },
   ],
 };

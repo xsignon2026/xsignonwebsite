@@ -574,3 +574,8 @@
 .nav2-m-list a.nav2-m-foot {
   color: #ffb3bb;
 }
+
+/* A menu link with no dropdown (ROI): no arrow beside it, so it takes the full padding. */
+.nav2-trig-wrap > .nav2-trigger.nav2-plain {
+  padding-right: 16px;
+}

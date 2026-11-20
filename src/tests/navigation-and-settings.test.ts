@@ -4,12 +4,16 @@ import { navSections } from "../lib/nav-sections";
 import { siteSettingsFallback } from "../data/site-settings";
 
 describe("Navigation & Site Settings Fallback Data", () => {
-  it("provides the four menus, each with labelled groups of links", () => {
-    expect(navigationFallback.items.length).toBe(4);
+  it("provides the four menus and the ROI link", () => {
+    expect(navigationFallback.items.length).toBe(5);
     const labels = navigationFallback.items.map((i) => i.label);
-    expect(labels).toEqual(["About", "Products", "Solutions", "Insights"]);
+    expect(labels).toEqual(["About", "Products", "Solutions", "Insights", "ROI"]);
 
-    for (const item of navigationFallback.items) {
+    const roi = navigationFallback.items[4];
+    expect(roi.link?.href).toBe("/roi-calculator");
+    expect(navSections(roi)).toEqual([]);
+
+    for (const item of navigationFallback.items.slice(0, 4)) {
       const sections = navSections(item);
       expect(sections.length).toBeGreaterThan(0);
       // No bottom link row: every menu ends with its last group.

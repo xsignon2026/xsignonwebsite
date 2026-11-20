@@ -1,7 +1,6 @@
-import { HeroArtLayers } from "@/components/home/HeroVariants";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 
-// The About hero: text only, on the navy grid with the slow beams. No button; the logo already leads home.
+// The About hero: centred text only, on the navy grid with the slow beams. No button; the logo already leads home.
 export function AboutHero({
   content,
 }: {
@@ -15,9 +14,6 @@ export function AboutHero({
           <p className="hero-eyebrow">{content.eyebrow}</p>
           <h1 className="ab-title">{content.title}</h1>
           <p className="ab-sub">{content.description}</p>
-        </div>
-        <div className="ab-hero-art" aria-hidden="true">
-          <HeroArtLayers />
         </div>
       </div>
     </section>

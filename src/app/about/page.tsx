@@ -2,17 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { AboutHero } from "@/components/about/AboutHero";
+import { AboutPrinciples } from "@/components/about/AboutPrinciples";
+import { AboutSteps } from "@/components/about/AboutSteps";
 import { AboutTeam } from "@/components/about/AboutTeam";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import { ContactCta } from "@/components/common/ContactCta";
-import { GlassCubes } from "@/components/common/GlassCubes";
-import { GLASS_COLOURS, type GlassItem } from "@/components/common/glass";
-import {
-  SecurityEcosystem,
-  type EcoDetail,
-  type EcoItem,
-} from "@/components/home/SecurityEcosystem";
-import { SolutionIllustration } from "@/components/home/SolutionIllustration";
+import { SolutionPicture } from "@/components/common/SolutionPicture";
 import { getAboutContent } from "@/lib/about-content";
 import { getOpenJobs } from "@/lib/careers";
 import { createPageMetadata } from "@/lib/seo";
@@ -41,33 +36,8 @@ const organizationJsonLd = {
   sameAs: ["https://www.linkedin.com/company/xsignon"],
 };
 
-const WHY_COLOURS = [
-  { top: "#b3aed0", left: "#8f89b8", right: "#6f67a8", color: "#8f89b8", icon: "grid" },
-  { top: "#6f67a8", left: "#554d90", right: "#3b3668", color: "#6f67a8", icon: "key" },
-  { top: "#3b3668", left: "#2c2757", right: "#1f1b45", color: "#3b3668", icon: "database" },
-  { top: "#d4163a", left: "#a60019", right: "#7a0012", color: "#c6001d", icon: "atom" },
-] as const;
-
 export default async function AboutPage(): Promise<React.JSX.Element> {
   const content = await getAboutContent();
-  const steps: ReadonlyArray<GlassItem> = content.how.steps.map((step, i) => ({
-    label: String(i + 1).padStart(2, "0"),
-    title: step.title,
-    kind: step.kind,
-    text: step.text,
-    ...GLASS_COLOURS[i],
-  }));
-  const why: ReadonlyArray<EcoItem> = content.why.principles.map((p, i) => ({
-    n: String(i + 1).padStart(2, "0"),
-    title: p.title,
-    lines: [p.lines[0] ?? "", p.lines[1] ?? ""],
-    ...WHY_COLOURS[i],
-  }));
-  const whyDetail: ReadonlyArray<EcoDetail> = content.why.principles.map((p) => ({
-    from: [],
-    via: [p.via],
-    to: [],
-  }));
   const hasRoles = (await getOpenJobs()).length > 0;
   return (
     <div id="view-about">
@@ -91,7 +61,7 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
               </div>
             </div>
             <div className="ab-who-art">
-              <SolutionIllustration name="identity" />
+              <SolutionPicture name="identity" />
             </div>
           </div>
         </div>
@@ -104,7 +74,7 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
             {content.whatWeDo.items.map((c) => (
               <li key={c.title}>
                 <div className="ab-art">
-                  <SolutionIllustration name={c.art} />
+                  <SolutionPicture name={c.art} sizes="(max-width: 899px) 100vw, 560px" />
                 </div>
                 <h3>{c.title}</h3>
                 <p>{c.text}</p>
@@ -117,19 +87,14 @@ export default async function AboutPage(): Promise<React.JSX.Element> {
       <section className="ab-sec" id="ab-how" data-nav="light">
         <div className="wrap">
           <h2 className="h2 rv">{content.how.title}</h2>
-          <GlassCubes items={steps} flow />
+          <AboutSteps steps={content.how.steps} />
         </div>
       </section>
 
       <section className="ab-sec ab-soft" id="ab-why" data-nav="light">
         <div className="wrap">
           <h2 className="h2 rv">{content.why.title}</h2>
-          <SecurityEcosystem
-            items={why}
-            detail={whyDetail}
-            viaLabel="Focus:"
-            label="Why XSignOn: four principles that guide our work"
-          />
+          <AboutPrinciples principles={content.why.principles} />
         </div>
       </section>
 
