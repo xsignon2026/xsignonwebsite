@@ -1,0 +1,17 @@
+/* Home "What XSignOn does": the chosen solution opens in the wide card with the picture on the larger side
+   (left) and the text on the smaller side (right). The four cards stay underneath as the tabs. */
+@media (min-width: 900px) {
+  #journey.journey .j-panel {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 32px;
+  }
+  #journey.journey .j-art {
+    order: -1;
+    min-height: 340px;
+  }
+}
+
+/* Security ecosystem: a plain dark card, with no glow or outline shapes behind the blocks. */
+.se-card {
+  background: #0a0630;
+}

@@ -115,18 +115,6 @@ const MW = 430;
 const MIN_Y = topOf(1) - HH - 22;
 const MAX_Y = CENTRES[3][1] + HH + DEPTH + 44;
 
-// Decorative "tech" layer behind the blocks: hexagon outlines and circuit traces ending in node dots.
-const hexPath = (x: number, y: number, r: number) =>
-  Array.from({ length: 6 }, (_, k) => {
-    const a = (Math.PI / 3) * k + Math.PI / 6;
-    return `${k === 0 ? "M" : "L"}${(x + r * Math.cos(a)).toFixed(1)} ${(y + r * Math.sin(a)).toFixed(1)}`;
-  }).join("") + "Z";
-const HEXES: ReadonlyArray<[number, number, number]> = [
-  [30, 30, 40],
-  [930, 500, 44],
-];
-const TRACES: ReadonlyArray<{ d: string; dot: [number, number] }> = [];
-
 function Icon({ name }: { name: IconName }) {
   switch (name) {
     case "grid":
@@ -171,10 +159,10 @@ const TOP_Y = topOf(1) - HH;
 const BOTTOM_Y = CENTRES[3][1] + HH + DEPTH;
 const LABELS = [
   {
-    x: 16,
+    x: LEFT_X - 30,
     y: topOf(0) - 14,
-    anchor: "start",
-    leader: `M${LEFT_X - 16} ${topOf(0)}H${LEFT_X - 4}`,
+    anchor: "end",
+    leader: `M${LEFT_X - 22} ${topOf(0)}H${LEFT_X - 4}`,
   },
   {
     x: CENTRES[1][0] + 96,
@@ -279,18 +267,6 @@ export function SecurityEcosystem({
   // Draw the blocks from back to front so the front block overlaps the others.
   const order = [1, 0, 2, 3];
 
-  const shadows = (
-    <g>
-      {CENTRES.map(([cx, cy], i) => (
-        <polygon
-          key={i}
-          fill={items[i].color}
-          opacity="0.18"
-          points={`${cx},${cy + HH + DEPTH - 6} ${cx + HW},${cy + DEPTH - 6} ${cx + HW + 120},${cy + DEPTH + 54} ${cx + 120},${cy + HH + DEPTH + 54}`}
-        />
-      ))}
-    </g>
-  );
   const blocks = (interactive: boolean) =>
     order.map((i) => {
       const item = items[i];
@@ -362,19 +338,6 @@ export function SecurityEcosystem({
   return (
     <div className="se-card rv" ref={card} data-in={inView || undefined}>
       <svg className="se-svg" viewBox="-10 -48 970 548" role="group" aria-label={label}>
-        <g className="se-tech" aria-hidden="true">
-          {HEXES.map(([x, y, r]) => (
-            <path key={`${x}-${y}`} d={hexPath(x, y, r)} fill="none" strokeWidth="1" />
-          ))}
-          {TRACES.map((t) => (
-            <g key={t.d}>
-              <path className="se-trace" d={t.d} fill="none" strokeWidth="1.2" />
-              <circle className="se-node" cx={t.dot[0]} cy={t.dot[1]} r="3.5" />
-            </g>
-          ))}
-        </g>
-        {shadows}
-
         {LABELS.map((label, i) => {
           const item = items[i];
           const on = reduced || active === i;
@@ -404,7 +367,9 @@ export function SecurityEcosystem({
                 </text>
               ))}
               <text x={label.x} y={label.y + 58} textAnchor={label.anchor} className="se-via-t">
-                <tspan className="se-via-k">{viaLabel} </tspan>
+                <tspan className="se-via-k">{viaLabel}</tspan>
+              </text>
+              <text x={label.x} y={label.y + 73} textAnchor={label.anchor} className="se-via-t">
                 <tspan className="se-via-b">{detail[i].via.join(" · ")}</tspan>
               </text>
             </g>
@@ -421,18 +386,6 @@ export function SecurityEcosystem({
           role="img"
           aria-label="Four raised blocks: contain threats, protect data and AI, sign in without passwords, prepare for quantum risk"
         >
-          <g className="se-tech" aria-hidden="true">
-            {HEXES.map(([x, y, r]) => (
-              <path key={`${x}-${y}`} d={hexPath(x, y, r)} fill="none" strokeWidth="1" />
-            ))}
-            {TRACES.map((t) => (
-              <g key={t.d}>
-                <path className="se-trace" d={t.d} fill="none" strokeWidth="1.2" />
-                <circle className="se-node" cx={t.dot[0]} cy={t.dot[1]} r="3.5" />
-              </g>
-            ))}
-          </g>
-          {shadows}
           {blocks(false)}
         </svg>
         {reduced ? (
