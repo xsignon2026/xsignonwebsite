@@ -96,100 +96,95 @@ const imageHeight = (w: number, h: number) => (w > h ? 54 : 76);
 
 export function AmsWheel() {
   return (
-    <section className="page-sec ph-gallery-sec">
-      <div className="wrap">
-        <figure className="aw rv">
-          <svg viewBox="0 0 680 520" role="img" aria-labelledby="aw-title aw-desc">
-            <title id="aw-title">The AMS key life cycle wheel</title>
-            <desc id="aw-desc">
-              AMS at the centre manages the AUTH Bio, AUTH Bio Pro, AUTH Bio Desktop and AUTH Bio
-              Touch keys. Around the ring: lifecycle management, directory integration, audit log
-              reports, PIN policy, controlled enrolment and key assignment.
-            </desc>
-            {AREAS.map(([label, centre], i) => (
-              <g key={label}>
-                <path d={sector(centre - 29, centre + 29)} fill="#3b3668" />
-                <path
-                  className="aw-seg"
-                  style={{ "--i": i } as CSSProperties}
-                  d={sector(centre - 29, centre + 29)}
-                  fill="#a60019"
-                />
-                <path id={`aw-arc-${i}`} d={textArc(centre)} fill="none" />
-                <text className="aw-ring-text">
-                  <textPath href={`#aw-arc-${i}`} startOffset="50%" textAnchor="middle">
-                    {label}
-                  </textPath>
-                </text>
-              </g>
-            ))}
-            <circle cx={CX} cy={CY} r="160" fill="#f4f3fa" stroke="#d9d4eb" />
-            <line x1="227" y1="147" x2="453" y2="373" stroke="#ffffff" strokeWidth="14" />
-            <line x1="453" y1="147" x2="227" y2="373" stroke="#ffffff" strokeWidth="14" />
-            <circle
-              className="aw-orbit"
-              cx={CX}
-              cy={CY}
-              r="92"
-              fill="none"
-              stroke="#8f89b8"
-              strokeWidth="1.5"
-              strokeDasharray="2 7"
+    <figure className="aw">
+      <svg viewBox="0 0 680 520" role="img" aria-labelledby="aw-title aw-desc">
+        <title id="aw-title">The AMS key life cycle wheel</title>
+        <desc id="aw-desc">
+          AMS at the centre manages the AUTH Bio, AUTH Bio Pro, AUTH Bio Desktop and AUTH Bio Touch
+          keys. Around the ring: lifecycle management, directory integration, audit log reports, PIN
+          policy, controlled enrolment and key assignment.
+        </desc>
+        {AREAS.map(([label, centre], i) => (
+          <g key={label}>
+            <path d={sector(centre - 29, centre + 29)} fill="#3b3668" />
+            <path
+              className="aw-seg"
+              style={{ "--i": i } as CSSProperties}
+              d={sector(centre - 29, centre + 29)}
+              fill="#a60019"
             />
-            {KEYS.map((key) => {
-              const h = imageHeight(key.w, key.h);
-              const w = (key.w / key.h) * h;
-              return (
-                <g key={key.name}>
-                  <circle
-                    className="aw-halo"
-                    style={{ "--d": `${key.delay}s` } as CSSProperties}
-                    cx={key.x}
-                    cy={key.y}
-                    r={Math.max(w, h) / 2 + 8}
-                    fill="none"
-                    stroke="#c6001d"
-                    strokeWidth="2"
-                  />
-                  <image
-                    href={key.src}
-                    x={key.x - w / 2}
-                    y={key.y - h / 2}
-                    width={w}
-                    height={h}
-                    aria-hidden="true"
-                  />
-                  <text className="aw-key-text" x={key.x} y={key.ly} textAnchor="middle">
-                    {key.name}
-                  </text>
-                </g>
-              );
-            })}
-            {KEYS.map((key) => (
-              <circle
-                key={key.name}
-                className="aw-dot"
-                style={
-                  {
-                    "--d": `${key.delay - 0.2}s`,
-                    "--dx": `${key.dx}px`,
-                    "--dy": `${key.dy}px`,
-                  } as CSSProperties
-                }
-                cx={CX}
-                cy={CY}
-                r="5"
-                fill="#c6001d"
-              />
-            ))}
-            <circle cx={CX} cy={CY} r="40" fill="#ffffff" stroke="#d9d4eb" strokeWidth="2" />
-            <text className="aw-hub" x={CX} y={CY + 7} textAnchor="middle">
-              AMS
+            <path id={`aw-arc-${i}`} d={textArc(centre)} fill="none" />
+            <text className="aw-ring-text">
+              <textPath href={`#aw-arc-${i}`} startOffset="50%" textAnchor="middle">
+                {label}
+              </textPath>
             </text>
-          </svg>
-          <figcaption>AMS covers the key life cycle across the AUTH key models</figcaption>
-        </figure>
-      </div>
-    </section>
+          </g>
+        ))}
+        <circle cx={CX} cy={CY} r="160" fill="#f4f3fa" stroke="#d9d4eb" />
+        <line x1="227" y1="147" x2="453" y2="373" stroke="#ffffff" strokeWidth="14" />
+        <line x1="453" y1="147" x2="227" y2="373" stroke="#ffffff" strokeWidth="14" />
+        <circle
+          className="aw-orbit"
+          cx={CX}
+          cy={CY}
+          r="92"
+          fill="none"
+          stroke="#8f89b8"
+          strokeWidth="1.5"
+          strokeDasharray="2 7"
+        />
+        {KEYS.map((key) => {
+          const h = imageHeight(key.w, key.h);
+          const w = (key.w / key.h) * h;
+          return (
+            <g key={key.name}>
+              <circle
+                className="aw-halo"
+                style={{ "--d": `${key.delay}s` } as CSSProperties}
+                cx={key.x}
+                cy={key.y}
+                r={Math.max(w, h) / 2 + 8}
+                fill="none"
+                stroke="#c6001d"
+                strokeWidth="2"
+              />
+              <image
+                href={key.src}
+                x={key.x - w / 2}
+                y={key.y - h / 2}
+                width={w}
+                height={h}
+                aria-hidden="true"
+              />
+              <text className="aw-key-text" x={key.x} y={key.ly} textAnchor="middle">
+                {key.name}
+              </text>
+            </g>
+          );
+        })}
+        {KEYS.map((key) => (
+          <circle
+            key={key.name}
+            className="aw-dot"
+            style={
+              {
+                "--d": `${key.delay - 0.2}s`,
+                "--dx": `${key.dx}px`,
+                "--dy": `${key.dy}px`,
+              } as CSSProperties
+            }
+            cx={CX}
+            cy={CY}
+            r="5"
+            fill="#c6001d"
+          />
+        ))}
+        <circle cx={CX} cy={CY} r="40" fill="#ffffff" stroke="#d9d4eb" strokeWidth="2" />
+        <text className="aw-hub" x={CX} y={CY + 7} textAnchor="middle">
+          AMS
+        </text>
+      </svg>
+    </figure>
   );
 }

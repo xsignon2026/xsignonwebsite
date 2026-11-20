@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AmsWheel } from "@/components/prototype/AmsWheel";
-import { ProductHeroImage, ProductIcon } from "@/components/prototype/ProductVisuals";
+import { ProductIcon } from "@/components/prototype/ProductVisuals";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
@@ -27,7 +27,9 @@ export function KeysView() {
                 <span className="ptag">Biometric</span>
               </div>
             </div>
-            <ProductHeroImage slug="keys" />
+            <div className="ph-wheel">
+              <AmsWheel />
+            </div>
           </div>
         </div>
       </section>
@@ -112,7 +114,6 @@ export function KeysView() {
             </div>
           </div>
         </section>
-        <AmsWheel />
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">

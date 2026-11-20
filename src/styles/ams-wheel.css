@@ -9,6 +9,14 @@
   width: 100%;
   height: auto;
 }
+.ph-wheel {
+  width: 100%;
+  max-width: 540px;
+  margin-left: auto;
+}
+.ph-wheel .aw {
+  max-width: 100%;
+}
 .aw figcaption {
   margin-top: 12px;
   font-size: 15px;
@@ -112,5 +120,15 @@
   .aw-halo,
   .aw-orbit {
     animation: none;
+  }
+}
+
+/* On phones the whole wheel is shown at about half size, so its text is a little larger. */
+@media (max-width: 560px) {
+  .aw-key-text {
+    font-size: 15px;
+  }
+  .aw-ring-text {
+    font-size: 14px;
   }
 }
