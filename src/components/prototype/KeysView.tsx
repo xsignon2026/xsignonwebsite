@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  ProductBand,
   ProductGallery,
   ProductHeroImage,
   ProductIcon,
@@ -117,7 +116,6 @@ export function KeysView() {
             </div>
           </div>
         </section>
-        <ProductBand slug="keys" />
         <ProductGallery slug="keys" />
         <section className="page-sec">
           <div className="wrap">

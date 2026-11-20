@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { MeshLogo } from "@/components/common/MeshLogo";
 
 // The pictures and logos on the product pages. The icon is the same mark as the product card on the Home
@@ -187,22 +188,43 @@ export function ProductBand({ slug }: { slug: ProductVisualSlug }) {
 }
 
 const GALLERY: Partial<
-  Record<ProductVisualSlug, { src: string; alt: string; caption: string; w: number; h: number }[]>
+  Record<
+    ProductVisualSlug,
+    { src: string; alt: string; caption: string; href?: string; w: number; h: number }[]
+  >
 > = {
   keys: [
     {
       src: "/images/products-old/auth-bio.webp",
       alt: "The AUTH Bio biometric security key",
       caption: "AUTH Bio",
+      href: "/products/passwordless-keys/bio",
       w: 486,
+      h: 1100,
+    },
+    {
+      src: "/images/products-old/auth-bio-touch.webp",
+      alt: "The AUTH Bio Touch security key with a touch button",
+      caption: "AUTH Bio Touch",
+      href: "/products/passwordless-keys/touch",
+      w: 445,
       h: 1100,
     },
     {
       src: "/images/products-old/auth-bio-pro.webp",
       alt: "The AUTH Bio Pro biometric security key",
       caption: "AUTH Bio Pro",
+      href: "/products/passwordless-keys/pro",
       w: 495,
       h: 1100,
+    },
+    {
+      src: "/images/products-old/auth-bio-desktop.webp",
+      alt: "The AUTH Bio Desktop fingerprint reader",
+      caption: "AUTH Bio Desktop",
+      href: "/products/passwordless-keys/desktop",
+      w: 800,
+      h: 431,
     },
   ],
   ams: [
@@ -223,11 +245,13 @@ export function ProductGallery({ slug }: { slug: ProductVisualSlug }) {
   return (
     <section className="page-sec ph-gallery-sec">
       <div className="wrap">
-        <div className="ph-gallery rv">
+        <div className={items.length > 3 ? "ph-gallery is-four rv" : "ph-gallery rv"}>
           {items.map((item) => (
             <figure key={item.src}>
               <Image src={item.src} alt={item.alt} width={item.w} height={item.h} />
-              <figcaption>{item.caption}</figcaption>
+              <figcaption>
+                {item.href ? <Link href={item.href}>{item.caption}</Link> : item.caption}
+              </figcaption>
             </figure>
           ))}
         </div>

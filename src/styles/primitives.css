@@ -2033,6 +2033,17 @@ html.js .cta-panel:not(.in) .cta-logo img {
   max-height: 360px;
   margin: 0 auto;
 }
+.ph-gallery.is-four img {
+  max-height: 260px;
+}
+.ph-gallery figcaption a {
+  color: inherit;
+}
+.ph-gallery figcaption a:hover {
+  color: var(--acc-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .ph-gallery figcaption {
   margin-top: 14px;
   font-size: 15px;
