@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { AmsWheel } from "@/components/prototype/AmsWheel";
 import { ProductHeroImage, ProductIcon } from "@/components/prototype/ProductVisuals";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
@@ -145,6 +146,7 @@ export function KeysView() {
             </div>
           </div>
         </section>
+        <AmsWheel />
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">
