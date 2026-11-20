@@ -80,7 +80,7 @@
   /* Header theme per section in version 5: products and partners light; thinking and CTA dark */
 
   /* 2.5 Photo tone */
-  --img-tone: grayscale(1) sepia(1) hue-rotate(228deg) saturate(1.9) contrast(1.08) brightness(0.9);
+  --img-tone: none;
 
   /* 2.6 Radii and shadows */
   --r: 16px;
