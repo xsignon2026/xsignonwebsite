@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SolutionArt, type SolutionArtName } from "@/components/prototype/SolutionArt";
+import { SolutionVideo } from "@/components/home/SolutionVideo";
 import { ThinkingShowcase } from "@/components/about/ThinkingShowcase";
 import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import type { Solution } from "@/types/solution";
@@ -8,12 +8,14 @@ import type { SolutionsPageContent } from "@/types/solutions-page-content";
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // NOTE: the article block inside #solThinkHost is added by hand (the prototype copies it from About).
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
-const ART: Record<Solution["diagramKey"], SolutionArtName> = {
-  identity: "sol-identity",
-  ai: "sol-ai",
-  quantum: "sol-quantum",
-  process: "sol-process",
-  enterprise: "sol-enterprise",
+// The same illustrations as "What XSignOn does" on Home. Business Process and Enterprise Technology have none of
+// their own yet, so they borrow the closest one (checks and approvals; sign-in and recovery).
+const PHOTO: Record<Solution["diagramKey"], "identity" | "ai" | "key" | "atom"> = {
+  identity: "identity",
+  ai: "ai",
+  quantum: "atom",
+  process: "ai",
+  enterprise: "key",
 };
 
 export function SolutionsView({
@@ -42,17 +44,19 @@ export function SolutionsView({
           <div className="wrap">
             <div className="sol-grid">
               {solutions.map((solution) => (
-                <article
-                  className="sol-card rv"
-                  data-sol={ART[solution.diagramKey]}
-                  key={solution.slug}
-                >
-                  <div className="sol-art">
-                    <SolutionArt name={ART[solution.diagramKey]} />
+                <article className="sol-card rv" key={solution.slug}>
+                  <div className="sol-photo">
+                    <SolutionVideo name={PHOTO[solution.diagramKey]} />
                   </div>
                   <div className="sol-body">
                     <h3>{solution.title}</h3>
                     <p>{solution.summary}</p>
+                    <div className="sol-by">
+                      <span>Delivered by</span>
+                      {solution.deliveredBy.map((name) => (
+                        <b key={name}>{name}</b>
+                      ))}
+                    </div>
                     <Link className="link-arrow" href={`/solutions/${solution.slug}`}>
                       View solution{" "}
                       <span className="arr" aria-hidden="true">
