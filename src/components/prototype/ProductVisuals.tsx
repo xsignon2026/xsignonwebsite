@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { MeshLogo } from "@/components/common/MeshLogo";
 
 // The pictures and logos on the product pages. The icon is the same mark as the product card on the Home
@@ -182,45 +181,6 @@ export function ProductBand({ slug }: { slug: ProductVisualSlug }) {
             <span>{NAMES[slug]}</span>
           </figcaption>
         </figure>
-      </div>
-    </section>
-  );
-}
-
-const GALLERY: Partial<
-  Record<
-    ProductVisualSlug,
-    { src: string; alt: string; caption: string; href?: string; w: number; h: number }[]
-  >
-> = {
-  ams: [
-    {
-      src: "/images/products-old/ams.webp",
-      alt: "Diagram of AMS around the AUTH Bio, Bio Pro, Desktop and Touch keys: life cycle management, key assignment, controlled enrolment, PIN policy, audit log reports and directory integration",
-      caption: "AMS covers the key life cycle across the AUTH key models",
-      w: 500,
-      h: 495,
-    },
-  ],
-};
-
-/** Product photos taken from the current xsignon.com, shown under the picture band. */
-export function ProductGallery({ slug }: { slug: ProductVisualSlug }) {
-  const items = GALLERY[slug];
-  if (!items) return null;
-  return (
-    <section className="page-sec ph-gallery-sec">
-      <div className="wrap">
-        <div className={items.length > 3 ? "ph-gallery is-four rv" : "ph-gallery rv"}>
-          {items.map((item) => (
-            <figure key={item.src}>
-              <Image src={item.src} alt={item.alt} width={item.w} height={item.h} />
-              <figcaption>
-                {item.href ? <Link href={item.href}>{item.caption}</Link> : item.caption}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
       </div>
     </section>
   );

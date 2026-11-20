@@ -1,0 +1,116 @@
+/* The animated AMS key life cycle wheel (see AmsWheel.tsx). */
+.aw {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.aw svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.aw figcaption {
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--txt);
+}
+.aw-ring-text {
+  fill: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+}
+.aw-key-text {
+  fill: #1a1240;
+  font-size: 13px;
+  font-weight: 600;
+}
+.aw-hub {
+  fill: #3b3668;
+  font-size: 22px;
+  font-weight: 700;
+}
+@keyframes awRing {
+  0% {
+    opacity: 1;
+  }
+  16% {
+    opacity: 1;
+  }
+  21% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes awPing {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  8% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+    transform: translate(var(--dx), var(--dy));
+  }
+  62%,
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy));
+  }
+}
+@keyframes awGlow {
+  0%,
+  50% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  62% {
+    opacity: 0.95;
+    transform: scale(1);
+  }
+  85% {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes awSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.aw-seg {
+  opacity: 0;
+  animation: awRing 8.4s linear infinite;
+  animation-delay: calc(var(--i) * 1.4s);
+}
+.aw-dot {
+  opacity: 0;
+  animation: awPing 4s ease-in-out infinite;
+  animation-delay: var(--d);
+}
+.aw-halo {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: awGlow 4s ease-in-out infinite;
+  animation-delay: var(--d);
+}
+.aw-orbit {
+  transform-origin: 340px 260px;
+  animation: awSpin 40s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-seg,
+  .aw-dot,
+  .aw-halo,
+  .aw-orbit {
+    animation: none;
+  }
+}
