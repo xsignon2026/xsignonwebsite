@@ -7,6 +7,8 @@ export type HeroSlideContent = {
   id: string;
   /** Look of the picture: 0 violet and red, 1 red, 2 light. */
   variant: 0 | 1 | 2;
+  /** The picture: the glass slabs (default), or the animated key life cycle wheel. */
+  art?: "wheel";
   tag: string;
   /** Up to three short lines printed on the picture's glowing panel. */
   heading: string[];

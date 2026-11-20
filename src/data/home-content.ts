@@ -41,6 +41,16 @@ export const homeContentFallback: HomeContent = {
       line: "Hardware biometric keys for phishing-resistant sign-in.",
       action: { type: "link", label: "Explore the keys", href: "/products/passwordless-keys" },
     },
+    {
+      id: "key-lifecycle",
+      variant: 2,
+      art: "wheel",
+      tag: "Passwordless Keys",
+      heading: ["Every key,", "managed end to end."],
+      sub: ["AMS and the AUTH keys"],
+      line: "AMS covers the key life cycle across the AUTH key models.",
+      action: { type: "link", label: "See the key models", href: "/products/passwordless-keys" },
+    },
   ],
   standards: ["GDPR", "FIDO2", "SOC 2", "ISO 27001", "NIST AI-RMF", "NIST 800-207"],
   ecosystem: {

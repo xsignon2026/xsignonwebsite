@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HeroArt } from "@/components/home/HeroArt";
+import { AmsWheel } from "@/components/prototype/AmsWheel";
 import { HeroDomainScan } from "@/components/home/HeroDomainScan";
 import type { HeroSlideContent } from "@/types/home-content";
 
@@ -50,10 +51,14 @@ export function HeroCard({ slides: heroSlides }: { slides: HeroSlideContent[] })
       onBlur={() => setPaused(false)}
     >
       <div className="hc-stage" key={slide.id}>
-        <HeroArt
-          variant={slide.variant}
-          text={{ tag: slide.tag, heading: slide.heading, sub: slide.sub }}
-        />
+        {slide.art === "wheel" ? (
+          <AmsWheel />
+        ) : (
+          <HeroArt
+            variant={slide.variant}
+            text={{ tag: slide.tag, heading: slide.heading, sub: slide.sub }}
+          />
+        )}
       </div>
       <div className="hc-foot">
         <div className="hc-slides">

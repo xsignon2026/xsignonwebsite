@@ -105,6 +105,18 @@ export const home = defineType({
               validation: (Rule) => Rule.required(),
             }),
             defineField({
+              name: "art",
+              title: "Picture",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Glass slabs with a heading panel", value: "slabs" },
+                  { title: "Key life cycle wheel (animated)", value: "wheel" },
+                ],
+              },
+              description: "The wheel ignores the heading panel and shows the keys instead.",
+            }),
+            defineField({
               name: "tag",
               title: "Small label on the panel (for example New product)",
               type: "string",

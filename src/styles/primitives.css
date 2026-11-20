@@ -1808,11 +1808,16 @@ html.js .std-card[data-in] .std-item {
 }
 
 /* "What XSignOn does": four cards act as tabs, and the chosen one opens in the wide card below. */
+#journey {
+  display: flex;
+  flex-direction: column;
+}
 #journey .j-cards {
+  order: 2;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
-  margin-top: 8px;
+  margin-top: 20px;
 }
 #journey .j-cards button {
   display: flex;
@@ -1871,8 +1876,9 @@ html.js .std-card[data-in] .std-item {
   line-height: 1.25;
 }
 #journey .j-panels {
+  order: 1;
   display: block;
-  margin-top: 20px;
+  margin-top: 8px;
 }
 #journey .j-panel:not(.act) {
   display: none;
@@ -2561,6 +2567,9 @@ html.js .cta-panel:not(.in) .cta-logo img {
 .hc-stage {
   padding: 8px 18px 0;
   animation: hc-fade 0.6s ease both;
+}
+.hc-stage .aw {
+  max-width: 100%;
 }
 .hc-stage .ha-svg {
   max-width: none;

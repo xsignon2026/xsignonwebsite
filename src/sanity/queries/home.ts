@@ -7,6 +7,7 @@ export const HOME_QUERY = groq`
     "heroSlides": heroSlides[] {
       "id": id.current,
       variant,
+      art,
       tag,
       heading,
       sub,
