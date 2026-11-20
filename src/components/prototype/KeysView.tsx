@@ -1,9 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import {
-  ProductGallery,
-  ProductHeroImage,
-  ProductIcon,
-} from "@/components/prototype/ProductVisuals";
+import { ProductHeroImage, ProductIcon } from "@/components/prototype/ProductVisuals";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
 // PrototypeBehaviors (a port of the prototype's scripts). Edit the copy here, not the generator output format.
@@ -46,6 +43,14 @@ export function KeysView() {
             </div>
             <div className="case-grid" style={{ marginTop: "44px" }}>
               <article className="case-card rv">
+                <div className="key-photo">
+                  <Image
+                    src="/images/products-old/auth-bio.webp"
+                    alt="The AUTH Bio biometric security key"
+                    fill
+                    sizes="(max-width: 760px) 100vw, 540px"
+                  />
+                </div>
                 <div className="pmeta">
                   <span className="ptag">Biometric</span>
                 </div>
@@ -63,6 +68,14 @@ export function KeysView() {
                 </Link>
               </article>
               <article className="case-card rv">
+                <div className="key-photo">
+                  <Image
+                    src="/images/products-old/auth-bio-pro.webp"
+                    alt="The AUTH Bio Pro biometric security key"
+                    fill
+                    sizes="(max-width: 760px) 100vw, 540px"
+                  />
+                </div>
                 <div className="pmeta">
                   <span className="ptag">Biometric</span>
                 </div>
@@ -80,6 +93,14 @@ export function KeysView() {
                 </Link>
               </article>
               <article className="case-card rv">
+                <div className="key-photo">
+                  <Image
+                    src="/images/products-old/auth-bio-touch.webp"
+                    alt="The AUTH Bio Touch security key with a touch button"
+                    fill
+                    sizes="(max-width: 760px) 100vw, 540px"
+                  />
+                </div>
                 <div className="pmeta">
                   <span className="ptag">Touch-activated</span>
                 </div>
@@ -97,6 +118,14 @@ export function KeysView() {
                 </Link>
               </article>
               <article className="case-card rv">
+                <div className="key-photo">
+                  <Image
+                    src="/images/products-old/auth-bio-desktop.webp"
+                    alt="The AUTH Bio Desktop fingerprint reader"
+                    fill
+                    sizes="(max-width: 760px) 100vw, 540px"
+                  />
+                </div>
                 <div className="pmeta">
                   <span className="ptag">Desktop</span>
                 </div>
@@ -116,7 +145,6 @@ export function KeysView() {
             </div>
           </div>
         </section>
-        <ProductGallery slug="keys" />
         <section className="page-sec">
           <div className="wrap">
             <div className="sec-head rv">

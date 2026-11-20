@@ -193,40 +193,6 @@ const GALLERY: Partial<
     { src: string; alt: string; caption: string; href?: string; w: number; h: number }[]
   >
 > = {
-  keys: [
-    {
-      src: "/images/products-old/auth-bio.webp",
-      alt: "The AUTH Bio biometric security key",
-      caption: "AUTH Bio",
-      href: "/products/passwordless-keys/bio",
-      w: 486,
-      h: 1100,
-    },
-    {
-      src: "/images/products-old/auth-bio-touch.webp",
-      alt: "The AUTH Bio Touch security key with a touch button",
-      caption: "AUTH Bio Touch",
-      href: "/products/passwordless-keys/touch",
-      w: 445,
-      h: 1100,
-    },
-    {
-      src: "/images/products-old/auth-bio-pro.webp",
-      alt: "The AUTH Bio Pro biometric security key",
-      caption: "AUTH Bio Pro",
-      href: "/products/passwordless-keys/pro",
-      w: 495,
-      h: 1100,
-    },
-    {
-      src: "/images/products-old/auth-bio-desktop.webp",
-      alt: "The AUTH Bio Desktop fingerprint reader",
-      caption: "AUTH Bio Desktop",
-      href: "/products/passwordless-keys/desktop",
-      w: 800,
-      h: 431,
-    },
-  ],
   ams: [
     {
       src: "/images/products-old/ams.webp",

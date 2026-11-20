@@ -2008,6 +2008,19 @@ html.js .cta-panel:not(.in) .cta-logo img {
   background: linear-gradient(180deg, rgba(6, 1, 41, 0) 55%, rgba(6, 1, 41, 0.5));
   pointer-events: none;
 }
+.key-photo {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: #f4f3fa;
+  overflow: hidden;
+}
+.key-photo img {
+  object-fit: contain;
+  padding: 14px;
+}
 .ph-gallery-sec {
   padding-top: 0;
 }
