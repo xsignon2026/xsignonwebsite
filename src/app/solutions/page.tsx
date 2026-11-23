@@ -5,10 +5,11 @@ import { getSolutionsPageContent } from "@/lib/solutions-page-content";
 import { SolutionsView } from "@/components/prototype/SolutionsView";
 
 export const metadata: Metadata = {
-  title: "Solutions · XSignOn",
+  title: "Solutions",
   description:
     "Identity governance, AI governance, quantum-safe security, business process, and enterprise technology for regulated teams.",
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "XSignOn" }],
     title: "Solutions · XSignOn",
     description:
       "Start from the problem you are solving: Identity, AI, Quantum-safe, and Enterprise Access.",

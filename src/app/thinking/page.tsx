@@ -6,7 +6,7 @@ import { getCaseStudyPage } from "@/lib/case-study-page";
 import { getInsightsPageContent } from "@/lib/insights-page-content";
 
 export const metadata: Metadata = {
-  title: "Our thinking | XSignOn",
+  title: "Our thinking",
   description:
     "Practical perspectives on identity governance, AI security, micro-segmentation, and zero-trust engineering.",
 };

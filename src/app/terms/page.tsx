@@ -5,7 +5,7 @@ import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Terms of Service | XSignOn",
+  title: "Terms of Service",
   description:
     "XSignOn Terms of Service governing acceptable use, commercial trials, intellectual property, and liabilities.",
   path: "/terms",

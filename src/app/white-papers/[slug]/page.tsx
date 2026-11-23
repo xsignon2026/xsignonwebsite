@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: WhitePaperPageProps): Promise
   if (!whitePaper) return {};
 
   return {
-    title: whitePaper.seo?.title || `${whitePaper.title} | XSignOn`,
+    title: whitePaper.seo?.title || `${whitePaper.title}`,
     description: whitePaper.seo?.description || whitePaper.summary,
   };
 }

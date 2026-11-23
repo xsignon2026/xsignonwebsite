@@ -5,10 +5,11 @@ import { HomeView } from "@/components/home/HomeView";
 import { getHomeContent } from "@/lib/home-content";
 
 export const metadata: Metadata = {
-  title: "XSignOn · Identity and access built on trust",
+  title: { absolute: "XSignOn · Identity and access built on trust" },
   description:
     "XSignOn gives people and AI agents the right access at the right moment, with human oversight woven into every decision. One platform for posture, sign-in, evaluation and day-to-day access operations.",
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "XSignOn" }],
     title: "XSignOn · Identity and access built on trust",
     description: "One platform for posture, sign-in, evaluation and day-to-day access operations.",
     url: "https://xsignon.com",
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/og-image.png"],
     title: "XSignOn · Identity and access built on trust",
     description: "One platform for posture, sign-in, evaluation and day-to-day access operations.",
   },

@@ -19,9 +19,10 @@ export async function generateMetadata({ params }: CaseStudyPageProps): Promise<
   const caseStudy = await getCaseStudyBySlug(slug);
   if (!caseStudy) return { title: "Case Study Not Found · XSignOn" };
   return {
-    title: `${caseStudy.title} · Case Study · XSignOn`,
+    title: `${caseStudy.title} · Case Study`,
     description: caseStudy.summary,
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "XSignOn" }],
       title: `${caseStudy.title} · XSignOn Proof`,
       description: caseStudy.summary,
       url: `https://xsignon.com/proof/${caseStudy.slug}`,

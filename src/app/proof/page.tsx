@@ -4,10 +4,11 @@ import { getProofPageContent } from "@/lib/more-pages";
 import { ProofView } from "@/components/prototype/ProofView";
 
 export const metadata: Metadata = {
-  title: "Proof & Case Studies · XSignOn",
+  title: "Proof & Case Studies",
   description:
     "Verified case studies attached to the products they prove. Real-world rollouts across banking, healthcare, industrial, and IT enterprises.",
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "XSignOn" }],
     title: "Proof & Case Studies · XSignOn",
     description:
       "Real-world deployments across banking, healthcare, industrial, and enterprise IT.",

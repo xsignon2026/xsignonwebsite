@@ -4,7 +4,7 @@ import { HeroDomainScan } from "@/components/home/HeroDomainScan";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Free Domain Check | XSignOn",
+  title: "Free Domain Check",
   description:
     "Check your domain's email security and website basics, free: SPF, DMARC, DKIM, mail servers, blocklists, DNSSEC and CAA.",
   path: "/domain-check",

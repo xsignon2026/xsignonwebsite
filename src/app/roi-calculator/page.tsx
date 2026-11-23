@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/seo";
 import { RoiCalculatorClient } from "@/components/roi/RoiCalculatorClient";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "ROI Calculator | XSignOn",
+  title: "ROI Calculator",
   description:
     "Estimate the annual time and cost your team can save with verified passwordless sign-in and reduced help desk password resets.",
   path: "/roi-calculator",

@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const product = await getProductBySlug(entry.data);
   if (!product) return {};
   return {
-    title: product.seo?.title || `${product.name} | XSignOn`,
+    title: product.seo?.title || `${product.name}`,
     description: product.seo?.description || product.tagline,
     alternates: {
       canonical: `/products/${entry.data === "keys" ? "passwordless-keys" : entry.data}`,

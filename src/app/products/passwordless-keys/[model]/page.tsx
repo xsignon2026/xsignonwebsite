@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: KeyPageProps): Promise<Metada
   const key = find((await params).model);
   if (!key) return {};
   return {
-    title: `${key.name} | Passwordless Keys | XSignOn`,
+    title: `${key.name} | Passwordless Keys`,
     description: key.line,
     alternates: { canonical: `/products/passwordless-keys/${key.slug}` },
   };

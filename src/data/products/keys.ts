@@ -111,7 +111,7 @@ export const keysProduct: Product = {
     buttonHref: "/contact",
   },
   seo: {
-    title: "Passwordless Keys | FIDO2 Biometric Security Keys | XSignOn",
+    title: "Passwordless Keys | FIDO2 Biometric Security Keys",
     description:
       "Enterprise FIDO2 biometric security keys delivered and supported by XSignOn, with full enrollment and lifecycle management through AMS.",
   },

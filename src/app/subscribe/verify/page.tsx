@@ -5,7 +5,7 @@ import { Container } from "@/components/layout/Container";
 import { VerifyClient } from "./VerifyClient";
 
 export const metadata: Metadata = {
-  title: "Verify Request | XSignOn",
+  title: "Verify Request",
   description: "Confirm your email verification for XSignOn updates and technical white papers.",
 };
 

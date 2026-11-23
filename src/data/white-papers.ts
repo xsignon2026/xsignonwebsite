@@ -12,7 +12,7 @@ export const FALLBACK_WHITE_PAPERS: Record<string, WhitePaper> = {
     version: "1.0",
     publishedAt: "2026-04-01T00:00:00Z",
     seo: {
-      title: "Zero-Trust Device & Cloud Security Posture Guide | XSignOn",
+      title: "Zero-Trust Device & Cloud Security Posture Guide",
       description:
         "Download the XSignOn technical white paper on continuous endpoint posture and zero-trust verification.",
     },

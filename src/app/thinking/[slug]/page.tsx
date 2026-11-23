@@ -25,18 +25,19 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   if (!isValidArticleSlug(slug)) {
-    return { title: "Article Not Found | XSignOn" };
+    return { title: "Article Not Found" };
   }
 
   const article = await getArticleBySlug(slug);
   if (!article) {
-    return { title: "Article Not Found | XSignOn" };
+    return { title: "Article Not Found" };
   }
 
   return {
-    title: `${article.title} | XSignOn Thinking`,
+    title: `${article.title}`,
     description: article.excerpt,
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "XSignOn" }],
       title: article.title,
       description: article.excerpt,
       type: "article",

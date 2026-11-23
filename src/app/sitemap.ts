@@ -5,130 +5,62 @@ import { canonicalSolutions } from "@/data/solutions";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://xsignon.com";
 
-// T-151: Dynamic XML Sitemap for production search engines.
-// Excludes private/internal routes (login, register, api, studio, verify, etc.)
+type Entry = MetadataRoute.Sitemap[number];
+const entry = (
+  path: string,
+  priority: number,
+  changeFrequency: Entry["changeFrequency"],
+  now: Date,
+): Entry => ({ url: `${BASE_URL}${path}`, lastModified: now, changeFrequency, priority });
+
+// T-151: XML sitemap for search engines. It lists only pages that answer 200 and can be indexed: no
+// address that redirects (for example /about/who-we-are or /case-studies), no internal page (style guide,
+// tokens, studio, verify) and no duplicate (/articles/:slug is the same page as /thinking/:slug).
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // Core static pages
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${BASE_URL}/`, lastModified: now, changeFrequency: "daily", priority: 1.0 },
-    { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    {
-      url: `${BASE_URL}/about/what-we-do`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/about/who-we-are`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${BASE_URL}/about/how-we-work`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    { url: `${BASE_URL}/enterprise`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/careers`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
-    {
-      url: `${BASE_URL}/case-studies`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    { url: `${BASE_URL}/compare`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${BASE_URL}/roi`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    {
-      url: `${BASE_URL}/roi-calculator`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    { url: `${BASE_URL}/products`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    {
-      url: `${BASE_URL}/products/compare`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/products/proof`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/products/roi`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    { url: `${BASE_URL}/solutions`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/thinking`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    {
-      url: `${BASE_URL}/thinking/industry`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    { url: `${BASE_URL}/proof`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    {
-      url: `${BASE_URL}/white-papers/zero-trust-posture-guide`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    { url: `${BASE_URL}/styleguide`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
-    { url: `${BASE_URL}/tokens`, lastModified: now, changeFrequency: "monthly", priority: 0.4 },
+    entry("/", 1.0, "daily", now),
+    entry("/about", 0.7, "monthly", now),
+    entry("/enterprise", 0.9, "weekly", now),
+    entry("/careers", 0.7, "weekly", now),
+    entry("/contact", 0.7, "monthly", now),
+    entry("/privacy", 0.5, "yearly", now),
+    entry("/terms", 0.5, "yearly", now),
+    entry("/roi-calculator", 0.8, "monthly", now),
+    entry("/domain-check", 0.6, "monthly", now),
+    entry("/products", 0.9, "weekly", now),
+    entry("/products/compare", 0.8, "monthly", now),
+    entry("/solutions", 0.9, "weekly", now),
+    entry("/thinking", 0.8, "weekly", now),
+    entry("/thinking/industry", 0.8, "weekly", now),
+    entry("/proof", 0.8, "weekly", now),
+    entry("/white-papers/zero-trust-posture-guide", 0.8, "monthly", now),
   ];
 
-  // Dynamic Product Pages
-  const productSlugs = ["postureone", "evalone", "xsense", "keys", "ams", "xsignon-mesh"];
-  const productRoutes: MetadataRoute.Sitemap = productSlugs.map((slug) => ({
-    url: `${BASE_URL}/products/${slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.9,
-  }));
+  const productSlugs = [
+    "postureone",
+    "evalone",
+    "xsense",
+    "ams",
+    "xsignon-mesh",
+    "passwordless-keys",
+  ];
+  const keyModels = ["bio", "touch", "pro", "desktop"];
+  const productRoutes: MetadataRoute.Sitemap = [
+    ...productSlugs.map((slug) => entry(`/products/${slug}`, 0.9, "weekly", now)),
+    ...keyModels.map((model) => entry(`/products/passwordless-keys/${model}`, 0.8, "weekly", now)),
+  ];
 
-  // Dynamic Solution Pages
-  const solutionRoutes: MetadataRoute.Sitemap = canonicalSolutions.map((sol) => ({
-    url: `${BASE_URL}/solutions/${sol.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.9,
-  }));
-
-  // Dynamic Case Studies
-  const caseStudyRoutes: MetadataRoute.Sitemap = canonicalCaseStudies.map((cs) => ({
-    url: `${BASE_URL}/proof/${cs.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.8,
-  }));
-
-  // Dynamic Thinking / Articles
-  const articleRoutes: MetadataRoute.Sitemap = canonicalArticles.flatMap((art) => [
-    {
-      url: `${BASE_URL}/thinking/${art.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/articles/${art.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-  ]);
+  const solutionRoutes = canonicalSolutions.map((sol) =>
+    entry(`/solutions/${sol.slug}`, 0.9, "weekly", now),
+  );
+  const caseStudyRoutes = canonicalCaseStudies.map((cs) =>
+    entry(`/proof/${cs.slug}`, 0.8, "monthly", now),
+  );
+  const articleRoutes = canonicalArticles.map((art) =>
+    entry(`/thinking/${art.slug}`, 0.8, "monthly", now),
+  );
 
   return [
     ...staticRoutes,

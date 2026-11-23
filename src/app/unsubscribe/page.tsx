@@ -3,7 +3,7 @@ import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import { UnsubscribeView } from "@/components/prototype/UnsubscribeView";
 
 export const metadata: Metadata = {
-  title: "Unsubscribe | XSignOn",
+  title: "Unsubscribe",
   description: "Manage your marketing email preferences for XSignOn updates and announcements.",
 };
 

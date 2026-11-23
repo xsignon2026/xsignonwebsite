@@ -58,7 +58,7 @@ export const meshProduct: Product = {
     buttonHref: "/contact",
   },
   seo: {
-    title: "XSignOn Mesh | Micro-segmentation and Containment | XSignOn",
+    title: "XSignOn Mesh | Micro-segmentation and Containment",
     description:
       "XSignOn Mesh maps zones and flows, applies segmentation policy and contains threats, with evidence that feeds the PostureOne posture view.",
   },

@@ -121,7 +121,7 @@ export const postureOneProduct: Product = {
     buttonHref: "/contact",
   },
   seo: {
-    title: "PostureOne | Website and Cloud Security Posture | XSignOn",
+    title: "PostureOne | Website and Cloud Security Posture",
     description:
       "Website and cloud security posture in one view, with findings, owners and evidence in a single place.",
   },

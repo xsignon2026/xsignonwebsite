@@ -57,6 +57,7 @@ function buildCsp(sources: Sources): string {
     ["font-src", sources.font],
     ["connect-src", sources.connect],
     ["frame-ancestors", sources.frameAncestors],
+    ["object-src", ["'none'"]],
     ["base-uri", ["'self'"]],
     ["form-action", ["'self'"]],
     ["report-uri", ["/api/csp-report"]],
@@ -109,7 +110,11 @@ const CANONICAL_REDIRECTS = [
     destination: "/solutions/enterprise-technology",
     permanent: true,
   },
-  // Company & About
+  // Company & About. The four About sub-addresses are sections of /about, so they redirect permanently.
+  { source: "/about/who-we-are", destination: "/about#who", permanent: true },
+  { source: "/about/what-we-do", destination: "/about#what", permanent: true },
+  { source: "/about/how-we-work", destination: "/about#ab-how", permanent: true },
+  { source: "/about/meet-the-team", destination: "/about#ab-team", permanent: true },
   { source: "/about-us", destination: "/about", permanent: true },
   { source: "/company", destination: "/about", permanent: true },
   { source: "/company/who-we-are", destination: "/about#who-we-are", permanent: true },
@@ -130,11 +135,12 @@ const CANONICAL_REDIRECTS = [
   // Articles & Thinking
   { source: "/articles", destination: "/thinking", permanent: true },
   { source: "/articles/:slug*", destination: "/thinking/:slug*", permanent: true },
-  // White Papers & Resources
-  { source: "/white-papers", destination: "/resources", permanent: true },
-  { source: "/white-papers/:slug*", destination: "/resources/:slug*", permanent: true },
-  { source: "/docs", destination: "/resources", permanent: true },
-  { source: "/documentation", destination: "/resources", permanent: true },
+  // White Papers & Resources. The white paper pages themselves live at /white-papers/:slug, so only the
+  // list page and the old documentation addresses move, to Insights where the papers are listed.
+  { source: "/white-papers", destination: "/thinking", permanent: true },
+  { source: "/resources", destination: "/thinking", permanent: true },
+  { source: "/docs", destination: "/thinking", permanent: true },
+  { source: "/documentation", destination: "/thinking", permanent: true },
 ];
 
 const nextConfig: NextConfig = {

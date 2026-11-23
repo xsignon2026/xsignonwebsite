@@ -6,7 +6,7 @@ import { HeroBeams } from "@/components/home/HeroBeams";
 import { getEnterprisePageContent } from "@/lib/last-pages";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Enterprise Identity Command | XSignOn",
+  title: "Enterprise Identity Command",
   description:
     "Enterprise teams run identity across thousands of people, devices, services and AI agents. XSignOn gives those teams one command view.",
   path: "/enterprise",

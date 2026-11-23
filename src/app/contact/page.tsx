@@ -5,7 +5,7 @@ import { getContactPageContent } from "@/lib/more-pages";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Contact Us | XSignOn",
+  title: "Contact Us",
   description:
     "Speak with our security architects to evaluate your identity posture, AI governance, or quantum readiness goals.",
   path: "/contact",

@@ -5,7 +5,7 @@ import { getProductsPageContent } from "@/lib/products-page-content";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Our Products | XSignOn",
+  title: "Our Products",
   description:
     "Explore XSignOn's zero-trust products: PostureOne, Passwordless Keys, EvalOne, XSense, and AMS.",
   path: "/products",

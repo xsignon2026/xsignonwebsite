@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { isProduction } from "@/lib/site";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Button } from "@/components/ui/Button";
@@ -43,6 +45,8 @@ function Samples({ dark = false }: { dark?: boolean }) {
 
 // S-10: every primitive on a light and a dark band.
 export default function StyleguidePage() {
+  // Internal design pages: not for the public site.
+  if (isProduction) notFound();
   return (
     <main id="top">
       <Section band="light">

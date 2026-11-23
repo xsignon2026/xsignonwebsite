@@ -129,7 +129,7 @@ export const evalOneProduct: Product = {
     buttonHref: "/contact",
   },
   seo: {
-    title: "EvalOne | AI Governance & Framework Evaluation | XSignOn",
+    title: "EvalOne | AI Governance & Framework Evaluation",
     description:
       "EvalOne evaluates AI systems against recognized frameworks, tracks gaps, and produces audit-ready evidence packs.",
   },

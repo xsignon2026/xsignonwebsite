@@ -23,6 +23,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: "XSignOn", template: "%s | XSignOn" },
   description: "XSignOn",
+  // Every page gets its own canonical address (a page can still set its own) and a share image, so a link
+  // pasted into a chat or social post always shows a preview.
+  alternates: { canonical: "./" },
+  openGraph: {
+    siteName: "XSignOn",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "XSignOn" }],
+  },
+  twitter: { card: "summary_large_image", images: ["/og-image.png"] },
   // S-07: noindex everywhere except production.
   robots: isProduction ? { index: true, follow: true } : { index: false, follow: false },
 };

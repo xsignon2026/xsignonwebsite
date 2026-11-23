@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { ThankYouView } from "@/components/prototype/ThankYouView";
 
 export const metadata: Metadata = {
-  title: "Thank You | XSignOn",
+  title: "Thank You",
   description: "Your inquiry has been received.",
   robots: {
     index: false,

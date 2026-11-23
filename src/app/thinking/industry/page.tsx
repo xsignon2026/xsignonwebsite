@@ -4,7 +4,7 @@ import { IndustryView } from "@/components/prototype/IndustryView";
 import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 
 export const metadata: Metadata = {
-  title: "Industry Thinking | XSignOn",
+  title: "Industry Thinking",
   description:
     "Practical thinking for security, governance, and growth across modern enterprise environments.",
 };

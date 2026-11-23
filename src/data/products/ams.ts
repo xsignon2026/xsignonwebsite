@@ -136,7 +136,7 @@ export const amsProduct: Product = {
     buttonHref: "/contact",
   },
   seo: {
-    title: "AMS | Asset Management System for Passwordless Keys | XSignOn",
+    title: "AMS | Asset Management System for Passwordless Keys",
     description:
       "Delivering, enrolling, and managing enterprise FIDO2 biometric security keys throughout their full lifecycle.",
   },

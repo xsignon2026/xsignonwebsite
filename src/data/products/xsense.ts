@@ -89,7 +89,7 @@ export const xsenseProduct: Product = {
     buttonHref: "/contact",
   },
   seo: {
-    title: "XSense | Identity Analytics & Governed MFA Platform | XSignOn",
+    title: "XSense | Identity Analytics & Governed MFA Platform",
     description:
       "Software-bound identity provider platform pairing live identity analytics with MFA policy, deployed in SaaS, on-premises, or air-gapped environments.",
   },

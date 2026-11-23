@@ -5,7 +5,7 @@ import { PrototypeBehaviors } from "@/components/prototype/PrototypeBehaviors";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Privacy Policy | XSignOn",
+  title: "Privacy Policy",
   description:
     "XSignOn Privacy Policy outlining information collection, usage, sharing safeguards, and user rights.",
   path: "/privacy",

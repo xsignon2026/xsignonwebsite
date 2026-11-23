@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { isProduction } from "@/lib/site";
 import { Container } from "@/components/layout/Container";
 
 export const metadata: Metadata = { title: "Tokens", robots: { index: false, follow: false } };
@@ -54,6 +56,8 @@ const type: { token: string; label: string; weight: number }[] = [
 ];
 
 export default function TokensPage() {
+  // Internal design pages: not for the public site.
+  if (isProduction) notFound();
   return (
     <main className="py-12">
       <Container className="space-y-16">

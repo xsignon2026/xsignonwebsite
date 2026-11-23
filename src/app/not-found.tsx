@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Page Not Found (404) | XSignOn",
+  title: "Page Not Found (404)",
   description: "The page you are looking for has moved or does not exist.",
 };
 

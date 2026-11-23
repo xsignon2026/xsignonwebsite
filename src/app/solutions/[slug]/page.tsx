@@ -20,9 +20,10 @@ export async function generateMetadata({ params }: SolutionPageProps): Promise<M
   const solution = await getSolutionBySlug(slug);
   if (!solution) return { title: "Solution Not Found · XSignOn" };
   return {
-    title: `${solution.title} · Solution · XSignOn`,
+    title: `${solution.title} · Solution`,
     description: solution.summary,
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "XSignOn" }],
       title: `${solution.title} · XSignOn Solution`,
       description: solution.summary,
       url: `https://xsignon.com/solutions/${solution.slug}`,
