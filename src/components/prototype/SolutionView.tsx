@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import type { RelatedSolutionLink, Solution } from "@/types/solution";
 
 function RelatedRows({ rows }: { rows: RelatedSolutionLink[] }) {
@@ -20,7 +19,6 @@ export function SolutionView({ solution }: { solution: Solution }) {
   return (
     <div id={`view-sol-${solution.slug}`} className="res-view">
       <section className="page-hero has-beams" data-nav="dark">
-        <BeamsCanvas className="page-beams" />
         <div className="page-fade" aria-hidden="true"></div>
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">

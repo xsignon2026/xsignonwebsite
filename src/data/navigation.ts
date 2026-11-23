@@ -48,7 +48,7 @@ export const navigationFallback: NavigationData = {
           ],
         },
         {
-          heading: "Passwordless",
+          heading: "Hardware",
           items: [
             { label: "Passwordless Keys", link: link("/products/passwordless-keys") },
             { label: "AUTH Bio", link: link("/products/passwordless-keys/bio") },

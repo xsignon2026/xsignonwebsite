@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import Link from "next/link";
 import { NewsletterSubscribe } from "@/components/thinking/NewsletterSubscribe";
-import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import type { Article } from "@/types/article";
 
 // One article page, from the article's content (the built-in text, or the editors' version from Sanity).
@@ -9,7 +8,6 @@ export function ArticleView({ article }: { article: Article }) {
   return (
     <div id={`view-article-${article.slug}`} className="res-view">
       <section className="page-hero has-beams" data-nav="dark">
-        <BeamsCanvas className="page-beams" />
         <div className="page-fade" aria-hidden="true"></div>
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">

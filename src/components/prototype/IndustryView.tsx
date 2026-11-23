@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { NewsletterSubscribe } from "@/components/thinking/NewsletterSubscribe";
-import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import type { IndustryPageContent } from "@/types/last-pages-content";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
@@ -9,7 +8,6 @@ export function IndustryView({ content }: { content: IndustryPageContent }) {
   return (
     <div id="view-industry" className="res-view">
       <section className="page-hero has-beams" data-nav="dark">
-        <BeamsCanvas className="page-beams" />
         <div className="page-fade" aria-hidden="true"></div>
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">

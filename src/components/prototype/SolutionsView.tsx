@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SolutionPicture } from "@/components/common/SolutionPicture";
 import { ThinkingShowcase } from "@/components/about/ThinkingShowcase";
-import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import type { Solution } from "@/types/solution";
 import type { SolutionsPageContent } from "@/types/solutions-page-content";
 
@@ -28,7 +27,6 @@ export function SolutionsView({
   return (
     <div id="view-solutions" className="res-view">
       <section className="page-hero has-beams" data-nav="dark">
-        <BeamsCanvas className="page-beams" />
         <div className="page-fade" aria-hidden="true"></div>
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">

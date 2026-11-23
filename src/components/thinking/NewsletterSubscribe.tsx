@@ -11,11 +11,14 @@ interface NewsletterSubscribeProps {
   sourcePage?: string;
   /** Shows a "Stay informed" band with a Subscribe button; the email form opens in a small card on click. */
   popup?: boolean;
+  /** Without its own dark card, for putting the "Stay informed" text and button inside another card. */
+  bare?: boolean;
 }
 
 export function NewsletterSubscribe({
   sourcePage = "/thinking",
   popup = false,
+  bare = false,
 }: NewsletterSubscribeProps) {
   const [email, setEmail] = useState("");
   const [hpCompany, setHpCompany] = useState("");
@@ -167,7 +170,7 @@ export function NewsletterSubscribe({
 
   return (
     <>
-      <div className="news-band news-row rv">
+      <div className={bare ? "news-row news-bare" : "news-band news-row rv"}>
         <div>
           <h3 className="h3">Stay informed</h3>
           <p>

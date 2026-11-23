@@ -201,30 +201,50 @@ export function KeysView() {
         </section>
         <section className="page-sec">
           <div className="wrap">
-            <div className="sec-head rv">
-              <h2 className="h2">Works with what you have</h2>
-            </div>
-            <div className="body-copy">
-              <p>
-                The keys are FIDO2 certified and work with existing identity providers through
-                standard protocols, so the rollout does not start with replacing your stack.{" "}
-                <b>
-                  Compatibility and enrollment are confirmed against your provider before any
-                  hardware is ordered.
-                </b>
-              </p>
-              <p>
-                Enrollment, replacement and exceptions run through AMS, so your help desk stays
-                focused on supporting staff.
-              </p>
-            </div>
-            <div style={{ marginTop: "28px" }}>
-              <Link className="link-arrow" href="/products/ams">
-                How AMS manages the keys{" "}
-                <span className="arr" aria-hidden="true">
-                  &#8594;
-                </span>
-              </Link>
+            <div className="works-split">
+              <div className="works-copy">
+                <div className="sec-head rv">
+                  <h2 className="h2">Works with what you have</h2>
+                </div>
+                <div className="body-copy">
+                  <p>
+                    The keys are FIDO2 certified and work with existing identity providers through
+                    standard protocols, so the rollout does not start with replacing your stack.{" "}
+                    <b>
+                      Compatibility and enrollment are confirmed against your provider before any
+                      hardware is ordered.
+                    </b>
+                  </p>
+                  <p>
+                    Enrollment, replacement and exceptions run through AMS, so your help desk stays
+                    focused on supporting staff.
+                  </p>
+                </div>
+                <div style={{ marginTop: "28px" }}>
+                  <Link className="link-arrow" href="/products/ams">
+                    How AMS manages the keys{" "}
+                    <span className="arr" aria-hidden="true">
+                      &#8594;
+                    </span>
+                  </Link>
+                </div>
+              </div>
+              <div className="works-art rv">
+                <Image
+                  src="/images/products-old/auth-bio.webp"
+                  alt="AUTH Bio, a fingerprint passwordless key"
+                  width={486}
+                  height={1100}
+                  sizes="(max-width: 899px) 40vw, 200px"
+                />
+                <Image
+                  src="/images/products-old/auth-bio-pro.webp"
+                  alt="AUTH Bio Pro, a fingerprint passwordless key with a display"
+                  width={495}
+                  height={1100}
+                  sizes="(max-width: 899px) 40vw, 200px"
+                />
+              </div>
             </div>
           </div>
         </section>

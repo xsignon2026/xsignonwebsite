@@ -6,6 +6,7 @@
 @import "../styles/solution-picture.css" layer(components);
 @import "../styles/about-visuals.css" layer(components);
 @import "../styles/home-solutions.css" layer(components);
+@import "../styles/page-clean.css" layer(components);
 @import "../styles/shell.css";
 @import "../styles/nav.css";
 

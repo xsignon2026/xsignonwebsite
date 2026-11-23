@@ -3,7 +3,6 @@ import { PRODUCT_PICTURES } from "@/components/prototype/product-pictures";
 import type { ProductsPageContent } from "@/types/products-page-content";
 import Image from "next/image";
 import Link from "next/link";
-import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import { PerspectiveGrid } from "@/components/motion/PerspectiveGrid";
 
 // Converted from the approved prototype by compare/gen_view.py. Interactive pieces are switched on by
@@ -12,7 +11,6 @@ export function ProductsView({ content }: { content: ProductsPageContent }) {
   return (
     <div id="view-products">
       <section className="page-hero has-beams" data-nav="dark">
-        <BeamsCanvas className="page-beams" />
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">
             <Link href="/">Home</Link>

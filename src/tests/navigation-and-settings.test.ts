@@ -45,7 +45,7 @@ describe("Navigation & Site Settings Fallback Data", () => {
     });
     expect(menu("Products")).toEqual({
       Software: ["PostureOne", "EvalOne", "XSense", "AMS", "XSignOn Mesh"],
-      Passwordless: [
+      Hardware: [
         "Passwordless Keys",
         "AUTH Bio",
         "AUTH Bio Touch",

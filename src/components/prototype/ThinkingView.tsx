@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NewsletterSubscribe } from "@/components/thinking/NewsletterSubscribe";
-import { BeamsCanvas } from "@/components/motion/BeamsCanvas";
 import { CASE_STUDY_PICTURES } from "@/components/prototype/case-study-pictures";
 import { THINKING_PICTURES } from "@/components/prototype/thinking-pictures";
 import type { CaseStudyPage } from "@/types/case-study-page";
@@ -23,7 +22,6 @@ export function ThinkingView({
   return (
     <div id="view-thinking" className="res-view">
       <section className="page-hero has-beams" data-nav="dark">
-        <BeamsCanvas className="page-beams" />
         <div className="page-fade" aria-hidden="true"></div>
         <div className="wrap">
           <nav className="crumbs" aria-label="Breadcrumb">
@@ -171,24 +169,10 @@ export function ThinkingView({
             </div>
           </div>
         </section>
-        <section className="page-sec" id="newsletter">
+        <section className="cta-sec sm" id="newsletter">
           <div className="wrap">
-            <div className="sec-head rv">
-              <h2 className="h2">Newsletter</h2>
-            </div>
-            <NewsletterSubscribe popup sourcePage="/thinking" />
-          </div>
-        </section>
-        <section className="cta-sec sm">
-          <div className="wrap">
-            <div className="cta-panel plain rv">
-              <h2 className="h2">{content.cta.title}</h2>
-              <Link className="btn btn-white" href={content.cta.button.href}>
-                {content.cta.button.label}{" "}
-                <span className="chev" aria-hidden="true">
-                  &#8250;
-                </span>
-              </Link>
+            <div className="cta-panel plain news-cta rv">
+              <NewsletterSubscribe popup bare sourcePage="/thinking" />
             </div>
           </div>
         </section>

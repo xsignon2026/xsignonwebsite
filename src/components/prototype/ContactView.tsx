@@ -20,18 +20,19 @@ export function ContactView({ content }: { content: ContactPageContent }) {
       <div data-nav="light">
         <section className="page-sec">
           <div className="wrap">
-            <div className="about-split">
+            <div className="about-split contact-split">
               <div>
                 <ContactForm />
               </div>
               <div className="about-text">
-                {content.details.map((detail) => (
-                  <p key={detail.label}>
-                    <b style={{ color: "var(--txt)" }}>{detail.label}</b>{" "}
-                    {detail.href ? <a href={detail.href}>{detail.text}</a> : detail.text}
-                  </p>
-                ))}
-                <p>{content.closing}</p>
+                {content.details
+                  .filter((detail) => !/^what happens next/i.test(detail.label))
+                  .map((detail) => (
+                    <p key={detail.label}>
+                      <b style={{ color: "var(--txt)" }}>{detail.label}</b>{" "}
+                      {detail.href ? <a href={detail.href}>{detail.text}</a> : detail.text}
+                    </p>
+                  ))}
               </div>
             </div>
           </div>

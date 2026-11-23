@@ -1,0 +1,130 @@
+/* Page tidy-up: a clean edge under the dark page headers (no long dark-to-lilac fade), light backgrounds for
+   the solution pictures, and five equal Solutions cards. */
+
+/* The fade under the page headers is gone: the header ends in a clean edge and the page below is plain. */
+.page-fade {
+  display: none;
+}
+.res-view > div[data-nav="light"],
+#a-thinking,
+#view-solutions #solMore {
+  background: #f6f4fb;
+}
+
+/* Solution pictures: a light version of the artwork on a soft lilac ground. */
+.sp {
+  background: #f1effa;
+}
+.sp-still {
+  filter: invert(1) hue-rotate(180deg) saturate(1.1);
+  /* A hair larger, so no thin dark line shows at the picture's edge. */
+  transform: scale(1.02);
+}
+.sol-photo {
+  background: #f1effa;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Solutions page: a light list, and five cards of the same size (the last two centred on the second row). */
+#view-solutions #solList {
+  padding-bottom: 72px;
+  background: #f6f4fb;
+}
+#view-solutions #solList .sec-row .h2 {
+  color: var(--txt);
+}
+.sol-card {
+  background: #ffffff;
+  border-color: #e3e0f0;
+}
+.sol-card:nth-child(n + 4) {
+  grid-column: span 2;
+}
+.sol-card:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+.sol-card:nth-child(5) {
+  grid-column: 4 / span 2;
+}
+.sol-card .sol-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.sol-card .sol-by {
+  margin-top: auto;
+  padding-top: 14px;
+}
+.sol-card .sol-body .link-arrow {
+  margin-top: 16px;
+}
+@media (max-width: 1000px) {
+  .sol-card:nth-child(4),
+  .sol-card:nth-child(5) {
+    grid-column: auto;
+  }
+}
+
+/* Insights: one closing card that holds the "Stay informed" text and the Subscribe button. */
+.cta-panel.news-cta {
+  padding: 56px 64px;
+}
+.news-bare {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px 40px;
+}
+.news-bare h3 {
+  margin: 0;
+  color: #ffffff;
+}
+.news-bare p {
+  max-width: 560px;
+  margin: 10px 0 0;
+  color: var(--d-mut);
+  font-size: 17px;
+  line-height: 1.6;
+}
+.cta-panel.news-cta .btn {
+  margin-top: 0;
+}
+@media (max-width: 640px) {
+  .cta-panel.news-cta {
+    padding: 36px 24px;
+  }
+}
+
+/* Passwordless Keys, "Works with what you have": the text on the left, two key photos on the right. The photos
+   have the same pale background as the page, so they sit on it without a box. */
+.works-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 48px;
+  align-items: center;
+}
+.works-art {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.works-art img {
+  width: 170px;
+  height: auto;
+  object-fit: contain;
+}
+@media (max-width: 899px) {
+  .works-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .works-art {
+    justify-content: center;
+  }
+}
+
+/* Contact: the form box and the contact details start on the same line. */
+.contact-split {
+  align-items: start;
+}
