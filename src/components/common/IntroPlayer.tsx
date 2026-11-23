@@ -21,7 +21,7 @@ function readSkip(): boolean {
 }
 
 // The start-of-visit intro: the XSignOn sign-in animation plays full screen once per visit (muted),
-// then fades away to reveal the page. It can be skipped with the button or the Escape key, and it is not
+// then fades away to reveal the page. It can be skipped with the Escape key, and it is not
 // shown at all when the visitor prefers reduced motion.
 export function IntroPlayer({ src }: { src: string }) {
   const [state, setState] = useState<"playing" | "leaving" | "done">("playing");
@@ -85,9 +85,6 @@ export function IntroPlayer({ src }: { src: string }) {
         onEnded={finish}
         onError={finish}
       />
-      <button type="button" className="intro-skip" onClick={finish}>
-        Skip intro
-      </button>
     </div>
   );
 }

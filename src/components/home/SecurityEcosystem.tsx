@@ -5,7 +5,7 @@ import type { CSSProperties } from "react";
 import type { EcosystemItemContent } from "@/types/home-content";
 
 // The XSignOn Security Ecosystem, in the same style as the solution illustrations: four glowing icon tiles
-// on one flow line, each with a pill label. A small light travels along the line and lights each tile in
+// on one flow line, each with a short description. A small light travels along the line and lights each tile in
 // turn. Visitors who ask for reduced motion see everything lit and at rest. The text is real text, so it
 // reads for screen readers too.
 
@@ -52,12 +52,10 @@ function Icon({ name }: { name: IconName }) {
 
 export function SecurityEcosystem({
   entries,
-  viaLabel = "Delivered through",
   label = "XSignOn Security Ecosystem: four capabilities clients receive through XSignOn",
 }: {
   /** Content from the CMS: the four items. */
   entries: ReadonlyArray<EcosystemItemContent>;
-  viaLabel?: string;
   label?: string;
 }) {
   const card = useRef<HTMLDivElement>(null);
@@ -124,9 +122,7 @@ export function SecurityEcosystem({
             <span className="se-flow-n">{String(i + 1).padStart(2, "0")}</span>
             <h3>{item.title}</h3>
             <p>{item.lines.join(" ")}</p>
-            <span className="se-flow-pill">
-              <span>{viaLabel}</span> <b>{item.via.join(" · ")}</b>
-            </span>
+            <span className="se-flow-via">{item.via.join(" · ")}</span>
           </li>
         ))}
       </ol>

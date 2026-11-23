@@ -41,7 +41,8 @@ footer .blurb {
   margin: 16px 0 0;
   max-width: 270px;
 }
-footer h4 {
+footer h4,
+footer h2 {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0;

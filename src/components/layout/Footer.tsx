@@ -29,7 +29,7 @@ export async function Footer() {
 
           {siteSettings.footerGroups.map((group) => (
             <div key={group.title}>
-              <h4>{group.title}</h4>
+              <h2>{group.title}</h2>
               <ul>
                 {group.links.map((item) => (
                   <li key={item.label}>

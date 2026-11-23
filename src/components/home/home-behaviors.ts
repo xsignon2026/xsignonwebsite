@@ -173,7 +173,9 @@ function coverflow(root: HTMLElement, reduced: boolean, cleanups: Cleanup[]) {
       "click",
       (e: MouseEvent) => {
         if (dragged) return;
-        if (i !== index && !(e.target as HTMLElement).closest("a")) go(i, true);
+        if ((e.target as HTMLElement).closest("a")) return;
+        // A click anywhere on a card opens that product (the arrows, dots, drag and keys move the carousel).
+        card.querySelector<HTMLElement>("a.cf-btn")?.click();
       },
       cleanups,
     );
@@ -359,7 +361,7 @@ function journey(root: HTMLElement, cleanups: Cleanup[]) {
   const host = el.parentElement;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
   const STEP = 0.4; // viewport heights of scrolling per solution
-  const TOP = 96; // gap under the fixed header while pinned
+  const TOP = 24; // gap above the picture while it is pinned (the header no longer stays on screen)
   let pinned = false;
   const layout = () => {
     pinned = !!host && window.innerWidth >= 900 && !reduced.matches;

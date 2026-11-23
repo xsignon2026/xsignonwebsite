@@ -54,7 +54,7 @@ export function ProductsView({ content }: { content: ProductsPageContent }) {
             {content.cards.items.map((card, i) => {
               const picture = PRODUCT_PICTURES[card.picture];
               return (
-                <article
+                <div
                   className={i === 0 ? "prodx-panel on" : "prodx-panel"}
                   id={`ppanel-${i}`}
                   role="tabpanel"
@@ -96,7 +96,7 @@ export function ProductsView({ content }: { content: ProductsPageContent }) {
                       </svg>
                     </Link>
                   </div>
-                </article>
+                </div>
               );
             })}
           </div>

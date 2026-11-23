@@ -3,8 +3,8 @@
  * rows. Modelled on a light, minimal navigation with a rounded panel under the bar.
  */
 .nav2 {
-  position: sticky;
-  top: 0;
+  /* Scrolls away with the page; it does not stay pinned to the top. */
+  position: relative;
   z-index: 90;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(10px);
@@ -529,4 +529,61 @@
 /* A menu link with no dropdown (ROI): no arrow beside it, so it takes the full padding. */
 .nav2-trig-wrap > .nav2-trigger.nav2-plain {
   padding-right: 16px;
+}
+
+/* Hover: each menu link gets an underline that draws in from the left, and lifts a touch. */
+.nav2-trigger {
+  transition:
+    background 0.18s ease,
+    transform 0.2s ease,
+    color 0.18s ease;
+}
+.nav2-trigger::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 5px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--acc);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav2-trig-wrap > .nav2-trigger::after {
+  right: 2px;
+}
+.nav2-trigger:hover,
+.nav2-trigger:focus-visible,
+.nav2-trigger[data-open] {
+  transform: translateY(-1px);
+}
+.nav2-trigger:hover::after,
+.nav2-trigger:focus-visible::after,
+.nav2-trigger[data-open]::after {
+  transform: scaleX(1);
+}
+.nav2-cta {
+  transition:
+    background 0.18s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.nav2-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(198, 0, 29, 0.28);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav2-trigger,
+  .nav2-trigger::after,
+  .nav2-cta {
+    transition: none;
+  }
+  .nav2-trigger:hover,
+  .nav2-trigger:focus-visible,
+  .nav2-trigger[data-open],
+  .nav2-cta:hover {
+    transform: none;
+  }
 }

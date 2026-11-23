@@ -13,7 +13,7 @@ import type { HeroSlideContent } from "@/types/home-content";
 // inactive ones are invisible), so the card is always as tall as the tallest footer and a domain check that
 // is running is not lost when the card moves on.
 
-const INTERVAL_MS = 7000;
+const INTERVAL_MS = 4000;
 
 export function HeroCard({ slides: heroSlides }: { slides: HeroSlideContent[] }) {
   const [index, setIndex] = useState(0);

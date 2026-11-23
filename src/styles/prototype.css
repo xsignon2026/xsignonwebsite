@@ -1198,11 +1198,13 @@ html.js .rv.in {
   border-radius: var(--r);
   padding: 32px;
 }
-.j-panel h4 {
+.j-panel h4,
+.j-panel h3 {
   color: var(--ink);
   margin-bottom: 12px;
 }
 #journey .j-panel h4,
+#journey .j-panel h3,
 #journeyHow .j-panel h4 {
   color: var(--ink);
 }
@@ -2963,6 +2965,7 @@ table.spec tr:last-child td {
   transform-style: preserve-3d;
 }
 .cf-card {
+  cursor: pointer;
   position: absolute;
   left: 50%;
   top: 10px;

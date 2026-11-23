@@ -1448,19 +1448,27 @@ html.js .std-card[data-in] .std-item {
 }
 .ab-team li {
   display: grid;
-  align-content: start;
-  gap: 6px;
-  width: min(100%, 300px);
-  text-align: center;
+  grid-template-columns: 190px minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
+  align-items: start;
+  column-gap: 26px;
+  row-gap: 6px;
+  width: min(100%, 540px);
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  text-align: left;
 }
 .ab-team-photo {
+  grid-row: 1 / span 3;
   display: grid;
   place-items: center;
-  aspect-ratio: 1;
-  margin-bottom: 14px;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
+  border-radius: 10px;
   background: #f1effa;
-  border-bottom: 6px solid var(--acc, #c6001d);
+  border-bottom: 5px solid var(--acc, #c6001d);
   font-size: 44px;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -1473,6 +1481,7 @@ html.js .std-card[data-in] .std-item {
   object-fit: cover;
 }
 .ab-team h3 {
+  align-self: end;
   margin: 0;
   font-size: 20px;
   line-height: 1.25;
@@ -1485,7 +1494,7 @@ html.js .std-card[data-in] .std-item {
   color: var(--acc, #c6001d);
 }
 .ab-team-bio {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   font-size: 15px;
   line-height: 1.55;
   color: var(--gray);
@@ -1913,30 +1922,6 @@ html.js .std-card[data-in] .std-item {
   .intro-video {
     object-fit: contain;
   }
-}
-.intro-skip {
-  position: absolute;
-  right: 24px;
-  bottom: 24px;
-  padding: 10px 18px;
-  border: 1px solid rgba(6, 1, 41, 0.35);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.8);
-  color: #060129;
-  font-family: var(--mono);
-  font-size: 12.5px;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  backdrop-filter: blur(6px);
-}
-.intro-skip:hover,
-.intro-skip:focus-visible {
-  background: #060129;
-  color: #fff;
-}
-.intro-skip:focus-visible {
-  outline: 2px solid #ff4d5e;
-  outline-offset: 3px;
 }
 html.intro-hide .intro {
   display: none;
@@ -2942,5 +2927,21 @@ html.js .cta-panel:not(.in) .cta-logo img {
   }
   #view-thinking .th-card-body {
     padding: 22px;
+  }
+}
+
+/* Team cards: photo above the text on phones. */
+@media (max-width: 640px) {
+  .ab-team li {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+  .ab-team-photo {
+    grid-row: auto;
+    aspect-ratio: 1;
+  }
+  .ab-team h3 {
+    align-self: start;
+    margin-top: 10px;
   }
 }

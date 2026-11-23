@@ -610,7 +610,7 @@ export function HomeView({ content }: { content: HomeContent }) {
               </div>
               <div className="j-panels">
                 {content.whatWeDo.panels.map((panel, i) => (
-                  <article
+                  <div
                     className={i === 0 ? "j-panel act" : "j-panel"}
                     id={`j-panel-${i}`}
                     role="tabpanel"
@@ -618,7 +618,7 @@ export function HomeView({ content }: { content: HomeContent }) {
                     key={panel.title}
                   >
                     <div className="j-txt">
-                      <h4 className="h4">{panel.title}</h4>
+                      <h3 className="h4">{panel.title}</h3>
                       <p>{panel.text}</p>
                       <Link className="link-arrow" href={panel.href}>
                         {panel.cta}{" "}
@@ -630,7 +630,7 @@ export function HomeView({ content }: { content: HomeContent }) {
                     <figure className="j-art">
                       <SolutionPicture name={panel.art} />
                     </figure>
-                  </article>
+                  </div>
                 ))}
               </div>
             </div>
@@ -652,7 +652,7 @@ export function HomeView({ content }: { content: HomeContent }) {
           <div className="think-stack">
             <article className="think-lead rv">
               <div className="think-body">
-                <h4 className="h4">Elevate Enterprise Security with Identity-First Controls</h4>
+                <h3 className="h4">Elevate Enterprise Security with Identity-First Controls</h3>
                 <p className="meta" style={{ color: "#5b667c" }}>
                   June 29, 2026
                 </p>
@@ -692,9 +692,9 @@ export function HomeView({ content }: { content: HomeContent }) {
                   <div className="think-expand-in">
                     <article className="think-lead">
                       <div className="think-body">
-                        <h4 className="h4">
+                        <h3 className="h4">
                           Data + AI Security Built for Visibility, Control, and Trust
-                        </h4>
+                        </h3>
                         <p className="meta" style={{ color: "#5b667c" }}>
                           June 29, 2026
                         </p>
@@ -736,7 +736,7 @@ export function HomeView({ content }: { content: HomeContent }) {
                   <div className="think-expand-in">
                     <article className="think-lead">
                       <div className="think-body">
-                        <h4 className="h4">Modern Micro-Segmentation for Zero Trust Security</h4>
+                        <h3 className="h4">Modern Micro-Segmentation for Zero Trust Security</h3>
                         <p className="meta" style={{ color: "#5b667c" }}>
                           June 29, 2026
                         </p>
@@ -779,9 +779,9 @@ export function HomeView({ content }: { content: HomeContent }) {
                   <div className="think-expand-in">
                     <article className="think-lead">
                       <div className="think-body">
-                        <h4 className="h4">
+                        <h3 className="h4">
                           Building Smarter Cybersecurity with Agentic AI and the AutoGen Framework
-                        </h4>
+                        </h3>
                         <p className="meta" style={{ color: "#5b667c" }}>
                           June 29, 2026
                         </p>
@@ -825,10 +825,10 @@ export function HomeView({ content }: { content: HomeContent }) {
                   <div className="think-expand-in">
                     <article className="think-lead">
                       <div className="think-body">
-                        <h4 className="h4">
+                        <h3 className="h4">
                           Non-Human Identities, and the Future of Cyber Risk: Embracing a Dynamic
                           Security Model
-                        </h4>
+                        </h3>
                         <p className="meta" style={{ color: "#5b667c" }}>
                           June 29, 2026
                         </p>
