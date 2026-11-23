@@ -1989,7 +1989,7 @@ footer .blurb {
   flex-direction: column;
   align-items: flex-start;
 }
-.case-card h3 {
+.case-card :is(h2, h3) {
   margin: 14px 0 10px;
 }
 .case-card p {
@@ -6261,7 +6261,7 @@ table.cmp {
   border-color: var(--gray);
   box-shadow: 0 18px 40px -16px rgba(26, 18, 64, 0.22);
 }
-.res-view .case-card h3,
+.res-view .case-card :is(h2, h3),
 .res-view .bcard h3 {
   margin: 0;
   color: var(--txt);

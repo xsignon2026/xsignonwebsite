@@ -46,7 +46,7 @@ export function ProofView({ content }: { content: ProofPageContent }) {
                         </span>
                       ))}
                     </div>
-                    <h3 className="h3">{card.title}</h3>
+                    <h2 className="h3">{card.title}</h2>
                     <p>{card.summary}</p>
                     <span className="status-chip">
                       <b>{card.noteLabel}:</b> {card.noteText}
