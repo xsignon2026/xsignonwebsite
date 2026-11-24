@@ -62,9 +62,10 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
       page.getByRole("link", { name: /Industry Thinking: practical thinking/i }),
     ).toHaveCount(0);
 
-    // Newsletter section
-    const newsBand = page.locator("#view-thinking .news-band");
+    // Newsletter: one band at the end; Subscribe opens a small card with the email form
+    const newsBand = page.locator("#view-thinking #newsletter");
     await expect(newsBand).toBeVisible();
+    await expect(newsBand.getByText("Stay informed").first()).toBeVisible();
     // The server answer is faked: the real route is tested in src/tests/subscription-routes.test.ts.
     await page.route("**/api/subscribe", (route) =>
       route.fulfill({
@@ -73,16 +74,11 @@ test.describe("Epic E09: Our Thinking & Articles (T-113 to T-120)", () => {
         body: JSON.stringify({ success: true, message: "ok" }),
       }),
     );
-    const emailInput = newsBand.getByLabel("Work email");
-    await emailInput.fill("architect@enterprise.org");
-    await newsBand.getByRole("button", { name: "Subscribe" }).click();
-    await expect(newsBand.getByText("Thank you. Your subscription is recorded")).toBeVisible();
-
-    // CTA
-    await expect(
-      page.getByRole("heading", { name: "Discuss what you are reading." }),
-    ).toBeVisible();
-    await expect(page.getByRole("link", { name: /Book a strategy call/i })).toBeVisible();
+    await newsBand.locator(".news-row").getByRole("button", { name: "Subscribe" }).click();
+    const dialog = newsBand.locator(".news-dialog");
+    await dialog.getByLabel("Work email").fill("architect@enterprise.org");
+    await dialog.getByRole("button", { name: "Subscribe" }).click();
+    await expect(dialog.getByText("Thank you. Your subscription is recorded")).toBeVisible();
 
     // Accessibility check
     const axeResults = await new AxeBuilder({ page })

@@ -10,15 +10,23 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
       });
     });
 
-    test("Partner ecosystem spotlight stops while a spoke is pointed at", async ({ page }) => {
+    test("Hero carousel pauses while a visitor points at it", async ({ page }) => {
+      await page.addInitScript(() => sessionStorage.setItem("xs-intro-seen", "1"));
       await page.goto("/");
       await page.waitForSelector("html.js");
-      const spoke = page.locator(".pt-sp").nth(2);
-      await page.locator(".pt-card").evaluate((el) => el.scrollIntoView({ block: "center" }));
-      await spoke.locator(".pt-dot").hover({ force: true });
-      await expect(spoke).toHaveAttribute("data-on", "true");
-      await page.waitForTimeout(2000);
-      await expect(spoke).toHaveAttribute("data-on", "true");
+      const hero = page.getByRole("region", { name: "Latest from XSignOn" });
+      await hero.scrollIntoViewIfNeeded();
+      await hero.hover();
+      const current = hero.locator(".hc-dot[aria-current='true']");
+      const before = await hero
+        .locator(".hc-dot")
+        .evaluateAll((dots) => dots.findIndex((d) => d.getAttribute("aria-current") === "true"));
+      await page.waitForTimeout(5000);
+      const after = await hero
+        .locator(".hc-dot")
+        .evaluateAll((dots) => dots.findIndex((d) => d.getAttribute("aria-current") === "true"));
+      await expect(current).toHaveCount(1);
+      expect(after).toBe(before);
     });
   });
 
@@ -46,7 +54,7 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
       await page.goto("/");
 
       // Hero slider should not auto-advance
-      const heroSlider = page.locator("#heroCard");
+      const heroSlider = page.locator(".hc");
       await expect(heroSlider).toBeVisible();
 
       // Check marquee track animation is paused/none under reduced motion
@@ -66,7 +74,7 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
 
       // 1. Check Homepage
       await noJsPage.goto("/");
-      await expect(noJsPage.locator("h1")).toContainText("Identity and access built on trust");
+      await expect(noJsPage.locator("h1")).toContainText("Protect identity. Govern risk.");
 
       // 2. Check Solutions Hub
       await noJsPage.goto("/solutions");
@@ -75,7 +83,7 @@ test.describe("Motion System and Accessibility Fallbacks (T-141 to T-144)", () =
 
       // 3. Check About Page
       await noJsPage.goto("/about");
-      await expect(noJsPage.locator("h1")).toContainText("About XSignOn");
+      await expect(noJsPage.locator("h1")).toContainText("Security built around identity");
 
       await context.close();
     });

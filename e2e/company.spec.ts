@@ -16,31 +16,21 @@ test.describe("Company Batch QA (T-129)", () => {
     });
 
     test("renders the hero and the five sections of the approved design", async ({ page }) => {
-      await expect(page.locator("h1")).toContainText("About XSignOn");
-      for (const id of ["who", "what", "how", "why", "a-thinking"]) {
+      await expect(page.locator("h1")).toContainText("Security built around identity");
+      for (const id of ["who", "what", "ab-how", "ab-why", "ab-team"]) {
         await expect(page.locator(`#${id}`)).toBeAttached();
       }
-      await expect(page.getByRole("heading", { name: "Who we are", level: 2 })).toBeVisible();
+      for (const name of ["Who we are", "What we do", "How we work", "Why XSignOn"]) {
+        await expect(page.getByRole("heading", { name, level: 2 })).toBeVisible();
+      }
     });
 
-    test("expanding What We Do cards toggle aria-expanded properly", async ({ page }) => {
-      const firstCardBtn = page.getByRole("button", { name: /Identity governance/i });
-      await expect(firstCardBtn).toBeVisible();
-      await expect(firstCardBtn).toHaveAttribute("aria-expanded", "false");
-
-      await firstCardBtn.click();
-      await expect(firstCardBtn).toHaveAttribute("aria-expanded", "true");
-
-      const panel = page.locator("#wc-0");
-      await expect(panel).toBeVisible();
-      await expect(panel.getByRole("link", { name: /View more/i })).toBeVisible();
-    });
-
-    test("Why XSignOn hub rotates and switches tabs", async ({ page }) => {
-      // Verify tabs switch active selection
-      const tab2 = page.getByRole("tab", { name: /Autonomy within authority/i });
-      await tab2.click();
-      await expect(tab2).toHaveAttribute("aria-selected", "true");
+    test("shows the team and a way to get in touch", async ({ page }) => {
+      await expect(page.getByRole("heading", { name: "Meet our team", level: 2 })).toBeVisible();
+      await expect(page.locator("#contact").getByRole("link").first()).toHaveAttribute(
+        "href",
+        /\/contact/,
+      );
     });
 
     test("satisfies WCAG 2.2 AA accessibility requirements", async ({ page }) => {

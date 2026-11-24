@@ -4,6 +4,7 @@ import { UnsubscribeView } from "@/components/prototype/UnsubscribeView";
 
 export const metadata: Metadata = {
   title: "Unsubscribe",
+  robots: { index: false, follow: false },
   description: "Manage your marketing email preferences for XSignOn updates and announcements.",
 };
 

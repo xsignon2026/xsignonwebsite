@@ -128,3 +128,23 @@
 .contact-split {
   align-items: start;
 }
+
+/* Home: every band below the hero uses the same vertical spacing. */
+#view-home #products.block,
+#view-home #partners.block,
+#view-home #resources.block,
+#view-home #thinking.block,
+#view-home #contact.cta-sec {
+  padding-top: 96px;
+  padding-bottom: 96px;
+}
+@media (max-width: 760px) {
+  #view-home #products.block,
+  #view-home #partners.block,
+  #view-home #resources.block,
+  #view-home #thinking.block,
+  #view-home #contact.cta-sec {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+}

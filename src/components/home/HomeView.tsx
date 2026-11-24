@@ -557,12 +557,7 @@ export function HomeView({ content }: { content: HomeContent }) {
         </div>
       </section>
 
-      <section
-        className="block"
-        id="partners"
-        data-nav="light"
-        style={{ paddingTop: "48px", paddingBottom: "56px" }}
-      >
+      <section className="block" id="partners" data-nav="light">
         <div className="wrap">
           <div className="sec-row rv">
             <div>

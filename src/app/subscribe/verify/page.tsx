@@ -6,6 +6,7 @@ import { VerifyClient } from "./VerifyClient";
 
 export const metadata: Metadata = {
   title: "Verify Request",
+  robots: { index: false, follow: false },
   description: "Confirm your email verification for XSignOn updates and technical white papers.",
 };
 

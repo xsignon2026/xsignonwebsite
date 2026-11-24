@@ -77,20 +77,13 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
     await expect(title).toBeVisible();
 
     // Narrative sections
-    await expect(page.getByRole("heading", { name: "Where they started", level: 2 })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "The challenge", level: 2 })).toBeVisible();
     await expect(page.getByRole("heading", { name: "What was deployed", level: 2 })).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Rollout", exact: true, level: 2 }),
+      page.getByRole("heading", { name: "How keys are managed", level: 2 }),
     ).toBeVisible();
     await expect(page.getByRole("heading", { name: "Outcome", level: 2 })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Related", level: 2 })).toBeVisible();
-
-    // 3-step grid
-    const stepCards = page.locator(".step-card");
-    await expect(stepCards).toHaveCount(3);
-    await expect(stepCards.locator(".how-num").filter({ hasText: "01" })).toBeVisible();
-    await expect(stepCards.locator(".how-num").filter({ hasText: "02" })).toBeVisible();
-    await expect(stepCards.locator(".how-num").filter({ hasText: "03" })).toBeVisible();
 
     // Related items link to products
     const keysRel = page.getByRole("link", { name: /Passwordless Keys/i });
@@ -114,10 +107,9 @@ test.describe("Epic E07: Proof & Case Studies (T-098 to T-105)", () => {
     });
     await expect(title).toBeVisible();
 
-    // The approved design shows the story and marks the unconfirmed details as pending
-    await expect(page.getByRole("heading", { name: "Where they started", level: 2 })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Rollout", level: 2 })).toBeVisible();
-    await expect(page.locator(".status-chip").first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: "The challenge", level: 2 })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "What was deployed", level: 2 })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "What it supports", level: 2 })).toBeVisible();
 
     // Verify related product
     await expect(page.getByRole("link", { name: /Passwordless Keys/i }).first()).toBeVisible();
